@@ -1,0 +1,7 @@
+.*
+!.gitignore
+doc/symbols
+doc/files.html
+doc/index.html
+extlib
+chart
