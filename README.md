@@ -210,7 +210,7 @@ GUI（グラフィカル ユーザー インターフェース）で操作しま
 * *[問題追跡システム](https://github.com/gardejo/js-kancolle-logistics-visualizer/issues)* への、バグのご報告。
 * *[問題追跡システム](https://github.com/gardejo/js-kancolle-logistics-visualizer/issues)* への、機能拡張のご提案。
 * *[掲示板](http://ost.io/@gardejo/js-kancolle-logistics-visualizer)* での、ユーザー同士の質疑応答。
-* *[Wiki](https://github.com/gardejo/js-kancolle-logistics-visualizer/wiki)* にある説明書の充実。
+* *[Wiki](https://github.com/gardejo/js-kancolle-logistics-visualizer/wiki/Home:ja)* にある説明書の充実。
 * *[Pull-Request](https://github.com/gardejo/js-kancolle-logistics-visualizer/pulls)* による、ソース コードのご提供。
 * 艦これのゲーム内でのアイテムのご購入や、公式グッズのご購入。
     * *修理ドック* や *母港拡張* が特にお薦めです。
