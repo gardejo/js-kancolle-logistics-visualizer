@@ -46,7 +46,7 @@ Getting Started
 
 Let's run it via GUI (Graphical User Interface).
 
-1. Install this system in your computer with reference to *the [Wiki](https://github.com/gardejo/js-kancolle-logistics-visualizer/wiki) page*.
+1. Install this system in your computer with reference to *the [Wiki](https://github.com/gardejo/js-kancolle-logistics-visualizer/wiki#installation) page*.
     * Note: This system runs on *WSH (Windows Script Host)* environment on *Microsoft Windows*. A guest language is (not *JavaScript* but) *JScript*.
 2. Double clik `visualizer.wsf` file.
 3. Open a chart file which outputted to `chart` directory (folder), and browse a chart.
@@ -160,7 +160,7 @@ All brand names and product names are trademarks or registered trademarks of the
 
 GUI（グラフィカル ユーザー インターフェース）で操作しましょう。
 
-1. [Wiki](https://github.com/gardejo/js-kancolle-logistics-visualizer/wiki/Home:ja)を参照して、あなたのコンピューターにこのシステムをインストールします。
+1. [Wiki](https://github.com/gardejo/js-kancolle-logistics-visualizer/wiki/Home:ja#%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB)を参照して、あなたのコンピューターにこのシステムをインストールします。
     * 註: このシステムは *Microsoft Windows* 上の *WSH（Windows Script Host）* 環境で稼働します。
 2. `visualizer.wsf`ファイルをダブル クリックします。
 3. chart ディレクトリー（フォルダー）に出力されたグラフ ファイルを開いて、グラフを閲覧します。
