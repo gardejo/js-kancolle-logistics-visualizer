@@ -118,7 +118,7 @@ MORIYA Masaki, alias "Gardejo".
 Copyright and License
 ---------------------
 
-Copyright (c) 2013-2014 MORIYA Masaki
+Copyright (c) 2014 MORIYA Masaki
 
 This system is free software, released under the *The MIT license*. The full text of the license can be found in the [`LICENSE`](https://github.com/gardejo/js-kancolle-logistics-visualizer/blob/master/LICENSE) file included with this distribution.
 
@@ -234,7 +234,7 @@ GUI（グラフィカル ユーザー インターフェース）で操作しま
 著作権と使用許諾
 ----------------
 
-Copyright (c) 2013-2014 MORIYA Masaki
+Copyright (c) 2014 MORIYA Masaki
 
 このシステムは *MITライセンス* に基づくフリー ソフトウェアです。使用許諾書の全文は、この配布物に同梱されている[`LICENSE`](https://github.com/gardejo/js-kancolle-logistics-visualizer/blob/master/LICENSE)ファイルで確認できます。
 
