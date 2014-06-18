@@ -9,8 +9,8 @@ This file describes *KanColle Logistics Visualizer version 0.0.0 (Beta)* in brie
 この文書は *KanColle Logistics Visualizer（艦これ 兵站図示儀） 第0.0.0版（ベータ版）* について簡単に記したものです。
 
 * 詳細は[Wiki](https://github.com/gardejo/js-kancolle-logistics-visualizer/wiki/Home-ja)を参照してください。
-* 註: [日本語は英語の後に記載しています](#%e8%89%a6%e3%81%93%e3%82%8c%20%e5%85%b5%e7%ab%99%e5%9b%b3%e7%a4%ba%e5%84%80)。
-
+* 註: [日本語は英語の後に記載しています](#%E8%89%A6%E3%81%93%E3%82%8C-%E5%85%B5%E7%AB%99%E5%9B%B3%E7%A4%BA%E5%84%80)。
+                                         
 
 Description
 -----------
@@ -91,11 +91,11 @@ Thank you for regularly using *KanColle Visualizer*. Do you enjoy it?
 
 The author of this system asks that you help support its continued development by making a small contribution.
 
-* Report about bugs at *the [issue tracker](https://github.com/gardejo/js-kancole-logistics-visualizer/issues)*.
-* Suggestion for enhancement at *the [issue tracker](https://github.com/gardejo/js-kancole-logistics-visualizer/issues)*.
-* Reciprocal help among users at *the [discussion forum](http://ost.io/@gardejo/js-kancole-logistics-visualizer)*.
-* Improve documentation at *the [Wiki](https://github.com/gardejo/js-kancole-logistics-visualizer/wiki)*.
-* Collaboration on the code base via *[pull-requests](https://github.com/gardejo/js-kancole-logistics-visualizer/pulls)*.
+* Report about bugs at *the [issue tracker](https://github.com/gardejo/js-kancolle-logistics-visualizer/issues)*.
+* Suggestion for enhancement at *the [issue tracker](https://github.com/gardejo/js-kancolle-logistics-visualizer/issues)*.
+* Reciprocal help among users at *the [discussion forum](http://ost.io/@gardejo/js-kancolle-logistics-visualizer)*.
+* Improve documentation at *the [Wiki](https://github.com/gardejo/js-kancolle-logistics-visualizer/wiki)*.
+* Collaboration on the code base via *[pull-requests](https://github.com/gardejo/js-kancolle-logistics-visualizer/pulls)*.
 * Purchase of an item in the game and official goods.
     * I'd recommend *Dock Extension Set* and *Port Extension* especially.
     * As for stereoscopically shaped articles, I'd like to suggest you a cute *[Nendoroid](http://www.goodsmile.info/ja/products/search?utf8=%E2%9C%93&search%5Bquery%5D=%E3%81%AD%E3%82%93%E3%81%A9%E3%82%8D%E3%81%84%E3%81%A9+%E8%89%A6%E9%9A%8A%E3%81%93%E3%82%8C%E3%81%8F%E3%81%97%E3%82%87%E3%82%93#searchResults)* and *[KanColle Model](http://www.f-toys.net/index.php?m=fproduct&t=detaile&product_id=236)*, unusual miniature ship models.
@@ -175,11 +175,11 @@ GUI（グラフィカル ユーザー インターフェース）で操作しま
 
 このシステムの説明書は[Wiki](https://github.com/gardejo/js-kancolle-logistics-visualizer/wiki/Home-ja)にあります（現在のところ、ほとんど日本語で記載されています）。ご利用の前にご覧ください。
 
-このシステムのバージョン アップ情報は[RSS](https://github.com/gardejo/js-kancole-logistics-visualizer/releases.atom)で配信されます。また、著者が *[Twitter](https://twitter.com/gardejo)* で呟くこともあります。
+このシステムのバージョン アップ情報は[RSS](https://github.com/gardejo/js-kancolle-logistics-visualizer/releases.atom)で配信されます。また、著者が *[Twitter](https://twitter.com/gardejo)* で呟くこともあります。
 
 ### 保守
 
-バグのご報告や機能拡張のご提案は、 *[問題追跡システム](https://github.com/gardejo/js-kancole-logistics-visualizer/issues)* で承ります。*Twitter* や電子メールでのお問い合わせは、できるだけご遠慮ください。問題を皆で共有するため、ご配慮ください。
+バグのご報告や機能拡張のご提案は、 *[問題追跡システム](https://github.com/gardejo/js-kancolle-logistics-visualizer/issues)* で承ります。*Twitter* や電子メールでのお問い合わせは、できるだけご遠慮ください。問題を皆で共有するため、ご配慮ください。
 
 訳註: オープン ソース ソフトウェアの世界は（不本意ながら[エスペラント](https://ja.wikipedia.org/wiki/%E3%82%A8%E3%82%B9%E3%83%9A%E3%83%A9%E3%83%B3%E3%83%88)ではなく）英語が共通語です。できるだけ英語でお書きください。
 
@@ -207,11 +207,11 @@ GUI（グラフィカル ユーザー インターフェース）で操作しま
 
 作者は開発を続けていくために、以下のようなささやかなご支援を求めています。
 
-* *[問題追跡システム](https://github.com/gardejo/js-kancole-logistics-visualizer/issues)* への、バグのご報告。
-* *[問題追跡システム](https://github.com/gardejo/js-kancole-logistics-visualizer/issues)* への、機能拡張のご提案。
-* *[掲示板](http://ost.io/@gardejo/js-kancole-logistics-visualizer)* での、ユーザー同士の質疑応答。
-* *[Wiki](https://github.com/gardejo/js-kancole-logistics-visualizer/wiki)* にある説明書の充実。
-* *[Pull-Request](https://github.com/gardejo/js-kancole-logistics-visualizer/pulls)* による、ソース コードのご提供。
+* *[問題追跡システム](https://github.com/gardejo/js-kancolle-logistics-visualizer/issues)* への、バグのご報告。
+* *[問題追跡システム](https://github.com/gardejo/js-kancolle-logistics-visualizer/issues)* への、機能拡張のご提案。
+* *[掲示板](http://ost.io/@gardejo/js-kancolle-logistics-visualizer)* での、ユーザー同士の質疑応答。
+* *[Wiki](https://github.com/gardejo/js-kancolle-logistics-visualizer/wiki)* にある説明書の充実。
+* *[Pull-Request](https://github.com/gardejo/js-kancolle-logistics-visualizer/pulls)* による、ソース コードのご提供。
 * 艦これのゲーム内でのアイテムのご購入や、公式グッズのご購入。
     * *修理ドック* や *母港拡張* が特にお薦めです。
     * 立体造形物としては、可愛らしい *[ねんどろいど](http://www.goodsmile.info/ja/products/search?utf8=%E2%9C%93&search%5Bquery%5D=%E3%81%AD%E3%82%93%E3%81%A9%E3%82%8D%E3%81%84%E3%81%A9+%E8%89%A6%E9%9A%8A%E3%81%93%E3%82%8C%E3%81%8F%E3%81%97%E3%82%87%E3%82%93#searchResults)* の他、一風変わった艦船模型 *[艦これ モデル](http://www.f-toys.net/index.php?m=fproduct&t=detaile&product_id=236)* もいかがでしょう。
