@@ -1,0 +1,257 @@
+﻿{
+    "directives"    : [
+        {
+            "agent"         : "Logbook",
+            "relation"      : "Ships",
+            "chart"         : "Scatter",
+            "option"        : [
+                "Levels",
+                "Arrival"
+            ]
+        },
+        {
+            "agent"         : "Logbook",
+            "relation"      : "Ships",
+            "chart"         : "Scatter",
+            "option"        : [
+                "Experiences",
+                "Arrival"
+            ]
+        },
+        {
+            "agent"         : "KCRDB",
+            "relation"      : "Materials",
+            "chart"         : "Line",
+            "option"        : "Resources"
+        },
+        {
+            "agent"         : "KCRDB",
+            "relation"      : "Materials",
+            "chart"         : "Line",
+            "option"        : "Consumables"
+        }
+    ],
+    "notice"        : true,
+    "path"          : {
+        "log"           : {
+            "KCRDB"         : {
+                "Materials"     : "../KCRDB/KCRDB-materialhistory.log",
+                "Ships"         : "../KCRDB/KCRDB-shiplist.csv"
+            },
+            "Logbook"       : {
+                "Materials"     : "../logbook/資材ログ.csv",
+                "Ships"         : "../logbook/所有艦娘一覧.csv"
+            }
+        },
+        "template"      : "template",
+        "chart"         : "chart"
+    },
+    "relation"      : {
+        "values"        : "Low",
+        "duration"      : 84,
+        "inception"     : null,
+        "expiration"    : null
+    },
+    "table"         : {
+        "Resources"     : {
+            "withRepair"    : true
+        },
+        "Ships"         : {
+            "abbreviate"    : true
+        }
+    },
+    "chart"         : {
+        "Candlestick"   : {
+            "redraw"        : true,
+            "hollowIsRising": true
+        },
+        "Resources"     : {
+            "redraw"        : true,
+            "horizontal"    : {
+            },
+            "vertical"      : {
+                "level"         : 120,
+                "maximum"       : null,
+                "minimum"       : 0,
+                "gridlines"     : null,
+                "minorGridlines": 4,
+                "step"          : 5000
+            }
+        },
+        "Consumables"   : {
+            "redraw"        : true,
+            "horizontal"    : {
+            },
+            "vertical"      : {
+                "maximum"       : null,
+                "minimum"       : 0,
+                "gridlines"     : null,
+                "minorGridlines": 4,
+                "step"          : 100
+            }
+        },
+        "Levels"        : {
+            "redraw"        : true,
+            "horizontal"    : {
+                "port"          : null,
+                "step"          : 10,
+                "gridlines"     : null,
+                "minorGridlines": 1
+            },
+            "vertical"      : {
+                "maximum"       : null,
+                "minimum"       : 0,
+                "step"          : 10,
+                "gridlines"     : null,
+                "minorGridlines": 1,
+                "level"         : 70
+            }
+        },
+        "Experiences"   : {
+            "redraw"        : true,
+            "horizontal"    : {
+                "port"          : null,
+                "step"          : 10,
+                "gridlines"     : null,
+                "minorGridlines": 1
+            },
+            "vertical"      : {
+                "maximum"       : null,
+                "minimum"       : 0,
+                "step"          : 5,
+                "gridlines"     : null,
+                "minorGridlines": null,
+                "level"         : 70
+            }
+        }
+    },
+    "locale"        : "en",
+    "legend"        : {
+        "en"            : {
+            "Resources"     : {
+                "title"         : "Resources History",
+                "Fuel"          : "Fuel",
+                "Ammunition"    : "Ammunition",
+                "Steel"         : "Steel",
+                "Bauxite"       : "Bauxite"
+            },
+            "Consumables"   : {
+                "title"         : "Consumables History",
+                "Repair"        : "Instant Repair",
+                "Construction"  : "Instant Construction",
+                "Development"   : "Development Material"
+            },
+            "dateTime"      : "Date & Time",
+            "Levels"        : {
+                "title"         : "Level of ships"
+            },
+            "Experiences"   : {
+                "title"         : "Experience points of ships"
+            },
+            "Ships"         : {
+                "title"         : "Roster of Ships",
+                "classification": {
+                    "AS"            : "Submarine Tender",
+                    "AR"            : "Repair Ship",
+                    "CVB"           : "Aircraft Carrier",
+                    "LHA"           : "Amphibious Assultship",
+                    "AV"            : "Seaplane Carrier",
+                    "SSV"           : "Aircraft Carrying Submarine",
+                    "SS"            : "Submarine",
+                    "CV"            : "Aircraft Carrier",
+                    "BBV"           : "Aviation Battleship",
+                    "BB"            : "Battleship",
+                    "BC"            : "Battlecruiser",
+                    "CVL"           : "Light Aircraft Carrier",
+                    "CAV"           : "Aircraft Cruiser",
+                    "CA"            : "Heavy Cruicer",
+                    "CLT"           : "Torpedo Cruiser",
+                    "CL"            : "Light Cruiser",
+                    "DD"            : "Destroyer"
+                },
+                "abbreviation"  : {
+                    "AS"            : "AS",
+                    "AR"            : "AR",
+                    "CVB"           : "CVB",
+                    "LHA"           : "LHA",
+                    "AV"            : "AV",
+                    "SSV"           : "SSV",
+                    "SS"            : "SS",
+                    "CV"            : "CV",
+                    "BBV"           : "BBV",
+                    "BB"            : "BB",
+                    "BC"            : "BC",
+                    "CVL"           : "CVL",
+                    "CAV"           : "CAV",
+                    "CA"            : "CA",
+                    "CLT"           : "CLT",
+                    "CL"            : "CL",
+                    "DD"            : "DD"
+                }
+            }
+        },
+        "ja"            : {
+            "Resources"     : {
+                "title"         : "資材履歴",
+                "Fuel"          : "燃料",
+                "Ammunition"    : "弾薬",
+                "Steel"         : "鋼材",
+                "Bauxite"       : "ボーキサイト"
+            },
+            "Consumables"   : {
+                "title"         : "消耗品履歴",
+                "Repair"        : "高速修復材",
+                "Construction"  : "高速建造材",
+                "Development"   : "開発資材"
+            },
+            "Levels"        : {
+                "title"         : "艦娘の練度"
+            },
+            "Experiences"   : {
+                "title"         : "艦娘の経験値"
+            },
+            "dateTime"      : "日時",
+            "Ships"         : {
+                "title"         : "艦娘一覧",
+                "classification": {
+                    "AS"            : "潜水母艦",
+                    "AR"            : "工作艦",
+                    "CVB"           : "装甲空母",
+                    "LHA"           : "揚陸艦",
+                    "AV"            : "水上機母艦",
+                    "SSV"           : "潜水空母",
+                    "SS"            : "潜水艦",
+                    "CV"            : "正規空母",
+                    "BBV"           : "航空戦艦",
+                    "BB"            : "戦艦",
+                    "BC"            : "巡洋戦艦",
+                    "CVL"           : "軽空母",
+                    "CAV"           : "航空巡洋艦",
+                    "CA"            : "重巡洋艦",
+                    "CLT"           : "重雷装巡洋艦",
+                    "CL"            : "軽巡洋艦",
+                    "DD"            : "駆逐艦"
+                },
+                "abbreviation"  : {
+                    "AS"            : "潜母艦",
+                    "AR"            : "工",
+                    "CVB"           : "装母",
+                    "LHA"           : "揚陸",
+                    "AV"            : "水母",
+                    "SSV"           : "潜母",
+                    "SS"            : "潜",
+                    "CV"            : "航",
+                    "BBV"           : "航戦",
+                    "BB"            : "戦",
+                    "BC"            : "巡戦",
+                    "CVL"           : "軽母",
+                    "CAV"           : "航巡",
+                    "CA"            : "重巡",
+                    "CLT"           : "雷巡",
+                    "CL"            : "軽巡",
+                    "DD"            : "駆逐"
+                }
+            }
+        }
+    }
+}
