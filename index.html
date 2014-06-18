@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset='utf-8' />
+    <meta http-equiv="X-UA-Compatible" content="chrome=1" />
+    <meta name="description" content="Js-kancolle-logistics-visualizer : KanColle Logistics Visualizer（艦これ 兵站図示儀）" />
+
+    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
+
+    <title>Js-kancolle-logistics-visualizer</title>
+  </head>
+
+  <body>
+
+    <!-- HEADER -->
+    <div id="header_wrap" class="outer">
+        <header class="inner">
+          <a id="forkme_banner" href="https://github.com/gardejo/js-kancolle-logistics-visualizer">View on GitHub</a>
+
+          <h1 id="project_title">Js-kancolle-logistics-visualizer</h1>
+          <h2 id="project_tagline">KanColle Logistics Visualizer（艦これ 兵站図示儀）</h2>
+
+            <section id="downloads">
+              <a class="zip_download_link" href="https://github.com/gardejo/js-kancolle-logistics-visualizer/zipball/master">Download this project as a .zip file</a>
+              <a class="tar_download_link" href="https://github.com/gardejo/js-kancolle-logistics-visualizer/tarball/master">Download this project as a tar.gz file</a>
+            </section>
+        </header>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div id="main_content_wrap" class="outer">
+      <section id="main_content" class="inner">
+        <h1>
+<a name="kancolle-logistics-visualizer" class="anchor" href="#kancolle-logistics-visualizer"><span class="octicon octicon-link"></span></a>KanColle Logistics Visualizer</h1>
+
+<p>This file describes <em>KanColle Logistics Visualizer version 0.0.0 (Beta)</em> in brief.</p>
+
+<ul>
+<li>Please refer to <em>the <a href="https://github.com/gardejo/js-kancolle-logistics-visualizer/wiki">Wiki</a> pages</em> for more details.</li>
+<li>Note: Japanese follows English.</li>
+</ul><p>この文書は <em>KanColle Logistics Visualizer（艦これ 兵站図示儀） 第0.0.0版（ベータ版）</em> について簡単に記したものです。</p>
+
+<ul>
+<li>詳細は<a href="https://github.com/gardejo/js-kancolle-logistics-visualizer/wiki/Home:ja">Wiki</a>を参照してください。</li>
+<li>註: <a href="#%E8%89%A6%E3%81%93%E3%82%8C-%E5%85%B5%E7%AB%99%E5%9B%B3%E7%A4%BA%E5%84%80">日本語は英語の後に記載しています</a>。</li>
+</ul><h2>
+<a name="description" class="anchor" href="#description"><span class="octicon octicon-link"></span></a>Description</h2>
+
+<p><em><a href="http://www.dmm.com/netgame/feature/kancolle.html">Kantai Collection -KanColle-</a></em> is <a href="http://www.4gamer.net/games/205/G020591/20130911062/">said</a> to be a <strong>game of logistics</strong>.</p>
+
+<blockquote>
+<p>"KanColle" is a game that was seen variously, as it is "what" game, it is a "game of logistics". -- Mr. TANAKA Kensuke, Producer.</p>
+</blockquote>
+
+<p>You, as an Admiral of many naval battles, may be suffering from management of materials on the your Naval District everyday, and may smile at skilled <em>Combined Fleet Girls</em> in exchange for materials.</p>
+
+<p>You've got the right stuff! <em>KanColle Logistics Visualizer</em> treats materials log files and ships roster files from various agents (dedicated browses or dedicated proxies) for <em>KanColle</em> below:</p>
+
+<ul>
+<li><em><a href="http://kancolle.sanaechan.net/">Logbook</a></em></li>
+<li><em><a href="http://hetaregrammer.blog.fc2.com/">KCRDB (KanColle Received Data Browser)</a></em></li>
+<li>And more (due to expansion)</li>
+</ul><p>... and draws various charts below:</p>
+
+<ul>
+<li>Indicator of ship's skill
+
+<ul>
+<li>Scatter chart of experience points</li>
+<li>Scatter chart of levels</li>
+<li>Histogram</li>
+</ul>
+</li>
+<li>History of materials fluctuation
+
+<ul>
+<li>Line chart of resources (Fuel, Ammunition, Steel and Bauxite)</li>
+<li>Line chart of resources (Fuel, Ammunition, Steel and Bauxite) + Instant repair</li>
+<li>Line chart of consumables (Instant Repair, Instant construction and Development material)</li>
+<li>Candlestick chart of materials (ex. Weekly fluctuation of instant repair)</li>
+</ul>
+</li>
+<li>And more (due to expansion)</li>
+</ul><h2>
+<a name="getting-started" class="anchor" href="#getting-started"><span class="octicon octicon-link"></span></a>Getting Started</h2>
+
+<p>Let's run it via GUI (Graphical User Interface).</p>
+
+<ol>
+<li>Install this system in your computer with reference to <em>the <a href="https://github.com/gardejo/js-kancolle-logistics-visualizer/wiki#installation">Wiki</a> page</em>.
+
+<ul>
+<li>Note: This system runs on <em>WSH (Windows Script Host)</em> environment on <em>Microsoft Windows</em>. A guest language is (not <em>JavaScript</em> but) <em>JScript</em>.</li>
+</ul>
+</li>
+<li>Double clik <code>visualizer.wsf</code> file.</li>
+<li>Open a chart file which outputted to <code>chart</code> directory (folder), and browse a chart.</li>
+</ol><p>Note: It can be run via the <a href="https://github.com/gardejo/js-kancolle-logistics-visualizer/Command-Line">CLI (Command Line Interface)</a>.</p>
+
+<h2>
+<a name="support" class="anchor" href="#support"><span class="octicon octicon-link"></span></a>Support</h2>
+
+<h3>
+<a name="information-service" class="anchor" href="#information-service"><span class="octicon octicon-link"></span></a>Information Service</h3>
+
+<p>You can find documentation for this system at <em>the <a href="https://github.com/gardejo/js-kancolle-logistics-visualizer/wiki">Wiki</a> pages</em> (it was almost all written in Japanese, at the moment). Please read it before using.</p>
+
+<p>Release information of this system is provided by <a href="https://github.com/gardejo/js-kancolle-logistics-visualizer/releases.atom">RSS feed</a>. Also the author may tweet it at <em><a href="https://twitter.com/gardejo">Twitter</a></em>.</p>
+
+<h3>
+<a name="maintenance-service" class="anchor" href="#maintenance-service"><span class="octicon octicon-link"></span></a>Maintenance Service</h3>
+
+<p>I'd like to receive a report about bugs and a suggestion for enhancement at <em>the <a href="https://github.com/gardejo/js-kancolle-logistics-visualizer/issues">issue tracker</a></em>. Please refrain from contact via <em>Twitter</em> or e-mail, whenever possible. Please be considerate to share issues with stakeholders.</p>
+
+<p>The author make no guarantees about responding to these inquiries. Besides the author is not able to respond to contacts about environment or configuration, in principle. Please accept my regrets.</p>
+
+<p><strong>Do not dare</strong> contact with authors of agents (dedicated browses or dedicated proxies) and official providers (DMM and Kadokawa Games) about this system.</p>
+
+<h2>
+<a name="acknowledgements" class="anchor" href="#acknowledgements"><span class="octicon octicon-link"></span></a>Acknowledgements</h2>
+
+<p>I deeply thank people below:</p>
+
+<ul>
+<li>Dev &amp; Ops team of <em><a href="http://www.dmm.com/netgame/feature/kancolle.html">Kantai Collection -KanColle-</a></em>, DMM.com, Ltd. and Kadokawa Games, Ltd.</li>
+<li>
+<em><a href="https://twitter.com/sanae_hirotaka">@sanae_hirotaka</a></em> wrote <em><a href="https://twitter.com/sanae_hirotaka">Logbook</a></em>, which this system treats its log files.</li>
+<li>
+<em>hetaregrammer</em> wrote <em><a href="http://hetaregrammer.blog.fc2.com/">KCRDB</a></em>, which this system treats.</li>
+<li>
+<em><a href="http://jbbs.shitaraba.net/netgame/12394/storage/1386926329.html#983">No.983</a> of the thread about tools and dedicated browsers</em> wrote <em><a href="https://dl.dropboxusercontent.com/s/6ortcavxtaucgnn/convert_graph.html">Graphicalizer Tool for KCRDB logs</a></em>, which this system gets an idea from.</li>
+<li>Mozilla Contributors wrote sample codes under the Public Domain at <em><a href="https://developer.mozilla.org/">MDN</a></em>, which this system uses as <a href="https://github.com/gardejo/js-kancolle-logistics-visualizer/blob/master/lib/kclv.polyfill.js"><code>lib/kclv.polyfill.js</code></a> .</li>
+</ul><h2>
+<a name="contribution" class="anchor" href="#contribution"><span class="octicon octicon-link"></span></a>Contribution</h2>
+
+<p>Thank you for regularly using <em>KanColle Visualizer</em>. Do you enjoy it?</p>
+
+<p>The author of this system asks that you help support its continued development by making a small contribution.</p>
+
+<ul>
+<li>Report about bugs at <em>the <a href="https://github.com/gardejo/js-kancolle-logistics-visualizer/issues">issue tracker</a></em>.</li>
+<li>Suggestion for enhancement at <em>the <a href="https://github.com/gardejo/js-kancolle-logistics-visualizer/issues">issue tracker</a></em>.</li>
+<li>Reciprocal help among users at <em>the <a href="http://ost.io/@gardejo/js-kancolle-logistics-visualizer">discussion forum</a></em>.</li>
+<li>Improve documentation at <em>the <a href="https://github.com/gardejo/js-kancolle-logistics-visualizer/wiki">Wiki</a></em>.</li>
+<li>Collaboration on the code base via <em><a href="https://github.com/gardejo/js-kancolle-logistics-visualizer/pulls">pull-requests</a></em>.</li>
+<li>Purchase of an item in the game and official goods.
+
+<ul>
+<li>I'd recommend <em>Dock Extension Set</em> and <em>Port Extension</em> especially.</li>
+<li>As for stereoscopically shaped articles, I'd like to suggest you a cute <em><a href="http://www.goodsmile.info/ja/products/search?utf8=%E2%9C%93&amp;search%5Bquery%5D=%E3%81%AD%E3%82%93%E3%81%A9%E3%82%8D%E3%81%84%E3%81%A9+%E8%89%A6%E9%9A%8A%E3%81%93%E3%82%8C%E3%81%8F%E3%81%97%E3%82%87%E3%82%93#searchResults">Nendoroid</a></em> and <em><a href="http://www.f-toys.net/index.php?m=fproduct&amp;t=detaile&amp;product_id=236">KanColle Model</a></em>, unusual miniature ship models.</li>
+</ul>
+</li>
+<li>Contribution to authors of agents (dedicated browses or dedicated proxies).</li>
+<li>Donation for me via <a href="http://www.amazon.com/gift-cards/">Amazon Gift Cards (E-mail Delivery)</a> or <a href="http://www.amazon.co.jp/registry/wishlist/3O5J3JV19DOJ1/">Amazon Wishlist</a> suggested. I'm sorry, but I'm not accept an offer of a refund or a return.</li>
+</ul><p>However, even if you contribute to me, I'm afraid that I can not offer special support or special enhancement. Please accept my regrets.</p>
+
+<h2>
+<a name="author" class="anchor" href="#author"><span class="octicon octicon-link"></span></a>Author</h2>
+
+<p>MORIYA Masaki, alias "Gardejo".</p>
+
+<ul>
+<li>Website: <a href="http://en.gardejo.org/">http://gardejo.org</a>
+</li>
+<li>Twitter: <a href="https://twitter.com/gardejo">@gardejo</a>
+</li>
+<li>E-mail: <a href="mailto:kclv@ermitejo.com">kclv@ermitejo.com</a>
+</li>
+</ul><h2>
+<a name="copyright-and-license" class="anchor" href="#copyright-and-license"><span class="octicon octicon-link"></span></a>Copyright and License</h2>
+
+<p>Copyright (c) 2014 MORIYA Masaki</p>
+
+<p>This system is free software, released under the <em>The MIT license</em>. The full text of the license can be found in the <a href="https://github.com/gardejo/js-kancolle-logistics-visualizer/blob/master/LICENSE"><code>LICENSE</code></a> file included with this distribution.</p>
+
+<p>All brand names and product names are trademarks or registered trademarks of their respective companies.</p>
+
+<h1>
+<a name="%E8%89%A6%E3%81%93%E3%82%8C-%E5%85%B5%E7%AB%99%E5%9B%B3%E7%A4%BA%E5%84%80" class="anchor" href="#%E8%89%A6%E3%81%93%E3%82%8C-%E5%85%B5%E7%AB%99%E5%9B%B3%E7%A4%BA%E5%84%80"><span class="octicon octicon-link"></span></a>艦これ 兵站図示儀</h1>
+
+<h2>
+<a name="%E6%A6%82%E8%A6%81" class="anchor" href="#%E6%A6%82%E8%A6%81"><span class="octicon octicon-link"></span></a>概要</h2>
+
+<p><em><a href="http://www.dmm.com/netgame/feature/kancolle.html">艦隊これくしょん -艦これ-</a></em> は、 <strong>兵站のゲーム</strong> だと<a href="http://www.4gamer.net/games/205/G020591/20130911062/">言われています</a>。</p>
+
+<blockquote>
+<p>「艦これ」はいろいろな見方ができるゲームではありますが，では本質的に何のゲームかというと「兵站のゲーム」なんです。 ―― プロデューサー 田中謙介氏</p>
+</blockquote>
+
+<p>歴戦の提督であるあなたも、鎮守府の日々の資材のやりくりに頭を悩ませたり、資材を引き替えにして育った <em>艦娘</em> たちに微笑みを向けていることでしょう。
+<em>KanColle Logistics Visualizer（艦これ 兵站図示儀）</em> は、そんなあなたにぴったりの道具です。このシステムは、以下の <em>艦これ</em> のエージェント（専用ブラウザーやプロキシーなど）……</p>
+
+<ul>
+<li><em><a href="http://kancolle.sanaechan.net/">航海日誌</a></em></li>
+<li><em><a href="http://hetaregrammer.blog.fc2.com/">KCRDB（艦これ Received Data Browser）</a></em></li>
+<li>……（他にも拡張予定）</li>
+</ul><p>……が出力する資材履歴ログファイルや艦娘一覧ファイルを加工し、以下のような各種のグラフを描画します。</p>
+
+<ul>
+<li>艦娘の育成状況
+
+<ul>
+<li>経験値の分布図</li>
+<li>練度（レヴェル）の分布図</li>
+</ul>
+</li>
+<li>資材の増減履歴
+
+<ul>
+<li>資材（燃料・弾薬・鋼材・ボーキサイト）の折れ線グラフ</li>
+<li>資材（燃料・弾薬・鋼材・ボーキサイト）の折れ線グラフ（高速修復材付き）</li>
+<li>消耗品（高速修復材・高速建造材・開発資材）の折れ線グラフ</li>
+<li>資材のローソク足グラフ（例えば、高速修復材の週次の増減）</li>
+</ul>
+</li>
+<li>……他にも拡張する予定</li>
+</ul><h2>
+<a name="%E3%81%AF%E3%81%98%E3%82%81%E3%81%AB" class="anchor" href="#%E3%81%AF%E3%81%98%E3%82%81%E3%81%AB"><span class="octicon octicon-link"></span></a>はじめに</h2>
+
+<p>GUI（グラフィカル ユーザー インターフェース）で操作しましょう。</p>
+
+<ol>
+<li>
+<a href="https://github.com/gardejo/js-kancolle-logistics-visualizer/wiki/Home:ja#%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB">Wiki</a>を参照して、あなたのコンピューターにこのシステムをインストールします。
+
+<ul>
+<li>註: このシステムは <em>Microsoft Windows</em> 上の <em>WSH（Windows Script Host）</em> 環境で稼働します。</li>
+</ul>
+</li>
+<li>
+<code>visualizer.wsf</code>ファイルをダブル クリックします。</li>
+<li>chart ディレクトリー（フォルダー）に出力されたグラフ ファイルを開いて、グラフを閲覧します。</li>
+</ol><p>註: CLI（コマンド ライン インターフェース）でも操作できます。</p>
+
+<h2>
+<a name="%E3%82%B5%E3%83%9D%E3%83%BC%E3%83%88" class="anchor" href="#%E3%82%B5%E3%83%9D%E3%83%BC%E3%83%88"><span class="octicon octicon-link"></span></a>サポート</h2>
+
+<h3>
+<a name="%E6%83%85%E5%A0%B1%E6%8F%90%E4%BE%9B" class="anchor" href="#%E6%83%85%E5%A0%B1%E6%8F%90%E4%BE%9B"><span class="octicon octicon-link"></span></a>情報提供</h3>
+
+<p>このシステムの説明書は<a href="https://github.com/gardejo/js-kancolle-logistics-visualizer/wiki/Home:ja">Wiki</a>にあります（現在のところ、ほとんど日本語で記載されています）。ご利用の前にご覧ください。</p>
+
+<p>このシステムのバージョン アップ情報は<a href="https://github.com/gardejo/js-kancolle-logistics-visualizer/releases.atom">RSS</a>で配信されます。また、著者が <em><a href="https://twitter.com/gardejo">Twitter</a></em> で呟くこともあります。</p>
+
+<h3>
+<a name="%E4%BF%9D%E5%AE%88" class="anchor" href="#%E4%BF%9D%E5%AE%88"><span class="octicon octicon-link"></span></a>保守</h3>
+
+<p>バグのご報告や機能拡張のご提案は、 <em><a href="https://github.com/gardejo/js-kancolle-logistics-visualizer/issues">問題追跡システム</a></em> で承ります。<em>Twitter</em> や電子メールでのお問い合わせは、できるだけご遠慮ください。問題を皆で共有するため、ご配慮ください。</p>
+
+<p>訳註: オープン ソース ソフトウェアの世界は（不本意ながら<a href="https://ja.wikipedia.org/wiki/%E3%82%A8%E3%82%B9%E3%83%9A%E3%83%A9%E3%83%B3%E3%83%88">エスペラント</a>ではなく）英語が共通語です。できるだけ英語でお書きください。</p>
+
+<p>著者はこれらの対応を必ずしもお約束するものではありません。また、使用環境や設定方法に関するお問い合わせには、原則として対応致しかねます。悪しからずご了承ください。</p>
+
+<p>各エージェント（専用ブラウザーやプロキシーなど）の著者の方々や公式事業者（DMM・角川ゲームズ）へは、このシステムについての質問を <strong>絶対に</strong> 寄せないでください。</p>
+
+<h2>
+<a name="%E8%AC%9D%E8%BE%9E" class="anchor" href="#%E8%AC%9D%E8%BE%9E"><span class="octicon octicon-link"></span></a>謝辞</h2>
+
+<p>以下の方々に深く感謝致します。</p>
+
+<ul>
+<li>
+<em>株式会社DMM.com</em> および <em>株式会社角川ゲームス</em> 各社の、 <em><a href="http://www.dmm.com/netgame/feature/kancolle.html">艦隊これくしょん -艦これ-</a></em> の開発・運営チームの皆さん。</li>
+<li>
+<em><a href="https://twitter.com/sanae_hirotaka">航海日誌</a></em> をお書きになった <em><a href="https://twitter.com/sanae_hirotaka">@sanae_hirotaka</a></em> さん。ログ ファイルを使わせていただきました。</li>
+<li>
+<em><a href="http://hetaregrammer.blog.fc2.com/">KCRDB</a></em> をお書きになった <em>hetaregrammer</em> さん。ログ ファイルを使わせていただきました。</li>
+<li>
+<em><a href="https://dl.dropboxusercontent.com/s/6ortcavxtaucgnn/convert_graph.html">KCRDBログ グラフ化ツール</a></em> をお書きになった <em>ツール、専ブラスレの<a href="http://jbbs.shitaraba.net/netgame/12394/storage/1386926329.html#983">983</a></em> さん。着想をいただきました。</li>
+<li>
+<em><a href="https://developer.mozilla.org/">MDN</a></em> でパブリック ドメインのサンプル コードをお書きになった Mozilla 貢献者さんたち。 <a href="https://github.com/gardejo/js-kancolle-logistics-visualizer/blob/master/lib/kclv.polyfill.js"><code>lib/polyfill.js</code></a> として使わせていただきました。</li>
+</ul><h2>
+<a name="%E5%AF%84%E4%B8%8E" class="anchor" href="#%E5%AF%84%E4%B8%8E"><span class="octicon octicon-link"></span></a>寄与</h2>
+
+<p><em>KanColle Visualizer</em> をご愛用いただき、ありがとうございます。このシステムがお気に召しましたでしょうか？</p>
+
+<p>作者は開発を続けていくために、以下のようなささやかなご支援を求めています。</p>
+
+<ul>
+<li>
+<em><a href="https://github.com/gardejo/js-kancolle-logistics-visualizer/issues">問題追跡システム</a></em> への、バグのご報告。</li>
+<li>
+<em><a href="https://github.com/gardejo/js-kancolle-logistics-visualizer/issues">問題追跡システム</a></em> への、機能拡張のご提案。</li>
+<li>
+<em><a href="http://ost.io/@gardejo/js-kancolle-logistics-visualizer">掲示板</a></em> での、ユーザー同士の質疑応答。</li>
+<li>
+<em><a href="https://github.com/gardejo/js-kancolle-logistics-visualizer/wiki/Home:ja">Wiki</a></em> にある説明書の充実。</li>
+<li>
+<em><a href="https://github.com/gardejo/js-kancolle-logistics-visualizer/pulls">Pull-Request</a></em> による、ソース コードのご提供。</li>
+<li>艦これのゲーム内でのアイテムのご購入や、公式グッズのご購入。
+
+<ul>
+<li>
+<em>修理ドック</em> や <em>母港拡張</em> が特にお薦めです。</li>
+<li>立体造形物としては、可愛らしい <em><a href="http://www.goodsmile.info/ja/products/search?utf8=%E2%9C%93&amp;search%5Bquery%5D=%E3%81%AD%E3%82%93%E3%81%A9%E3%82%8D%E3%81%84%E3%81%A9+%E8%89%A6%E9%9A%8A%E3%81%93%E3%82%8C%E3%81%8F%E3%81%97%E3%82%87%E3%82%93#searchResults">ねんどろいど</a></em> の他、一風変わった艦船模型 <em><a href="http://www.f-toys.net/index.php?m=fproduct&amp;t=detaile&amp;product_id=236">艦これ モデル</a></em> もいかがでしょう。</li>
+</ul>
+</li>
+<li>各エージェント（専用ブラウザーやプロキシーなど）の著者への、各種のご寄与。</li>
+<li>
+<a href="http://www.amazon.co.jp/gp/gc">Amazonギフト券（Eメールタイプ）</a>または<a href="http://www.amazon.co.jp/registry/wishlist/3O5J3JV19DOJ1/">Amazonのほしい物リスト</a>による、開発費のご寄付。恐れ入りますが、ご返金やご返品には応じかねます。</li>
+</ul><p>ただし、ご支援をいただいても、特別な機能追加やサポートのご提供は致しかねます。悪しからずご了承ください。</p>
+
+<h2>
+<a name="%E8%91%97%E8%80%85" class="anchor" href="#%E8%91%97%E8%80%85"><span class="octicon octicon-link"></span></a>著者</h2>
+
+<p>守屋 雅樹 (Gardejo)</p>
+
+<ul>
+<li>ウェブ サイト: <a href="http://en.gardejo.org/">http://gardejo.org</a>
+</li>
+<li>Twitter: <a href="https://twitter.com/gardejo">@gardejo</a>
+</li>
+<li>電子メール: <a href="mailto:kclv@ermitejo.com">kclv@ermitejo.com</a>
+</li>
+</ul><h2>
+<a name="%E8%91%97%E4%BD%9C%E6%A8%A9%E3%81%A8%E4%BD%BF%E7%94%A8%E8%A8%B1%E8%AB%BE" class="anchor" href="#%E8%91%97%E4%BD%9C%E6%A8%A9%E3%81%A8%E4%BD%BF%E7%94%A8%E8%A8%B1%E8%AB%BE"><span class="octicon octicon-link"></span></a>著作権と使用許諾</h2>
+
+<p>Copyright (c) 2014 MORIYA Masaki</p>
+
+<p>このシステムは <em>MITライセンス</em> に基づくフリー ソフトウェアです。使用許諾書の全文は、この配布物に同梱されている<a href="https://github.com/gardejo/js-kancolle-logistics-visualizer/blob/master/LICENSE"><code>LICENSE</code></a>ファイルで確認できます。</p>
+
+<p>訳註: <strong>使用許諾書は英文のみが正文です。</strong> <a href="http://opensource.jp/">オープン ソース グループ ジャパン</a>による<a href="http://sourceforge.jp/projects/opensource/wiki/licenses%2FMIT_license">日本語参考訳</a>も参照してください。</p>
+
+<p>記載されている会社名および製品名は、すべて各社の商標または登録商標です。</p>
+      </section>
+    </div>
+
+    <!-- FOOTER  -->
+    <div id="footer_wrap" class="outer">
+      <footer class="inner">
+        <p class="copyright">Js-kancolle-logistics-visualizer maintained by <a href="https://github.com/gardejo">gardejo</a></p>
+        <p>Published with <a href="http://pages.github.com">GitHub Pages</a></p>
+      </footer>
+    </div>
+
+    
+
+  </body>
+</html>
