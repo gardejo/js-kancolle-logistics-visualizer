@@ -1,0 +1,106 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html lang="{{:table.locale}}">
+
+    <head>
+
+        <title>{{>title}}</title>
+
+{{include tmpl="meta"/}}
+
+        <link
+            rel="stylesheet"
+            type="text/css"
+            href="../template/chart.css"
+        >
+
+        <script
+            type="text/javascript"
+            src="https://www.google.com/jsapi"
+        ></script>
+
+        <script
+            type="text/javascript"
+        ><!--
+
+            var table = [
+                [{{:table.columns}}]{{props table.rows}}
+                ,[{{:prop}}]{{/props}}
+            ];
+
+            var option = {
+                // TODO: striped fills
+                title : "{{:title}}",
+                legend : { position : "top" },
+                dataOpacity: 0.7,
+                lineWidth : 2, // default
+                selectionMode : "multiple",
+                tooltip : { trigger: "both" },
+                crosshair : {
+                    trigger     : "both",
+                    orientation : "both", // or horizontal
+                    opacity     : 0.5
+                },
+                {{if table.hasOpposite}}
+                series : { 4 : { targetAxisIndex : 1 } },
+                {{/if}}
+                hAxis : {
+                    slantedText : true,
+                    slantedTextAngle : 90
+                },
+                vAxis : {
+                    {{if option.vertical.minorGridlines}}
+                    minorGridlines : { count : {{:option.vertical.minorGridlines}} }
+                    {{/if}}
+                },
+                vAxes : {
+                    0 : {
+                        {{if option.vertical.gridlines}}
+                        gridlines : { count : {{:option.vertical.gridlines}} },
+                        {{/if}}
+                        {{if option.vertical.ticks}}
+                        ticks : [ {{:option.vertical.ticks}} ],
+                        {{/if}}
+                        baseline : {{:option.vertical.baseline}},
+                        viewWindow : {
+                             max : {{:option.vertical.maximum}},
+                             min : {{:option.vertical.minimum}}
+                        }
+                    }
+                    {{if table.hasOpposite}}
+                    ,1 : {
+                        {{if option.vertical.opposingBaseline !== null}}
+                        baseline : {{:option.vertical.opposingBaseline}},
+                        {{/if}}
+                        {{if option.vertical.ticks}}
+                        gridlines : { count : {{:option.vertical.ticks.length}} }
+                        {{else option.vertical.gridlines}}
+                        gridlines : { count : {{:option.vertical.gridlines}} }
+                        {{/if}}
+                    }
+                    {{/if}}
+                }
+            };
+
+            google.load("visualization", 1, { packages : ["corechart"] });
+            google.setOnLoadCallback(drawChart);
+            {{if option.redraw}}
+            window.onresize = drawChart;
+            {{/if}}
+
+            function drawChart() {
+                new google.visualization.LineChart
+                        (document.getElementById("chart"))
+                    .draw(
+                        google.visualization.arrayToDataTable(table),
+                        option
+                    );
+            }
+
+        --></script>
+
+    </head>
+
+{{include tmpl="body"/}}
+
+</html>

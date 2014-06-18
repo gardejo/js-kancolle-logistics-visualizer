@@ -1,0 +1,60 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html lang="{{:locale}}">
+
+    <head>
+
+        <title>{{>title}}</title>
+
+{{include tmpl="meta"/}}
+
+        <link
+            rel="stylesheet"
+            type="text/css"
+            href="../template/chart.css"
+        >
+
+        <script
+            type="text/javascript"
+            src="https://www.google.com/jsapi"
+        ></script>
+
+        <script
+            type="text/javascript"
+        ><!--
+
+            var table = {
+                "cols" : {{:~formatter.stringify(table.columns, null, '    ')}},
+                "rows" : {{:~formatter.stringify(table.rows, null, '    ')}}
+            };
+
+            var option = {
+                interpolateNulls: false,
+                isStacked : true,
+                dataOpacity: 0.7,
+                vAxis : {
+                    minorGridlines : { count: 4 }
+                }
+            };
+
+            google.load("visualization", "1", {packages:["corechart"]});
+            google.setOnLoadCallback(drawChart);
+            {{if option.redraw}}
+            window.onresize = drawChart;
+            {{/if}}
+
+            function drawChart() {
+                var chart = new google.visualization.Histogram(document.getElementById('chart'));
+                var data = new google.visualization.DataTable(table);
+                chart.draw(data, option);
+
+                return;
+            }
+
+        --></script>
+
+    </head>
+
+{{include tmpl="body"/}}
+
+</html>

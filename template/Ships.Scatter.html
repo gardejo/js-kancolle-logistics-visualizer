@@ -1,0 +1,74 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html lang="{{:table.locale}}">
+
+    <head>
+
+        <title>{{>title}}</title>
+
+{{include tmpl="meta"/}}
+
+        <link
+            rel="stylesheet"
+            type="text/css"
+            href="../template/chart.css"
+        >
+
+        <script
+            type="text/javascript"
+            src="https://www.google.com/jsapi"
+        ></script>
+
+        <script
+            type="text/javascript"
+        ><!--
+
+            var table = {
+                "cols" : {{:~formatter.stringify(table.columns, null, '    ')}},
+                "rows" : {{:~formatter.stringify(table.rows, null, '    ')}}
+            };
+
+            var option = {
+                dataOpacity: 0.7,
+                pointSize : 5, // default:7
+                // legend : { position : "top", maxLines : 2 },
+                selectionMode : "multiple",
+                tooltip : { trigger: "both" },
+                vAxis : {
+                    baseline : {{:option.vertical.baseline}},
+                    {{if option.vertical.minorGridlines}}
+                    minorGridlines : { count : {{:option.vertical.minorGridlines}} },
+                    {{/if}}
+                    ticks : [{{:option.vertical.ticks}}]
+                },
+                hAxis : {
+                    {{if option.horizontal.minorGridlines}}
+                    minorGridlines : { count : {{:option.horizontal.minorGridlines}} },
+                    {{/if}}
+                    slantedText : true,
+                    slantedTextAngle : 90,
+                    ticks : [{{:option.horizontal.ticks}}]
+                }
+            };
+
+            google.load("visualization", "1", {packages:["corechart"]});
+            google.setOnLoadCallback(drawChart);
+            {{if option.redraw}}
+            window.onresize = drawChart;
+            {{/if}}
+
+            function drawChart() {
+                var chart = new google.visualization.ScatterChart(document.getElementById('chart'));
+                var data = new google.visualization.DataTable(table);
+                chart.draw(data, option);
+
+                return;
+            }
+
+        --></script>
+
+    </head>
+
+{{include tmpl="body"/}}
+
+</html>

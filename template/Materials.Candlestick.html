@@ -1,0 +1,85 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html lang="{{:table.locale}}">
+
+    <head>
+
+        <title>{{>title}}</title>
+
+{{include tmpl="meta"/}}
+
+        <link
+            rel="stylesheet"
+            type="text/css"
+            href="../template/chart.css"
+        >
+
+        <script
+            type="text/javascript"
+            src="https://www.google.com/jsapi"
+        ></script>
+
+        <script
+            type="text/javascript"
+        ><!--
+
+            var table = {{:~formatter.stringify(table.rows, null, '    ')}};
+
+            var option = {
+                title : "{{:title}}",
+                legend : { position : "none" },
+                selectionMode : "multiple",
+                tooltip : { trigger: "both" },
+                hAxis : {
+                    slantedText : true,
+                    slantedTextAngle : 90
+                },
+                vAxis : {
+                    baseline : {{:option.vertical.baseline}},
+                    {{if option.vertical.gridlines}}
+                    gridlines : { count : {{:option.vertical.gridlines}} },
+                    {{/if}}
+                    {{if option.vertical.minorGridlines}}
+                    minorGridlines : { count : {{:option.vertical.minorGridlines}} },
+                    {{/if}}
+                    {{if option.vertical.ticks}}
+                    ticks : [ {{:option.vertical.ticks}} ],
+                    {{/if}}
+                    viewWindow : {
+                         max : {{:option.vertical.maximum}},
+                         min : {{:option.vertical.minimum}}
+                    }
+                },
+                candlestick : {
+                    {{if option.hollowIsRising !== undefined}}
+                    hollowIsRising : {{:option.hollowIsRising}},
+                    {{/if}}
+                    fallingColor : { strokeWidth : 1 }, //default:2
+                    risingColor  : { strokeWidth : 1 }  //default:2
+                }
+            };
+
+            google.load("visualization", 1, { packages : ["corechart"] });
+            google.setOnLoadCallback(drawChart);
+            {{if option.redraw}}
+            window.onresize = drawChart;
+            {{/if}}
+
+            function drawChart() {
+                new google.visualization.CandlestickChart
+                        (document.getElementById("chart"))
+                    .draw(
+                        google.visualization.arrayToDataTable(table, true),
+                        option
+                    );
+
+                return;
+            }
+
+        --></script>
+
+    </head>
+
+{{include tmpl="body"/}}
+
+</html>
