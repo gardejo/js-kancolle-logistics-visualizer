@@ -1,0 +1,157 @@
+﻿<?XML version="1.0" standalone="yes" encoding="utf-8"?>
+
+<package>
+
+    <job id="visualize">
+
+        <runtime>
+            <description>
+                このジョブは、艦これの各エージェント（専用ブラウザーや
+                プロキシーなど）が出力する資材履歴ログファイルや艦娘一覧ファイル
+                を加工し、各種のグラフを描画するためのHTMLファイルを出力します。
+                このスクリプト実行時、および、出力されたHTMLファイルでの
+                グラフ描画時には、外部スクリプトライブラリーの読み込みのために、
+                インターネットに接続している必要があります。
+            </description>
+            <example>
+                cscript //nologo C:/path/to/visualizer.wsf ^
+                    "Logbook.Ships.Scatter.Levels,Arrival" ^
+                    "Logbook.Ships.Scatter.Experiences,Arrival" ^
+                    "KCRDB.Materials.Line.Resources" ^
+                    "KCRDB.Materials.Line.Consumables" ^
+                    /configuration:alternate-configuration.json
+            </example>
+        </runtime>
+
+        <resource id="configuration">./configuration.json</resource>
+
+        <script
+            src="http://cdnjs.cloudflare.com/ajax/libs/json2/20130526/json2.min.js"
+            type="text/javascript"
+            language="JavaScript"
+            charset="UTF-8"
+        />
+
+        <script
+            src="http://cdn.jsdelivr.net/jsrender/1.0.0beta/jsrender.min.js"
+            type="text/javascript"
+            language="JavaScript"
+            charset="UTF-8"
+        />
+
+        <script
+            src="lib/kclv.polyfill.js"
+            type="text/javascript"
+            language="JavaScript"
+            charset="UTF-8"
+        />
+
+        <script
+            src="lib/kclv.js"
+            type="text/javascript"
+            language="JavaScript"
+            charset="UTF-8"
+        />
+
+        <!--
+        Caveat:
+            DO NOT REWRITE "language" attribute as "JScript"!
+            Polyfill became invalid if the "language" != polyfill's "language".
+        -->
+        <script
+            type="text/javascript"
+            language="JavaScript"
+            charset="UTF-8"
+        ><![CDATA[
+            'use strict';
+
+            try {
+                loadConfiguration();
+                var visualizer = new kclv.Visualizer(),
+                    directives = buildDirectives();
+
+                directives.forEach( function(directive, index, directives) {
+                    if (directive.ignore) {
+                        directives[index] = null;
+                    } else {
+                        visualizer.visualize(directive);
+                    }
+                } );
+                if ( kclv.Configuration.get('notice') ) {
+                    WScript.Echo(
+                        'Completed. Directives are:\n' +
+                        JSON.stringify(directives, null, '    ')
+                    );
+                }
+            } catch (e) {
+                WScript.Echo( new kclv.Formatter().dialogue(e) );
+            }
+
+            function loadConfiguration() {
+                var key = 'configuration';
+
+                kclv.Configuration.load(
+                    WScript.Arguments.Named.Exists(key) ?
+                        WScript.Arguments.Named.Item(key) : getResource(key)
+                );
+
+                return;
+            }
+
+            function buildDirectives() {
+                if ( ! WScript.Arguments.Unnamed.Length ) {
+                    return kclv.Configuration.get('directives');
+                }
+
+                // Override configuration's "directives" values.
+                // We need 'let' scope...
+                var directives = [],
+                    delimiter = '.',
+                    keys = ['agent', 'relation', 'chart', 'option'];
+
+                for (
+                    var i = 0; i < WScript.Arguments.Unnamed.Length; i++
+                ) {
+                    var values = WScript.Arguments.Unnamed.Item(i)
+                                .split(delimiter);
+                    // TODO
+                    if ( values[3].indexOf(',') >= 0) {
+                        values[3] = values[3].split(',');
+                    }
+                    var directive = {};
+                    values.forEach( function( value, index, values ) {
+                        directive[ keys[index] ] = values[index];
+                    } );
+                    directives.push(directive);
+                }
+
+                return directives;
+            }
+
+        ]]></script>
+
+    </job>
+
+    <!--
+
+    <job id="test">
+
+        <script
+            type="text/javascript"
+            language="JavaScript"
+            charset="UTF-8"
+        ><![CDATA[
+
+           // TODO
+           WScript.Echo(
+               'How to test with QUnit (or an any test runner on node.js) ' +
+               'on WSH?'
+           );
+
+        ]]></script>
+
+    </job>
+
+    -->
+
+</package>
