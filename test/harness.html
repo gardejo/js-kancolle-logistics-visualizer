@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+
+<html>
+
+    <head>
+
+        <title>QUnit Test Suite for KanColle Logistics Visualizer</title>
+
+        <meta charset="UTF-8">
+
+        <!-- Test runner -->
+        <script
+            type="text/javascript"
+            src="http://code.jquery.com/qunit/qunit-1.14.0.js">
+        ></script>
+        <link
+            rel="stylesheet"
+            type="text/css"
+            href="http://code.jquery.com/qunit/qunit-1.14.0.css"
+            media="screen"
+        >
+
+        <!-- Polyfill (Note: Consider it to be tested) -->
+        <script
+            type="text/javascript"
+            src="../lib/kclv.polyfill.js">
+        ></script>
+
+        <!-- Test target -->
+        <script
+            type="text/javascript"
+            src="../lib/kclv.js">
+        ></script>
+
+        <!-- Test stub -->
+        <script
+            type="text/javascript"
+            src="./kclv.stub.js">
+        ></script>
+
+        <!-- Test suite -->
+        <script
+            type="text/javascript"
+            src="./kclv.test.js">
+        ></script>
+
+    </head>
+
+    <body>
+        <h1 id="qunit-header">QUnit Test Suite for KanColle Logistics Visualizer</h1>
+        <h2 id="qunit-banner"></h2>
+        <div id="qunit-testrunner-toolbar"></div>
+        <h2 id="qunit-userAgent"></h2>
+        <ol id="qunit-tests"></ol>
+    </body>
+
+</html>
