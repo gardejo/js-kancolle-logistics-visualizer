@@ -488,11 +488,9 @@ expectation.Relation.Materials = {
 
 test('kclv.Agent.KCRDB : Materials', function() {
     var agent = new kclv.Agent.KCRDB,
-        configuration = {
-            path: {
-                log: { KCRDB: { Materials: './KCRDB.Materials.log' } }
-            }
-        };
+        configuration = { agent: { KCRDB: { path: {
+            Materials : './KCRDB.Materials.log'
+        } } } };
 
     configuration.relation = {
         values: 'High', duration: null, inception: null, expiration: null
@@ -571,11 +569,9 @@ test('kclv.Agent.KCRDB : Materials', function() {
 
 test('kclv.Agent.Logbook : Materials', function() {
     var agent = new kclv.Agent.Logbook,
-        configuration = {
-            path: {
-                log: { Logbook: { Materials: './Logbook.Materials.log' } }
-            }
-        };
+        configuration = { agent: { Logbook: { path: {
+            Materials : './Logbook.Materials.log'
+        } } } };
 
     configuration.relation = {
         duration: null, inception: null, expiration: null

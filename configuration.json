@@ -32,19 +32,19 @@
         }
     ],
     "notice"        : true,
-    "path"          : {
-        "log"           : {
-            "KCRDB"         : {
+    "agent"         : {
+        "KCRDB"         : {
+            "path"          : {
                 "Materials"     : "../KCRDB/KCRDB-materialhistory.log",
                 "Ships"         : "../KCRDB/KCRDB-shiplist.csv"
-            },
-            "Logbook"       : {
+            }
+        },
+        "Logbook"       : {
+            "path"          : {
                 "Materials"     : "../logbook/資材ログ.csv",
                 "Ships"         : "../logbook/所有艦娘一覧.csv"
             }
-        },
-        "template"      : "template",
-        "chart"         : "chart"
+        }
     },
     "relation"      : {
         "values"        : "Low",
@@ -52,46 +52,35 @@
         "inception"     : null,
         "expiration"    : null
     },
-    "table"         : {
-        "Resources"     : {
-            "withRepair"    : true
-        },
-        "Ships"         : {
-            "abbreviate"    : true
-        }
-    },
     "chart"         : {
-        "Candlestick"   : {
-            "redraw"        : true,
-            "hollowIsRising": true
+        "path"          : {
+            "template"      : "template",
+            "chart"         : "chart"
         },
+        "redraw"        : true,
+        "hollowIsRising": true,
         "Resources"     : {
-            "redraw"        : true,
-            "horizontal"    : {
-            },
+            "withRepair"    : true,
             "vertical"      : {
                 "level"         : 120,
+                "step"          : 5000,
                 "maximum"       : null,
                 "minimum"       : 0,
                 "gridlines"     : null,
-                "minorGridlines": 4,
-                "step"          : 5000
+                "minorGridlines": 4
             }
         },
         "Consumables"   : {
-            "redraw"        : true,
-            "horizontal"    : {
-            },
             "vertical"      : {
+                "step"          : 100,
                 "maximum"       : null,
                 "minimum"       : 0,
                 "gridlines"     : null,
-                "minorGridlines": 4,
-                "step"          : 100
+                "minorGridlines": 4
             }
         },
-        "Levels"        : {
-            "redraw"        : true,
+        "Ships"         : {
+            "abbreviate"    : true,
             "horizontal"    : {
                 "port"          : null,
                 "step"          : 10,
@@ -99,35 +88,19 @@
                 "minorGridlines": 1
             },
             "vertical"      : {
+                "level"         : 70,
+                "step"          : 10,
                 "maximum"       : null,
-                "minimum"       : 0,
-                "step"          : 10,
-                "gridlines"     : null,
-                "minorGridlines": 1,
-                "level"         : 70
-            }
-        },
-        "Experiences"   : {
-            "redraw"        : true,
-            "horizontal"    : {
-                "port"          : null,
-                "step"          : 10,
+                "minimum"       : null,
                 "gridlines"     : null,
                 "minorGridlines": 1
-            },
-            "vertical"      : {
-                "maximum"       : null,
-                "minimum"       : 0,
-                "step"          : 5,
-                "gridlines"     : null,
-                "minorGridlines": null,
-                "level"         : 70
             }
         }
     },
     "locale"        : "en",
     "legend"        : {
         "en"            : {
+            "dateTime"      : "Date & Time",
             "Resources"     : {
                 "title"         : "Resources History",
                 "Fuel"          : "Fuel",
@@ -141,15 +114,10 @@
                 "Construction"  : "Instant Construction",
                 "Development"   : "Development Material"
             },
-            "dateTime"      : "Date & Time",
-            "Levels"        : {
-                "title"         : "Level of ships"
-            },
-            "Experiences"   : {
-                "title"         : "Experience points of ships"
-            },
             "Ships"         : {
                 "title"         : "Roster of Ships",
+                "Levels"        : "Levels",
+                "Experiences"   : "Experience Points",
                 "classification": {
                     "AS"            : "Submarine Tender",
                     "AR"            : "Repair Ship",
@@ -191,6 +159,7 @@
             }
         },
         "ja"            : {
+            "dateTime"      : "日時",
             "Resources"     : {
                 "title"         : "資材履歴",
                 "Fuel"          : "燃料",
@@ -204,15 +173,10 @@
                 "Construction"  : "高速建造材",
                 "Development"   : "開発資材"
             },
-            "Levels"        : {
-                "title"         : "艦娘の練度"
-            },
-            "Experiences"   : {
-                "title"         : "艦娘の経験値"
-            },
-            "dateTime"      : "日時",
             "Ships"         : {
                 "title"         : "艦娘一覧",
+                "Levels"        : "練度",
+                "Experiences"   : "経験値",
                 "classification": {
                     "AS"            : "潜水母艦",
                     "AR"            : "工作艦",
