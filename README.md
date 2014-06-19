@@ -17,7 +17,7 @@ Description
 
 *[Kantai Collection -KanColle-](http://www.dmm.com/netgame/feature/kancolle.html)* is [said](http://www.4gamer.net/games/205/G020591/20130911062/) to be a **game of logistics**.
 
-> "KanColle" is a game that was seen variously, as it is "what" game, it is a "game of logistics". -- Mr. TANAKA Kensuke, Producer.
+> "KanColle" is a game that was seen variously, as it is essentially "what" game, it is a "game of logistics". -- Mr. TANAKA Kensuke, Producer.
 
 You, as an Admiral of many naval battles, may be suffering from management of materials on the your Naval District everyday, and may smile at skilled *Combined Fleet Girls* in exchange for materials.
 
