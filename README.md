@@ -163,7 +163,7 @@ GUI（グラフィカル ユーザー インターフェース）で操作しま
 1. [Wiki](https://github.com/gardejo/js-kancolle-logistics-visualizer/wiki/Home:ja#%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB)を参照して、あなたのコンピューターにこのシステムをインストールします。
     * 註: このシステムは *Microsoft Windows* 上の *WSH（Windows Script Host）* 環境で稼働します。
 2. `visualizer.wsf`ファイルをダブル クリックします。
-3. chart ディレクトリー（フォルダー）に出力されたグラフ ファイルを開いて、グラフを閲覧します。
+3. `chart` ディレクトリー（フォルダー）に出力されたグラフ ファイルを開いて、グラフを閲覧します。
 
 註: CLI（コマンド ライン インターフェース）でも操作できます。
 
@@ -213,7 +213,7 @@ GUI（グラフィカル ユーザー インターフェース）で操作しま
 * *[Wiki](https://github.com/gardejo/js-kancolle-logistics-visualizer/wiki/Home:ja)* にある説明書の充実。
 * *[Pull-Request](https://github.com/gardejo/js-kancolle-logistics-visualizer/pulls)* による、ソース コードのご提供。
 * 艦これのゲーム内でのアイテムのご購入や、公式グッズのご購入。
-    * *修理ドック* や *母港拡張* が特にお薦めです。
+    * *ドック拡張セット* や *母港拡張* が特にお薦めです。
     * 立体造形物としては、可愛らしい *[ねんどろいど](http://www.goodsmile.info/ja/products/search?utf8=%E2%9C%93&search%5Bquery%5D=%E3%81%AD%E3%82%93%E3%81%A9%E3%82%8D%E3%81%84%E3%81%A9+%E8%89%A6%E9%9A%8A%E3%81%93%E3%82%8C%E3%81%8F%E3%81%97%E3%82%87%E3%82%93#searchResults)* の他、一風変わった艦船模型 *[艦これ モデル](http://www.f-toys.net/index.php?m=fproduct&t=detaile&product_id=236)* もいかがでしょう。
 * 各エージェント（専用ブラウザーやプロキシーなど）の著者への、各種のご寄与。
 * [Amazonギフト券（Eメールタイプ）](http://www.amazon.co.jp/gp/gc)または[Amazonのほしい物リスト](http://www.amazon.co.jp/registry/wishlist/3O5J3JV19DOJ1/)による、開発費のご寄付。恐れ入りますが、ご返金やご返品には応じかねます。
