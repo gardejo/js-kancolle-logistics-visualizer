@@ -39,7 +39,11 @@
                     {{if option.vertical.minorGridlines}}
                     minorGridlines : { count : {{:option.vertical.minorGridlines}} },
                     {{/if}}
-                    ticks : [{{:option.vertical.ticks}}]
+                    ticks : [{{:option.vertical.ticks}}],
+                    viewWindow : {
+                         max : {{:option.vertical.maximum}},
+                         min : {{:option.vertical.minimum}}
+                    }
                 },
                 hAxis : {
                     {{if option.horizontal.minorGridlines}}
