@@ -61,6 +61,8 @@ Support
 
 You can find documentation for this system at *the [Wiki](https://github.com/gardejo/js-kancolle-logistics-visualizer/wiki) pages* (it was almost all written in Japanese, at the moment). Please read it before using.
 
+Additionally, you can also use *the [users forum](http://ost.io/@gardejo/js-kancolle-logistics-visualizer)* for reciprocal help among users.
+
 Release information of this system is provided by [RSS feed](https://github.com/gardejo/js-kancolle-logistics-visualizer/releases.atom). Also the author may tweet it at *[Twitter](https://twitter.com/gardejo)*.
 
 ### Maintenance Service
@@ -93,7 +95,7 @@ The author of this system asks that you help support its continued development b
 
 * Report about bugs at *the [issue tracker](https://github.com/gardejo/js-kancolle-logistics-visualizer/issues)*.
 * Suggestion for enhancement at *the [issue tracker](https://github.com/gardejo/js-kancolle-logistics-visualizer/issues)*.
-* Reciprocal help among users at *the [discussion forum](http://ost.io/@gardejo/js-kancolle-logistics-visualizer)*.
+* Reciprocal help among users at *the [users forum](http://ost.io/@gardejo/js-kancolle-logistics-visualizer)*.
 * Improve documentation at *the [Wiki](https://github.com/gardejo/js-kancolle-logistics-visualizer/wiki)*.
 * Collaboration on the code base via *[pull-requests](https://github.com/gardejo/js-kancolle-logistics-visualizer/pulls)*.
 * Purchase of an item in the game and official goods.
@@ -182,6 +184,10 @@ GUI（グラフィカル ユーザー インターフェース）で操作しま
 バグのご報告や機能拡張のご提案は、 *[問題追跡システム](https://github.com/gardejo/js-kancolle-logistics-visualizer/issues)* で承ります。*Twitter* や電子メールでのお問い合わせは、できるだけご遠慮ください。問題を皆で共有するため、ご配慮ください。
 
 訳註: オープン ソース ソフトウェアの世界は（不本意ながら[エスペラント](https://ja.wikipedia.org/wiki/%E3%82%A8%E3%82%B9%E3%83%9A%E3%83%A9%E3%83%B3%E3%83%88)ではなく）英語が共通語です。できるだけ英語でお書きください。
+
+また、ユーザー同士の質疑応答のための *[掲示板](http://ost.io/@gardejo/js-kancolle-logistics-visualizer)* もお使いいただけます。
+
+訳註: こちらは英語にこだわらずに日本語でお気軽に書き込んでいただけます。
 
 著者はこれらの対応を必ずしもお約束するものではありません。また、使用環境や設定方法に関するお問い合わせには、原則として対応致しかねます。悪しからずご了承ください。
 
