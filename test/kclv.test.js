@@ -336,6 +336,36 @@ test('kclv.Formatter', function() {
         'Integerizes an integer-like string of specified elements of an array.'
     );
 
+    deepEqual(
+        formatter.commify(1750), // Long tons, displacement of Fubuki
+        '1,750',
+        'Commifies a number.'
+    );
+
+    deepEqual(
+        formatter.commify(16858198.401),
+        '16,858,198.401',
+        'Commifies (the integer part of) a number.'
+    );
+
+    deepEqual(
+        formatter.commify('Nanodesu!'),
+        'Nanodesu!',
+        'Does not commify a string.'
+    );
+
+    deepEqual(
+        formatter.commify([4000, 2000, 5000, 5200, 20]), // A recipe for Taihou
+        ['4,000', '2,000', '5,000', '5,200', '20'],
+        'Commifies a number of all elements of an array.'
+    );
+
+    deepEqual(
+        formatter.commify([4000, 2000, 5000, 5200, 20], [0, 2]),
+        ['4,000', 2000, '5,000', 5200, 20],
+        'Commifies a number of specified elements of an array.'
+    );
+
     // TODO: Even more tests: #dialogue
 });
 
