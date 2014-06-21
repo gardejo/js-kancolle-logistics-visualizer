@@ -48,7 +48,7 @@ Let's run it via GUI (Graphical User Interface).
 
 1. Install this system in your computer with reference to *the [Wiki](https://github.com/gardejo/js-kancolle-logistics-visualizer/wiki#installation) page*.
     * Note: This system runs on *WSH (Windows Script Host)* environment on *Microsoft Windows*. A guest language is (not *JavaScript* but) *JScript*.
-2. Double clik `visualizer.wsf` file.
+2. Double click `visualizer.wsf` file.
 3. Open a chart file which outputted to `chart` directory (folder), and browse a chart.
 
 Note: It can be run via the [CLI (Command Line Interface)](https://github.com/gardejo/js-kancolle-logistics-visualizer/Command-Line).
