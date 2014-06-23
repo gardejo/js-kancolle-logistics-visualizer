@@ -198,7 +198,25 @@ test('kclv.Formatter', function() {
         'Commifies a number of specified elements of an array.'
     );
 
-    // TODO: Even more tests: #dialogue
+    deepEqual(
+        formatter.dialogue(new Error('foobar')),
+        'Error: foobar',
+        'Converts an exception object into a human-readable string.'
+    );
+
+    deepEqual(
+        formatter.dialogue(),
+        'Something wrong.',
+        'Converts a null value into a human-readable string.'
+    );
+
+    deepEqual(
+        formatter.dialogue({ foo: 'bar'}),
+        'Something wrong. Object notation is:\n\n{\n    "foo": "bar"\n}',
+        'Converts an object into a human-readable string.'
+    );
+
+    // TODO: Even more tests: #dialogue (too long parameter)
 });
 
 
@@ -673,9 +691,10 @@ module('Tokenizers');
 // ================================================================
 
 test('kclv.Tokenizer.Base', function() {
-    var string = '"SSV","I-58",2,3\n' + // Orel cruising dechi!
-                 '"CV","Akagi",5,4\n' + // Tokyo Exp. to drum up results!
-                 '"BB","Yamato",5,5\n', // We're sorry but "Re" class is NG.
+    var string =
+            '"SSV","I-58",2,3\n' + // Orel cruising dechi!
+            '"CV","Akagi",5,4\n' + // Tokyo Exp. to drum up results!
+            '"BB","Yamato",5,5\n', // We're sorry but "Re" class is NG.
         oneDimensionalArray = [
             '"SSV","I-58",2,3',
             '"CV","Akagi",5,4',
@@ -710,8 +729,9 @@ test('kclv.Tokenizer.Base', function() {
 });
 
 test('kclv.Tokenizer.KCRDB.Materials', function() {
-    var string = '#2013/04/23 01:23:45#,1,2,3,4,5,6,7,8,9,10,11,12,13,14\n' +
-                 '#2013/07/10 12:34:56#,2,3,4,5,6,7,8,9,10,11,12,13,14,15\n',
+    var string =
+            '#2013/04/23 01:23:45#,1,2,3,4,5,6,7,8,9,10,11,12,13,14\n' +
+            '#2013/07/10 12:34:56#,2,3,4,5,6,7,8,9,10,11,12,13,14,15\n',
         oneDimensionalArray = [
             '#2013/04/23 01:23:45#,1,2,3,4,5,6,7,8,9,10,11,12,13,14',
             '#2013/07/10 12:34:56#,2,3,4,5,6,7,8,9,10,11,12,13,14,15'
