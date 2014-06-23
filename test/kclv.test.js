@@ -1653,11 +1653,168 @@ test('kclv.Table.Materials.Candlestick', function() {
     // TODO: Even more tests.
 });
 
-/*
 test('kclv.Table.Materials.Line', function() {
+    var relation = new kclv.Relation.Materials().insert([
+            [ new Date('2013/04/23'), 11, 12, 13, 14, 15, 16, 17 ],
+            [ new Date('2013/07/10'), 21, 22, 23, 24, 25, 26, 27 ],
+            [ new Date('2013/07/10'), 31, 32, 33, 34, 35, 36, 37 ],
+            [ new Date('2013/07/17'), 41, 42, 43, 44, 45, 46, 47 ]
+        ]),
+        configuration = {
+            locale : 'en',
+            chart : { Resources : { withRepair : true } },
+            legend : { en : {
+                dateTime : 'd',
+                Resources   : {
+                    Fuel : 'f', Ammunition : 'a', Steel : 's', Bauxite : 'b'
+                },
+                Consumables : {
+                    Repair : 'r', Construction : 'c', Development : 'd'
+                }
+            } }
+        };
+
+    kclv.Configuration.load(configuration);
+
+    throws(
+        function() { new kclv.Table.Materials.Line(relation, 'Fuel') },
+        kclv.Exception.InvalidMaterial,
+        'Could not visualize Fuels.'
+    );
+
+    deepEqual(
+        new kclv.Table.Materials.Line(relation, 'Resources').kind,
+        'Resources',
+        'Can visualize Resources.'
+    );
+
+    throws(
+        function() { new kclv.Table.Materials.Line(relation, 'Repair') },
+        kclv.Exception.InvalidMaterial,
+        'Could not visualize Instant Repairs.'
+    );
+
+    deepEqual(
+        new kclv.Table.Materials.Line(relation, 'Consumables').kind,
+        'Consumables',
+        'Can visualize Consumables.'
+    );
+
+    deepEqual(
+        new kclv.Table.Materials.Line(relation, 'Resources').
+            maximum('Resources'),
+        44,
+        'Gets the maximum value of Resources.'
+    );
+
+    deepEqual(
+        new kclv.Table.Materials.Line(relation, 'Consumables').
+            maximum('Consumables'),
+        47,
+        'Gets the maximum value of Consumables.'
+    );
+
+    deepEqual(
+        new kclv.Table.Materials.Line(relation, 'Resources').
+            minimum('Resources'),
+        11,
+        'Gets the minimum value of Resources.'
+    );
+
+    deepEqual(
+        new kclv.Table.Materials.Line(relation, 'Consumables').
+            minimum('Consumables'),
+        15,
+        'Gets the minimum value of Consumables.'
+    );
+
+    deepEqual(
+        new kclv.Table.Materials.Line(relation, 'Resources').
+            count(),
+        4,
+        'Counts an amount of rows.'
+    );
+
+    deepEqual(
+        new kclv.Table.Materials.Line(relation, 'Consumables').
+            count(),
+        4,
+        'Counts an amount of rows.'
+    );
+
+    deepEqual(
+        new kclv.Table.Materials.Line(relation, 'Resources').
+            columns,
+        ['"d"', '"f"', '"a"', '"s"', '"b"', '"r"'],
+        'Builds columns as a header of Resources.'
+    );
+
+    deepEqual(
+        new kclv.Table.Materials.Line(relation, 'Consumables').
+            columns,
+        ['"d"', '"r"', '"c"', '"d"', ],
+        'Builds columns as a header of Consumables.'
+    );
+
+    deepEqual(
+        new kclv.Table.Materials.Line(relation, 'Resources').
+            rows,
+        [
+            [ '"' + new Date('2013/04/23').toLocaleString() + '"',
+                11, 12, 13, 14, 15 ],
+            [ '"' + new Date('2013/07/10').toLocaleString() + '"',
+                21, 22, 23, 24, 25 ],
+            [ '"' + new Date('2013/07/10').toLocaleString() + '"',
+                31, 32, 33, 34, 35 ],
+            [ '"' + new Date('2013/07/17').toLocaleString() + '"',
+                41, 42, 43, 44, 45 ]
+        ],
+        'Builds rows of Resources.'
+    );
+
+    deepEqual(
+        new kclv.Table.Materials.Line(relation, 'Consumables').
+            rows,
+        [
+            [ '"' + new Date('2013/04/23').toLocaleString() + '"',
+                15, 16, 17 ],
+            [ '"' + new Date('2013/07/10').toLocaleString() + '"',
+                25, 26, 27 ],
+            [ '"' + new Date('2013/07/10').toLocaleString() + '"',
+                35, 36, 37 ],
+            [ '"' + new Date('2013/07/17').toLocaleString() + '"',
+                45, 46, 47 ],
+        ],
+        'Builds rows of Consumables.'
+    );
+
+    configuration.chart.Resources.withRepair = false;
+    kclv.Configuration.load(configuration);
+    deepEqual(
+        new kclv.Table.Materials.Line(relation, 'Resources').
+            columns,
+        ['"d"', '"f"', '"a"', '"s"', '"b"'],
+        'Builds columns as a header of Resources + Repairs.'
+    );
+
+    deepEqual(
+        new kclv.Table.Materials.Line(relation, 'Resources').
+            rows,
+        [
+            [ '"' + new Date('2013/04/23').toLocaleString() + '"',
+                11, 12, 13, 14 ],
+            [ '"' + new Date('2013/07/10').toLocaleString() + '"',
+                21, 22, 23, 24 ],
+            [ '"' + new Date('2013/07/10').toLocaleString() + '"',
+                31, 32, 33, 34 ],
+            [ '"' + new Date('2013/07/17').toLocaleString() + '"',
+                41, 42, 43, 44 ]
+        ],
+        'Builds rows of Resources + Repairs.'
+    );
+
     // TODO: Even more tests.
 });
-*/
 
 /*
 test('kclv.Table.Ships.Base', function() {
