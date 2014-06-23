@@ -567,6 +567,22 @@ test('kclv.Game.Materials', function() {
     // TODO: Even more tests.
 });
 
+test('kclv.Game.Ships', function() {
+    deepEqual(
+        kclv.Game.Ships.ABBREVIATION_FOR['駆逐艦'],
+        'DD',
+        'Returns the abbreviation for Destroyer.'
+    );
+
+    deepEqual(
+        kclv.Game.Ships.EXPERIENCES[99],
+        1000000,
+        'Returns the experience points necessary for "Kekkon Kakko Kari".'
+    );
+
+    // TODO: Even more tests.
+});
+
 
 // ================================================================
 module('Agents');
