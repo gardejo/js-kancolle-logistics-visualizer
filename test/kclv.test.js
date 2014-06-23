@@ -865,6 +865,160 @@ test('kclv.Tokenizer.KCRDB.Materials', function() {
     // TODO: Even more tests.
 });
 
+test('kclv.Tokenizer.Logbook.Materials', function() {
+    var string =
+            '日付,燃料,弾薬,鋼材,ボーキ,高速修復材,高速建造材,開発資材\n' +
+            '2013-04-23 01:23:45,1,2,3,4,5,6,7\n' +
+            '2013-07-10 12:34:56,2,3,4,5,6,7,8\n',
+        oneDimensionalArray = [
+            '2013-04-23 01:23:45,1,2,3,4,5,6,7',
+            '2013-07-10 12:34:56,2,3,4,5,6,7,8'
+        ],
+        twoDimensionalArray = [
+            [
+                new Date('2013/04/23 01:23:45'),    // Date
+                1,2,3,4,5,6,7                       // Integers
+            ],
+            [
+                new Date('2013/07/10 12:34:56'),
+                2,3,4,5,6,7,8
+            ]
+        ],
+        tokenizer = new kclv.Tokenizer.Logbook.Materials();
+
+    deepEqual(
+        tokenizer.toRows(string),
+        oneDimensionalArray,
+        'Converts a string into an one-dimensional array.'
+    );
+
+    deepEqual(
+        oneDimensionalArray.map(tokenizer.toColumns, tokenizer),
+        twoDimensionalArray,
+        'Converts an one-dimensional array into a two-dimensional array ' +
+            'and normalize some columns.'
+    );
+
+    deepEqual(
+        tokenizer.toRelationalArray(string),
+        twoDimensionalArray,
+        'Converts a string into a two-dimensional array.'
+    );
+
+    // TODO: Even more tests.
+});
+
+test('kclv.Tokenizer.KCRDB.Ships', function() {
+    var string =
+            '1,"電改",237,"駆逐艦",99,1000000,0,' +
+                '30,30,15,15,20,20,83,37,37,51,51,34,34,36,36,0,47,3,' +
+                '"10cm連装高角砲","10cm連装高角砲","33号対水上電探","---",' +
+                '0,0,0,0,53,79,63,49,84,55,42,12,0,"",1,10\n' +
+            '2,"千歳航改二",296,"軽空母",150,4360000,0,' +
+                '65,65,45,45,40,40,49,34,34,0,0,42,42,33,33,4,46,4,' +
+                '"流星改","烈風","彗星一二型甲","彩雲",' +
+                '24,16,11,8,34,13,82,65,74,6,97,17,0,"",1,10\n' +
+            '3,"長門",80,"戦艦",1,0,100,' +
+                '80,80,100,100,130,130,49,17,17,0,0,0,58,14,14,0,59,4,' +
+                '"38cm連装砲","38cm連装砲","38cm連装砲","empty",' +
+                '3,3,3,3,144,0,34,89,24,0,12,20,30,"長門改",0,5\n',
+        oneDimensionalArray = [
+            '1,"電改",237,"駆逐艦",99,1000000,0,' +
+                '30,30,15,15,20,20,83,37,37,51,51,34,34,36,36,0,47,3,' +
+                '"10cm連装高角砲","10cm連装高角砲","33号対水上電探","---",' +
+                '0,0,0,0,53,79,63,49,84,55,42,12,0,"",1,10',
+            '2,"千歳航改二",296,"軽空母",150,4360000,0,' +
+                '65,65,45,45,40,40,49,34,34,0,0,42,42,33,33,4,46,4,' +
+                '"流星改","烈風","彗星一二型甲","彩雲",' +
+                '24,16,11,8,34,13,82,65,74,6,97,17,0,"",1,10',
+            '3,"長門",80,"戦艦",1,0,100,' +
+                '80,80,100,100,130,130,49,17,17,0,0,0,58,14,14,0,59,4,' +
+                '"38cm連装砲","38cm連装砲","38cm連装砲","empty",' +
+                '3,3,3,3,144,0,34,89,24,0,12,20,30,"長門改",0,5',
+        ],
+        twoDimensionalArray = [
+            [ 1, '電改',       'DD',   99, 1000000 ],
+            [ 2, '千歳航改二', 'CVL', 150, 4360000 ],
+            [ 3, '長門',       'BB',    1,       0 ]
+        ],
+        tokenizer = new kclv.Tokenizer.KCRDB.Ships();
+
+    deepEqual(
+        tokenizer.toRows(string),
+        oneDimensionalArray,
+        'Converts a string into an one-dimensional array.'
+    );
+
+    deepEqual(
+        oneDimensionalArray.map(tokenizer.toColumns, tokenizer),
+        twoDimensionalArray,
+        'Converts an one-dimensional array into a two-dimensional array ' +
+            'and normalize some columns.'
+    );
+
+    deepEqual(
+        tokenizer.toRelationalArray(string),
+        twoDimensionalArray,
+        'Converts a string into a two-dimensional array.'
+    );
+
+    // TODO: Even more tests.
+});
+
+test('kclv.Tokenizer.Logbook.Ships', function() {
+    var string =
+            ',ID,艦隊,名前,艦種,疲労,回復,Lv,Next,経験値,制空,' +
+                '装備1,装備2,装備3,装備4,' +
+                'HP,火力,雷装,対空,装甲,回避,対潜,索敵,運\n' +
+            '1,1,,電改,駆逐艦,72,,99,0,1000000,0,' +
+                '10cm連装高角砲,10cm連装高角砲,33号対水上電探,,' +
+                '30,53,79,63,49,84,55,42,12\n' +
+            '2,2,,千歳航改二,軽空母,49,,150,0,4360000,40,' +
+                '流星改,烈風,彗星一二型甲,彩雲,' +
+                '65,34,13,82,65,74,6,96,17\n' +
+            '3,3,,長門,戦艦,49,,1,100,0,0,' +
+                '38cm連装砲,38cm連装砲,38cm連装砲,,' +
+                '80,144,0,34,89,24,0,12,20\n',
+        oneDimensionalArray = [
+            '1,1,,電改,駆逐艦,72,,99,0,1000000,0,' +
+                '10cm連装高角砲,10cm連装高角砲,33号対水上電探,,' +
+                '30,53,79,63,49,84,55,42,12',
+            '2,2,,千歳航改二,軽空母,49,,150,0,4360000,40,' +
+                '流星改,烈風,彗星一二型甲,彩雲,' +
+                '65,34,13,82,65,74,6,96,17',
+            '3,3,,長門,戦艦,49,,1,100,0,0,' +
+                '38cm連装砲,38cm連装砲,38cm連装砲,,' +
+                '80,144,0,34,89,24,0,12,20'
+        ],
+        twoDimensionalArray = [
+            [ 1, '電改',       'DD',   99, 1000000 ],
+            [ 2, '千歳航改二', 'CVL', 150, 4360000 ],
+            [ 3, '長門',       'BB',    1,       0 ]
+        ],
+        tokenizer = new kclv.Tokenizer.Logbook.Ships();
+
+    deepEqual(
+        tokenizer.toRows(string),
+        oneDimensionalArray,
+        'Converts a string into an one-dimensional array.'
+    );
+
+    deepEqual(
+        oneDimensionalArray.map(tokenizer.toColumns, tokenizer),
+        twoDimensionalArray,
+        'Converts an one-dimensional array into a two-dimensional array ' +
+            'and normalize some columns.'
+    );
+
+    deepEqual(
+        tokenizer.toRelationalArray(string),
+        twoDimensionalArray,
+        'Converts a string into a two-dimensional array.'
+    );
+
+    // TODO: Even more tests.
+});
+
 
 // ================================================================
 module('Selectors');
