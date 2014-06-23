@@ -1365,14 +1365,75 @@ test('kclv.Relation.Base', function() {
     // TODO: Even more tests.
 });
 
-/*
-test('kclv.RelationFactory', function() {
+test('kclv.Relation.Materials', function() {
+    var array = [
+            [ new Date('2013/04/23'), 11, 12, 13, 14, 15, 16, 17 ],
+            [ new Date('2013/07/10'), 21, 22, 23, 24, 25, 26, 27 ],
+            [ new Date('2013/07/10'), 31, 32, 33, 34, 35, 36, 37 ],
+            [ new Date('2013/07/17'), 41, 42, 43, 44, 45, 46, 47 ]
+        ];
+
+    deepEqual(
+        new kclv.Relation.Materials().insert(array).
+            maximum('Fuel'),
+        41,
+        'Gets the maximum value of Fuels.'
+    );
+
+    deepEqual(
+        new kclv.Relation.Materials().insert(array).
+            minimum('Fuel'),
+        11,
+        'Gets the minimum value of Fuels.'
+    );
+
+    deepEqual(
+        new kclv.Relation.Materials().insert(array).
+            maximum('Resources'),
+        44,
+        'Gets the maximum value of Resources.'
+    );
+
+    deepEqual(
+        new kclv.Relation.Materials().insert(array).
+            minimum('Resources'),
+        11,
+        'Gets the minimum value of Resources.'
+    );
+
+    deepEqual(
+        new kclv.Relation.Materials().insert(array).
+            maximum('Repair'),
+        45,
+        'Gets the maximum value of Instant Repairs.'
+    );
+
+    deepEqual(
+        new kclv.Relation.Materials().insert(array).
+            minimum('Repair'),
+        15,
+        'Gets the minimum value of Instant Repairs.'
+    );
+
+    deepEqual(
+        new kclv.Relation.Materials().insert(array).
+            maximum('Consumables'),
+        47,
+        'Gets the maximum value of Consumables.'
+    );
+
+    deepEqual(
+        new kclv.Relation.Materials().insert(array).
+            minimum('Consumables'),
+        15,
+        'Gets the minimum value of Consumables.'
+    );
+
     // TODO: Even more tests.
 });
-*/
 
 /*
-test('kclv.Relation.Materials', function() {
+test('kclv.RelationFactory', function() {
     // TODO: Even more tests.
 });
 */
