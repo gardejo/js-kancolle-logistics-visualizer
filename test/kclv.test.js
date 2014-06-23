@@ -1514,23 +1514,144 @@ test('kclv.TableLike', function() {
 });
 */
 
-/*
-test('kclv.Table.Base', function() {
-    // TODO: Even more tests.
-});
-*/
-
-/*
-test('kclv.Table.Materials.Base', function() {
-    // TODO: Even more tests.
-});
-*/
-
-/*
 test('kclv.Table.Materials.Candlestick', function() {
+    var relation = new kclv.Relation.Materials().insert([
+            [ new Date('2013/04/23'), 11, 12, 13, 14, 15, 16, 17 ],
+            [ new Date('2013/07/10'), 21, 22, 23, 24, 25, 26, 27 ],
+            [ new Date('2013/07/10'), 31, 32, 33, 34, 35, 36, 37 ],
+            [ new Date('2013/07/11'), 41, 42, 43, 44, 45, 46, 47 ],
+            [ new Date('2013/07/17'), 51, 52, 53, 54, 55, 56, 57 ]
+        ]),
+        configuration = {
+            locale : 'en'
+        },
+        table = null;
+
+    kclv.Configuration.load(configuration);
+
+    table =
+        new kclv.Table.Materials.Candlestick(relation, ['Repair', 'Yearly']);
+    deepEqual(
+        table.kind,
+        'Repair',
+        'Can visualize Repairs.'
+    );
+    deepEqual(
+        table.option,
+        'Yearly',
+        'Can visualize yearly fluctuation of something.'
+    );
+    deepEqual(
+        table.columns,
+        undefined,
+        'Builds columns.'
+    );
+    deepEqual(
+        table.rows,
+        [
+            [ '2013', 15, 15, 55, 55 ]
+        ],
+        'Builds rows of yearly fluctuation of Repairs.'
+    );
+    deepEqual(
+        table.count(),
+        1,
+        'Counts the rows of yearly fluctuation of Repairs.'
+    );
+    deepEqual(
+        table.maximum('Repair'),
+        55,
+        'Gets the maximum value of yearly fluctuation of Repairs.'
+    );
+    deepEqual(
+        table.minimum('Repair'),
+        15,
+        'Gets the minimum value of yearly fluctuation of Repairs.'
+    );
+
+    table =
+        new kclv.Table.Materials.Candlestick(relation, ['Repair', 'Monthly']);
+    deepEqual(
+        table.rows,
+        [
+            [ '2013/04', 15, 15, 15, 15 ],
+            [ '2013/07', 25, 25, 55, 55 ]
+        ],
+        'Builds rows of monthly fluctuation of Repairs.'
+    );
+    deepEqual(
+        table.count(),
+        2,
+        'Counts the rows of monthly fluctuation of Repairs.'
+    );
+    deepEqual(
+        table.maximum('Repair'),
+        55,
+        'Gets the maximum value of monthly fluctuation of Repairs.'
+    );
+    deepEqual(
+        table.minimum('Repair'),
+        15,
+        'Gets the minimum value of monthly fluctuation of Repairs.'
+    );
+
+    table =
+        new kclv.Table.Materials.Candlestick(relation, ['Repair', 'Weekly']);
+    deepEqual(
+        table.rows,
+        [
+            [ '2013-W17', 15, 15, 15, 15 ],
+            [ '2013-W28', 25, 25, 45, 45 ],
+            [ '2013-W29', 55, 55, 55, 55 ]
+        ],
+        'Builds rows of weekly fluctuation of Repairs.'
+    );
+    deepEqual(
+        table.count(),
+        3,
+        'Counts the rows of weekly fluctuation of Repairs.'
+    );
+    deepEqual(
+        table.maximum('Repair'),
+        55,
+        'Gets the maximum value of weekly fluctuation of Repairs.'
+    );
+    deepEqual(
+        table.minimum('Repair'),
+        15,
+        'Gets the minimum value of weekly fluctuation of Repairs.'
+    );
+
+    table =
+        new kclv.Table.Materials.Candlestick(relation, ['Repair', 'Daily']);
+    deepEqual(
+        table.rows,
+        [
+            [ '2013/04/23', 15, 15, 15, 15 ],
+            [ '2013/07/10', 25, 25, 35, 35 ],
+            [ '2013/07/11', 45, 45, 45, 45 ],
+            [ '2013/07/17', 55, 55, 55, 55 ]
+        ],
+        'Builds rows of daily fluctuation of Repairs.'
+    );
+    deepEqual(
+        table.count(),
+        4,
+        'Counts the rows of daily fluctuation of Repairs.'
+    );
+    deepEqual(
+        table.maximum('Repair'),
+        55,
+        'Gets the maximum value of daily fluctuation of Repairs.'
+    );
+    deepEqual(
+        table.minimum('Repair'),
+        15,
+        'Gets the minimum value of daily fluctuation of Repairs.'
+    );
+
     // TODO: Even more tests.
 });
-*/
 
 /*
 test('kclv.Table.Materials.Line', function() {
