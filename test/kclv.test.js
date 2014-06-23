@@ -89,6 +89,119 @@ test('kclv.Factory', function() {
 });
 
 
+// ================================================================
+module('Formatter');
+// ================================================================
+
+test('kclv.Formatter', function() {
+    var formatter = new kclv.Formatter();
+
+    deepEqual(
+        formatter.quote('foo'),
+        '"foo"',
+        'Quotes a string.'
+    );
+
+    deepEqual(
+        formatter.quote(['foo', 'bar', 'baz', 'qux']),
+        ['"foo"', '"bar"', '"baz"', '"qux"'],
+        'Quotes a string of all elements of an array.'
+    );
+
+    deepEqual(
+        formatter.quote(['foo', 'bar', 'baz', 'qux'], [0, 2]),
+        ['"foo"', 'bar', '"baz"', 'qux'],
+        'Quotes a string of specified elements of an array.'
+    );
+
+    deepEqual(
+        formatter.unquote('"foo"'),
+        'foo',
+        'Unquotes a string.'
+    );
+
+    deepEqual(
+        formatter.unquote(['"foo"', '"bar"', '"baz"', '"qux"']),
+        ['foo', 'bar', 'baz', 'qux'],
+        'Unquotes a string of all elements of an array.'
+    );
+
+    deepEqual(
+        formatter.unquote(['"foo"', '"bar"', '"baz"', '"qux"'], [0, 2]),
+        ['foo', '"bar"', 'baz', '"qux"'],
+        'Unquotes a string of specified elements of an array.'
+    );
+
+    deepEqual(
+        formatter.parenthesize('foo'),
+        '(foo)',
+        'Parenthesizes a string.'
+    );
+
+    deepEqual(
+        formatter.parenthesize(['foo', 'bar', 'baz', 'qux']),
+        ['(foo)', '(bar)', '(baz)', '(qux)'],
+        'Parenthesizes a string of all elements of an array.'
+    );
+
+    deepEqual(
+        formatter.parenthesize(['foo', 'bar', 'baz', 'qux'], [0, 2]),
+        ['(foo)', 'bar', '(baz)', 'qux'],
+        'Parenthesizes a string of specified elements of an array.'
+    );
+
+    deepEqual(
+        formatter.integerize('168'),
+        168,
+        'Integerizes an integer-like string.'
+    );
+
+    deepEqual(
+        formatter.integerize(['168', '58', '19', '8', '401']),
+        [168, 58, 19, 8, 401],
+        'Integerizes an integer-like string of all elements of an array.'
+    );
+
+    deepEqual(
+        formatter.integerize(['168', '58', '19', '8', '401'], [0, 2]),
+        [168, '58', 19, '8', '401'],
+        'Integerizes an integer-like string of specified elements of an array.'
+    );
+
+    deepEqual(
+        formatter.commify(1750), // Long tons, displacement of Fubuki
+        '1,750',
+        'Commifies a number.'
+    );
+
+    deepEqual(
+        formatter.commify(16858198.401),
+        '16,858,198.401',
+        'Commifies (the integer part of) a number.'
+    );
+
+    deepEqual(
+        formatter.commify('Nanodesu!'),
+        'Nanodesu!',
+        'Does not commify a string.'
+    );
+
+    deepEqual(
+        formatter.commify([4000, 2000, 5000, 5200, 20]), // A recipe for Taihou
+        ['4,000', '2,000', '5,000', '5,200', '20'],
+        'Commifies a number of all elements of an array.'
+    );
+
+    deepEqual(
+        formatter.commify([4000, 2000, 5000, 5200, 20], [0, 2]),
+        ['4,000', 2000, '5,000', 5200, 20],
+        'Commifies a number of specified elements of an array.'
+    );
+
+    // TODO: Even more tests: #dialogue
+});
+
+
 /*
 // ================================================================
 module('Exceptions');
@@ -258,119 +371,6 @@ test('kclv.Stream', function() {
 
 
 // ================================================================
-module('Formatter');
-// ================================================================
-
-test('kclv.Formatter', function() {
-    var formatter = new kclv.Formatter();
-
-    deepEqual(
-        formatter.quote('foo'),
-        '"foo"',
-        'Quotes a string.'
-    );
-
-    deepEqual(
-        formatter.quote(['foo', 'bar', 'baz', 'qux']),
-        ['"foo"', '"bar"', '"baz"', '"qux"'],
-        'Quotes a string of all elements of an array.'
-    );
-
-    deepEqual(
-        formatter.quote(['foo', 'bar', 'baz', 'qux'], [0, 2]),
-        ['"foo"', 'bar', '"baz"', 'qux'],
-        'Quotes a string of specified elements of an array.'
-    );
-
-    deepEqual(
-        formatter.unquote('"foo"'),
-        'foo',
-        'Unquotes a string.'
-    );
-
-    deepEqual(
-        formatter.unquote(['"foo"', '"bar"', '"baz"', '"qux"']),
-        ['foo', 'bar', 'baz', 'qux'],
-        'Unquotes a string of all elements of an array.'
-    );
-
-    deepEqual(
-        formatter.unquote(['"foo"', '"bar"', '"baz"', '"qux"'], [0, 2]),
-        ['foo', '"bar"', 'baz', '"qux"'],
-        'Unquotes a string of specified elements of an array.'
-    );
-
-    deepEqual(
-        formatter.parenthesize('foo'),
-        '(foo)',
-        'Parenthesizes a string.'
-    );
-
-    deepEqual(
-        formatter.parenthesize(['foo', 'bar', 'baz', 'qux']),
-        ['(foo)', '(bar)', '(baz)', '(qux)'],
-        'Parenthesizes a string of all elements of an array.'
-    );
-
-    deepEqual(
-        formatter.parenthesize(['foo', 'bar', 'baz', 'qux'], [0, 2]),
-        ['(foo)', 'bar', '(baz)', 'qux'],
-        'Parenthesizes a string of specified elements of an array.'
-    );
-
-    deepEqual(
-        formatter.integerize('168'),
-        168,
-        'Integerizes an integer-like string.'
-    );
-
-    deepEqual(
-        formatter.integerize(['168', '58', '19', '8', '401']),
-        [168, 58, 19, 8, 401],
-        'Integerizes an integer-like string of all elements of an array.'
-    );
-
-    deepEqual(
-        formatter.integerize(['168', '58', '19', '8', '401'], [0, 2]),
-        [168, '58', 19, '8', '401'],
-        'Integerizes an integer-like string of specified elements of an array.'
-    );
-
-    deepEqual(
-        formatter.commify(1750), // Long tons, displacement of Fubuki
-        '1,750',
-        'Commifies a number.'
-    );
-
-    deepEqual(
-        formatter.commify(16858198.401),
-        '16,858,198.401',
-        'Commifies (the integer part of) a number.'
-    );
-
-    deepEqual(
-        formatter.commify('Nanodesu!'),
-        'Nanodesu!',
-        'Does not commify a string.'
-    );
-
-    deepEqual(
-        formatter.commify([4000, 2000, 5000, 5200, 20]), // A recipe for Taihou
-        ['4,000', '2,000', '5,000', '5,200', '20'],
-        'Commifies a number of all elements of an array.'
-    );
-
-    deepEqual(
-        formatter.commify([4000, 2000, 5000, 5200, 20], [0, 2]),
-        ['4,000', 2000, '5,000', 5200, 20],
-        'Commifies a number of specified elements of an array.'
-    );
-
-    // TODO: Even more tests: #dialogue
-});
-
-
-// ================================================================
 module('Date');
 // ================================================================
 
@@ -484,7 +484,7 @@ test('kclv.Game.Materials', function() {
         'Calculates a ceiling of consumables: Always 0.'
     );
 
-    // TODO: Even more tests: #dialogueException
+    // TODO: Even more tests.
 });
 
 
@@ -752,34 +752,6 @@ test('kclv.Tokenizer.KCRDB.Materials', function() {
 
 
 // ================================================================
-module('Relations');
-// ================================================================
-
-/*
-test('kclv.Relation.Base', function() {
-    // TODO: Even more tests.
-});
-*/
-
-/*
-test('kclv.RelationFactory', function() {
-    // TODO: Even more tests.
-});
-*/
-
-/*
-test('kclv.Relation.Materials', function() {
-    // TODO: Even more tests.
-});
-*/
-
-/*
-test('kclv.Relation.Ships', function() {
-    // TODO: Even more tests.
-});
-*/
-
-// ================================================================
 module('Selectors');
 // ================================================================
 
@@ -886,6 +858,7 @@ test('kclv.Selector.Period', function() {
     // TODO: Even more tests.
 });
 
+
 // ================================================================
 module('Projectors');
 // ================================================================
@@ -961,6 +934,35 @@ test('kclv.Projector.Materials.Low', function() {
 
 
 // ================================================================
+module('Relations');
+// ================================================================
+
+/*
+test('kclv.Relation.Base', function() {
+    // TODO: Even more tests.
+});
+*/
+
+/*
+test('kclv.RelationFactory', function() {
+    // TODO: Even more tests.
+});
+*/
+
+/*
+test('kclv.Relation.Materials', function() {
+    // TODO: Even more tests.
+});
+*/
+
+/*
+test('kclv.Relation.Ships', function() {
+    // TODO: Even more tests.
+});
+*/
+
+
+// ================================================================
 module('Tables');
 // ================================================================
 
@@ -983,25 +985,31 @@ test('kclv.Table.Materials.Base', function() {
 */
 
 /*
-test('kclv.Table.Materials.Resources', function() {
+test('kclv.Table.Materials.Candlestick', function() {
     // TODO: Even more tests.
 });
 */
 
 /*
-test('kclv.Table.Materials.Consumables', function() {
+test('kclv.Table.Materials.Line', function() {
     // TODO: Even more tests.
 });
 */
 
 /*
-test('kclv.Table.Materials.CandleStick', function() {
+test('kclv.Table.Ships.Base', function() {
     // TODO: Even more tests.
 });
 */
 
 /*
-test('kclv.Table.Ships', function() {
+test('kclv.Table.Ships.Histogram', function() {
+    // TODO: Even more tests.
+});
+*/
+
+/*
+test('kclv.Table.Ships.Scatter', function() {
     // TODO: Even more tests.
 });
 */
@@ -1024,6 +1032,18 @@ test('kclv.Chart.Base', function() {
 */
 
 /*
+test('kclv.Chart.Annotation', function() {
+    // TODO: Even more tests.
+});
+*/
+
+/*
+test('kclv.Chart.Bar', function() {
+    // TODO: Even more tests.
+});
+*/
+
+/*
 test('kclv.Chart.Bubble', function() {
     // TODO: Even more tests.
 });
@@ -1036,7 +1056,31 @@ test('kclv.Chart.CandleStick', function() {
 */
 
 /*
-test('kclv.Chart.Histgram', function() {
+test('kclv.Chart.Calendar', function() {
+    // TODO: Even more tests.
+});
+*/
+
+/*
+test('kclv.Chart.Column', function() {
+    // TODO: Even more tests.
+});
+*/
+
+/*
+test('kclv.Chart.Diff', function() {
+    // TODO: Even more tests.
+});
+*/
+
+/*
+test('kclv.Chart.Histogram', function() {
+    // TODO: Even more tests.
+});
+*/
+
+/*
+test('kclv.Chart.Interval', function() {
     // TODO: Even more tests.
 });
 */
@@ -1048,7 +1092,43 @@ test('kclv.Chart.Line', function() {
 */
 
 /*
+test('kclv.Chart.Pie', function() {
+    // TODO: Even more tests.
+});
+*/
+
+/*
+test('kclv.Chart.Sankey', function() {
+    // TODO: Even more tests.
+});
+*/
+
+/*
 test('kclv.Chart.Scatter', function() {
+    // TODO: Even more tests.
+});
+*/
+
+/*
+test('kclv.Chart.SteppedArea', function() {
+    // TODO: Even more tests.
+});
+*/
+
+/*
+test('kclv.Chart.Timeline', function() {
+    // TODO: Even more tests.
+});
+*/
+
+/*
+test('kclv.Chart.TreeMap', function() {
+    // TODO: Even more tests.
+});
+*/
+
+/*
+test('kclv.Chart.Trendline', function() {
     // TODO: Even more tests.
 });
 */
