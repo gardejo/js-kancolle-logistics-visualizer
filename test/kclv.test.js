@@ -1432,14 +1432,73 @@ test('kclv.Relation.Materials', function() {
     // TODO: Even more tests.
 });
 
-/*
-test('kclv.RelationFactory', function() {
+test('kclv.Relation.Ships', function() {
+    var array = [
+            [ 1, '電改',       'DD',   99, 1000000 ],
+            [ 2, '千歳航改二', 'CVL', 150, 4360000 ],
+            [ 3, '長門',       'BB',    1,       0 ]
+        ],
+        relation = new kclv.Relation.Ships(),
+        cloned = null;
+
+    deepEqual(
+        new kclv.Relation.Ships().insert(array).
+            maximum('Levels'),
+        150,
+        'Gets the maximum value of Levels.'
+    );
+
+    deepEqual(
+        new kclv.Relation.Ships().insert(array).
+            minimum('Levels'),
+        1,
+        'Gets the minimum value of Levels.'
+    );
+
+    deepEqual(
+        new kclv.Relation.Ships().insert(array).
+            maximum('Experiences'),
+        4360000,
+        'Gets the maximum value of Experiences.'
+    );
+
+    deepEqual(
+        new kclv.Relation.Ships().insert(array).
+            minimum('Experiences'),
+        0,
+        'Gets the minimum value of Experiences.'
+    );
+
+    deepEqual(
+        new kclv.Relation.Ships().insert(array).
+            sort( function(a, b) { return b[4] - a[4]; } ),
+        [
+            [ 2, '千歳航改二', 'CVL', 150, 4360000 ],
+            [ 1, '電改',       'DD',   99, 1000000 ],
+            [ 3, '長門',       'BB',    1,       0 ]
+        ],
+        'Sorts tuples by Experiences.'
+    );
+
+    deepEqual(
+        ( function() {
+            relation.insert(array);
+            relation.sort( function(a, b) { return b[4] - a[4]; } );
+            return relation.relation;
+        } )(),
+        [
+            [ 2, '千歳航改二', 'CVL', 150, 4360000 ],
+            [ 1, '電改',       'DD',   99, 1000000 ],
+            [ 3, '長門',       'BB',    1,       0 ]
+        ],
+        'Sorts tuples internally.'
+    );
+
     // TODO: Even more tests.
 });
-*/
 
 /*
-test('kclv.Relation.Ships', function() {
+test('kclv.RelationFactory', function() {
     // TODO: Even more tests.
 });
 */
