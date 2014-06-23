@@ -489,6 +489,30 @@ test('kclv.Date', function() {
         'Can stringify week number with zero padding.'
     );
 
+    deepEqual(
+        new kclv.Date('2010/01/04').toPeriod('Yearly'),
+        '2010',
+        'Can convert Date into a yearly period.'
+    );
+
+    deepEqual(
+        new kclv.Date('2010/01/04').toPeriod('Monthly'),
+        '2010/01',
+        'Can convert Date into a monthly period.'
+    );
+
+    deepEqual(
+        new kclv.Date('2010/01/04').toPeriod('Weekly'),
+        '2010-W01',
+        'Can convert Date into a weekly period.'
+    );
+
+    deepEqual(
+        new kclv.Date('2010/01/04 12:34:56').toPeriod('Daily'),
+        '2010/01/04',
+        'Can convert Date into a daily period.'
+    );
+
     // TODO: Even more tests.
 });
 
