@@ -1206,11 +1206,164 @@ test('kclv.Projector.Materials.Low', function() {
 module('Relations');
 // ================================================================
 
-/*
 test('kclv.Relation.Base', function() {
+    var array = [
+            ['SS',  'I-168',  111],
+            ['SSV', 'I-58',   222],
+            ['AS',  'Taigei', 333]
+        ]
+        relation = new kclv.Relation.Base().insert(
+            [['BB', 'Nagato', 444]]
+        );
+
+    deepEqual(
+        new kclv.Relation.Base().insert(array),
+        ( function() {
+            var expectation = new kclv.Relation.Base();
+            expectation.relation = array; // Note: It should be protected.
+            return expectation;
+        } )(),
+        'Inserts a two-dimensinal array.'
+    );
+
+    deepEqual(
+        new kclv.Relation.Base().insert(relation),
+        relation,
+        'Inserts an other relation.'
+    );
+
+    throws(
+        function() { new kclv.Relation.Base().insert(new Date()); },
+        'Throws an exception when an invalid object was inserted.'
+    );
+
+    deepEqual(
+        new kclv.Relation.Base().insert(array).select([0, 2]).relation,
+        [
+            ['SS', 'I-168',  111],
+            ['AS', 'Taigei', 333]
+        ],
+        'Selects tuples.'
+    );
+
+    throws(
+        function() { new kclv.Relation.Base().select(new Date()); },
+        'Throws an exception ' +
+            'when an invalid object was specified in selection.'
+    );
+
+    deepEqual(
+        new kclv.Relation.Base().insert(array).project([0, 1]).relation,
+        [
+            ['SS',  'I-168' ],
+            ['SSV', 'I-58'  ],
+            ['AS',  'Taigei']
+        ],
+        'Projects attributes.'
+    );
+
+    throws(
+        function() { new kclv.Relation.Base().project(new Date()); },
+        'Throws an exception ' +
+            'when an invalid object was specified in projection.'
+    );
+
+    throws(
+        function() {
+            new kclv.Relation.Base().insert([ [168], [58], [8], [19], [401] ]).
+                maximum()
+        },
+        'Throws an exception ' +
+            'when maximum method was called without a parameter.'
+    );
+
+    throws(
+        function() {
+            new kclv.Relation.Base().insert([ [168], [58], [8], [19], [401] ]).
+                maximum('foo')
+        },
+        'Throws an exception ' +
+            'when maximum method was called with a string parameter.'
+    );
+
+    deepEqual(
+        new kclv.Relation.Base().insert([ [168], [58], [8], [19], [401] ]).
+            maximum([0]),
+        401,
+        'Gets the maximum value.'
+    );
+
+    throws(
+        function() {
+            new kclv.Relation.Base().insert([ [168], [58], [8], [19], [401] ]).
+                minimum()
+        },
+        'Throws an exception ' +
+            'when minimum method was called without a parameter.'
+    );
+
+    throws(
+        function() {
+            new kclv.Relation.Base().insert([ [168], [58], [8], [19], [401] ]).
+                minimum('foo')
+        },
+        'Throws an exception ' +
+            'when minimum method was called with a string parameter.'
+    );
+
+    deepEqual(
+        new kclv.Relation.Base().insert([ [168], [58], [8], [19], [401] ]).
+            minimum([0]),
+        8,
+        'Gets the minimum value.'
+    );
+
+    deepEqual(
+        new kclv.Relation.Base().insert([ [1], [2], [3] ]).count(),
+        3,
+        'Counts an amout of tuples.'
+    );
+
+    deepEqual(
+        new kclv.Relation.Base().insert([ [168], [58], [8], [19], [401] ]).
+            sort( function(a, b) { return b[0] - a[0]; } ),
+        [ [401], [168], [58], [19], [8] ],
+        'Sorts the tuples descendingly.'
+    );
+
+    deepEqual(
+        new kclv.Relation.Base().insert([ [168], [58], [8], [19], [401] ]).
+            sort( function(a, b) { return a[0] - b[0]; } ),
+        [ [8], [19], [58], [168], [401] ],
+        'Sorts the tuples ascendingly.'
+    );
+
+    deepEqual(
+        new kclv.Relation.Base().insert([ [1], [2], [3] ]).
+            map( function( element, index, array ) {
+                return element * 2;
+            } ),
+        [ 2, 4, 6 ],
+        'Creates a new relation with the results of doubled numbers.'
+    );
+
+    deepEqual(
+        new kclv.Relation.Base().insert([ [1], [2], [3] ]).
+            reduce( function(previous, current, index, array) {
+                return previous + current[0];
+            }, 100 ),
+        106,
+        'Applies a reducer function.'
+    );
+
+    deepEqual(
+        new kclv.Relation.Base().insert([ [1], [2], [3] ]).clone(),
+        new kclv.Relation.Base().insert([ [1], [2], [3] ]),
+        'Clones itself.'
+    );
+
     // TODO: Even more tests.
 });
-*/
 
 /*
 test('kclv.RelationFactory', function() {
