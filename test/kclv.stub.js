@@ -20,8 +20,6 @@ kclv.Stub = {};
 // ================================================================
 
 kclv.Stub.Stream = function() {
-    this.Charset = 'UTF-8';
-
     this.READYSTATE = {
         UNSENT : 0,
         OPENED : 1,
@@ -42,8 +40,13 @@ kclv.Stub.Stream = function() {
     return;
 };
 
-kclv.Stub.Stream.prototype.Open = function() {
+kclv.Stub.Stream.prototype.Open = function(opt_characterSet) {
     this.stream_ = new XMLHttpRequest();
+    if (opt_characterSet) {
+        this.stream_.overrideMimeType(
+            'text/plain; charset=' + opt_characterSet
+        );
+    }
 
     return;
 };
@@ -122,7 +125,7 @@ kclv.Stub.FileSystemObject.prototype.constructor =
     kclv.Stub.Stream;
 
 kclv.Stub.FileSystemObject.prototype.OpenTextFile = function(path, mode) {
-    kclv.Stub.Stream.prototype.Open.call(this);
+    kclv.Stub.Stream.prototype.Open.call(this, 'Shift-JIS');
     kclv.Stub.Stream.prototype.LoadFromFile.call(this, path);
 
     return this; // As a file handle object.

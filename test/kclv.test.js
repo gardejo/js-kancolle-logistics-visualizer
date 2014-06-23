@@ -738,26 +738,43 @@ test('kclv.Agent.Logbook : Materials', function() {
     // TODO: Even more tests.
 });
 
-expectation.Relation.Ships = {
-};
+expectation.Relation.Ships = [
+    [ 1, '電改',       'DD',   99, 1000000 ],
+    [ 2, '千歳航改二', 'CVL', 150, 4360000 ],
+    [ 3, '長門',       'BB',    1,       0 ]
+];
 
 test('kclv.Agent.KCRDB : Ships', function() {
-    var agent = new kclv.Agent.KCRDB;
+    var agent = new kclv.Agent.KCRDB,
+        configuration = { agent: { KCRDB: { path: {
+            Ships : './KCRDB.Ships.csv'
+        } } } };
 
-    ok(
-        true,
-        'TODO'
+    kclv.Configuration.load(configuration);
+    deepEqual(
+        agent.buildRelation('Ships'),
+        new kclv.Relation.Ships().insert(
+            expectation.Relation.Ships
+        ),
+        'Builds a relation.'
     );
 
     // TODO: Even more tests.
 });
 
 test('kclv.Agent.Logbook : Ships', function() {
-    var agent = new kclv.Agent.Logbook;
+    var agent = new kclv.Agent.Logbook,
+        configuration = { agent: { Logbook: { path: {
+            Ships : './Logbook.Ships.csv'
+        } } } };
 
-    ok(
-        true,
-        'TODO'
+    kclv.Configuration.load(configuration);
+    deepEqual(
+        agent.buildRelation('Ships'),
+        new kclv.Relation.Ships().insert(
+            expectation.Relation.Ships
+        ),
+        'Builds a relation.'
     );
 
     // TODO: Even more tests.
