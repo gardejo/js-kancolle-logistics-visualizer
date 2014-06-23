@@ -266,6 +266,44 @@ test('kclv.Array', function() {
         'Gets all indices as an emtpy array if spceficied array is empty.'
     );
 
+    deepEqual(
+        kclv.Array.maximum([ [168], [58], [19], [8], [401] ], [0]),
+        401,
+        'Gets the maximum value of the spceficied two-dimensional array.'
+    );
+
+    deepEqual(
+        kclv.Array.maximum([
+            [ 'I-168', 168 ],
+            [ 'I-58',   58 ],
+            [ 'I-19',   19 ],
+            [ 'I-8',     8 ],
+            [ 'I-402', 401 ]
+        ], [1]),
+        401,
+        'Gets the maximum value (in the specified indices) ' +
+            'of the spceficied two-dimensional array.'
+    );
+
+    deepEqual(
+        kclv.Array.minimum([ [168], [58], [19], [8], [401] ], [0]),
+        8,
+        'Gets the minimum value of the spceficied two-dimensional array.'
+    );
+
+    deepEqual(
+        kclv.Array.minimum([
+            [ 'I-168', 168 ],
+            [ 'I-58',   58 ],
+            [ 'I-19',   19 ],
+            [ 'I-8',     8 ],
+            [ 'I-402', 401 ]
+        ], [1]),
+        8,
+        'Gets the minimum value (in the specified indices) ' +
+            'of the spceficied two-dimensional array.'
+    );
+
     // TODO: Even more tests.
 });
 
