@@ -1156,6 +1156,7 @@ test('kclv.SelectorLike', function() {
 
     throws(
         function() { selectorInterface.ensure(bar); },
+        navigator.userAgent.indexOf('MSIE') >= 0 ? Error : TypeError,
         'SelectorLike interface does not ensure bar object has #select method.'
     );
 
@@ -1271,6 +1272,7 @@ test('kclv.ProjectorLike', function() {
 
     throws(
         function() { projectorInterface.ensure(bar); },
+        navigator.userAgent.indexOf('MSIE') >= 0 ? Error : TypeError,
         'ProjectorLike interface does not ensure ' +
             'that bar object has #project method.'
     );
@@ -1360,6 +1362,7 @@ test('kclv.Relation.Base', function() {
 
     throws(
         function() { new kclv.Relation.Base().insert(new Date()); },
+        navigator.userAgent.indexOf('MSIE') >= 0 ? Error : TypeError,
         'Throws an exception when an invalid object was inserted.'
     );
 
@@ -1374,6 +1377,7 @@ test('kclv.Relation.Base', function() {
 
     throws(
         function() { new kclv.Relation.Base().select(new Date()); },
+        navigator.userAgent.indexOf('MSIE') >= 0 ? Error : TypeError,
         'Throws an exception ' +
             'when an invalid object was specified in selection.'
     );
@@ -1390,6 +1394,7 @@ test('kclv.Relation.Base', function() {
 
     throws(
         function() { new kclv.Relation.Base().project(new Date()); },
+        navigator.userAgent.indexOf('MSIE') >= 0 ? Error : TypeError,
         'Throws an exception ' +
             'when an invalid object was specified in projection.'
     );
@@ -1399,6 +1404,7 @@ test('kclv.Relation.Base', function() {
             new kclv.Relation.Base().insert([ [168], [58], [8], [19], [401] ]).
                 maximum();
         },
+        Error,
         'Throws an exception ' +
             'when maximum method was called without a parameter.'
     );
@@ -1408,6 +1414,7 @@ test('kclv.Relation.Base', function() {
             new kclv.Relation.Base().insert([ [168], [58], [8], [19], [401] ]).
                 maximum('foo');
         },
+        Error,
         'Throws an exception ' +
             'when maximum method was called with a string parameter.'
     );
@@ -1424,6 +1431,7 @@ test('kclv.Relation.Base', function() {
             new kclv.Relation.Base().insert([ [168], [58], [8], [19], [401] ]).
                 minimum();
         },
+        Error,
         'Throws an exception ' +
             'when minimum method was called without a parameter.'
     );
@@ -1433,6 +1441,7 @@ test('kclv.Relation.Base', function() {
             new kclv.Relation.Base().insert([ [168], [58], [8], [19], [401] ]).
                 minimum('foo');
         },
+        Error,
         'Throws an exception ' +
             'when minimum method was called with a string parameter.'
     );
