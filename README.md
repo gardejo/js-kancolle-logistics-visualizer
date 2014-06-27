@@ -27,7 +27,7 @@ You've got the right stuff! *KanColle Logistics Visualizer* treats materials log
 * *[KCRDB (KanColle Received Data Browser)](http://hetaregrammer.blog.fc2.com/)*
 * And more (due to expansion)
 
-... and draws various charts below:
+... and draws [various charts](https://github.com/gardejo/js-kancolle-logistics-visualizer/wiki#gallery) below:
 
 * Indicator of ship's skill
     * Scatter chart of experience points
@@ -146,7 +146,7 @@ All brand names and product names are trademarks or registered trademarks of the
 * *[KCRDB（艦これ Received Data Browser）](http://hetaregrammer.blog.fc2.com/)*
 * ……（他にも拡張予定）
 
-……が出力する資材履歴ログファイルや艦娘一覧ファイルを加工し、以下のような各種のグラフを描画します。
+……が出力する資材履歴ログファイルや艦娘一覧ファイルを加工し、以下のような[各種のグラフ](https://github.com/gardejo/js-kancolle-logistics-visualizer/wiki/Home-(ja)#%E3%82%AE%E3%83%A3%E3%83%A9%E3%83%AA%E3%83%BC)を描画します。
 
 * 艦娘の育成状況
     * 経験値の分布図
