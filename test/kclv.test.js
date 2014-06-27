@@ -1,13 +1,49 @@
 ﻿/**
  * @fileOverview Test Library on QUnit for KanColle Logistics Visualizer.
  *     Caveat: This file is encoded as UTF-8N (with BOM).
+ *     Note: IE8 converts an exception into a raw object.
  * @version 0.0.0
  * @author kclv@ermitejo.com (MORIYA Masaki, alias "Gardejo")
  * @license The MIT license (See LICENSE.txt)
  * @see ../lib/kclv.js
  */
 
-// Note: IE8 sucks, because it converts an exception into a raw object.
+
+// ================================================================
+// JSLint Directives
+// ================================================================
+
+/*jslint
+    nomen    : true,
+    plusplus : true,
+    regexp   : true,
+    todo     : true,
+    unparam  : true,
+    vars     : true,
+    white    : true
+*/
+
+/*global
+    ActiveXObject : false,
+    JSON          : false,
+    jsviews       : false
+*/
+
+
+// ================================================================
+// Script mode syntax (Whole-library)
+// ================================================================
+
+'use strict'; // No critic.
+
+
+// ================================================================
+// Namespace for Test Wrappers
+// ================================================================
+
+var kclv;
+
+kclv.Test = {};
 
 var expectation = {};
 
@@ -44,12 +80,12 @@ module('Factory');
 // ================================================================
 
 test('kclv.Factory', function() {
-    kclv.Foo = function() {}; // Object
+    kclv.Foo = function() { return; }; // Object
     kclv.Bar = {}; // Namespace
     kclv.Bar.Baz = function(qux) { this.qux_ = qux; }; // Object
 
     var foo = new kclv.Foo(),
-        baz = new kclv.Bar.Baz();
+        baz = new kclv.Bar.Baz(),
         qux = new kclv.Bar.Baz(42);
 
     /*
@@ -249,7 +285,7 @@ test('kclv.Array', function() {
     );
 
     throws(
-        function() { kclv.Array.values([1,2,3,4], [1,3,42]) },
+        function() { kclv.Array.values([1,2,3,4], [1,3,42]); },
         RangeError,
         'Throws RangeError because 42 is an invalid array index.'
     );
@@ -316,12 +352,15 @@ test('kclv.PseudoInterface', function() {
     kclv.SubmarineLike = function() { this.methodNames = ['dive']; };
     kclv.SubmarineLike.prototype = new kclv.PseudoInterface();
 
-    kclv.I58 =
-        function() { this.dive = function() { return 'Orel cruising dechi!' } };
-    kclv.Nagato =
-        function() { this.fire = function() { return 'Puka puka...' } };
-    kclv.Ju87CKai =
-        function() { this.dive = 'Stuka!' }; // Not a method but a property.
+    kclv.I58 = function() {
+        this.dive = function() { return 'Orel cruising dechi!'; };
+    };
+    kclv.Nagato = function() {
+        this.fire = function() { return 'Puka puka...'; };
+    };
+    kclv.Ju87CKai = function() {
+        this.dive = 'Stuka!';  // Not a method but a property.
+    };
 
     var submarineLike = new kclv.SubmarineLike(),
         i58 = new kclv.I58(),
@@ -340,7 +379,7 @@ test('kclv.PseudoInterface', function() {
     );
 
     throws(
-        function() { submarineLike.ensure(nagato) },
+        function() { submarineLike.ensure(nagato); },
         TypeError,
         'Throws TypeError if an object does not have some methods: ' +
             'BB Nagato is not like a submarine, but like a battleship.'
@@ -348,11 +387,12 @@ test('kclv.PseudoInterface', function() {
 
     ok(
         ! submarineLike.implemented(nagato),
-        'Cheks whether an object implements some methods: BB Nagato canot dive.'
+        'Cheks whether an object implements some methods: ' +
+            'BB Nagato canot dive.'
     );
 
     throws(
-        function() { submarineLike.ensure(ju87cKai) },
+        function() { submarineLike.ensure(ju87cKai); },
         TypeError,
         'Throws TypeError if an object does not have some methods: ' +
             'Ju87C-Kai is not like a submarine, but like a carrier-based ' +
@@ -406,7 +446,7 @@ test('kclv.Configuration', function() {
 
     kclv.Configuration.clear();
     throws(
-        function() { kclv.Configuration.get() },
+        function() { kclv.Configuration.get(); },
         Error,
         'Throws Error if configuration not to be loaded.'
     );
@@ -521,6 +561,10 @@ test('kclv.Date', function() {
 module('Game Rules');
 // ================================================================
 
+// ----------------------------------------------------------------
+// Materials
+// ----------------------------------------------------------------
+
 test('kclv.Game.Materials', function() {
     deepEqual(
         kclv.Game.Materials.getCeilingOf('Resources'),
@@ -567,6 +611,10 @@ test('kclv.Game.Materials', function() {
     // TODO: Even more tests.
 });
 
+// ----------------------------------------------------------------
+// Ships
+// ----------------------------------------------------------------
+
 test('kclv.Game.Ships', function() {
     deepEqual(
         kclv.Game.Ships.ABBREVIATION_FOR['駆逐艦'],
@@ -587,6 +635,10 @@ test('kclv.Game.Ships', function() {
 // ================================================================
 module('Agents');
 // ================================================================
+
+// ----------------------------------------------------------------
+// Materials
+// ----------------------------------------------------------------
 
 expectation.dates = [
     new Date('2013/04/23 00:00:00'),
@@ -612,8 +664,12 @@ expectation.Relation.Materials = {
     ]
 };
 
+// ----------------------------------------------------------------
+// Materials: KCRDB
+// ----------------------------------------------------------------
+
 test('kclv.Agent.KCRDB : Materials', function() {
-    var agent = new kclv.Agent.KCRDB,
+    var agent = new kclv.Agent.KCRDB(),
         configuration = { agent: { KCRDB: { path: {
             Materials : './KCRDB.Materials.log'
         } } } };
@@ -693,8 +749,12 @@ test('kclv.Agent.KCRDB : Materials', function() {
     // TODO: Even more tests.
 });
 
+// ----------------------------------------------------------------
+// Materials: Logbook
+// ----------------------------------------------------------------
+
 test('kclv.Agent.Logbook : Materials', function() {
-    var agent = new kclv.Agent.Logbook,
+    var agent = new kclv.Agent.Logbook(),
         configuration = { agent: { Logbook: { path: {
             Materials : './Logbook.Materials.log'
         } } } };
@@ -738,14 +798,22 @@ test('kclv.Agent.Logbook : Materials', function() {
     // TODO: Even more tests.
 });
 
+// ----------------------------------------------------------------
+// Ships
+// ----------------------------------------------------------------
+
 expectation.Relation.Ships = [
     [ 1, '電改',       'DD',   99, 1000000 ],
     [ 2, '千歳航改二', 'CVL', 150, 4360000 ],
     [ 3, '長門',       'BB',    1,       0 ]
 ];
 
+// ----------------------------------------------------------------
+// Ships: KCRDB
+// ----------------------------------------------------------------
+
 test('kclv.Agent.KCRDB : Ships', function() {
-    var agent = new kclv.Agent.KCRDB,
+    var agent = new kclv.Agent.KCRDB(),
         configuration = { agent: { KCRDB: { path: {
             Ships : './KCRDB.Ships.csv'
         } } } };
@@ -762,8 +830,12 @@ test('kclv.Agent.KCRDB : Ships', function() {
     // TODO: Even more tests.
 });
 
+// ----------------------------------------------------------------
+// Ships: Logbook
+// ----------------------------------------------------------------
+
 test('kclv.Agent.Logbook : Ships', function() {
-    var agent = new kclv.Agent.Logbook,
+    var agent = new kclv.Agent.Logbook(),
         configuration = { agent: { Logbook: { path: {
             Ships : './Logbook.Ships.csv'
         } } } };
@@ -784,6 +856,10 @@ test('kclv.Agent.Logbook : Ships', function() {
 // ================================================================
 module('Tokenizers');
 // ================================================================
+
+// ----------------------------------------------------------------
+// Base
+// ----------------------------------------------------------------
 
 test('kclv.Tokenizer.Base', function() {
     var string =
@@ -822,6 +898,10 @@ test('kclv.Tokenizer.Base', function() {
 
     // TODO: Even more tests.
 });
+
+// ----------------------------------------------------------------
+// Materials: KCRDB
+// ----------------------------------------------------------------
 
 test('kclv.Tokenizer.KCRDB.Materials', function() {
     var string =
@@ -864,6 +944,10 @@ test('kclv.Tokenizer.KCRDB.Materials', function() {
 
     // TODO: Even more tests.
 });
+
+// ----------------------------------------------------------------
+// Materials: Logbook
+// ----------------------------------------------------------------
 
 test('kclv.Tokenizer.Logbook.Materials', function() {
     var string =
@@ -908,6 +992,10 @@ test('kclv.Tokenizer.Logbook.Materials', function() {
     // TODO: Even more tests.
 });
 
+// ----------------------------------------------------------------
+// Ships: KCRDB
+// ----------------------------------------------------------------
+
 test('kclv.Tokenizer.KCRDB.Ships', function() {
     var string =
             '1,"電改",237,"駆逐艦",99,1000000,0,' +
@@ -934,7 +1022,7 @@ test('kclv.Tokenizer.KCRDB.Ships', function() {
             '3,"長門",80,"戦艦",1,0,100,' +
                 '80,80,100,100,130,130,49,17,17,0,0,0,58,14,14,0,59,4,' +
                 '"38cm連装砲","38cm連装砲","38cm連装砲","empty",' +
-                '3,3,3,3,144,0,34,89,24,0,12,20,30,"長門改",0,5',
+                '3,3,3,3,144,0,34,89,24,0,12,20,30,"長門改",0,5'
         ],
         twoDimensionalArray = [
             [ 1, '電改',       'DD',   99, 1000000 ],
@@ -964,6 +1052,10 @@ test('kclv.Tokenizer.KCRDB.Ships', function() {
 
     // TODO: Even more tests.
 });
+
+// ----------------------------------------------------------------
+// Ships: Logbook
+// ----------------------------------------------------------------
 
 test('kclv.Tokenizer.Logbook.Ships', function() {
     var string =
@@ -1025,21 +1117,25 @@ module('Selectors');
 // ================================================================
 
 test('kclv.SelectorLike', function() {
-    kclv.Selector.Foo = function() { this.select = function() {} };
-    kclv.Selector.Bar = function() {};
+    kclv.Selector.Foo = function() {
+        this.select = function() { return; };
+    };
+    kclv.Selector.Bar = function() {
+        return;
+    };
 
-    var interface = new kclv.SelectorLike(),
+    var selectorInterface = new kclv.SelectorLike(),
         foo = new kclv.Selector.Foo(),
         bar = new kclv.Selector.Bar();
 
-    interface.ensure(foo);
+    selectorInterface.ensure(foo);
     ok(
         true,
         'SelectorLike interface ensures foo object has #select method.'
     );
 
     throws(
-        function() { interface.ensure(bar) },
+        function() { selectorInterface.ensure(bar); },
         'SelectorLike interface does not ensure bar object has #select method.'
     );
 
@@ -1049,10 +1145,12 @@ test('kclv.SelectorLike', function() {
 test('kclv.Selector.Retrospection', function() {
     var now = new Date(),
         relation = [],
-        selector;
+        selector,
+        daysBefore,
+        someday;
 
-    for ( var daysBefore = 0; daysBefore <= 2; daysBefore++ ) {
-        var someday = new Date();
+    for ( daysBefore = 0; daysBefore <= 2; daysBefore++ ) {
+        someday = new Date();
         someday.setHours(23, 59, 59); // Note: Consider a time lag.
         someday.setDate( now.getDate() - daysBefore );
         relation.unshift([someday, daysBefore]);
@@ -1133,14 +1231,18 @@ module('Projectors');
 // ================================================================
 
 test('kclv.ProjectorLike', function() {
-    kclv.Projector.Foo = function() { this.project = function() {} };
-    kclv.Projector.Bar = function() {};
+    kclv.Projector.Foo = function() {
+        this.project = function() { return; };
+    };
+    kclv.Projector.Bar = function() {
+        return;
+    };
 
-    var interface = new kclv.ProjectorLike(),
+    var projectorInterface = new kclv.ProjectorLike(),
         foo = new kclv.Projector.Foo(),
         bar = new kclv.Projector.Bar();
 
-    interface.ensure(foo);
+    projectorInterface.ensure(foo);
     ok(
         true,
         'ProjectorLike interface ensures ' +
@@ -1148,7 +1250,7 @@ test('kclv.ProjectorLike', function() {
     );
 
     throws(
-        function() { interface.ensure(bar) },
+        function() { projectorInterface.ensure(bar); },
         'ProjectorLike interface does not ensure ' +
             'that bar object has #project method.'
     );
@@ -1206,12 +1308,16 @@ test('kclv.Projector.Materials.Low', function() {
 module('Relations');
 // ================================================================
 
+// ----------------------------------------------------------------
+// Base
+// ----------------------------------------------------------------
+
 test('kclv.Relation.Base', function() {
     var array = [
             ['SS',  'I-168',  111],
             ['SSV', 'I-58',   222],
             ['AS',  'Taigei', 333]
-        ]
+        ],
         relation = new kclv.Relation.Base().insert(
             [['BB', 'Nagato', 444]]
         );
@@ -1222,7 +1328,7 @@ test('kclv.Relation.Base', function() {
             var expectation = new kclv.Relation.Base();
             expectation.relation = array; // Note: It should be protected.
             return expectation;
-        } )(),
+        }() ),
         'Inserts a two-dimensinal array.'
     );
 
@@ -1271,7 +1377,7 @@ test('kclv.Relation.Base', function() {
     throws(
         function() {
             new kclv.Relation.Base().insert([ [168], [58], [8], [19], [401] ]).
-                maximum()
+                maximum();
         },
         'Throws an exception ' +
             'when maximum method was called without a parameter.'
@@ -1280,7 +1386,7 @@ test('kclv.Relation.Base', function() {
     throws(
         function() {
             new kclv.Relation.Base().insert([ [168], [58], [8], [19], [401] ]).
-                maximum('foo')
+                maximum('foo');
         },
         'Throws an exception ' +
             'when maximum method was called with a string parameter.'
@@ -1296,7 +1402,7 @@ test('kclv.Relation.Base', function() {
     throws(
         function() {
             new kclv.Relation.Base().insert([ [168], [58], [8], [19], [401] ]).
-                minimum()
+                minimum();
         },
         'Throws an exception ' +
             'when minimum method was called without a parameter.'
@@ -1305,7 +1411,7 @@ test('kclv.Relation.Base', function() {
     throws(
         function() {
             new kclv.Relation.Base().insert([ [168], [58], [8], [19], [401] ]).
-                minimum('foo')
+                minimum('foo');
         },
         'Throws an exception ' +
             'when minimum method was called with a string parameter.'
@@ -1364,6 +1470,10 @@ test('kclv.Relation.Base', function() {
 
     // TODO: Even more tests.
 });
+
+// ----------------------------------------------------------------
+// Materials
+// ----------------------------------------------------------------
 
 test('kclv.Relation.Materials', function() {
     var array = [
@@ -1432,14 +1542,17 @@ test('kclv.Relation.Materials', function() {
     // TODO: Even more tests.
 });
 
+// ----------------------------------------------------------------
+// Ships
+// ----------------------------------------------------------------
+
 test('kclv.Relation.Ships', function() {
     var array = [
             [ 1, '電改',       'DD',   99, 1000000 ],
             [ 2, '千歳航改二', 'CVL', 150, 4360000 ],
             [ 3, '長門',       'BB',    1,       0 ]
         ],
-        relation = new kclv.Relation.Ships(),
-        cloned = null;
+        relation = new kclv.Relation.Ships();
 
     deepEqual(
         new kclv.Relation.Ships().insert(array).
@@ -1485,7 +1598,7 @@ test('kclv.Relation.Ships', function() {
             relation.insert(array);
             relation.sort( function(a, b) { return b[4] - a[4]; } );
             return relation.relation;
-        } )(),
+        }() ),
         [
             [ 2, '千歳航改二', 'CVL', 150, 4360000 ],
             [ 1, '電改',       'DD',   99, 1000000 ],
@@ -1496,6 +1609,10 @@ test('kclv.Relation.Ships', function() {
 
     // TODO: Even more tests.
 });
+
+// ----------------------------------------------------------------
+// Factory
+// ----------------------------------------------------------------
 
 /*
 test('kclv.RelationFactory', function() {
@@ -1508,11 +1625,19 @@ test('kclv.RelationFactory', function() {
 module('Tables');
 // ================================================================
 
+// ----------------------------------------------------------------
+// Interface
+// ----------------------------------------------------------------
+
 /*
 test('kclv.TableLike', function() {
     // TODO: Even more tests.
 });
 */
+
+// ----------------------------------------------------------------
+// Materials: Candlestick
+// ----------------------------------------------------------------
 
 test('kclv.Table.Materials.Candlestick', function() {
     var relation = new kclv.Relation.Materials().insert([
@@ -1653,6 +1778,10 @@ test('kclv.Table.Materials.Candlestick', function() {
     // TODO: Even more tests.
 });
 
+// ----------------------------------------------------------------
+// Materials: Line
+// ----------------------------------------------------------------
+
 test('kclv.Table.Materials.Line', function() {
     var relation = new kclv.Relation.Materials().insert([
             [ new Date('2013/04/23'), 11, 12, 13, 14, 15, 16, 17 ],
@@ -1677,7 +1806,7 @@ test('kclv.Table.Materials.Line', function() {
     kclv.Configuration.load(configuration);
 
     throws(
-        function() { new kclv.Table.Materials.Line(relation, 'Fuel') },
+        function() { new kclv.Table.Materials.Line(relation, 'Fuel'); },
         kclv.Exception.InvalidMaterial,
         'Could not visualize Fuels.'
     );
@@ -1689,7 +1818,7 @@ test('kclv.Table.Materials.Line', function() {
     );
 
     throws(
-        function() { new kclv.Table.Materials.Line(relation, 'Repair') },
+        function() { new kclv.Table.Materials.Line(relation, 'Repair'); },
         kclv.Exception.InvalidMaterial,
         'Could not visualize Instant Repairs.'
     );
@@ -1752,7 +1881,7 @@ test('kclv.Table.Materials.Line', function() {
     deepEqual(
         new kclv.Table.Materials.Line(relation, 'Consumables').
             columns,
-        ['"d"', '"r"', '"c"', '"d"', ],
+        ['"d"', '"r"', '"c"', '"d"'],
         'Builds columns as a header of Consumables.'
     );
 
@@ -1783,7 +1912,7 @@ test('kclv.Table.Materials.Line', function() {
             [ '"' + new Date('2013/07/10').toLocaleString() + '"',
                 35, 36, 37 ],
             [ '"' + new Date('2013/07/17').toLocaleString() + '"',
-                45, 46, 47 ],
+                45, 46, 47 ]
         ],
         'Builds rows of Consumables.'
     );
