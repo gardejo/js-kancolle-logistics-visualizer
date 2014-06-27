@@ -1924,23 +1924,482 @@ test('kclv.Table.Materials.Line', function() {
     );
 });
 
-/*
-test('kclv.Table.Ships.Base', function() {
-    // TODO: Even more tests.
-});
-*/
+// ----------------------------------------------------------------
+// Ships
+// ----------------------------------------------------------------
 
-/*
+kclv.Test.Table.Ships = {};
+
+kclv.Test.Table.Ships.Base = function() {
+    this.relation = new kclv.Test.Relation.Ships();
+
+    this.configuration = {
+        locale : 'xx',
+        chart : { Ships : {} },
+        legend : { xx : {
+            Ships : {
+                title : 'S', Levels : 'lv', Experiences : 'xp',
+                classification : {
+                    AS:'AS',AR:'AR',CVB:'CVB',LHA:'LHA',AV:'AV',SSV:'SSV',
+                    SS:'SS',CV:'CV',BBV:'BBV',BB:'BB',BC:'BC',CVL:'CVL',
+                    CAV:'CAV',CA:'CA',CLT:'CLT',CL:'CL',DD:'DD'
+                },
+                abbreviation : {
+                    AS:'as',AR:'ar',CVB:'cvb',LHA:'lha',AV:'av',SSV:'ssv',
+                    SS:'ss',CV:'cv',BBV:'bbv',BB:'bb',BC:'bc',CVL:'cvl',
+                    CAV:'cav',CA:'ca',CLT:'clt',CL:'cl',DD:'dd'
+                }
+            }
+        } }
+    };
+
+    this.columns = {
+        classification : [
+            { id : 'AS',  label : 'AS',  type : 'number' }, //  0
+            { id : 'AR',  label : 'AR',  type : 'number' }, //  1
+            { id : 'CVB', label : 'CVB', type : 'number' }, //  2
+            { id : 'LHA', label : 'LHA', type : 'number' }, //  3
+            { id : 'AV',  label : 'AV',  type : 'number' }, //  4
+            { id : 'SSV', label : 'SSV', type : 'number' }, //  5
+            { id : 'SS',  label : 'SS',  type : 'number' }, //  6
+            { id : 'CV',  label : 'CV',  type : 'number' }, //  7
+            { id : 'BBV', label : 'BBV', type : 'number' }, //  8
+            { id : 'BB',  label : 'BB',  type : 'number' }, //  9
+            { id : 'CVL', label : 'CVL', type : 'number' }, // 10
+            { id : 'CAV', label : 'CAV', type : 'number' }, // 11
+            { id : 'CA',  label : 'CA',  type : 'number' }, // 12
+            { id : 'CLT', label : 'CLT', type : 'number' }, // 13
+            { id : 'CL',  label : 'CL',  type : 'number' }, // 14
+            { id : 'DD',  label : 'DD',  type : 'number' }  // 15
+        ],
+        abbreviation : [
+            { id : 'AS',  label : 'as',  type : 'number' }, //  0
+            { id : 'AR',  label : 'ar',  type : 'number' }, //  1
+            { id : 'CVB', label : 'cvb', type : 'number' }, //  2
+            { id : 'LHA', label : 'lha', type : 'number' }, //  3
+            { id : 'AV',  label : 'av',  type : 'number' }, //  4
+            { id : 'SSV', label : 'ssv', type : 'number' }, //  5
+            { id : 'SS',  label : 'ss',  type : 'number' }, //  6
+            { id : 'CV',  label : 'cv',  type : 'number' }, //  7
+            { id : 'BBV', label : 'bbv', type : 'number' }, //  8
+            { id : 'BB',  label : 'bb',  type : 'number' }, //  9
+            { id : 'CVL', label : 'cvl', type : 'number' }, // 10
+            { id : 'CAV', label : 'cav', type : 'number' }, // 11
+            { id : 'CA',  label : 'ca',  type : 'number' }, // 12
+            { id : 'CLT', label : 'clt', type : 'number' }, // 13
+            { id : 'CL',  label : 'cl',  type : 'number' }, // 14
+            { id : 'DD',  label : 'dd',  type : 'number' }  // 15
+        ]
+    };
+
+    return;
+};
+kclv.Test.Table.Ships.Base.prototype =
+    Object.create(kclv.Test.Table.Base.prototype);
+kclv.Test.Table.Ships.Base.prototype.constructor =
+    kclv.Test.Table.Base;
+
+kclv.Test.Table.Ships.Base.prototype.testThreshold = function(table) {
+    return this.relation.testThreshold(table, {
+        Levels      : [ 1, 150 ], // It is not 149! (rounded up)
+        Experiences : [ 0, 4359999 ]
+    });
+};
+
+// ----------------------------------------------------------------
+// Ships: Histogram
+// ----------------------------------------------------------------
+
+kclv.Test.Table.Ships.Histogram = function() {
+    kclv.Test.Table.Ships.Base.call(this);
+
+    return;
+};
+kclv.Test.Table.Ships.Histogram.prototype =
+    Object.create(kclv.Test.Table.Ships.Base.prototype);
+kclv.Test.Table.Ships.Histogram.prototype.constructor =
+    kclv.Test.Table.Ships.Base;
+
 test('kclv.Table.Ships.Histogram', function() {
-    // TODO: Even more tests.
-});
-*/
+    var test = new kclv.Test.Table.Ships.Histogram(),
+        configuration = test.configuration,
+        relation = new kclv.Relation.Ships().insert(test.relation.array),
+        table = null,
+        columns = test.columns;
 
-/*
-test('kclv.Table.Ships.Scatter', function() {
+    kclv.Configuration.load(configuration);
+
+    // Threshold
+
+    table = new kclv.Table.Ships.Histogram(relation, 'Levels');
+    test.testThreshold(table);
+
+    // Levels
+
+    test.test(
+        table,
+        'Levels',
+        null,
+        'S (lv)',
+        columns.classification,
+        [
+            { c : [
+                null, null, null, null, null, null, null, null, null, null,
+                null, null, null, null, null,
+                { v : 99, f : '電改 Lv.99' } // Col. 15
+            ] },
+            { c : [
+                null, null, null, null, null, null, null, null, null, null,
+                { v : 149, f : '千歳航改二 Lv.149' }, // Col. 10
+                null, null, null, null, null
+            ] },
+            { c : [
+                null, null, null, null, null, null, null, null, null, null,
+                { v : 100, f : '千代田航改二 Lv.100' }, // Col. 10
+                null, null, null, null, null
+            ] },
+            { c : [
+                null, null, null, null, null, null, null, null, null,
+                { v : 1, f : '長門 Lv.1' }, // Col. 9
+                null, null, null, null, null, null
+            ] }
+        ]
+    );
+
+    // abbreviate
+
+    configuration.chart.Ships.abbreviate = true;
+    kclv.Configuration.load(configuration);
+    table = new kclv.Table.Ships.Histogram(relation, 'Levels');
+    deepEqual(
+        table.columns,
+        columns.abbreviation,
+        'Has columns of abbreviations, ' + 
+            'which includes the first column for the order of arrival ' +
+            '(when the abbreviate configuration is true).'
+    );
+
+    configuration.chart.Ships.abbreviate = false;
+    kclv.Configuration.load(configuration);
+    table = new kclv.Table.Ships.Histogram(relation, 'Levels');
+    deepEqual(
+        table.columns,
+        columns.classification,
+        'Has columns of classifications, ' + 
+            'which includes the first column for the order of arrival ' +
+            '(when the abbreviate configuration is false).'
+    );
+
+    configuration.chart.Ships.abbreviate = null;
+    kclv.Configuration.load(configuration);
+    table = new kclv.Table.Ships.Histogram(relation, 'Levels');
+    deepEqual(
+        table.columns,
+        columns.classification,
+        'Has columns of classifications, ' + 
+            'which includes the first column for the order of arrival ' +
+            '(when the abbreviate configuration is null).'
+    );
+
+    // Experiences
+
+    table = new kclv.Table.Ships.Histogram(relation, 'Experiences');
+    test.test(
+        table,
+        'Experiences',
+        null,
+        'S (xp)',
+        columns.classification,
+        [
+            { c : [
+                null, null, null, null, null, null, null, null, null, null,
+                null, null, null, null, null,
+                { v : 1000000, f : '電改 Lv.99 (1,000,000)' } // Col. 15
+            ] },
+            { c : [
+                null, null, null, null, null, null, null, null, null, null,
+                { v : 4359999, f : '千歳航改二 Lv.149 (4,359,999)' },
+                    // Col. 10
+                null, null, null, null, null
+            ] },
+            { c : [
+                null, null, null, null, null, null, null, null, null, null,
+                { v : 1000000, f : '千代田航改二 Lv.100 (1,000,000)' },
+                    // Col. 10
+                null, null, null, null, null
+            ] },
+            { c : [
+                null, null, null, null, null, null, null, null, null,
+                { v : 0, f : '長門 Lv.1 (0)' }, // Col. 9
+                null, null, null, null, null, null
+            ] }
+        ]
+    );
+
     // TODO: Even more tests.
 });
-*/
+
+// ----------------------------------------------------------------
+// Ships: Scatter
+// ----------------------------------------------------------------
+
+kclv.Test.Table.Ships.Scatter = function() {
+    kclv.Test.Table.Ships.Base.call(this);
+
+    this.columns = {
+        classification : this.columns.classification.slice(), // Cloned
+        abbreviation   : this.columns.abbreviation.slice()    // Cloned
+    };
+    this.columns.classification.unshift({});
+    this.columns.abbreviation.unshift({});
+
+    return;
+};
+kclv.Test.Table.Ships.Scatter.prototype =
+    Object.create(kclv.Test.Table.Ships.Base.prototype);
+kclv.Test.Table.Ships.Scatter.prototype.constructor =
+    kclv.Test.Table.Ships.Base;
+
+kclv.Test.Table.Ships.Scatter.prototype.test = function(
+    table, kind, option, title, columns, rows
+) {
+    kclv.Test.Table.Ships.Base.prototype.test.call(
+        this, table, kind, option, title, columns, rows
+    );
+
+    deepEqual(
+        table.relation.relation,
+        this.relation.array,
+        'Sorting has no side effects for relations.'
+    );
+
+    return;
+};
+
+test('kclv.Table.Ships.Scatter', function() {
+    var test = new kclv.Test.Table.Ships.Scatter(),
+        configuration = test.configuration,
+        relation = new kclv.Relation.Ships().insert(test.relation.array),
+        table = null,
+        columns = test.columns;
+
+    kclv.Configuration.load(configuration);
+
+    throws(
+        function() { new kclv.Table.Ships.Scatter(relation); },
+        Error,
+        'Could not visualize undefined skill.'
+    );
+
+    // Threshold
+
+    table = new kclv.Table.Ships.Scatter(relation, ['Levels', 'Arrival']);
+    test.testThreshold(table);
+
+    // Levels, Arrival
+
+    columns.classification[0] =
+        { id : 'Order', label : 'Order of arrival', type : 'number' };
+    test.test(
+        table,
+        'Levels',
+        'Arrival',
+        'S (lv)',
+        columns.classification,
+        [
+            { c : [
+                { v : 1, f : '#1:1' }, // Col. 0
+                null, null, null, null, null, null, null, null, null, null,
+                null, null, null, null, null,
+                { v : 99, f : '電改 Lv.99' } // Col. 16
+            ] },
+            { c : [
+                { v : 2, f : '#2:12' }, // Col. 0
+                null, null, null, null, null, null, null, null, null, null,
+                { v : 149, f : '千歳航改二 Lv.149' }, // Col. 11
+                null, null, null, null, null
+            ] },
+            { c : [
+                { v : 3, f : '#3:13' }, // Col. 0
+                null, null, null, null, null, null, null, null, null, null,
+                { v : 100, f : '千代田航改二 Lv.100' }, // Col. 11
+                null, null, null, null, null
+            ] },
+            { c : [
+                { v : 4, f : '#4:24' }, // Col. 0
+                null, null, null, null, null, null, null, null, null,
+                { v : 1, f : '長門 Lv.1' }, // Col. 10
+                null, null, null, null, null, null
+            ] }
+        ]
+    );
+
+    // abbreviate
+
+    configuration.chart.Ships.abbreviate = true;
+    kclv.Configuration.load(configuration);
+    table = new kclv.Table.Ships.Scatter(relation, ['Levels', 'Arrival']);
+    columns.abbreviation[0] =
+        { id : 'Order', label : 'Order of arrival', type : 'number' };
+    deepEqual(
+        table.columns,
+        columns.abbreviation,
+        'Has columns of abbreviations, ' + 
+            'which includes the first column for the order of arrival ' +
+            '(when the abbreviate configuration is true).'
+    );
+
+    configuration.chart.Ships.abbreviate = false;
+    kclv.Configuration.load(configuration);
+    table = new kclv.Table.Ships.Scatter(relation, ['Levels', 'Arrival']);
+    columns.classification[0] =
+        { id : 'Order', label : 'Order of arrival', type : 'number' };
+    deepEqual(
+        table.columns,
+        columns.classification,
+        'Has columns of classifications, ' + 
+            'which includes the first column for the order of arrival ' +
+            '(when the abbreviate configuration is false).'
+    );
+
+    configuration.chart.Ships.abbreviate = null;
+    kclv.Configuration.load(configuration);
+    table = new kclv.Table.Ships.Scatter(relation, ['Levels', 'Arrival']);
+    columns.classification[0] =
+        { id : 'Order', label : 'Order of arrival', type : 'number' };
+    deepEqual(
+        table.columns,
+        columns.classification,
+        'Has columns of classifications, ' + 
+            'which includes the first column for the order of arrival ' +
+            '(when the abbreviate configuration is null).'
+    );
+
+    // Levels, Experiences
+
+    table = new kclv.Table.Ships.Scatter(relation, ['Levels', 'Experiences']);
+    columns.classification[0] =
+        { id : 'Order', label : 'Order of experiences', type : 'number' };
+    test.test(
+        table,
+        'Levels',
+        'Experiences',
+        'S (lv)',
+        columns.classification,
+        [
+            { c : [
+                { v : 1, f : '#1:12' }, // 0
+                null, null, null, null, null, null, null, null, null, null,
+                { v : 149, f : '千歳航改二 Lv.149' }, // 11
+                null, null, null, null, null
+            ] },
+            { c : [
+                { v : 2, f : '#2:13' }, // 0
+                null, null, null, null, null, null, null, null, null, null,
+                { v : 100, f : '千代田航改二 Lv.100' }, // 11
+                null, null, null, null, null
+            ] },
+            { c : [
+                { v : 3, f : '#3:1' }, // 0
+                null, null, null, null, null, null, null, null, null, null,
+                null, null, null, null, null,
+                { v : 99, f : '電改 Lv.99' } // 16
+            ] },
+            { c : [
+                { v : 4, f : '#4:24' }, // 0
+                null, null, null, null, null, null, null, null, null,
+                { v : 1, f : '長門 Lv.1' }, // 10
+                null, null, null, null, null, null
+            ] }
+        ]
+    );
+
+    // Experiences, Arrival
+
+    table = new kclv.Table.Ships.Scatter(relation, ['Experiences', 'Arrival']);
+    columns.classification[0] =
+        { id : 'Order', label : 'Order of arrival', type : 'number' };
+    test.test(
+        table,
+        'Experiences',
+        'Arrival',
+        'S (xp)',
+        columns.classification,
+        [
+            { c : [
+                { v : 1, f : '#1:1' }, // Col. 0
+                null, null, null, null, null, null, null, null, null, null,
+                null, null, null, null, null,
+                { v : 1000000, f : '電改 Lv.99 (1,000,000)' } // Col. 16
+            ] },
+            { c : [
+                { v : 2, f : '#2:12' }, // Col. 0
+                null, null, null, null, null, null, null, null, null, null,
+                { v : 4359999, f : '千歳航改二 Lv.149 (4,359,999)' },
+                    // Col. 11
+                null, null, null, null, null
+            ] },
+            { c : [
+                { v : 3, f : '#3:13' }, // Col. 0
+                null, null, null, null, null, null, null, null, null, null,
+                { v : 1000000, f : '千代田航改二 Lv.100 (1,000,000)' },
+                    // Col. 11
+                null, null, null, null, null
+            ] },
+            { c : [
+                { v : 4, f : '#4:24' }, // Col. 0
+                null, null, null, null, null, null, null, null, null,
+                { v : 0, f : '長門 Lv.1 (0)' }, // Col. 10
+                null, null, null, null, null, null
+            ] }
+        ]
+    );
+
+    // Experiences, Experiences
+
+    table = new kclv.Table.Ships.Scatter(
+        relation, ['Experiences', 'Experiences']
+    );
+    columns.classification[0] =
+        { id : 'Order', label : 'Order of experiences', type : 'number' };
+    test.test(
+        table,
+        'Experiences',
+        'Experiences',
+        'S (xp)',
+        columns.classification,
+        [
+            { c : [
+                { v : 1, f : '#1:12' }, // Col. 0
+                null, null, null, null, null, null, null, null, null, null,
+                { v : 4359999, f : '千歳航改二 Lv.149 (4,359,999)' },
+                    // Col. 11
+                null, null, null, null, null
+            ] },
+            { c : [
+                { v : 2, f : '#2:13' }, // Col. 0
+                null, null, null, null, null, null, null, null, null, null,
+                { v : 1000000, f : '千代田航改二 Lv.100 (1,000,000)' },
+                    // Col. 11
+                null, null, null, null, null
+            ] },
+            { c : [
+                { v : 3, f : '#3:1' }, // Col. 0
+                null, null, null, null, null, null, null, null, null, null,
+                null, null, null, null, null,
+                { v : 1000000, f : '電改 Lv.99 (1,000,000)' } // Col. 16
+            ] },
+            { c : [
+                { v : 4, f : '#4:24' }, // Col. 0
+                null, null, null, null, null, null, null, null, null,
+                { v : 0, f : '長門 Lv.1 (0)' }, // Col. 10
+                null, null, null, null, null, null
+            ] }
+        ]
+    );
+
+    // TODO: Even more tests.
+});
 
 
 // ================================================================
