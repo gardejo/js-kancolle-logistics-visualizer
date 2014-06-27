@@ -1,12 +1,12 @@
 KanColle Logistics Visualizer
 =============================
 
-This file describes *KanColle Logistics Visualizer version 0.0.0 (Beta)* in brief.
+This file describes *KanColle Logistics Visualizer version 0.0.0 (Alpha)* in brief.
 
 * Please refer to *the [Wiki](https://github.com/gardejo/js-kancolle-logistics-visualizer/wiki) pages* for more details.
 * Note: Japanese follows English.
 
-この文書は *KanColle Logistics Visualizer（艦これ 兵站図示儀） 第0.0.0版（ベータ版）* について簡単に記したものです。
+この文書は *KanColle Logistics Visualizer（艦これ 兵站図示儀） 第0.0.0版（アルファ版）* について簡単に記したものです。
 
 * 詳細は[Wiki](https://github.com/gardejo/js-kancolle-logistics-visualizer/wiki/Home:ja)を参照してください。
 * 註: [日本語は英語の後に記載しています](#%E8%89%A6%E3%81%93%E3%82%8C-%E5%85%B5%E7%AB%99%E5%9B%B3%E7%A4%BA%E5%84%80)。
