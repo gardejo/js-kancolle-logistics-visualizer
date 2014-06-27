@@ -45,8 +45,6 @@ var kclv;
 
 kclv.Test = {};
 
-var expectation = {};
-
 
 // ================================================================
 module('Inscription');
@@ -444,6 +442,21 @@ test('kclv.Configuration', function() {
         'Walks its own tree and returns an object leaf.'
     );
 
+    throws(
+        function() { kclv.Configuration.get('qux'); },
+        navigator.userAgent.indexOf('MSIE') >= 0 ? Error : ReferenceError,
+        'Throws ReferenceError ' +
+            'if a strict configuration does not have the specified ' +
+            'property.'
+    );
+
+    deepEqual(
+        kclv.Configuration.get('qux', true),
+        undefined,
+        'Does not throw an exception ' +
+            'if a loose configuration does not have the specified property.'
+    );
+
     kclv.Configuration.clear();
     throws(
         function() { kclv.Configuration.get(); },
@@ -637,31 +650,96 @@ module('Agents');
 // ================================================================
 
 // ----------------------------------------------------------------
+// Base
+// ----------------------------------------------------------------
+
+kclv.Test.Agent = {};
+
+// ----------------------------------------------------------------
 // Materials
 // ----------------------------------------------------------------
 
-expectation.dates = [
-    new Date('2013/04/23 00:00:00'),
-    new Date('2013/07/10 00:00:00'),
-    new Date('2013/07/17 00:00:00')
-];
-expectation.Relation = {};
-expectation.Relation.Materials = {
-    High : [
-        [expectation.dates[0],116,126,136,146,156,166,176],
-        [expectation.dates[1],216,226,236,246,256,266,276],
-        [expectation.dates[2],316,326,336,346,356,366,376]
-    ],
-    Average : [
-        [expectation.dates[0],114,124,134,144,154,164,174],
-        [expectation.dates[1],214,224,234,244,254,264,274],
-        [expectation.dates[2],314,324,334,344,354,364,374]
-    ],
-    Low : [
-        [expectation.dates[0],111,121,131,141,151,161,171],
-        [expectation.dates[1],211,221,231,241,251,261,271],
-        [expectation.dates[2],311,321,331,341,351,361,371]
-    ]
+kclv.Test.Agent.Materials = function() {
+    this.dates = [
+        new Date('2013/04/23 00:00:00'),
+        new Date('2013/07/10 00:00:00'),
+        new Date('2013/07/17 00:00:00')
+    ];
+
+    this.materials = {
+        //   Date           Fue  Amm  Ste  Bau  Rep  Con  Dev
+        high : [
+            [this.dates[0], 116, 126, 136, 146, 156, 166, 176],
+            [this.dates[1], 216, 226, 236, 246, 256, 266, 276],
+            [this.dates[2], 316, 326, 336, 346, 356, 366, 376]
+        ],
+        average : [
+            [this.dates[0], 114, 124, 134, 144, 154, 164, 174],
+            [this.dates[1], 214, 224, 234, 244, 254, 264, 274],
+            [this.dates[2], 314, 324, 334, 344, 354, 364, 374]
+        ],
+        low : [
+            [this.dates[0], 111, 121, 131, 141, 151, 161, 171],
+            [this.dates[1], 211, 221, 231, 241, 251, 261, 271],
+            [this.dates[2], 311, 321, 331, 341, 351, 361, 371]
+        ]
+    };
+
+    return;
+};
+
+kclv.Test.Agent.Materials.prototype.test = function(agent, configuration) {
+    configuration.relation = {};
+    kclv.Configuration.load(configuration);
+    deepEqual(
+        agent.buildRelation('Materials'),
+        new kclv.Relation.Materials().insert(this.materials.low),
+        'Builds a relation (undefined): default (low) values in whole period.'
+    );
+
+    configuration.relation = { values : null };
+    kclv.Configuration.load(configuration);
+    deepEqual(
+        agent.buildRelation('Materials'),
+        new kclv.Relation.Materials().insert(this.materials.low),
+        'Builds a relation (null): default (low) values in whole period.'
+    );
+
+    configuration.relation = { duration : 0 };
+    kclv.Configuration.load(configuration);
+    deepEqual(
+        agent.buildRelation('Materials'),
+        new kclv.Relation.Materials().insert([]),
+        'Builds a relation: default (low) values in an empty period.'
+    );
+
+    // TODO: { duration : 1 }
+    // It needs a stub for Date or to build Date dynamically.
+    // See tests for Selectors.
+
+    configuration.relation = {
+        inception : '2013/07/10 00:00:00', expiration : '2013/07/17 00:00:00'
+    };
+    kclv.Configuration.load(configuration);
+    deepEqual(
+        agent.buildRelation('Materials'),
+        new kclv.Relation.Materials().insert(this.materials.low.slice(1,3)),
+        'Builds a relation: default (low) values ' +
+            'from Kure & Sasebo till Maiduru.'
+    );
+
+    configuration.relation = {
+        inception : '2013/07/10 00:00:00', expiration : null
+    };
+    kclv.Configuration.load(configuration);
+    deepEqual(
+        agent.buildRelation('Materials'),
+        new kclv.Relation.Materials().insert(this.materials.low.slice(1,4)),
+        'Builds a relation: default (low) values ' +
+            'from Kure & Sasebo till now.'
+    );
+
+    return;
 };
 
 // ----------------------------------------------------------------
@@ -674,81 +752,36 @@ test('kclv.Agent.KCRDB : Materials', function() {
         return;
     }
 
-    var agent = new kclv.Agent.KCRDB(),
+    var test = new kclv.Test.Agent.Materials(),
+        agent = new kclv.Agent.KCRDB(),
         configuration = { agent: { KCRDB: { path: {
             Materials : './KCRDB.Materials.log'
         } } } };
 
-    configuration.relation = {
-        values: 'High', duration: null, inception: null, expiration: null
-    };
+    test.test(agent, configuration);
+
+    configuration.relation = { values : 'High' };
     kclv.Configuration.load(configuration);
     deepEqual(
         agent.buildRelation('Materials'),
-        new kclv.Relation.Materials().insert(
-            expectation.Relation.Materials.High
-        ),
-        'Builds a relation: high values in whole period.'
+        new kclv.Relation.Materials().insert(test.materials.high),
+        'Builds a relation (High): high values in whole period.'
     );
 
-    configuration.relation = {
-        values: 'Average', duration: null, inception: null, expiration: null
-    };
+    configuration.relation = { values : 'Average' };
     kclv.Configuration.load(configuration);
     deepEqual(
         agent.buildRelation('Materials'),
-        new kclv.Relation.Materials().insert(
-            expectation.Relation.Materials.Average
-        ),
-        'Builds a relation: average values in whole period.'
+        new kclv.Relation.Materials().insert(test.materials.average),
+        'Builds a relation (Average): average values in whole period.'
     );
 
-    configuration.relation = {
-        values: 'Low', duration: null, inception: null, expiration: null
-    };
+    configuration.relation = { values : 'Low' };
     kclv.Configuration.load(configuration);
     deepEqual(
         agent.buildRelation('Materials'),
-        new kclv.Relation.Materials().insert(
-            expectation.Relation.Materials.Low
-        ),
-        'Builds a relation: low values in whole period.'
-    );
-
-    configuration.relation = {
-        values: null, duration: null, inception: null, expiration: null
-    };
-    kclv.Configuration.load(configuration);
-    deepEqual(
-        agent.buildRelation('Materials'),
-        new kclv.Relation.Materials().insert(
-            expectation.Relation.Materials.Low
-        ),
-        'Builds a relation: default (low) values in whole period.'
-    );
-
-    configuration.relation = {
-        values: null, duration: 0, inception: null, expiration: null
-    };
-    kclv.Configuration.load(configuration);
-    deepEqual(
-        agent.buildRelation('Materials'),
-        new kclv.Relation.Materials().insert([]),
-        'Builds a relation: default (low) values in an empty period.'
-    );
-
-    configuration.relation = {
-        values: null, duration: null,
-        inception: '2013/07/10 00:00:00', expiration: '2013/07/17 00:00:00'
-    };
-    kclv.Configuration.load(configuration);
-    deepEqual(
-        agent.buildRelation('Materials'),
-        new kclv.Relation.Materials().insert(
-            expectation.Relation.Materials.Low.slice(1,3)
-        ),
-        'Builds a relation: default (low) values ' +
-            'from Kure & Sasebo till Maiduru.'
+        new kclv.Relation.Materials().insert(test.materials.low),
+        'Builds a relation (Low): low values in whole period.'
     );
 
     // TODO: Even more tests.
@@ -764,46 +797,13 @@ test('kclv.Agent.Logbook : Materials', function() {
         return;
     }
 
-    var agent = new kclv.Agent.Logbook(),
+    var test = new kclv.Test.Agent.Materials(),
+        agent = new kclv.Agent.Logbook(),
         configuration = { agent: { Logbook: { path: {
             Materials : './Logbook.Materials.log'
         } } } };
 
-    configuration.relation = {
-        duration: null, inception: null, expiration: null
-    };
-    kclv.Configuration.load(configuration);
-    deepEqual(
-        agent.buildRelation('Materials'),
-        new kclv.Relation.Materials().insert(
-            expectation.Relation.Materials.Low
-        ),
-        'Builds a relation: as is values in whole period.'
-    );
-
-    configuration.relation = {
-        duration: 0, inception: null, expiration: null
-    };
-    kclv.Configuration.load(configuration);
-    deepEqual(
-        agent.buildRelation('Materials'),
-        new kclv.Relation.Materials().insert([]),
-        'Builds a relation: as is values in an empty period.'
-    );
-
-    configuration.relation = {
-        duration: null,
-        inception: '2013/07/10 00:00:00', expiration: '2013/07/17 00:00:00'
-    };
-    kclv.Configuration.load(configuration);
-    deepEqual(
-        agent.buildRelation('Materials'),
-        new kclv.Relation.Materials().insert(
-            expectation.Relation.Materials.Low.slice(1,3)
-        ),
-        'Builds a relation: as is values ' +
-            'from Kure & Sasebo till Maiduru.'
-    );
+    test.test(agent, configuration);
 
     // TODO: Even more tests.
 });
@@ -812,11 +812,27 @@ test('kclv.Agent.Logbook : Materials', function() {
 // Ships
 // ----------------------------------------------------------------
 
-expectation.Relation.Ships = [
-    [ 1, '電改',       'DD',   99, 1000000 ],
-    [ 2, '千歳航改二', 'CVL', 150, 4360000 ],
-    [ 3, '長門',       'BB',    1,       0 ]
-];
+kclv.Test.Agent.Ships = function() {
+    this.ships = [
+    //    Arr Name          Class  Lv   Exp
+        [  1, '電改',       'DD',   99, 1000000 ],
+        [ 12, '千歳航改二', 'CVL', 149, 4359999 ],
+        [ 24, '長門',       'BB',    1,       0 ]
+    ];
+
+    return;
+};
+
+kclv.Test.Agent.Ships.prototype.test = function(agent, configuration) {
+    kclv.Configuration.load(configuration);
+    deepEqual(
+        agent.buildRelation('Ships'),
+        new kclv.Relation.Ships().insert(this.ships),
+        'Builds a relation.'
+    );
+
+    return;
+};
 
 // ----------------------------------------------------------------
 // Ships: KCRDB
@@ -828,19 +844,13 @@ test('kclv.Agent.KCRDB : Ships', function() {
         return;
     }
 
-    var agent = new kclv.Agent.KCRDB(),
+    var test = new kclv.Test.Agent.Ships(),
+        agent = new kclv.Agent.KCRDB(),
         configuration = { agent: { KCRDB: { path: {
             Ships : './KCRDB.Ships.csv'
         } } } };
 
-    kclv.Configuration.load(configuration);
-    deepEqual(
-        agent.buildRelation('Ships'),
-        new kclv.Relation.Ships().insert(
-            expectation.Relation.Ships
-        ),
-        'Builds a relation.'
-    );
+    test.test(agent, configuration);
 
     // TODO: Even more tests.
 });
@@ -855,19 +865,13 @@ test('kclv.Agent.Logbook : Ships', function() {
         return;
     }
 
-    var agent = new kclv.Agent.Logbook(),
-        configuration = { agent: { Logbook: { path: {
+    var test = new kclv.Test.Agent.Ships(),
+        agent = new kclv.Agent.Logbook(),
+        configuration = { agent : { Logbook : { path : {
             Ships : './Logbook.Ships.csv'
         } } } };
 
-    kclv.Configuration.load(configuration);
-    deepEqual(
-        agent.buildRelation('Ships'),
-        new kclv.Relation.Ships().insert(
-            expectation.Relation.Ships
-        ),
-        'Builds a relation.'
-    );
+    test.test(agent, configuration);
 
     // TODO: Even more tests.
 });
@@ -881,57 +885,72 @@ module('Tokenizers');
 // Base
 // ----------------------------------------------------------------
 
-test('kclv.Tokenizer.Base', function() {
-    var string =
-            '"SSV","I-58",2,3\n' + // Orel cruising dechi!
-            '"CV","Akagi",5,4\n' + // Tokyo Exp. to drum up results!
-            '"BB","Yamato",5,5\n', // We're sorry but "Re" class is NG.
-        oneDimensionalArray = [
-            '"SSV","I-58",2,3',
-            '"CV","Akagi",5,4',
-            '"BB","Yamato",5,5'
-        ],
-        twoDimensionalArray = [
-            ['"SSV"', '"I-58"',   '2', '3'],
-            ['"CV"',  '"Akagi"',  '5', '4'],
-            ['"BB"',  '"Yamato"', '5', '5']
-        ],
-        tokenizer = new kclv.Tokenizer.Base();
+kclv.Test.Tokenizer = function() {
+    return;
+};
 
+kclv.Test.Tokenizer.prototype.test = function(tokenizer, string, rows, table) {
     deepEqual(
         tokenizer.toRows(string),
-        oneDimensionalArray,
-        'Converts a string into an one-dimensional array.'
+        rows,
+        'Converts a string into rows (an one-dimensional array).'
     );
 
     deepEqual(
-        oneDimensionalArray.map(tokenizer.toColumns, tokenizer),
-        twoDimensionalArray,
-        'Converts an one-dimensional array into a two-dimensional array.'
+        rows.map(tokenizer.toColumns, tokenizer),
+        table,
+        'Converts rows (an one-dimensional array) into ' +
+            'a table (a two-dimensional array) ' +
+            'and normalize some columns.'
     );
 
     deepEqual(
         tokenizer.toRelationalArray(string),
-        twoDimensionalArray,
-        'Converts a string into a two-dimensional array.'
+        table,
+        'Converts a string into a table (a two-dimensional array).'
     );
+
+    return;
+};
+
+test('kclv.Tokenizer.Base', function() {
+    var test = new kclv.Test.Tokenizer(),
+        tokenizer = new kclv.Tokenizer.Base(),
+        string =
+            '"SSV","I-58",2,3\n' + // Orel cruising dechi!
+            '"CV","Akagi",5,4\n' + // Tokyo Exp. to drum up results!
+            '"BB","Yamato",5,5\n', // We're sorry but "Re" class is NG.
+        rows = [
+            '"SSV","I-58",2,3',
+            '"CV","Akagi",5,4',
+            '"BB","Yamato",5,5'
+        ],
+        table = [
+            ['"SSV"', '"I-58"',   '2', '3'],
+            ['"CV"',  '"Akagi"',  '5', '4'],
+            ['"BB"',  '"Yamato"', '5', '5']
+        ];
+
+    test.test(tokenizer, string, rows, table);
 
     // TODO: Even more tests.
 });
 
 // ----------------------------------------------------------------
-// Materials: KCRDB
+// KCRDB: Materials
 // ----------------------------------------------------------------
 
 test('kclv.Tokenizer.KCRDB.Materials', function() {
-    var string =
+    var test = new kclv.Test.Tokenizer(),
+        tokenizer = new kclv.Tokenizer.KCRDB.Materials(),
+        string =
             '#2013/04/23 01:23:45#,1,2,3,4,5,6,7,8,9,10,11,12,13,14\n' +
             '#2013/07/10 12:34:56#,2,3,4,5,6,7,8,9,10,11,12,13,14,15\n',
-        oneDimensionalArray = [
+        rows = [
             '#2013/04/23 01:23:45#,1,2,3,4,5,6,7,8,9,10,11,12,13,14',
             '#2013/07/10 12:34:56#,2,3,4,5,6,7,8,9,10,11,12,13,14,15'
         ],
-        twoDimensionalArray = [
+        table = [
             [
                 new Date('2013/04/23 01:23:45'),    // Date
                 1,2,3,4,5,6,7,8,9,10,11,12,13,14    // Integers
@@ -940,45 +959,74 @@ test('kclv.Tokenizer.KCRDB.Materials', function() {
                 new Date('2013/07/10 12:34:56'),
                 2,3,4,5,6,7,8,9,10,11,12,13,14,15
             ]
-        ],
-        tokenizer = new kclv.Tokenizer.KCRDB.Materials();
+        ];
 
-    deepEqual(
-        tokenizer.toRows(string),
-        oneDimensionalArray,
-        'Converts a string into an one-dimensional array.'
-    );
-
-    deepEqual(
-        oneDimensionalArray.map(tokenizer.toColumns, tokenizer),
-        twoDimensionalArray,
-        'Converts an one-dimensional array into a two-dimensional array ' +
-            'and normalize some columns.'
-    );
-
-    deepEqual(
-        tokenizer.toRelationalArray(string),
-        twoDimensionalArray,
-        'Converts a string into a two-dimensional array.'
-    );
+    test.test(tokenizer, string, rows, table);
 
     // TODO: Even more tests.
 });
 
 // ----------------------------------------------------------------
-// Materials: Logbook
+// KCRDB: Ships
+// ----------------------------------------------------------------
+
+test('kclv.Tokenizer.KCRDB.Ships', function() {
+    var test = new kclv.Test.Tokenizer(),
+        tokenizer = new kclv.Tokenizer.KCRDB.Ships(),
+        string =
+            '1,"電改",237,"駆逐艦",99,1000000,0,' +
+                '30,30,15,15,20,20,83,37,37,51,51,34,34,36,36,0,47,3,' +
+                '"10cm連装高角砲","10cm連装高角砲","33号対水上電探","---",' +
+                '0,0,0,0,53,79,63,49,84,55,42,12,0,"",1,10\n' +
+            '12,"千歳航改二",296,"軽空母",149,4359999,1,' +
+                '65,65,45,45,40,40,49,34,34,0,0,42,42,33,33,4,46,4,' +
+                '"流星改","烈風","彗星一二型甲","彩雲",' +
+                '24,16,11,8,34,13,82,65,74,6,97,17,0,"",1,10\n' +
+            '24,"長門",80,"戦艦",1,0,100,' +
+                '80,80,100,100,130,130,49,17,17,0,0,0,58,14,14,0,59,4,' +
+                '"38cm連装砲","38cm連装砲","38cm連装砲","empty",' +
+                '3,3,3,3,144,0,34,89,24,0,12,20,30,"長門改",0,5\n',
+        rows = [
+            '1,"電改",237,"駆逐艦",99,1000000,0,' +
+                '30,30,15,15,20,20,83,37,37,51,51,34,34,36,36,0,47,3,' +
+                '"10cm連装高角砲","10cm連装高角砲","33号対水上電探","---",' +
+                '0,0,0,0,53,79,63,49,84,55,42,12,0,"",1,10',
+            '12,"千歳航改二",296,"軽空母",149,4359999,1,' +
+                '65,65,45,45,40,40,49,34,34,0,0,42,42,33,33,4,46,4,' +
+                '"流星改","烈風","彗星一二型甲","彩雲",' +
+                '24,16,11,8,34,13,82,65,74,6,97,17,0,"",1,10',
+            '24,"長門",80,"戦艦",1,0,100,' +
+                '80,80,100,100,130,130,49,17,17,0,0,0,58,14,14,0,59,4,' +
+                '"38cm連装砲","38cm連装砲","38cm連装砲","empty",' +
+                '3,3,3,3,144,0,34,89,24,0,12,20,30,"長門改",0,5'
+        ],
+        table = [
+            [  1, '電改',       'DD',   99, 1000000 ],
+            [ 12, '千歳航改二', 'CVL', 149, 4359999 ],
+            [ 24, '長門',       'BB',    1,       0 ]
+        ];
+
+    test.test(tokenizer, string, rows, table);
+
+    // TODO: Even more tests.
+});
+
+// ----------------------------------------------------------------
+// Logbook: Materials
 // ----------------------------------------------------------------
 
 test('kclv.Tokenizer.Logbook.Materials', function() {
-    var string =
+    var test = new kclv.Test.Tokenizer(),
+        tokenizer = new kclv.Tokenizer.Logbook.Materials(),
+        string =
             '日付,燃料,弾薬,鋼材,ボーキ,高速修復材,高速建造材,開発資材\n' +
             '2013-04-23 01:23:45,1,2,3,4,5,6,7\n' +
             '2013-07-10 12:34:56,2,3,4,5,6,7,8\n',
-        oneDimensionalArray = [
+        rows = [
             '2013-04-23 01:23:45,1,2,3,4,5,6,7',
             '2013-07-10 12:34:56,2,3,4,5,6,7,8'
         ],
-        twoDimensionalArray = [
+        table = [
             [
                 new Date('2013/04/23 01:23:45'),    // Date
                 1,2,3,4,5,6,7                       // Integers
@@ -987,146 +1035,51 @@ test('kclv.Tokenizer.Logbook.Materials', function() {
                 new Date('2013/07/10 12:34:56'),
                 2,3,4,5,6,7,8
             ]
-        ],
-        tokenizer = new kclv.Tokenizer.Logbook.Materials();
+        ];
 
-    deepEqual(
-        tokenizer.toRows(string),
-        oneDimensionalArray,
-        'Converts a string into an one-dimensional array.'
-    );
-
-    deepEqual(
-        oneDimensionalArray.map(tokenizer.toColumns, tokenizer),
-        twoDimensionalArray,
-        'Converts an one-dimensional array into a two-dimensional array ' +
-            'and normalize some columns.'
-    );
-
-    deepEqual(
-        tokenizer.toRelationalArray(string),
-        twoDimensionalArray,
-        'Converts a string into a two-dimensional array.'
-    );
+    test.test(tokenizer, string, rows, table);
 
     // TODO: Even more tests.
 });
 
 // ----------------------------------------------------------------
-// Ships: KCRDB
-// ----------------------------------------------------------------
-
-test('kclv.Tokenizer.KCRDB.Ships', function() {
-    var string =
-            '1,"電改",237,"駆逐艦",99,1000000,0,' +
-                '30,30,15,15,20,20,83,37,37,51,51,34,34,36,36,0,47,3,' +
-                '"10cm連装高角砲","10cm連装高角砲","33号対水上電探","---",' +
-                '0,0,0,0,53,79,63,49,84,55,42,12,0,"",1,10\n' +
-            '2,"千歳航改二",296,"軽空母",150,4360000,0,' +
-                '65,65,45,45,40,40,49,34,34,0,0,42,42,33,33,4,46,4,' +
-                '"流星改","烈風","彗星一二型甲","彩雲",' +
-                '24,16,11,8,34,13,82,65,74,6,97,17,0,"",1,10\n' +
-            '3,"長門",80,"戦艦",1,0,100,' +
-                '80,80,100,100,130,130,49,17,17,0,0,0,58,14,14,0,59,4,' +
-                '"38cm連装砲","38cm連装砲","38cm連装砲","empty",' +
-                '3,3,3,3,144,0,34,89,24,0,12,20,30,"長門改",0,5\n',
-        oneDimensionalArray = [
-            '1,"電改",237,"駆逐艦",99,1000000,0,' +
-                '30,30,15,15,20,20,83,37,37,51,51,34,34,36,36,0,47,3,' +
-                '"10cm連装高角砲","10cm連装高角砲","33号対水上電探","---",' +
-                '0,0,0,0,53,79,63,49,84,55,42,12,0,"",1,10',
-            '2,"千歳航改二",296,"軽空母",150,4360000,0,' +
-                '65,65,45,45,40,40,49,34,34,0,0,42,42,33,33,4,46,4,' +
-                '"流星改","烈風","彗星一二型甲","彩雲",' +
-                '24,16,11,8,34,13,82,65,74,6,97,17,0,"",1,10',
-            '3,"長門",80,"戦艦",1,0,100,' +
-                '80,80,100,100,130,130,49,17,17,0,0,0,58,14,14,0,59,4,' +
-                '"38cm連装砲","38cm連装砲","38cm連装砲","empty",' +
-                '3,3,3,3,144,0,34,89,24,0,12,20,30,"長門改",0,5'
-        ],
-        twoDimensionalArray = [
-            [ 1, '電改',       'DD',   99, 1000000 ],
-            [ 2, '千歳航改二', 'CVL', 150, 4360000 ],
-            [ 3, '長門',       'BB',    1,       0 ]
-        ],
-        tokenizer = new kclv.Tokenizer.KCRDB.Ships();
-
-    deepEqual(
-        tokenizer.toRows(string),
-        oneDimensionalArray,
-        'Converts a string into an one-dimensional array.'
-    );
-
-    deepEqual(
-        oneDimensionalArray.map(tokenizer.toColumns, tokenizer),
-        twoDimensionalArray,
-        'Converts an one-dimensional array into a two-dimensional array ' +
-            'and normalize some columns.'
-    );
-
-    deepEqual(
-        tokenizer.toRelationalArray(string),
-        twoDimensionalArray,
-        'Converts a string into a two-dimensional array.'
-    );
-
-    // TODO: Even more tests.
-});
-
-// ----------------------------------------------------------------
-// Ships: Logbook
+// Logbook: Ships
 // ----------------------------------------------------------------
 
 test('kclv.Tokenizer.Logbook.Ships', function() {
-    var string =
+    var test = new kclv.Test.Tokenizer(),
+        tokenizer = new kclv.Tokenizer.Logbook.Ships(),
+        string =
             ',ID,艦隊,名前,艦種,疲労,回復,Lv,Next,経験値,制空,' +
                 '装備1,装備2,装備3,装備4,' +
                 'HP,火力,雷装,対空,装甲,回避,対潜,索敵,運\n' +
             '1,1,,電改,駆逐艦,72,,99,0,1000000,0,' +
                 '10cm連装高角砲,10cm連装高角砲,33号対水上電探,,' +
                 '30,53,79,63,49,84,55,42,12\n' +
-            '2,2,,千歳航改二,軽空母,49,,150,0,4360000,40,' +
+            '2,12,,千歳航改二,軽空母,49,,149,1,4359999,40,' +
                 '流星改,烈風,彗星一二型甲,彩雲,' +
                 '65,34,13,82,65,74,6,96,17\n' +
-            '3,3,,長門,戦艦,49,,1,100,0,0,' +
+            '3,24,,長門,戦艦,49,,1,100,0,0,' +
                 '38cm連装砲,38cm連装砲,38cm連装砲,,' +
                 '80,144,0,34,89,24,0,12,20\n',
-        oneDimensionalArray = [
+        rows = [
             '1,1,,電改,駆逐艦,72,,99,0,1000000,0,' +
                 '10cm連装高角砲,10cm連装高角砲,33号対水上電探,,' +
                 '30,53,79,63,49,84,55,42,12',
-            '2,2,,千歳航改二,軽空母,49,,150,0,4360000,40,' +
+            '2,12,,千歳航改二,軽空母,49,,149,1,4359999,40,' +
                 '流星改,烈風,彗星一二型甲,彩雲,' +
                 '65,34,13,82,65,74,6,96,17',
-            '3,3,,長門,戦艦,49,,1,100,0,0,' +
+            '3,24,,長門,戦艦,49,,1,100,0,0,' +
                 '38cm連装砲,38cm連装砲,38cm連装砲,,' +
                 '80,144,0,34,89,24,0,12,20'
         ],
-        twoDimensionalArray = [
-            [ 1, '電改',       'DD',   99, 1000000 ],
-            [ 2, '千歳航改二', 'CVL', 150, 4360000 ],
-            [ 3, '長門',       'BB',    1,       0 ]
-        ],
-        tokenizer = new kclv.Tokenizer.Logbook.Ships();
+        table = [
+            [  1, '電改',       'DD',   99, 1000000 ],
+            [ 12, '千歳航改二', 'CVL', 149, 4359999 ],
+            [ 24, '長門',       'BB',    1,       0 ]
+        ];
 
-    deepEqual(
-        tokenizer.toRows(string),
-        oneDimensionalArray,
-        'Converts a string into an one-dimensional array.'
-    );
-
-    deepEqual(
-        oneDimensionalArray.map(tokenizer.toColumns, tokenizer),
-        twoDimensionalArray,
-        'Converts an one-dimensional array into a two-dimensional array ' +
-            'and normalize some columns.'
-    );
-
-    deepEqual(
-        tokenizer.toRelationalArray(string),
-        twoDimensionalArray,
-        'Converts a string into a two-dimensional array.'
-    );
+    test.test(tokenizer, string, rows, table);
 
     // TODO: Even more tests.
 });
@@ -1280,14 +1233,21 @@ test('kclv.ProjectorLike', function() {
     // TODO: Even more tests.
 });
 
+kclv.Test.Projector = function() {
+    this.relation = [
+    //   Date   Fuel    Ammo    Steel   Bauxite Repair  Const   Dev
+        ['Foo', 11, 16, 21, 26, 31, 36, 41, 46, 51, 56, 61, 66, 71, 76]
+    ];
+
+    return;
+};
+
 test('kclv.Projector.Materials.High', function() {
-    var relation = [
-            ['Foo', 11, 16, 21, 26, 31, 36, 41, 46, 51, 56, 61, 66, 71, 76]
-        ],
+    var test = new kclv.Test.Projector(),
         projector = new kclv.Projector.Materials.High();
 
     deepEqual(
-        relation.map( projector.project ),
+        test.relation.map( projector.project ),
         [['Foo', 16, 26, 36, 46, 56, 66, 76]],
         'Projects as high.'
     );
@@ -1296,13 +1256,11 @@ test('kclv.Projector.Materials.High', function() {
 });
 
 test('kclv.Projector.Materials.Average', function() {
-    var relation = [
-            ['Foo', 11, 16, 21, 26, 31, 36, 41, 46, 51, 56, 61, 66, 71, 76]
-        ],
+    var test = new kclv.Test.Projector(),
         projector = new kclv.Projector.Materials.Average();
 
     deepEqual(
-        relation.map( projector.project ),
+        test.relation.map( projector.project ),
         [['Foo', 14, 24, 34, 44, 54, 64, 74]],
         'Projects as average.'
     );
@@ -1311,13 +1269,11 @@ test('kclv.Projector.Materials.Average', function() {
 });
 
 test('kclv.Projector.Materials.Low', function() {
-    var relation = [
-            ['Foo', 11, 16, 21, 26, 31, 36, 41, 46, 51, 56, 61, 66, 71, 76]
-        ],
+    var test = new kclv.Test.Projector(),
         projector = new kclv.Projector.Materials.Low();
 
     deepEqual(
-        relation.map( projector.project ),
+        test.relation.map( projector.project ),
         [['Foo', 11, 21, 31, 41, 51, 61, 71]],
         'Projects as low.'
     );
@@ -1330,9 +1286,47 @@ test('kclv.Projector.Materials.Low', function() {
 module('Relations');
 // ================================================================
 
+kclv.Test.Relation = {};
+
 // ----------------------------------------------------------------
 // Base
 // ----------------------------------------------------------------
+
+kclv.Test.Relation.Base = function() {
+    return;
+};
+
+kclv.Test.Relation.Base.prototype.testThreshold = function(
+    testee, expectations
+) {
+    Object.keys(this.expectations).forEach( function(key, index, keys) {
+        deepEqual(
+            testee.minimum(key),
+            expectations[key][0],
+            'Gets the minimum value of ' + key + '.'
+        );
+
+        deepEqual(
+            testee.maximum(key),
+            expectations[key][1],
+            'Gets the maximum value of ' + key + '.'
+        );
+    }, this );
+
+    return;
+};
+
+kclv.Test.Relation.Base.prototype.test = function(relation) {
+    deepEqual(
+        relation.count(),
+        this.array.length,
+        'Has ' + this.array.length + 'tuples.'
+    );
+
+    this.testThreshold(relation, this.expectations);
+
+    return;
+};
 
 test('kclv.Relation.Base', function() {
     var array = [
@@ -1504,69 +1498,42 @@ test('kclv.Relation.Base', function() {
 // Materials
 // ----------------------------------------------------------------
 
+kclv.Test.Relation.Materials = function() {
+    kclv.Test.Relation.Base.call(this);
+
+    this.array = [
+        // Date                   Fue Amm Ste Bau Rep Con Dev
+        [ new Date('2013/04/23'), 11, 12, 13, 14, 15, 16, 17 ],
+        [ new Date('2013/07/10'), 21, 22, 23, 24, 25, 26, 27 ],
+        [ new Date('2013/07/10'), 31, 32, 33, 34, 35, 36, 37 ],
+        [ new Date('2013/07/11'), 41, 42, 43, 44, 45, 46, 47 ],
+        [ new Date('2013/07/17'), 51, 52, 53, 54, 55, 56, 57 ]
+    ];
+
+    this.expectations = {
+        Resources   : [ 11, 54 ],
+        Fuel        : [ 11, 51 ],
+        Ammunition  : [ 12, 52 ],
+        Steel       : [ 13, 53 ],
+        Bauxite     : [ 14, 54 ],
+        Consumables : [ 15, 57 ],
+        Repair      : [ 15, 55 ],
+        Construction: [ 16, 56 ],
+        Development : [ 17, 57 ]
+    };
+
+    return;
+};
+kclv.Test.Relation.Materials.prototype =
+    Object.create(kclv.Test.Relation.Base.prototype);
+kclv.Test.Relation.Materials.prototype.constructor =
+    kclv.Test.Relation.Base;
+
 test('kclv.Relation.Materials', function() {
-    var array = [
-            [ new Date('2013/04/23'), 11, 12, 13, 14, 15, 16, 17 ],
-            [ new Date('2013/07/10'), 21, 22, 23, 24, 25, 26, 27 ],
-            [ new Date('2013/07/10'), 31, 32, 33, 34, 35, 36, 37 ],
-            [ new Date('2013/07/17'), 41, 42, 43, 44, 45, 46, 47 ]
-        ];
+    var test = new kclv.Test.Relation.Materials(),
+        relation = new kclv.Relation.Materials().insert(test.array);
 
-    deepEqual(
-        new kclv.Relation.Materials().insert(array).
-            maximum('Fuel'),
-        41,
-        'Gets the maximum value of Fuels.'
-    );
-
-    deepEqual(
-        new kclv.Relation.Materials().insert(array).
-            minimum('Fuel'),
-        11,
-        'Gets the minimum value of Fuels.'
-    );
-
-    deepEqual(
-        new kclv.Relation.Materials().insert(array).
-            maximum('Resources'),
-        44,
-        'Gets the maximum value of Resources.'
-    );
-
-    deepEqual(
-        new kclv.Relation.Materials().insert(array).
-            minimum('Resources'),
-        11,
-        'Gets the minimum value of Resources.'
-    );
-
-    deepEqual(
-        new kclv.Relation.Materials().insert(array).
-            maximum('Repair'),
-        45,
-        'Gets the maximum value of Instant Repairs.'
-    );
-
-    deepEqual(
-        new kclv.Relation.Materials().insert(array).
-            minimum('Repair'),
-        15,
-        'Gets the minimum value of Instant Repairs.'
-    );
-
-    deepEqual(
-        new kclv.Relation.Materials().insert(array).
-            maximum('Consumables'),
-        47,
-        'Gets the maximum value of Consumables.'
-    );
-
-    deepEqual(
-        new kclv.Relation.Materials().insert(array).
-            minimum('Consumables'),
-        15,
-        'Gets the minimum value of Consumables.'
-    );
+    test.test(relation);
 
     // TODO: Even more tests.
 });
@@ -1575,66 +1542,34 @@ test('kclv.Relation.Materials', function() {
 // Ships
 // ----------------------------------------------------------------
 
+kclv.Test.Relation.Ships = function() {
+    kclv.Test.Relation.Base.call(this);
+
+    this.array = [
+    //    Arr Name            Class  Lv   Exp
+        [  1, '電改',         'DD',   99, 1000000 ],
+        [ 12, '千歳航改二',   'CVL', 149, 4359999 ],
+        [ 13, '千代田航改二', 'CVL', 100, 1000000 ],
+        [ 24, '長門',         'BB',    1,       0 ]
+    ];
+
+    this.expectations = {
+        Levels      : [ 1, 149 ],
+        Experiences : [ 0, 4359999 ]
+    };
+
+    return;
+};
+kclv.Test.Relation.Ships.prototype =
+    Object.create(kclv.Test.Relation.Base.prototype);
+kclv.Test.Relation.Ships.prototype.constructor =
+    kclv.Test.Relation.Base;
+
 test('kclv.Relation.Ships', function() {
-    var array = [
-            [ 1, '電改',       'DD',   99, 1000000 ],
-            [ 2, '千歳航改二', 'CVL', 150, 4360000 ],
-            [ 3, '長門',       'BB',    1,       0 ]
-        ],
-        relation = new kclv.Relation.Ships();
+    var test = new kclv.Test.Relation.Ships(),
+        relation = new kclv.Relation.Ships().insert(test.array);
 
-    deepEqual(
-        new kclv.Relation.Ships().insert(array).
-            maximum('Levels'),
-        150,
-        'Gets the maximum value of Levels.'
-    );
-
-    deepEqual(
-        new kclv.Relation.Ships().insert(array).
-            minimum('Levels'),
-        1,
-        'Gets the minimum value of Levels.'
-    );
-
-    deepEqual(
-        new kclv.Relation.Ships().insert(array).
-            maximum('Experiences'),
-        4360000,
-        'Gets the maximum value of Experiences.'
-    );
-
-    deepEqual(
-        new kclv.Relation.Ships().insert(array).
-            minimum('Experiences'),
-        0,
-        'Gets the minimum value of Experiences.'
-    );
-
-    deepEqual(
-        new kclv.Relation.Ships().insert(array).
-            sort( function(a, b) { return b[4] - a[4]; } ),
-        [
-            [ 2, '千歳航改二', 'CVL', 150, 4360000 ],
-            [ 1, '電改',       'DD',   99, 1000000 ],
-            [ 3, '長門',       'BB',    1,       0 ]
-        ],
-        'Sorts tuples by Experiences.'
-    );
-
-    deepEqual(
-        ( function() {
-            relation.insert(array);
-            relation.sort( function(a, b) { return b[4] - a[4]; } );
-            return relation.relation;
-        }() ),
-        [
-            [ 2, '千歳航改二', 'CVL', 150, 4360000 ],
-            [ 1, '電改',       'DD',   99, 1000000 ],
-            [ 3, '長門',       'BB',    1,       0 ]
-        ],
-        'Sorts tuples internally.'
-    );
+    test.test(relation);
 
     // TODO: Even more tests.
 });
@@ -1665,144 +1600,192 @@ test('kclv.TableLike', function() {
 */
 
 // ----------------------------------------------------------------
+// Base
+// ----------------------------------------------------------------
+
+kclv.Test.Table = {};
+
+kclv.Test.Table.Base = function() {
+    return;
+};
+
+kclv.Test.Table.Base.prototype.testThreshold = function(table) {
+    return this.relation.testThreshold(table, this.relation.expectations);
+};
+
+kclv.Test.Table.Base.prototype.test = function(
+    table, kind, option, title, columns, rows
+) {
+    deepEqual(
+        table.kind,
+        kind,
+        'Can visualize ' + kind + '.'
+    );
+
+    deepEqual(
+        table.option,
+        option,
+        'Can visualize ' + option + ' something.'
+    );
+
+    deepEqual(
+        table.title,
+        title,
+        'Builds the title of ' + kind + '.'
+    );
+
+    deepEqual(
+        table.columns,
+        columns,
+        'Builds columns.'
+    );
+
+    deepEqual(
+        table.rows,
+        rows,
+        'Builds rows of ' + option + ' of ' + kind + '.'
+    );
+
+    deepEqual(
+        table.count(),
+        rows.length,
+        'Counts the rows of ' + option + ' of ' + kind + '.'
+    );
+
+    return;
+};
+
+// ----------------------------------------------------------------
+// Materials
+// ----------------------------------------------------------------
+
+kclv.Test.Table.Materials = {};
+
+kclv.Test.Table.Materials.Base = function() {
+    this.relation = new kclv.Test.Relation.Materials();
+
+    this.configuration = {
+        chart : { Consumables : {}, Resources : {} },
+        locale : 'xx',
+        legend : { xx : {
+            dateTime : 'd',
+            Resources   : {
+                title : 'R',
+                Fuel : 'f', Ammunition : 'a', Steel : 's', Bauxite : 'b'
+            },
+            Consumables : {
+                title : 'C',
+                Repair : 'r', Construction : 'c', Development : 'd'
+            }
+        } }
+    };
+
+    return;
+};
+kclv.Test.Table.Materials.Base.prototype =
+    Object.create(kclv.Test.Table.Base.prototype);
+kclv.Test.Table.Materials.Base.prototype.constructor =
+    kclv.Test.Table.Base;
+
+// ----------------------------------------------------------------
 // Materials: Candlestick
 // ----------------------------------------------------------------
 
+kclv.Test.Table.Materials.Candlestick = function() {
+    kclv.Test.Table.Materials.Base.call(this);
+
+    return;
+};
+kclv.Test.Table.Materials.Candlestick.prototype =
+    Object.create(kclv.Test.Table.Materials.Base.prototype);
+kclv.Test.Table.Materials.Candlestick.prototype.constructor =
+    kclv.Test.Table.Materials.Base;
+
 test('kclv.Table.Materials.Candlestick', function() {
-    var relation = new kclv.Relation.Materials().insert([
-            [ new Date('2013/04/23'), 11, 12, 13, 14, 15, 16, 17 ],
-            [ new Date('2013/07/10'), 21, 22, 23, 24, 25, 26, 27 ],
-            [ new Date('2013/07/10'), 31, 32, 33, 34, 35, 36, 37 ],
-            [ new Date('2013/07/11'), 41, 42, 43, 44, 45, 46, 47 ],
-            [ new Date('2013/07/17'), 51, 52, 53, 54, 55, 56, 57 ]
-        ]),
-        configuration = {
-            locale : 'en'
-        },
+    var test = new kclv.Test.Table.Materials.Candlestick(),
+        configuration = test.configuration,
+        relation = new kclv.Relation.Materials().insert(test.relation.array),
+        periods = ['Yearly', 'Monthly', 'Weekly', 'Daily'],
         table = null;
 
     kclv.Configuration.load(configuration);
 
-    table =
-        new kclv.Table.Materials.Candlestick(relation, ['Repair', 'Yearly']);
-    deepEqual(
-        table.kind,
-        'Repair',
-        'Can visualize Repairs.'
-    );
-    deepEqual(
-        table.option,
-        'Yearly',
-        'Can visualize yearly fluctuation of something.'
-    );
-    deepEqual(
-        table.columns,
-        undefined,
-        'Builds columns.'
-    );
-    deepEqual(
-        table.rows,
-        [
-            [ '2013', 15, 15, 55, 55 ]
-        ],
-        'Builds rows of yearly fluctuation of Repairs.'
-    );
-    deepEqual(
-        table.count(),
-        1,
-        'Counts the rows of yearly fluctuation of Repairs.'
-    );
-    deepEqual(
-        table.maximum('Repair'),
-        55,
-        'Gets the maximum value of yearly fluctuation of Repairs.'
-    );
-    deepEqual(
-        table.minimum('Repair'),
-        15,
-        'Gets the minimum value of yearly fluctuation of Repairs.'
-    );
+    // Threshold
 
-    table =
-        new kclv.Table.Materials.Candlestick(relation, ['Repair', 'Monthly']);
-    deepEqual(
-        table.rows,
-        [
-            [ '2013/04', 15, 15, 15, 15 ],
-            [ '2013/07', 25, 25, 55, 55 ]
-        ],
-        'Builds rows of monthly fluctuation of Repairs.'
-    );
-    deepEqual(
-        table.count(),
-        2,
-        'Counts the rows of monthly fluctuation of Repairs.'
-    );
-    deepEqual(
-        table.maximum('Repair'),
-        55,
-        'Gets the maximum value of monthly fluctuation of Repairs.'
-    );
-    deepEqual(
-        table.minimum('Repair'),
-        15,
-        'Gets the minimum value of monthly fluctuation of Repairs.'
-    );
+    table = new kclv.Table.Materials.Candlestick(relation, ['Fuel', 'Daily']);
+    test.testThreshold(table);
 
-    table =
-        new kclv.Table.Materials.Candlestick(relation, ['Repair', 'Weekly']);
-    deepEqual(
-        table.rows,
-        [
-            [ '2013-W17', 15, 15, 15, 15 ],
-            [ '2013-W28', 25, 25, 45, 45 ],
-            [ '2013-W29', 55, 55, 55, 55 ]
-        ],
-        'Builds rows of weekly fluctuation of Repairs.'
-    );
-    deepEqual(
-        table.count(),
-        3,
-        'Counts the rows of weekly fluctuation of Repairs.'
-    );
-    deepEqual(
-        table.maximum('Repair'),
-        55,
-        'Gets the maximum value of weekly fluctuation of Repairs.'
-    );
-    deepEqual(
-        table.minimum('Repair'),
-        15,
-        'Gets the minimum value of weekly fluctuation of Repairs.'
-    );
+    // Resources, such as Fuel
 
-    table =
-        new kclv.Table.Materials.Candlestick(relation, ['Repair', 'Daily']);
-    deepEqual(
-        table.rows,
-        [
-            [ '2013/04/23', 15, 15, 15, 15 ],
-            [ '2013/07/10', 25, 25, 35, 35 ],
-            [ '2013/07/11', 45, 45, 45, 45 ],
-            [ '2013/07/17', 55, 55, 55, 55 ]
-        ],
-        'Builds rows of daily fluctuation of Repairs.'
-    );
-    deepEqual(
-        table.count(),
-        4,
-        'Counts the rows of daily fluctuation of Repairs.'
-    );
-    deepEqual(
-        table.maximum('Repair'),
-        55,
-        'Gets the maximum value of daily fluctuation of Repairs.'
-    );
-    deepEqual(
-        table.minimum('Repair'),
-        15,
-        'Gets the minimum value of daily fluctuation of Repairs.'
-    );
+    periods.forEach( function(period, index, periods) {
+        table =
+            new kclv.Table.Materials.Candlestick(relation, ['Fuel', period]);
+        var expectedRows = {
+            Yearly : [
+                [ '2013', 11, 11, 51, 51 ]
+            ],
+            Monthly : [
+                [ '2013/04', 11, 11, 11, 11 ],
+                [ '2013/07', 21, 21, 51, 51 ]
+            ],
+            Weekly : [
+                [ '2013-W17', 11, 11, 11, 11 ],
+                [ '2013-W28', 21, 21, 41, 41 ],
+                [ '2013-W29', 51, 51, 51, 51 ]
+            ],
+            Daily : [
+                [ '2013/04/23', 11, 11, 11, 11 ],
+                [ '2013/07/10', 21, 21, 31, 31 ],
+                [ '2013/07/11', 41, 41, 41, 41 ],
+                [ '2013/07/17', 51, 51, 51, 51 ]
+            ]
+        };
+
+        test.test(
+            table,
+            'Fuel',
+            period,
+            'R (f)',
+            undefined,
+            expectedRows[period]
+        );
+    } );
+
+    // Consumables, such as Repair
+
+    periods.forEach( function(period, index, periods) {
+        table =
+            new kclv.Table.Materials.Candlestick(relation, ['Repair', period]);
+        var expectedRows = {
+            Yearly : [
+                [ '2013', 15, 15, 55, 55 ]
+            ],
+            Monthly : [
+                [ '2013/04', 15, 15, 15, 15 ],
+                [ '2013/07', 25, 25, 55, 55 ]
+            ],
+            Weekly : [
+                [ '2013-W17', 15, 15, 15, 15 ],
+                [ '2013-W28', 25, 25, 45, 45 ],
+                [ '2013-W29', 55, 55, 55, 55 ]
+            ],
+            Daily : [
+                [ '2013/04/23', 15, 15, 15, 15 ],
+                [ '2013/07/10', 25, 25, 35, 35 ],
+                [ '2013/07/11', 45, 45, 45, 45 ],
+                [ '2013/07/17', 55, 55, 55, 55 ]
+            ]
+        };
+
+        test.test(
+            table,
+            'Repair',
+            period,
+            'C (r)',
+            undefined,
+            expectedRows[period]
+        );
+    } );
 
     // TODO: Even more tests.
 });
@@ -1811,26 +1794,39 @@ test('kclv.Table.Materials.Candlestick', function() {
 // Materials: Line
 // ----------------------------------------------------------------
 
+kclv.Test.Table.Materials.Line = function() {
+    kclv.Test.Table.Materials.Base.call(this);
+
+    return;
+};
+kclv.Test.Table.Materials.Line.prototype =
+    Object.create(kclv.Test.Table.Materials.Base.prototype);
+kclv.Test.Table.Materials.Line.prototype.constructor =
+    kclv.Test.Table.Materials.Base;
+
+kclv.Test.Table.Materials.Line.prototype.test = function(
+    table, kind, opposite, option, title, columns, rows
+) {
+    kclv.Test.Table.Materials.Base.prototype.test.call(
+        this, table, kind, option, title, columns, rows
+    );
+
+    deepEqual(
+        table.opposite,
+        opposite,
+        opposite ?
+            'Has an opposite (' + opposite + ').' :
+            'Does not have an opposite.'
+    );
+
+    return;
+};
+
 test('kclv.Table.Materials.Line', function() {
-    var relation = new kclv.Relation.Materials().insert([
-            [ new Date('2013/04/23'), 11, 12, 13, 14, 15, 16, 17 ],
-            [ new Date('2013/07/10'), 21, 22, 23, 24, 25, 26, 27 ],
-            [ new Date('2013/07/10'), 31, 32, 33, 34, 35, 36, 37 ],
-            [ new Date('2013/07/17'), 41, 42, 43, 44, 45, 46, 47 ]
-        ]),
-        configuration = {
-            locale : 'en',
-            chart : { Resources : { withRepair : true } },
-            legend : { en : {
-                dateTime : 'd',
-                Resources   : {
-                    Fuel : 'f', Ammunition : 'a', Steel : 's', Bauxite : 'b'
-                },
-                Consumables : {
-                    Repair : 'r', Construction : 'c', Development : 'd'
-                }
-            } }
-        };
+    var test = new kclv.Test.Table.Materials.Line(),
+        configuration = test.configuration,
+        relation = new kclv.Relation.Materials().insert(test.relation.array),
+        table = null;
 
     kclv.Configuration.load(configuration);
 
@@ -1840,10 +1836,63 @@ test('kclv.Table.Materials.Line', function() {
         'Could not visualize Fuels.'
     );
 
-    deepEqual(
-        new kclv.Table.Materials.Line(relation, 'Resources').kind,
+    // Threshold
+
+    table = new kclv.Table.Materials.Line(relation, 'Resources');
+    test.testThreshold(table);
+
+    // Resources
+
+    test.test(
+        table,
         'Resources',
-        'Can visualize Resources.'
+        null,
+        null,
+        'R',
+        ['"d"', '"f"', '"a"', '"s"', '"b"'],
+        [
+            [ '"' + new Date('2013/04/23').toLocaleString() + '"',
+                11, 12, 13, 14 ],
+            [ '"' + new Date('2013/07/10').toLocaleString() + '"',
+                21, 22, 23, 24 ],
+            [ '"' + new Date('2013/07/10').toLocaleString() + '"',
+                31, 32, 33, 34 ],
+            [ '"' + new Date('2013/07/11').toLocaleString() + '"',
+                41, 42, 43, 44 ],
+            [ '"' + new Date('2013/07/17').toLocaleString() + '"',
+                51, 52, 53, 54 ]
+        ]
+    );
+    deepEqual(
+        table.opposite,
+        null,
+        'Does not have an opposite (Consumables)'
+    );
+
+    // Resources + Repair
+
+    configuration.chart.Resources.withRepair = true;
+    kclv.Configuration.load(configuration);
+    table = new kclv.Table.Materials.Line(relation, 'Resources');
+    test.test(
+        table,
+        'Resources',
+        'Consumables',
+        null,
+        'R',
+        ['"d"', '"f"', '"a"', '"s"', '"b"', '"r"'],
+        [
+            [ '"' + new Date('2013/04/23').toLocaleString() + '"',
+                11, 12, 13, 14, 15 ],
+            [ '"' + new Date('2013/07/10').toLocaleString() + '"',
+                21, 22, 23, 24, 25 ],
+            [ '"' + new Date('2013/07/10').toLocaleString() + '"',
+                31, 32, 33, 34, 35 ],
+            [ '"' + new Date('2013/07/11').toLocaleString() + '"',
+                41, 42, 43, 44, 45 ],
+            [ '"' + new Date('2013/07/17').toLocaleString() + '"',
+                51, 52, 53, 54, 55 ]
+        ]
     );
 
     throws(
@@ -1852,87 +1901,14 @@ test('kclv.Table.Materials.Line', function() {
         'Could not visualize Instant Repairs.'
     );
 
-    deepEqual(
-        new kclv.Table.Materials.Line(relation, 'Consumables').kind,
+    table = new kclv.Table.Materials.Line(relation, 'Consumables');
+    test.test(
+        table,
         'Consumables',
-        'Can visualize Consumables.'
-    );
-
-    deepEqual(
-        new kclv.Table.Materials.Line(relation, 'Resources').
-            maximum('Resources'),
-        44,
-        'Gets the maximum value of Resources.'
-    );
-
-    deepEqual(
-        new kclv.Table.Materials.Line(relation, 'Consumables').
-            maximum('Consumables'),
-        47,
-        'Gets the maximum value of Consumables.'
-    );
-
-    deepEqual(
-        new kclv.Table.Materials.Line(relation, 'Resources').
-            minimum('Resources'),
-        11,
-        'Gets the minimum value of Resources.'
-    );
-
-    deepEqual(
-        new kclv.Table.Materials.Line(relation, 'Consumables').
-            minimum('Consumables'),
-        15,
-        'Gets the minimum value of Consumables.'
-    );
-
-    deepEqual(
-        new kclv.Table.Materials.Line(relation, 'Resources').
-            count(),
-        4,
-        'Counts an amount of rows.'
-    );
-
-    deepEqual(
-        new kclv.Table.Materials.Line(relation, 'Consumables').
-            count(),
-        4,
-        'Counts an amount of rows.'
-    );
-
-    deepEqual(
-        new kclv.Table.Materials.Line(relation, 'Resources').
-            columns,
-        ['"d"', '"f"', '"a"', '"s"', '"b"', '"r"'],
-        'Builds columns as a header of Resources.'
-    );
-
-    deepEqual(
-        new kclv.Table.Materials.Line(relation, 'Consumables').
-            columns,
+        null,
+        null,
+        'C',
         ['"d"', '"r"', '"c"', '"d"'],
-        'Builds columns as a header of Consumables.'
-    );
-
-    deepEqual(
-        new kclv.Table.Materials.Line(relation, 'Resources').
-            rows,
-        [
-            [ '"' + new Date('2013/04/23').toLocaleString() + '"',
-                11, 12, 13, 14, 15 ],
-            [ '"' + new Date('2013/07/10').toLocaleString() + '"',
-                21, 22, 23, 24, 25 ],
-            [ '"' + new Date('2013/07/10').toLocaleString() + '"',
-                31, 32, 33, 34, 35 ],
-            [ '"' + new Date('2013/07/17').toLocaleString() + '"',
-                41, 42, 43, 44, 45 ]
-        ],
-        'Builds rows of Resources.'
-    );
-
-    deepEqual(
-        new kclv.Table.Materials.Line(relation, 'Consumables').
-            rows,
         [
             [ '"' + new Date('2013/04/23').toLocaleString() + '"',
                 15, 16, 17 ],
@@ -1940,38 +1916,12 @@ test('kclv.Table.Materials.Line', function() {
                 25, 26, 27 ],
             [ '"' + new Date('2013/07/10').toLocaleString() + '"',
                 35, 36, 37 ],
+            [ '"' + new Date('2013/07/11').toLocaleString() + '"',
+                45, 46, 47 ],
             [ '"' + new Date('2013/07/17').toLocaleString() + '"',
-                45, 46, 47 ]
-        ],
-        'Builds rows of Consumables.'
+                55, 56, 57 ]
+        ]
     );
-
-    configuration.chart.Resources.withRepair = false;
-    kclv.Configuration.load(configuration);
-    deepEqual(
-        new kclv.Table.Materials.Line(relation, 'Resources').
-            columns,
-        ['"d"', '"f"', '"a"', '"s"', '"b"'],
-        'Builds columns as a header of Resources + Repairs.'
-    );
-
-    deepEqual(
-        new kclv.Table.Materials.Line(relation, 'Resources').
-            rows,
-        [
-            [ '"' + new Date('2013/04/23').toLocaleString() + '"',
-                11, 12, 13, 14 ],
-            [ '"' + new Date('2013/07/10').toLocaleString() + '"',
-                21, 22, 23, 24 ],
-            [ '"' + new Date('2013/07/10').toLocaleString() + '"',
-                31, 32, 33, 34 ],
-            [ '"' + new Date('2013/07/17').toLocaleString() + '"',
-                41, 42, 43, 44 ]
-        ],
-        'Builds rows of Resources + Repairs.'
-    );
-
-    // TODO: Even more tests.
 });
 
 /*
