@@ -36,7 +36,12 @@
                 selectionMode : "multiple",
                 tooltip : { trigger: "both" },
                 vAxis : {
+                    {{if option.vertical.baseline > 0}}
                     baseline : {{:option.vertical.baseline}},
+                    {{/if}}
+                    {{if option.vertical.gridlines}}
+                    gridlines : { count : {{:option.vertical.gridlines}} },
+                    {{/if}}
                     {{if option.vertical.minorGridlines}}
                     minorGridlines : { count : {{:option.vertical.minorGridlines}} },
                     {{/if}}
@@ -47,6 +52,9 @@
                     }
                 },
                 hAxis : {
+                    {{if option.horizontal.gridlines}}
+                    gridlines : { count : {{:option.horizontal.gridlines}} },
+                    {{/if}}
                     {{if option.horizontal.minorGridlines}}
                     minorGridlines : { count : {{:option.horizontal.minorGridlines}} },
                     {{/if}}

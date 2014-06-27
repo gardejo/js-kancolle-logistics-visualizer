@@ -2406,6 +2406,646 @@ test('kclv.Table.Ships.Scatter', function() {
 module('Charts');
 // ================================================================
 
+kclv.Test.Chart = {};
+
+// ----------------------------------------------------------------
+// Interface
+// ----------------------------------------------------------------
+
+/*
+test('kclv.ChartLike', function() {
+    // TODO: Even more tests.
+});
+*/
+
+// ----------------------------------------------------------------
+// Base
+// ----------------------------------------------------------------
+
+kclv.Test.Chart.Base = function() {
+    return;
+};
+
+kclv.Test.Chart.Base.prototype.testRedraw = function(
+    chart, table, configuration
+) {
+    [true, false, null].forEach( function(value, index, values) {
+        configuration.chart.redraw = value;
+        kclv.Configuration.load(configuration);
+        deepEqual(
+            kclv.Factory.getInstance(kclv.Chart, chart, [table]).option.redraw,
+            value,
+            'Has the configurated chart option of redraw ' +
+                '(when redraw was specified: ' + value + ').'
+        );
+    } );
+
+    return;
+};
+
+// ----------------------------------------------------------------
+// Materials
+// ----------------------------------------------------------------
+
+kclv.Test.Chart.Materials = function() {
+    kclv.Test.Chart.Base.call(this);
+
+    this.configuration = new kclv.Test.Table.Materials.Base().configuration;
+
+    this.relation = new kclv.Relation.Materials().insert(
+        new kclv.Test.Relation.Materials().array
+    );
+
+    return;
+};
+kclv.Test.Chart.Materials.prototype =
+    Object.create(kclv.Test.Chart.Base.prototype);
+kclv.Test.Chart.Materials.prototype.constructor =
+    kclv.Test.Chart.Base;
+
+// ----------------------------------------------------------------
+// Materials: Candlestick
+// ----------------------------------------------------------------
+
+test('kclv.Chart.CandleStick', function() {
+    var test = new kclv.Test.Chart.Materials(),
+        configuration = test.configuration,
+        table = null;
+
+    // Consumables
+
+    kclv.Configuration.load(configuration);
+    table = new kclv.Table.Materials.Candlestick(
+        test.relation, ['Repair', 'Weekly']
+    );
+    deepEqual(
+        new kclv.Chart.Candlestick(table).option,
+        {
+            horizontal : {},
+            vertical : { maximum : 55, minimum : 15 }
+        },
+        'Has the default chart options.'
+    );
+
+    configuration.chart.Consumables.vertical = { maximum : 20, minimum : 10 };
+    kclv.Configuration.load(configuration);
+    deepEqual(
+        new kclv.Chart.Candlestick(table).option.vertical,
+        { maximum : 20, minimum : 10 },
+        'Has the configurated chart options ' +
+            '(when vertical maximum and vertical minimum were specified).'
+    );
+
+    configuration.chart.Consumables.vertical = {
+        gridlines : 10
+    };
+    kclv.Configuration.load(configuration);
+    deepEqual(
+        new kclv.Chart.Candlestick(table).option.vertical,
+        { gridlines : 10, maximum : 55, minimum : 15 },
+        'Has the configurated chart options ' +
+            '(when vertical gridlines was specified).'
+    );
+
+    configuration.chart.Consumables.vertical = {
+        minorGridlines : 4
+    };
+    kclv.Configuration.load(configuration);
+    deepEqual(
+        new kclv.Chart.Candlestick(table).option.vertical,
+        { minorGridlines : 4, maximum : 55, minimum : 15 },
+        'Has the configurated chart options ' +
+            '(when vertical minorGridlines was specified).'
+    );
+
+    configuration.chart.Consumables.vertical = {
+        gridlines : 5, minorGridlines : 2
+    };
+    kclv.Configuration.load(configuration);
+    deepEqual(
+        new kclv.Chart.Candlestick(table).option.vertical,
+        { gridlines : 5, minorGridlines : 2, maximum : 55, minimum : 15 },
+        'Has the configurated chart options ' +
+            '(when vertical gridlines and vertical minorGridlines ' +
+            'were specified).'
+    );
+
+    configuration.chart.Consumables.vertical = { step : 10 };
+    kclv.Configuration.load(configuration);
+    deepEqual(
+        new kclv.Chart.Candlestick(table).option.vertical,
+        { maximum : 60, minimum : 10, ticks : [ 10, 20, 30, 40, 50, 60 ] },
+        'Has the configurated chart options ' +
+            '(when vertical step was specified).' +
+            'Note: ticks, maximum and minimum were justified.'
+    );
+
+    configuration.chart.Consumables.vertical = { step : 100 };
+    kclv.Configuration.load(configuration);
+    deepEqual(
+        new kclv.Chart.Candlestick(table).option.vertical,
+        { maximum : 100, minimum : 0, ticks : [ 0, 100 ] },
+        'Has the configurated chart options ' +
+            '(when vertical step was specified). ' +
+            'Note: ticks, maximum and minimum were boldly justified.'
+    );
+
+    configuration.chart.Consumables.vertical = { level : 120 };
+    kclv.Configuration.load(configuration);
+    deepEqual(
+        new kclv.Chart.Candlestick(table).option.vertical,
+        { maximum : 55, minimum : 15, baseline : 0 },
+        'Has the configurated chart options ' +
+            '(when vertical level was ignored).'
+    );
+
+    // Resources
+
+    table = new kclv.Table.Materials.Candlestick(
+        test.relation, ['Fuel', 'Weekly']
+    );
+    configuration.chart.Resources.vertical = {
+        level : 120
+    };
+    kclv.Configuration.load(configuration);
+    deepEqual(
+        new kclv.Chart.Candlestick(table).option.vertical,
+        { maximum : 51, minimum : 11, baseline : 30750 },
+        'Has the configurated chart options ' +
+            '(when vertical level was specified for baseline).'
+    );
+
+    // etc.
+
+    test.testRedraw('Candlestick', table, configuration);
+
+    // TODO: Even more tests.
+});
+
+// ----------------------------------------------------------------
+// Materials: Line
+// ----------------------------------------------------------------
+
+test('kclv.Chart.Line', function() {
+    var test = new kclv.Test.Chart.Materials(),
+        configuration = test.configuration,
+        table = null;
+
+    // Resouces
+
+    kclv.Configuration.load(configuration);
+    table = new kclv.Table.Materials.Line(test.relation, 'Resources');
+    deepEqual(
+        new kclv.Chart.Line(table).option,
+        {
+            horizontal : { },
+            vertical : { maximum : 54, minimum : 11 }
+        },
+        'Has the default chart options.'
+    );
+
+    configuration.chart.Resources.vertical = { maximum : 20, minimum : 10 };
+    kclv.Configuration.load(configuration);
+    deepEqual(
+        new kclv.Chart.Line(table).option.vertical,
+        { maximum : 20, minimum : 10 },
+        'Has the configurated chart options ' +
+            '(when vertical maximum and vertical minimum were specified).'
+    );
+
+    configuration.chart.Resources.vertical = { gridlines : 10 };
+    kclv.Configuration.load(configuration);
+    deepEqual(
+        new kclv.Chart.Line(table).option.vertical,
+        { gridlines : 10, maximum : 54, minimum : 11 },
+        'Has the configurated chart options ' +
+            '(when vertical gridlines was specified).'
+    );
+
+    configuration.chart.Resources.vertical = { minorGridlines : 4 };
+    kclv.Configuration.load(configuration);
+    deepEqual(
+        new kclv.Chart.Line(table).option.vertical,
+        { minorGridlines : 4, maximum : 54, minimum : 11 },
+        'Has the configurated chart options ' +
+            '(when vertical minorGridlines was specified).'
+    );
+
+    configuration.chart.Resources.vertical = {
+        gridlines : 5, minorGridlines : 2
+    };
+    kclv.Configuration.load(configuration);
+    deepEqual(
+        new kclv.Chart.Line(table).option.vertical,
+        { gridlines : 5, minorGridlines : 2, maximum : 54, minimum : 11 },
+        'Has the configurated chart options ' +
+            '(when vertical gridlines and vertical minorGridlines were ' +
+            'specified).'
+    );
+
+    configuration.chart.Resources.vertical = { step : 10 };
+    kclv.Configuration.load(configuration);
+    deepEqual(
+        new kclv.Chart.Line(table).option.vertical,
+        { maximum : 60, minimum : 10, ticks : [ 10, 20, 30, 40, 50, 60 ] },
+        'Has the configurated chart options ' +
+            '(when vertical step was specified).' +
+            'Note: ticks, maximum and minimum were justified.'
+    );
+
+    configuration.chart.Resources.vertical = { step : 100 };
+    kclv.Configuration.load(configuration);
+    deepEqual(
+        new kclv.Chart.Line(table).option.vertical,
+        { maximum : 100, minimum : 0, ticks : [ 0, 100 ] },
+        'Has the configurated chart options ' +
+            '(when vertical step was specified).' +
+            'Note: ticks, maximum and minimum were boldly justified.'
+    );
+
+    // Resources + Repair
+
+    configuration.chart.Resources = { withRepair : true };
+    configuration.chart.Consumables.vertical = { minimum : 168 };
+    kclv.Configuration.load(configuration);
+    table = new kclv.Table.Materials.Line(test.relation, 'Resources');
+    deepEqual(
+        new kclv.Chart.Line(table).option.vertical,
+        { maximum : 54, minimum : 11, opposingBaseline : 168 },
+        'Has the configurated chart options ' +
+            '(when opposing vertical minimum was specified for ' +
+            'opposing baseline).'
+    );
+
+    // etc.
+
+    test.testRedraw('Line', table, configuration);
+
+    // TODO: Even more tests.
+});
+
+// ----------------------------------------------------------------
+// Ships
+// ----------------------------------------------------------------
+
+kclv.Test.Chart.Ships = function() {
+    kclv.Test.Chart.Base.call(this);
+
+    this.configuration = new kclv.Test.Table.Ships.Base().configuration;
+
+    this.relation = new kclv.Relation.Ships().insert(
+        new kclv.Test.Relation.Ships().array
+    );
+
+    return;
+};
+kclv.Test.Chart.Ships.prototype =
+    Object.create(kclv.Test.Chart.Base.prototype);
+kclv.Test.Chart.Ships.prototype.constructor =
+    kclv.Test.Chart.Base;
+
+// ----------------------------------------------------------------
+// Ships: Histogram
+// ----------------------------------------------------------------
+
+test('kclv.Chart.Histogram', function() {
+    var test = new kclv.Test.Chart.Ships(),
+        configuration = test.configuration,
+        table = null;
+
+    kclv.Configuration.load(configuration);
+
+    // Levels
+
+    table = new kclv.Table.Ships.Histogram(test.relation, 'Levels');
+    deepEqual(
+        new kclv.Chart.Histogram(table).option,
+        {
+            horizontal : { },
+            vertical : { }
+        },
+        'Has the default chart options.'
+    );
+
+    configuration.chart.Ships.vertical = { maximum : 100, minimum : 50 };
+    kclv.Configuration.load(configuration);
+    deepEqual(
+        new kclv.Chart.Histogram(table).option.vertical,
+        { },
+        'Has the default chart options ' +
+            '(when vertical options were ignored).'
+    );
+
+    // Experiences
+
+    table = new kclv.Table.Ships.Histogram(test.relation, 'Experiences');
+    deepEqual(
+        new kclv.Chart.Histogram(table).option,
+        {
+            horizontal : { },
+            vertical : { }
+        },
+        'Has the default chart options.'
+    );
+
+    configuration.chart.Ships.vertical = { maximum : 100, minimum : 50 };
+    kclv.Configuration.load(configuration);
+    deepEqual(
+        new kclv.Chart.Histogram(table).option.vertical,
+        { },
+        'Has the default chart options ' +
+            '(when vertical options were ignored).'
+    );
+
+    // TODO: Even more tests.
+});
+
+// ----------------------------------------------------------------
+// Ships: Scatter
+// ----------------------------------------------------------------
+
+test('kclv.Chart.Scatter', function() {
+    var test = new kclv.Test.Chart.Ships(),
+        configuration = test.configuration,
+        table = null;
+
+    kclv.Configuration.load(configuration);
+
+    // vertical, Levels
+
+    table = new kclv.Table.Ships.Scatter(
+        test.relation, ['Levels', 'Arrival']
+    );
+    deepEqual(
+        new kclv.Chart.Scatter(table).option,
+        {
+            horizontal : { },
+            vertical : { maximum : 150, minimum : 1 }
+        },
+        'Has the default chart options.'
+    );
+
+    configuration.chart.Ships.vertical = { maximum : 100, minimum : 50 };
+    kclv.Configuration.load(configuration);
+    deepEqual(
+        new kclv.Chart.Scatter(table).option.vertical,
+        { maximum : 100, minimum : 50 },
+        'Has the configurated chart options ' +
+            '(when vertical maximum and vertical minimum were specified).'
+    );
+
+    configuration.chart.Ships.vertical = { gridlines : 10 };
+    kclv.Configuration.load(configuration);
+    deepEqual(
+        new kclv.Chart.Scatter(table).option.vertical,
+        { gridlines : 10, maximum : 150, minimum : 1 },
+        'Has the configurated chart options ' +
+            '(when vertical gridlines was specified).'
+    );
+
+    configuration.chart.Ships.vertical = { minorGridlines : 4 };
+    kclv.Configuration.load(configuration);
+    deepEqual(
+        new kclv.Chart.Scatter(table).option.vertical,
+        { minorGridlines : 4, maximum : 150, minimum : 1 },
+        'Has the configurated chart options ' +
+            '(when vertical minorGridlines was specified).'
+    );
+
+    configuration.chart.Ships.vertical = {
+        gridlines : 5, minorGridlines : 2
+    };
+    kclv.Configuration.load(configuration);
+    deepEqual(
+        new kclv.Chart.Scatter(table).option.vertical,
+        { gridlines : 5, minorGridlines : 2, maximum : 150, minimum : 1 },
+        'Has the configurated chart options ' +
+            '(when vertical gridlines and vertical minorGridlines were ' +
+            'specified).'
+    );
+
+    configuration.chart.Ships.vertical = { level : 70 };
+    kclv.Configuration.load(configuration);
+    deepEqual(
+        new kclv.Chart.Scatter(table).option.vertical,
+        { baseline : 70, maximum : 150, minimum : 1 },
+        'Has the configurated chart options ' +
+            '(when vertical level was specified for baseline).'
+    );
+
+    configuration.chart.Ships.vertical = { step : 10 };
+    kclv.Configuration.load(configuration);
+    deepEqual(
+        new kclv.Chart.Scatter(table).option.vertical,
+        { maximum : 150, minimum : 0, ticks : [
+            0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100,
+            110, 120, 130, 140, 150
+        ] },
+        'Has the configurated chart options ' +
+            '(when vertical step was specified).' +
+            'Note: ticks, maximum and minimum were justified.'
+    );
+
+    configuration.chart.Ships.vertical = { step : 40 };
+    kclv.Configuration.load(configuration);
+    deepEqual(
+        new kclv.Chart.Scatter(table).option.vertical,
+        { maximum : 160, minimum : 0, ticks : [ 0, 40, 80, 120, 160 ] },
+        'Has the configurated chart options ' +
+            '(when vertical step was specified).' +
+            'Note: ticks, maximum and minimum were boldly justified.'
+    );
+
+    // vertical, Experiences
+
+    configuration.chart.Ships.vertical = {};
+    kclv.Configuration.load(configuration);
+    table = new kclv.Table.Ships.Scatter(
+        test.relation, ['Experiences', 'Arrival']
+    );
+    deepEqual(
+        new kclv.Chart.Scatter(table).option,
+        {
+            horizontal : { },
+            vertical : { maximum : 4359999, minimum : 0 }
+        },
+        'Has the default chart options ' +
+            'Note: the counted levels are converted into experiences.'
+    );
+
+    configuration.chart.Ships.vertical = { maximum : 100, minimum : 50 };
+    kclv.Configuration.load(configuration);
+    deepEqual(
+        new kclv.Chart.Scatter(table).option.vertical,
+        { maximum : 1000000, minimum : 122500 },
+        'Has the configurated chart options ' +
+            '(when vertical maximum and vertical minimum were specified).' +
+            'Note: the specified levels are converted into experiences.'
+    );
+
+    configuration.chart.Ships.vertical = { gridlines : 10 };
+    kclv.Configuration.load(configuration);
+    deepEqual(
+        new kclv.Chart.Scatter(table).option.vertical,
+        { gridlines : 10, maximum : 4359999, minimum : 0 },
+        'Has the configurated chart options ' +
+            '(when vertical gridlines was specified).'
+    );
+
+    configuration.chart.Ships.vertical = { minorGridlines : 4 };
+    kclv.Configuration.load(configuration);
+    deepEqual(
+        new kclv.Chart.Scatter(table).option.vertical,
+        { minorGridlines : 4, maximum : 4359999, minimum : 0 },
+        'Has the configurated chart options ' +
+            '(when vertical minorGridlines was specified).' +
+            'Note: the counted levels are converted into experiences.'
+    );
+
+    configuration.chart.Ships.vertical = {
+        gridlines : 5, minorGridlines : 2
+    };
+    kclv.Configuration.load(configuration);
+    deepEqual(
+        new kclv.Chart.Scatter(table).option.vertical,
+        { gridlines : 5, minorGridlines : 2, maximum : 4359999, minimum : 0 },
+        'Has the configurated chart options ' +
+            '(when vertical gridlines and vertical minorGridlines were ' +
+            'specified).' +
+            'Note: the counted levels are converted into experiences.'
+    );
+
+    configuration.chart.Ships.vertical = { level : 70 };
+    kclv.Configuration.load(configuration);
+    deepEqual(
+        new kclv.Chart.Scatter(table).option.vertical,
+        { baseline : 265000, maximum : 4359999, minimum : 0 },
+        'Has the configurated chart options ' +
+            '(when vertical level was specified for baseline).' +
+            'Note: the counted levels are converted into experiences.'
+    );
+
+    configuration.chart.Ships.vertical = { step : 10 };
+    kclv.Configuration.load(configuration);
+    deepEqual(
+        new kclv.Chart.Scatter(table).option.vertical,
+        { maximum : 4360000, minimum : 0, ticks : [
+            0, 4500, 19000, 43500, 78000, 122500, 181500, 265000, 383000,
+            545500, 1000000, 1055000, 1255000, 1785000, 2760000, 4360000
+        ] },
+        'Has the configurated chart options ' +
+            '(when vertical step was specified for baseline).' +
+            'Note: the counted levels are converted into experiences.'
+    );
+
+    configuration.chart.Ships.vertical = { step : 20, minorGridlines : 1 };
+    kclv.Configuration.load(configuration);
+    deepEqual(
+        new kclv.Chart.Scatter(table).option.vertical,
+        { maximum : 4360000, minimum : 0, minorGridlines : null, ticks : [
+            0, 4500, 19000, 43500, 78000, 122500, 181500, 265000, 383000,
+            545500, 1000000, 1055000, 1255000, 1785000, 2760000, 4360000
+        ] },
+        'Has the configurated chart options ' +
+            '(when vertical step vertical minorGridlines were specified ' +
+            'for baseline).' +
+            'Note: the counted levels are converted into experiences.'
+    );
+
+    configuration.chart.Ships.vertical = { step : 40 };
+    kclv.Configuration.load(configuration);
+    deepEqual(
+        new kclv.Chart.Scatter(table).option.vertical,
+        { maximum : 4360000, minimum : 0, ticks : [
+            0, 78000, 383000, 1255000, 4360000 // Round Lv.160 down to Lv.150
+        ] },
+        'Has the configurated chart options ' +
+            '(when vertical step was specified for baseline).' +
+            'Note: the counted levels are converted into experiences. ' +
+            'Note: ticks, maximum and minimum were boldly justified.'
+    );
+
+    // horizontal
+
+    configuration.chart.Ships.horizontal = {};
+    kclv.Configuration.load(configuration);
+    deepEqual(
+        new kclv.Chart.Scatter(table).option.horizontal,
+        { maximum : 4, minimum : 1 },
+        'Has the default chart options' +
+            '(when horizontal was specified).'
+    );
+
+    configuration.chart.Ships.horizontal = { maximum : 100, minimum : 50 };
+    kclv.Configuration.load(configuration);
+    deepEqual(
+        new kclv.Chart.Scatter(table).option.horizontal,
+        { maximum : 100, minimum : 50 },
+        'Has the configurated chart options ' +
+            '(when horizontal maximum and horizontal minimum were specified).'
+    );
+
+    configuration.chart.Ships.horizontal = { gridlines : 10 };
+    kclv.Configuration.load(configuration);
+    deepEqual(
+        new kclv.Chart.Scatter(table).option.horizontal,
+        { gridlines : 10, maximum : 4, minimum : 1 },
+        'Has the configurated chart options ' +
+            '(when horizontal gridlines was specified).'
+    );
+
+    configuration.chart.Ships.horizontal = { minorGridlines : 4 };
+    kclv.Configuration.load(configuration);
+    deepEqual(
+        new kclv.Chart.Scatter(table).option.horizontal,
+        { minorGridlines : 4, maximum : 4, minimum : 1 },
+        'Has the configurated chart options ' +
+            '(when horizontal minorGridlines was specified).'
+    );
+
+    configuration.chart.Ships.horizontal = {
+        gridlines : 5, minorGridlines : 2
+    };
+    kclv.Configuration.load(configuration);
+    deepEqual(
+        new kclv.Chart.Scatter(table).option.horizontal,
+        { gridlines : 5, minorGridlines : 2, maximum : 4, minimum : 1 },
+        'Has the configurated chart options ' +
+            '(when horizontal gridlines and horizontal minorGridlines were ' +
+            'specified).'
+    );
+
+    configuration.chart.Ships.horizontal = { step : 10 };
+    kclv.Configuration.load(configuration);
+    deepEqual(
+        new kclv.Chart.Scatter(table).option.horizontal,
+        { maximum : 10, minimum : 0, ticks : [0, 10] },
+        'Has the configurated chart options ' +
+            '(when horizontal step was specified).' +
+            'Note: ticks, maximum and minimum were boldly justified.'
+    );
+
+    configuration.chart.Ships.horizontal = { step : 40 };
+    kclv.Configuration.load(configuration);
+    deepEqual(
+        new kclv.Chart.Scatter(table).option.horizontal,
+        { maximum : 40, minimum : 0, ticks : [ 0, 40 ] },
+        'Has the configurated chart options ' +
+            '(when horizontal step was specified).' +
+            'Note: ticks, maximum and minimum were boldly justified.'
+    );
+
+    // etc.
+
+    test.testRedraw('Scatter', table, configuration);
+
+    // TODO: Even more tests.
+});
+
+// ----------------------------------------------------------------
+// Placeholders
+// ----------------------------------------------------------------
+
 /*
 test('kclv.ChartLike', function() {
     // TODO: Even more tests.
@@ -2437,12 +3077,6 @@ test('kclv.Chart.Bubble', function() {
 */
 
 /*
-test('kclv.Chart.CandleStick', function() {
-    // TODO: Even more tests.
-});
-*/
-
-/*
 test('kclv.Chart.Calendar', function() {
     // TODO: Even more tests.
 });
@@ -2461,19 +3095,7 @@ test('kclv.Chart.Diff', function() {
 */
 
 /*
-test('kclv.Chart.Histogram', function() {
-    // TODO: Even more tests.
-});
-*/
-
-/*
 test('kclv.Chart.Interval', function() {
-    // TODO: Even more tests.
-});
-*/
-
-/*
-test('kclv.Chart.Line', function() {
     // TODO: Even more tests.
 });
 */
@@ -2486,12 +3108,6 @@ test('kclv.Chart.Pie', function() {
 
 /*
 test('kclv.Chart.Sankey', function() {
-    // TODO: Even more tests.
-});
-*/
-
-/*
-test('kclv.Chart.Scatter', function() {
     // TODO: Even more tests.
 });
 */

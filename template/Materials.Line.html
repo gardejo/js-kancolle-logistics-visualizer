@@ -55,13 +55,15 @@
                 },
                 vAxes : {
                     0 : {
+                        {{if option.vertical.baseline}}
+                        baseline : {{:option.vertical.baseline}},
+                        {{/if}}
                         {{if option.vertical.gridlines}}
                         gridlines : { count : {{:option.vertical.gridlines}} },
                         {{/if}}
                         {{if option.vertical.ticks}}
                         ticks : [ {{:option.vertical.ticks}} ],
                         {{/if}}
-                        baseline : {{:option.vertical.baseline}},
                         viewWindow : {
                              max : {{:option.vertical.maximum}},
                              min : {{:option.vertical.minimum}}

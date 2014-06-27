@@ -82,8 +82,9 @@
         "Ships"         : {
             "abbreviate"    : true,
             "horizontal"    : {
-                "port"          : null,
                 "step"          : 10,
+                "maximum"       : null,
+                "minimum"       : null,
                 "gridlines"     : null,
                 "minorGridlines": 1
             },

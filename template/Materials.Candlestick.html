@@ -35,7 +35,9 @@
                     slantedTextAngle : 90
                 },
                 vAxis : {
+                    {{if option.vertical.baseline}}
                     baseline : {{:option.vertical.baseline}},
+                    {{/if}}
                     {{if option.vertical.gridlines}}
                     gridlines : { count : {{:option.vertical.gridlines}} },
                     {{/if}}
