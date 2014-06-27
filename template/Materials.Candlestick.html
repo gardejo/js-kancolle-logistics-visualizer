@@ -4,7 +4,7 @@
 
     <head>
 
-        <title>{{>title}}</title>
+        <title>{{>table.title}}</title>
 
 {{include tmpl="meta"/}}
 
@@ -26,7 +26,7 @@
             var table = {{:~formatter.stringify(table.rows, null, '    ')}};
 
             var option = {
-                title : "{{>title}}",
+                title : "{{>table.title}}",
                 legend : { position : "none" },
                 selectionMode : "multiple",
                 tooltip : { trigger: "both" },
