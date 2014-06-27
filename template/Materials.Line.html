@@ -41,7 +41,7 @@
                     orientation : "both", // or horizontal
                     opacity     : 0.5
                 },
-                {{if table.hasOpposite}}
+                {{if table.opposite}}
                 series : { 4 : { targetAxisIndex : 1 } },
                 {{/if}}
                 hAxis : {
@@ -67,7 +67,7 @@
                              min : {{:option.vertical.minimum}}
                         }
                     }
-                    {{if table.hasOpposite}}
+                    {{if table.opposite}}
                     ,1 : {
                         {{if option.vertical.opposingBaseline !== null}}
                         baseline : {{:option.vertical.opposingBaseline}},
