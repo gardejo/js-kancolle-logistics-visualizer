@@ -809,6 +809,33 @@ test('kclv.Agent.Logbook : Materials', function() {
 });
 
 // ----------------------------------------------------------------
+// Materials: Sandanshiki Kanpan (Three Flight Decks)
+// ----------------------------------------------------------------
+
+test('kclv.Agent.SandanshikiKanpan : Materials', function() {
+    if (navigator.userAgent.indexOf('MSIE') >= 0) {
+        ok(true, 'TODO: MSIE cannot the tests.');
+        return;
+    }
+
+    var test = new kclv.Test.Agent.Materials(),
+        agent = new kclv.Agent.SandanshikiKanpan(),
+        configuration = { agent: { SandanshikiKanpan: { path: {
+            Fuel          : './SandanshikiKanpan.fuel.dat',
+            Ammunition    : './SandanshikiKanpan.bullet.dat',
+            Steel         : './SandanshikiKanpan.steel.dat',
+            Bauxite       : './SandanshikiKanpan.bauxite.dat',
+            Repair        : './SandanshikiKanpan.bucket.dat',
+            Construction  : './SandanshikiKanpan.burner.dat',
+            Development   : './SandanshikiKanpan.devMaterial.dat'
+        } } } };
+
+    test.test(agent, configuration);
+
+    // TODO: Even more tests.
+});
+
+// ----------------------------------------------------------------
 // Ships
 // ----------------------------------------------------------------
 
@@ -1077,6 +1104,36 @@ test('kclv.Tokenizer.Logbook.Ships', function() {
             [  1, '電改',       'DD',   99, 1000000 ],
             [ 12, '千歳航改二', 'CVL', 149, 4359999 ],
             [ 24, '長門',       'BB',    1,       0 ]
+        ];
+
+    test.test(tokenizer, string, rows, table);
+
+    // TODO: Even more tests.
+});
+
+// ----------------------------------------------------------------
+// Sandanshiki Kanpan (Three Flight Decks): Materials
+// ----------------------------------------------------------------
+
+test('kclv.Tokenizer.SandanshikiKanpan.Materials', function() {
+    var test = new kclv.Test.Tokenizer(),
+        tokenizer = new kclv.Tokenizer.SandanshikiKanpan.Materials(),
+        string =
+            '2013-04-23-01-23-45-1234\t1\n' +
+            '2013-07-10-12-34-56-5678\t2\n',
+        rows = [
+            '2013-04-23-01-23-45-1234\t1',
+            '2013-07-10-12-34-56-5678\t2'
+        ],
+        table = [
+            [
+                new Date('2013/04/23 01:23:45'),    // Date
+                1                                   // Integer
+            ],
+            [
+                new Date('2013/07/10 12:34:56'),
+                2
+            ]
         ];
 
     test.test(tokenizer, string, rows, table);
