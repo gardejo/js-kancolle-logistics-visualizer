@@ -83,7 +83,7 @@ I deeply thank people below:
 
 * Dev & Ops team of *[Kantai Collection -KanColle-](http://www.dmm.com/netgame/feature/kancolle.html)*, DMM.com, Ltd. and Kadokawa Games, Ltd.
 * *[@sanae_hirotaka](https://twitter.com/sanae_hirotaka)* wrote *[Logbook](https://twitter.com/sanae_hirotaka)*, which this system treats its log files.
-* *hetaregrammer* wrote *[KCRDB](http://hetaregrammer.blog.fc2.com/)*, which this system treats.
+* *hetaregrammer* wrote *[KCRDB](http://hetaregrammer.blog.fc2.com/)*, which this system treats its log files.
 * *[No.983](http://jbbs.shitaraba.net/netgame/12394/storage/1386926329.html#983) of the thread about tools and dedicated browsers* wrote *[Graphicalizer Tool for KCRDB logs](https://dl.dropboxusercontent.com/s/6ortcavxtaucgnn/convert_graph.html)*, which this system gets an idea from.
 * *Mozilla Contributors* wrote sample codes under the Public Domain at *[MDN](https://developer.mozilla.org/)*, which this system uses as [`lib/kclv.polyfill.js`](https://github.com/gardejo/js-kancolle-logistics-visualizer/blob/master/lib/kclv.polyfill.js) .
 * Volunteers edited *[Kantai Collection -KanColle- Wiki](http://wikiwiki.jp/kancolle/)*, which this system refers to about specifications of the game.
