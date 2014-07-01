@@ -25,6 +25,7 @@ You've got the right stuff! *KanColle Logistics Visualizer* treats materials log
 
 * *[Logbook](http://kancolle.sanaechan.net/)*
 * *[KCRDB (KanColle Received Data Browser)](http://hetaregrammer.blog.fc2.com/)*
+* *[Sandanshiki Kanpan](http://3dan.preflight.cc/)* (Only materials log)
 * And more (due to expansion)
 
 ... and draws [various charts](https://github.com/gardejo/js-kancolle-logistics-visualizer/wiki#gallery) below:
@@ -84,6 +85,7 @@ I deeply thank people below:
 * Dev & Ops team of *[Kantai Collection -KanColle-](http://www.dmm.com/netgame/feature/kancolle.html)*, DMM.com, Ltd. and Kadokawa Games, Ltd.
 * *[@sanae_hirotaka](https://twitter.com/sanae_hirotaka)* wrote *[Logbook](https://twitter.com/sanae_hirotaka)*, which this system treats its log files.
 * *hetaregrammer* wrote *[KCRDB](http://hetaregrammer.blog.fc2.com/)*, which this system treats its log files.
+* *[@nash_fs](https://twitter.com/nash_fs)* wrote *[Sandanshiki Kanpan](http://3dan.preflight.cc/)*, which this system treats its log files.
 * *[No.983](http://jbbs.shitaraba.net/netgame/12394/storage/1386926329.html#983) of the thread about tools and dedicated browsers* wrote *[Graphicalizer Tool for KCRDB logs](https://dl.dropboxusercontent.com/s/6ortcavxtaucgnn/convert_graph.html)*, which this system gets an idea from.
 * *Mozilla Contributors* wrote sample codes under the Public Domain at *[MDN](https://developer.mozilla.org/)*, which this system uses as [`lib/kclv.polyfill.js`](https://github.com/gardejo/js-kancolle-logistics-visualizer/blob/master/lib/kclv.polyfill.js) .
 * Volunteers edited *[Kantai Collection -KanColle- Wiki](http://wikiwiki.jp/kancolle/)*, which this system refers to about specifications of the game.
@@ -146,6 +148,7 @@ All brand names and product names are trademarks or registered trademarks of the
 
 * *[航海日誌](http://kancolle.sanaechan.net/)*
 * *[KCRDB（艦これ Received Data Browser）](http://hetaregrammer.blog.fc2.com/)*
+* *[三段式甲板](http://3dan.preflight.cc/)* （資材ログのみ）
 * ……（他にも拡張予定）
 
 ……が出力する資材履歴ログファイルや艦娘一覧ファイルを加工し、以下のような[各種のグラフ](https://github.com/gardejo/js-kancolle-logistics-visualizer/wiki/Home-(ja)#%E3%82%AE%E3%83%A3%E3%83%A9%E3%83%AA%E3%83%BC)を描画します。
@@ -209,6 +212,7 @@ GUI（グラフィカル ユーザー インターフェース）で操作しま
 * *株式会社DMM.com* および *株式会社角川ゲームス* 各社の、 *[艦隊これくしょん -艦これ-](http://www.dmm.com/netgame/feature/kancolle.html)* の開発・運営チームの皆さん。
 * *[航海日誌](https://twitter.com/sanae_hirotaka)* をお書きになった *[@sanae_hirotaka](https://twitter.com/sanae_hirotaka)* さん。ログ ファイルを使わせていただきました。
 * *[KCRDB](http://hetaregrammer.blog.fc2.com/)* をお書きになった *hetaregrammer* さん。ログ ファイルを使わせていただきました。
+* *[三段式甲板](http://3dan.preflight.cc/)* をお書きになった *[@nash_fs](https://twitter.com/nash_fs)* さん。ログ ファイルを使わせていただきました。
 * *[KCRDBログ グラフ化ツール](https://dl.dropboxusercontent.com/s/6ortcavxtaucgnn/convert_graph.html)* をお書きになった *ツール、専ブラスレの[983](http://jbbs.shitaraba.net/netgame/12394/storage/1386926329.html#983)* さん。着想をいただきました。
 * *[MDN](https://developer.mozilla.org/)* でパブリック ドメインのサンプル コードをお書きになった *Mozilla Contributors* の方々。 [`lib/polyfill.js`](https://github.com/gardejo/js-kancolle-logistics-visualizer/blob/master/lib/kclv.polyfill.js) として使わせていただきました。
 * *[艦隊これくしょん -艦これ- 攻略Wiki](http://wikiwiki.jp/kancolle/)* を編集された有志の方々。ゲームの仕様を参考にさせていただきました。
