@@ -1084,6 +1084,36 @@ test('kclv.Tokenizer.Logbook.Ships', function() {
     // TODO: Even more tests.
 });
 
+// ----------------------------------------------------------------
+// Sandanshiki Kanpan (Three Flight Decks): Materials
+// ----------------------------------------------------------------
+
+test('kclv.Tokenizer.SandanshikiKanpan.Materials', function() {
+    var test = new kclv.Test.Tokenizer(),
+        tokenizer = new kclv.Tokenizer.SandanshikiKanpan.Materials(),
+        string =
+            '2013-04-23-01-23-45-1234\t1\n' +
+            '2013-07-10-12-34-56-5678\t2\n',
+        rows = [
+            '2013-04-23-01-23-45-1234\t1',
+            '2013-07-10-12-34-56-5678\t2'
+        ],
+        table = [
+            [
+                new Date('2013/04/23 01:23:45'),    // Date
+                1                                   // Integer
+            ],
+            [
+                new Date('2013/07/10 12:34:56'),
+                2
+            ]
+        ];
+
+    test.test(tokenizer, string, rows, table);
+
+    // TODO: Even more tests.
+});
+
 
 // ================================================================
 module('Selectors');
