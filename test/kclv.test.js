@@ -809,6 +809,33 @@ test('kclv.Agent.Logbook : Materials', function() {
 });
 
 // ----------------------------------------------------------------
+// Materials: Sandanshiki Kanpan (Three Flight Decks)
+// ----------------------------------------------------------------
+
+test('kclv.Agent.SandanshikiKanpan : Materials', function() {
+    if (navigator.userAgent.indexOf('MSIE') >= 0) {
+        ok(true, 'TODO: MSIE cannot the tests.');
+        return;
+    }
+
+    var test = new kclv.Test.Agent.Materials(),
+        agent = new kclv.Agent.SandanshikiKanpan(),
+        configuration = { agent: { SandanshikiKanpan: { path: {
+            Fuel          : './SandanshikiKanpan.fuel.dat',
+            Ammunition    : './SandanshikiKanpan.bullet.dat',
+            Steel         : './SandanshikiKanpan.steel.dat',
+            Bauxite       : './SandanshikiKanpan.bauxite.dat',
+            Repair        : './SandanshikiKanpan.bucket.dat',
+            Construction  : './SandanshikiKanpan.burner.dat',
+            Development   : './SandanshikiKanpan.devMaterial.dat'
+        } } } };
+
+    test.test(agent, configuration);
+
+    // TODO: Even more tests.
+});
+
+// ----------------------------------------------------------------
 // Ships
 // ----------------------------------------------------------------
 
