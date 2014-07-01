@@ -821,13 +821,14 @@ test('kclv.Agent.SandanshikiKanpan : Materials', function() {
     var test = new kclv.Test.Agent.Materials(),
         agent = new kclv.Agent.SandanshikiKanpan(),
         configuration = { agent: { SandanshikiKanpan: { path: {
-            Fuel          : './SandanshikiKanpan.fuel.dat',
-            Ammunition    : './SandanshikiKanpan.bullet.dat',
-            Steel         : './SandanshikiKanpan.steel.dat',
-            Bauxite       : './SandanshikiKanpan.bauxite.dat',
-            Repair        : './SandanshikiKanpan.bucket.dat',
-            Construction  : './SandanshikiKanpan.burner.dat',
-            Development   : './SandanshikiKanpan.devMaterial.dat'
+            // Note: An our test stub regards '%LocalAppData%' as './'.
+            Fuel          : '%LocalAppData%/SandanshikiKanpan.fuel.dat',
+            Ammunition    : '%LocalAppData%/SandanshikiKanpan.bullet.dat',
+            Steel         : '%LocalAppData%/SandanshikiKanpan.steel.dat',
+            Bauxite       : '%LocalAppData%/SandanshikiKanpan.bauxite.dat',
+            Repair        : '%LocalAppData%/SandanshikiKanpan.bucket.dat',
+            Construction  : '%LocalAppData%/SandanshikiKanpan.burner.dat',
+            Development   : '%LocalAppData%/SandanshikiKanpan.devMaterial.dat'
         } } } };
 
     test.test(agent, configuration);

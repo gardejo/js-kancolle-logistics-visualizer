@@ -135,6 +135,29 @@ kclv.Stub.FileSystemObject.prototype.ReadAll = function() {
     return kclv.Stub.Stream.prototype.ReadText.call(this);
 };
 
+kclv.Stub.FileSystemObject.prototype.GetAbsolutePathName = function(path) {
+    return path;
+};
+
+
+// ================================================================
+// Shell (Replacement for WScript.Shell)
+// ================================================================
+
+kclv.Stub.Shell = function() {
+    return;
+};
+
+kclv.Stub.Shell.prototype.ExpandEnvironmentStrings = function(environment) {
+    switch (environment) {
+        case '%LocalAppData%':
+        case '%AppData%':
+            return './'; // Workaround.
+        default:
+            return environment;
+    }
+};
+
 
 // ================================================================
 // ActiveXObject (Replacement for ActiveXObject)
@@ -146,6 +169,8 @@ ActiveXObject = function(objectName) {
             return new kclv.Stub.Stream();
         case 'Scripting.FileSystemObject':
             return new kclv.Stub.FileSystemObject();
+        case 'WScript.Shell':
+            return new kclv.Stub.Shell();
         default:
             throw new Error();
     }
