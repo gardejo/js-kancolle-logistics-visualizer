@@ -211,7 +211,7 @@ GUI（グラフィカル ユーザー インターフェース）で操作しま
 
 * *株式会社DMM.com* および *株式会社角川ゲームス* 各社の、 *[艦隊これくしょん -艦これ-](http://www.dmm.com/netgame/feature/kancolle.html)* の開発・運営チームの皆さん。
 * *[航海日誌](https://twitter.com/sanae_hirotaka)* をお書きになった *[@sanae_hirotaka](https://twitter.com/sanae_hirotaka)* さん。ログ ファイルを使わせていただきました。
-* *[KCRDB](http://hetaregrammer.blog.fc2.com/)* をお書きになった *hetaregrammer* さん。ログ ファイルを使わせていただきました。
+* *[KCRDB](http://hetaregrammer.blog.fc2.com/)* をお書きになった *へたれぐらま* さん。ログ ファイルを使わせていただきました。
 * *[三段式甲板](http://3dan.preflight.cc/)* をお書きになった *[@nash_fs](https://twitter.com/nash_fs)* さん。ログ ファイルを使わせていただきました。
 * *[KCRDBログ グラフ化ツール](https://dl.dropboxusercontent.com/s/6ortcavxtaucgnn/convert_graph.html)* をお書きになった *ツール、専ブラスレの[983](http://jbbs.shitaraba.net/netgame/12394/storage/1386926329.html#983)* さん。着想をいただきました。
 * *[MDN](https://developer.mozilla.org/)* でパブリック ドメインのサンプル コードをお書きになった *Mozilla Contributors* の方々。 [`lib/polyfill.js`](https://github.com/gardejo/js-kancolle-logistics-visualizer/blob/master/lib/kclv.polyfill.js) として使わせていただきました。
