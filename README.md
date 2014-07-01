@@ -65,6 +65,8 @@ Additionally, you can also use *the [users forum](http://ost.io/@gardejo/js-kanc
 
 Release information of this system is provided by [RSS feed](https://github.com/gardejo/js-kancolle-logistics-visualizer/releases.atom). Also the author may tweet it at *[Twitter](https://twitter.com/gardejo)*.
 
+Note: This software complies with [Semantic Versioning](http://semver.org/).
+
 ### Maintenance Service
 
 I'd like to receive a report about bugs and a suggestion for enhancement at *the [issue tracker](https://github.com/gardejo/js-kancolle-logistics-visualizer/issues)*. Please refrain from contact via *Twitter* or e-mail, whenever possible. Please be considerate to share issues with stakeholders.
@@ -180,6 +182,9 @@ GUI（グラフィカル ユーザー インターフェース）で操作しま
 このシステムの説明書は[Wiki](https://github.com/gardejo/js-kancolle-logistics-visualizer/wiki/Home-(ja))にあります（現在のところ、ほとんど日本語で記載されています）。ご利用の前にご覧ください。
 
 このシステムのバージョン アップ情報は[RSS](https://github.com/gardejo/js-kancolle-logistics-visualizer/releases.atom)で配信されます。また、著者が *[Twitter](https://twitter.com/gardejo)* で呟くこともあります。
+
+註: このソフトウェアは[Semantic Versioning](http://semver.org/)（[日本語訳](http://shijimiii.info/technical-memo/semver/)）に準拠しています。
+
 
 ### 保守
 
