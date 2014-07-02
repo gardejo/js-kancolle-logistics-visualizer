@@ -289,18 +289,6 @@ test('kclv.Array', function() {
     );
 
     deepEqual(
-        kclv.Array.indices([168, 58, 19, 8, 401]),
-        [0, 1, 2, 3, 4],
-        'Gets all indices of an array.'
-    );
-
-    deepEqual(
-        kclv.Array.indices([]),
-        [],
-        'Gets all indices as an emtpy array if spceficied array is empty.'
-    );
-
-    deepEqual(
         kclv.Array.maximum([ [168], [58], [19], [8], [401] ], [0]),
         401,
         'Gets the maximum value of the spceficied two-dimensional array.'
