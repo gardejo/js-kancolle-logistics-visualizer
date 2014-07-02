@@ -18,7 +18,6 @@
     plusplus : true,
     regexp   : true,
     todo     : true,
-    unparam  : true,
     vars     : true,
     white    : true
 */
@@ -1345,7 +1344,7 @@ kclv.Test.Relation.Base = function() {
 kclv.Test.Relation.Base.prototype.testThreshold = function(
     testee, expectations
 ) {
-    Object.keys(this.expectations).forEach( function(key, index, keys) {
+    Object.keys(this.expectations).forEach( function(key) {
         deepEqual(
             testee.minimum(key),
             expectations[key][0],
@@ -1515,7 +1514,7 @@ test('kclv.Relation.Base', function() {
 
     deepEqual(
         new kclv.Relation.Base().insert([ [1], [2], [3] ]).
-            map( function( element, index, array ) {
+            map( function(element) {
                 return element * 2;
             } ),
         [ 2, 4, 6 ],
@@ -1524,7 +1523,7 @@ test('kclv.Relation.Base', function() {
 
     deepEqual(
         new kclv.Relation.Base().insert([ [1], [2], [3] ]).
-            reduce( function(previous, current, index, array) {
+            reduce( function(previous, current) {
                 return previous + current[0];
             }, 100 ),
         106,
@@ -1763,7 +1762,7 @@ test('kclv.Table.Materials.Candlestick', function() {
 
     // Resources, such as Fuel
 
-    periods.forEach( function(period, index, periods) {
+    periods.forEach( function(period) {
         table =
             new kclv.Table.Materials.Candlestick(relation, ['Fuel', period]);
         var expectedRows = {
@@ -1799,7 +1798,7 @@ test('kclv.Table.Materials.Candlestick', function() {
 
     // Consumables, such as Repair
 
-    periods.forEach( function(period, index, periods) {
+    periods.forEach( function(period) {
         table =
             new kclv.Table.Materials.Candlestick(relation, ['Repair', period]);
         var expectedRows = {
@@ -2475,7 +2474,7 @@ kclv.Test.Chart.Base = function() {
 kclv.Test.Chart.Base.prototype.testRedraw = function(
     chart, table, configuration
 ) {
-    [true, false, null].forEach( function(value, index, values) {
+    [true, false, null].forEach( function(value) {
         configuration.chart.redraw = value;
         kclv.Configuration.load(configuration);
         deepEqual(
