@@ -49,8 +49,20 @@ Let's run it via GUI (Graphical User Interface).
 
 1. Install this system in your computer with reference to *the [Wiki](https://github.com/gardejo/js-kancolle-logistics-visualizer/wiki#installation) page*.
     * Note: This system runs on *WSH (Windows Script Host)* environment on *Microsoft Windows*. A guest language is (not *JavaScript* but) *JScript*.
-2. Double click `visualizer.wsf` file.
-3. Open a chart file which outputted to `chart` directory (folder), and browse a chart.
+2. Prepare log files for visualization.
+    * If you use *Logbook*:
+        * Materials log was outputted automatically as `資材ログ.csv`.
+        * Output ships roster manually as `所有艦娘一覧.csv`.
+            * Select `[所有艦娘一覧]` (Roster of owned ships) window - `[ファイル]` (File) menu - `[CSVファイルに保存]` (Output as CSV file) item.
+    * If you use *KCRDB*:
+        * Materials log was outputted automatically as `KCRDB-materialhistory.log`, if you turn on the `[設定]`(Configuration) window - `[ログ1]` (Log 1) tab - `[資源履歴を記録]` (Record materials history) check box.
+        * Output ships roster manually such as `KCRDB-shiplist.csv` by any way of the following:
+            * Turn on the `[CSV出力]` (CSV output) button - `[出力するCSVの選択]` (Select outputting CSV) window - `[所持している艦娘の一覧]` (Roster of owned ships) radio button, and press the `[OK]` button.
+            * Right click `[全艦娘一覧]` (Roster of all ships) window or `[艦娘グループ]` (Ships group) window, and select `[表示中の艦娘一覧をCSVに出力]` (Output displaying ships roster as CSV) item in the context menu.
+    * If you use *Sandanshiki Kanpan*:
+        * Materials logs were outputted automatically as `fuel.0.4.dat`, `bullet.0.4.dat`, `steel.0.4.dat`, `bauxite.0.4.dat`, `burner.0.4.dat`, `bucket.0.4.dat` and `devMaterial.0.4.dat`.
+3. Double click `visualizer.wsf` file.
+4. Open a chart file which outputted to `chart` directory (folder), and browse a chart.
 
 Note: It can be run via the [CLI (Command Line Interface)](https://github.com/gardejo/js-kancolle-logistics-visualizer/Command-Line).
 
@@ -171,8 +183,20 @@ GUI（グラフィカル ユーザー インターフェース）で操作しま
 
 1. [Wiki](https://github.com/gardejo/js-kancolle-logistics-visualizer/wiki/Home-(ja)#%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB)を参照して、あなたのコンピューターにこのシステムをインストールします。
     * 註: このシステムは *Microsoft Windows* 上の *WSH（Windows Script Host）* 環境で稼働します。
-2. `visualizer.wsf`ファイルをダブル クリックします。
-3. `chart` ディレクトリー（フォルダー）に出力されたグラフ ファイルを開いて、グラフを閲覧します。
+2. 処理したいログ ファイルを用意します。
+    * *航海日誌* の場合
+        * `資材ログ.csv`は、自動で出力されています。
+        * `所有艦娘一覧.csv`は、手動で保存してください。
+            * `[所有艦娘一覧]`ウィンドウの`[ファイル]`メニューから`[CSVファイルに保存]`アイテムを選択する
+    * *KCRDB* の場合
+        * 資材ログ`KCRDB-materialhistory.log`は、`[設定]`ウィンドウ - `[ログ1]`タブ - `[資源履歴を記録]`チェック ボックスをオンにすれば、自動で出力されます。
+        * 所有艦娘一覧は、以下のいずれかの手段で、`KCRDB-shiplist.csv`などの名前で手動で保存してください。
+            * `[CSV出力]`ボタン - `[出力するCSVの選択]`ウィンドウで`[所持している艦娘の一覧]`ラジオ ボタンをオンにして`[OK]`ボタンを押下する
+            * `[全艦娘一覧]`ウィンドウまたは`[艦娘グループ]`ウィンドウを右クリックし、コンテキスト メニューから`[表示中の艦娘一覧をCSVに出力]`アイテムを選択する
+    * *三段式甲板* の場合
+        * 資材ログは、 `fuel.0.4.dat`・`bullet.0.4.dat`・`steel.0.4.dat`・`bauxite.0.4.dat`・`burner.0.4.dat`・`bucket.0.4.dat`・`devMaterial.0.4.dat`として、自動で出力されています。
+3. `visualizer.wsf`ファイルをダブル クリックします。
+4. `chart` ディレクトリー（フォルダー）に出力されたグラフ ファイルを開いて、グラフを閲覧します。
 
 註: CLI（コマンド ライン インターフェース）でも操作できます。
 
