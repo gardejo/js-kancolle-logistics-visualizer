@@ -2113,9 +2113,9 @@ test('kclv.Table.Ships.Histogram', function() {
         ]
     );
 
-    // ignoreMothball
+    // mothballLevel
 
-    configuration.chart.Ships.ignoreMothball = true;
+    configuration.chart.Ships.mothballLevel = 1;
     kclv.Configuration.load(configuration);
     table = new kclv.Table.Ships.Histogram(relation, 'Levels');
     test.test(
@@ -2143,7 +2143,33 @@ test('kclv.Table.Ships.Histogram', function() {
             { c : [] }
         ]
     );
-    configuration.chart.Ships.ignoreMothball = false;
+
+    configuration.chart.Ships.mothballLevel = 99;
+    kclv.Configuration.load(configuration);
+    table = new kclv.Table.Ships.Histogram(relation, 'Levels');
+    test.test(
+        table,
+        'Levels',
+        null,
+        'S (lv)',
+        columns.classification,
+        [
+            { c : [] },
+            { c : [
+                null, null, null, null, null, null, null, null, null, null,
+                { v : 149, f : '千歳航改二 Lv.149' }, // Col. 10
+                null, null, null, null, null
+            ] },
+            { c : [
+                null, null, null, null, null, null, null, null, null, null,
+                { v : 100, f : '千代田航改二 Lv.100' }, // Col. 10
+                null, null, null, null, null
+            ] },
+            { c : [] }
+        ]
+    );
+
+    configuration.chart.Ships.mothballLevel = null;
 
     // abbreviate
 
@@ -2313,9 +2339,9 @@ test('kclv.Table.Ships.Scatter', function() {
         ]
     );
 
-    // ignoreMothball
+    // mothballLevel
 
-    configuration.chart.Ships.ignoreMothball = true;
+    configuration.chart.Ships.mothballLevel = 1;
     kclv.Configuration.load(configuration);
     table = new kclv.Table.Ships.Scatter(relation, ['Levels', 'Arrival']);
     test.test(
@@ -2346,7 +2372,35 @@ test('kclv.Table.Ships.Scatter', function() {
             { c : [] }
         ]
     );
-    configuration.chart.Ships.ignoreMothball = false;
+
+    configuration.chart.Ships.mothballLevel = 99;
+    kclv.Configuration.load(configuration);
+    table = new kclv.Table.Ships.Scatter(relation, ['Levels', 'Arrival']);
+    test.test(
+        table,
+        'Levels',
+        'Arrival',
+        'S (lv)',
+        columns.classification,
+        [
+            { c : [] },
+            { c : [
+                { v : 2, f : '#2:12' }, // Col. 0
+                null, null, null, null, null, null, null, null, null, null,
+                { v : 149, f : '千歳航改二 Lv.149' }, // Col. 11
+                null, null, null, null, null
+            ] },
+            { c : [
+                { v : 3, f : '#3:13' }, // Col. 0
+                null, null, null, null, null, null, null, null, null, null,
+                { v : 100, f : '千代田航改二 Lv.100' }, // Col. 11
+                null, null, null, null, null
+            ] },
+            { c : [] }
+        ]
+    );
+
+    configuration.chart.Ships.mothballLevel = null;
 
     // abbreviate
 
