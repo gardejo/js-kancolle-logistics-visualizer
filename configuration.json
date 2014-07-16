@@ -81,6 +81,7 @@
         },
         "Ships"         : {
             "abbreviate"    : true,
+            "ignoreMothball": false,
             "horizontal"    : {
                 "step"          : 10,
                 "maximum"       : null,
