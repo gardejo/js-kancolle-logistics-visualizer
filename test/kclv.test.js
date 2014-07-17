@@ -1896,17 +1896,17 @@ test('kclv.Table.Materials.Line', function() {
         null,
         null,
         'R',
-        ['"d"', '"f"', '"a"', '"s"', '"b"'],
+        ['d', 'f', 'a', 's', 'b'],
         [
-            [ '"' + new Date('2013/04/23').toLocaleString() + '"',
+            [ new Date('2013/04/23').toLocaleString(),
                 11, 12, 13, 14 ],
-            [ '"' + new Date('2013/07/10').toLocaleString() + '"',
+            [ new Date('2013/07/10').toLocaleString(),
                 21, 22, 23, 24 ],
-            [ '"' + new Date('2013/07/10').toLocaleString() + '"',
+            [ new Date('2013/07/10').toLocaleString(),
                 31, 32, 33, 34 ],
-            [ '"' + new Date('2013/07/11').toLocaleString() + '"',
+            [ new Date('2013/07/11').toLocaleString(),
                 41, 42, 43, 44 ],
-            [ '"' + new Date('2013/07/17').toLocaleString() + '"',
+            [ new Date('2013/07/17').toLocaleString(),
                 51, 52, 53, 54 ]
         ]
     );
@@ -1927,17 +1927,17 @@ test('kclv.Table.Materials.Line', function() {
         'Consumables',
         null,
         'R',
-        ['"d"', '"f"', '"a"', '"s"', '"b"', '"r"'],
+        ['d', 'f', 'a', 's', 'b', 'r'],
         [
-            [ '"' + new Date('2013/04/23').toLocaleString() + '"',
+            [ new Date('2013/04/23').toLocaleString(),
                 11, 12, 13, 14, 15 ],
-            [ '"' + new Date('2013/07/10').toLocaleString() + '"',
+            [ new Date('2013/07/10').toLocaleString(),
                 21, 22, 23, 24, 25 ],
-            [ '"' + new Date('2013/07/10').toLocaleString() + '"',
+            [ new Date('2013/07/10').toLocaleString(),
                 31, 32, 33, 34, 35 ],
-            [ '"' + new Date('2013/07/11').toLocaleString() + '"',
+            [ new Date('2013/07/11').toLocaleString(),
                 41, 42, 43, 44, 45 ],
-            [ '"' + new Date('2013/07/17').toLocaleString() + '"',
+            [ new Date('2013/07/17').toLocaleString(),
                 51, 52, 53, 54, 55 ]
         ]
     );
@@ -1955,17 +1955,17 @@ test('kclv.Table.Materials.Line', function() {
         null,
         null,
         'C',
-        ['"d"', '"r"', '"c"', '"d"'],
+        ['d', 'r', 'c', 'd'],
         [
-            [ '"' + new Date('2013/04/23').toLocaleString() + '"',
+            [ new Date('2013/04/23').toLocaleString(),
                 15, 16, 17 ],
-            [ '"' + new Date('2013/07/10').toLocaleString() + '"',
+            [ new Date('2013/07/10').toLocaleString(),
                 25, 26, 27 ],
-            [ '"' + new Date('2013/07/10').toLocaleString() + '"',
+            [ new Date('2013/07/10').toLocaleString(),
                 35, 36, 37 ],
-            [ '"' + new Date('2013/07/11').toLocaleString() + '"',
+            [ new Date('2013/07/11').toLocaleString(),
                 45, 46, 47 ],
-            [ '"' + new Date('2013/07/17').toLocaleString() + '"',
+            [ new Date('2013/07/17').toLocaleString(),
                 55, 56, 57 ]
         ]
     );

@@ -24,8 +24,8 @@
         ><!--
 
             var table = [
-                [{{:table.columns}}]{{props table.rows}}
-                ,[{{:prop}}]{{/props}}
+                {{:~formatter.stringify(table.columns)}}{{props table.rows}}
+                ,{{:~formatter.stringify(prop)}}{{/props}}
             ];
 
             var option = {
