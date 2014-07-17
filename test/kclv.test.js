@@ -2176,6 +2176,39 @@ test('kclv.Table.Ships.Bubble', function() {
 
     configuration.chart.Ships.vertical.level = null;
 
+    // mothbalLevel
+
+    configuration.chart.Ships.mothballLevel = 1;
+    kclv.Configuration.load(configuration);
+    table = new kclv.Table.Ships.Bubble(relation);
+    test.test(
+        table,
+        undefined,
+        null,
+        'bench strength',
+        columns.bubble,
+        [
+            [ 'DD',    1,  99, { v : 1,   f : '100%' },    1 ],
+            [ 'CVL',   2, 125, { v : 1,   f : '100%' },    2 ]
+        ]
+    );
+
+    configuration.chart.Ships.mothballLevel = 148;
+    kclv.Configuration.load(configuration);
+    table = new kclv.Table.Ships.Bubble(relation);
+    test.test(
+        table,
+        undefined,
+        null,
+        'bench strength',
+        columns.bubble,
+        [
+            [ 'CVL',   1, 149, { v : 1,   f : '100%' },   1 ]
+        ]
+    );
+
+    configuration.chart.Ships.mothballLevel = null;
+
     // abbreviate
 
     configuration.chart.Ships.abbreviate = true;
