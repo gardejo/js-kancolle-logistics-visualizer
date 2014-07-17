@@ -1995,12 +1995,26 @@ kclv.Test.Table.Ships.Base = function() {
                     AS:'as',AR:'ar',CVB:'cvb',LHA:'lha',AV:'av',SSV:'ssv',
                     SS:'ss',CV:'cv',BBV:'bbv',BB:'bb',BC:'bc',CVL:'cvl',
                     CAV:'cav',CA:'ca',CLT:'clt',CL:'cl',DD:'dd'
+                },
+                Bubble : {
+                    classification : 'test classification',
+                    total          : 'test total',
+                    average        : 'test average',
+                    rate           : 'test rate',
+                    practical      : 'test practical'
                 }
             }
         } }
     };
 
     this.columns = {
+        bubble : [
+            { label: 'test classification', type: 'string' },
+            { label: 'test total',          type: 'number' },
+            { label: 'test average',        type: 'number' },
+            { label: 'test rate',           type: 'number' },
+            { label: 'test practical',      type: 'number' }
+        ],
         classification : [
             { id : 'AS',  label : 'AS',  type : 'number' }, //  0
             { id : 'AR',  label : 'AR',  type : 'number' }, //  1
@@ -2052,6 +2066,132 @@ kclv.Test.Table.Ships.Base.prototype.testThreshold = function(table) {
         Experiences : [ 0, 4359999 ]
     });
 };
+
+// ----------------------------------------------------------------
+// Ships: Bubble
+// ----------------------------------------------------------------
+
+kclv.Test.Table.Ships.Bubble = function() {
+    kclv.Test.Table.Ships.Base.call(this);
+
+    return;
+};
+kclv.Test.Table.Ships.Bubble.prototype =
+    Object.create(kclv.Test.Table.Ships.Base.prototype);
+kclv.Test.Table.Ships.Bubble.prototype.constructor =
+    kclv.Test.Table.Ships.Base;
+
+test('kclv.Table.Ships.Bubble', function() {
+    var test = new kclv.Test.Table.Ships.Bubble(),
+        configuration = test.configuration,
+        relation = new kclv.Relation.Ships().insert(test.relation.array),
+        table = null,
+        columns = test.columns;
+
+    kclv.Configuration.load(configuration);
+
+    // Threshold
+
+    table = new kclv.Table.Ships.Bubble(relation);
+    test.testThreshold(table);
+
+    test.test(
+        table,
+        undefined,
+        null,
+        'S (undefined)',
+        columns.bubble,
+        [
+            [ 'DD',    1,  99, 1,    1 ],
+            [ 'CVL',   2, 125, 1,    2 ],
+            [ 'BB',    1,   1, 1,    1 ]
+        ]
+    );
+
+    // practical level
+
+    configuration.chart.Ships.vertical = {};
+
+    configuration.chart.Ships.vertical.level = 70;
+    kclv.Configuration.load(configuration);
+    table = new kclv.Table.Ships.Bubble(relation);
+    test.test(
+        table,
+        undefined,
+        null,
+        'S (undefined)',
+        columns.bubble,
+        [
+            [ 'DD',    1,  99, 1,    1 ],
+            [ 'CVL',   2, 125, 1,    2 ],
+            [ 'BB',    1,   0, 0,    0 ]
+        ]
+    );
+
+    configuration.chart.Ships.vertical.level = 149;
+    kclv.Configuration.load(configuration);
+    table = new kclv.Table.Ships.Bubble(relation);
+    test.test(
+        table,
+        undefined,
+        null,
+        'S (undefined)',
+        columns.bubble,
+        [
+            [ 'DD',    1,   0, 0,    0 ],
+            [ 'CVL',   2, 149, 0.5,  1 ],
+            [ 'BB',    1,   0, 0,    0 ]
+        ]
+    );
+
+    configuration.chart.Ships.vertical.level = null;
+
+    // abbreviate
+
+    configuration.chart.Ships.abbreviate = true;
+    kclv.Configuration.load(configuration);
+    table = new kclv.Table.Ships.Bubble(relation);
+    deepEqual(
+        table.rows,
+        [
+            [ 'dd',    1,  99, 1,    1 ],
+            [ 'cvl',   2, 125, 1,    2 ],
+            [ 'bb',    1,   1, 1,    1 ]
+        ],
+        'Has headings of rows as abbreviation. ' +
+            '(when the abbreviate configuration is true).'
+    );
+
+    configuration.chart.Ships.abbreviate = false;
+    kclv.Configuration.load(configuration);
+    table = new kclv.Table.Ships.Bubble(relation);
+    deepEqual(
+        table.rows,
+        [
+            [ 'DD',    1,  99, 1,    1 ],
+            [ 'CVL',   2, 125, 1,    2 ],
+            [ 'BB',    1,   1, 1,    1 ]
+        ],
+        'Has headings of rows as classification. ' +
+            '(when the abbreviate configuration is false).'
+    );
+
+    configuration.chart.Ships.abbreviate = null;
+    kclv.Configuration.load(configuration);
+    table = new kclv.Table.Ships.Bubble(relation);
+    deepEqual(
+        table.rows,
+        [
+            [ 'DD',    1,  99, 1,    1 ],
+            [ 'CVL',   2, 125, 1,    2 ],
+            [ 'BB',    1,   1, 1,    1 ]
+        ],
+        'Has headings of rows as abbreviation. ' +
+            '(when the abbreviate configuration is null).'
+    );
+
+    // TODO: Even more tests.
+});
 
 // ----------------------------------------------------------------
 // Ships: Histogram
