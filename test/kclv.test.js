@@ -2098,9 +2098,9 @@ test('kclv.Table.Ships.Bubble', function() {
         'S (undefined)',
         columns.bubble,
         [
-            [ 'DD',    1,  99, 1,    1 ],
-            [ 'CVL',   2, 125, 1,    2 ],
-            [ 'BB',    1,   1, 1,    1 ]
+            [ 'DD',    1,  99, { v : 1,   f : '100%' },    1 ],
+            [ 'CVL',   2, 125, { v : 1,   f : '100%' },    2 ],
+            [ 'BB',    1,   1, { v : 1,   f : '100%' },    1 ]
         ]
     );
 
@@ -2118,9 +2118,9 @@ test('kclv.Table.Ships.Bubble', function() {
         'S (undefined)',
         columns.bubble,
         [
-            [ 'DD',    1,  99, 1,    1 ],
-            [ 'CVL',   2, 125, 1,    2 ],
-            [ 'BB',    1,   0, 0,    0 ]
+            [ 'DD',    1,  99, { v : 1,   f : '100%' },    1 ],
+            [ 'CVL',   2, 125, { v : 1,   f : '100%' },    2 ],
+            [ 'BB',    1,   0, { v : 0,   f :   '0%' },    0 ]
         ]
     );
 
@@ -2134,9 +2134,9 @@ test('kclv.Table.Ships.Bubble', function() {
         'S (undefined)',
         columns.bubble,
         [
-            [ 'DD',    1,   0, 0,    0 ],
-            [ 'CVL',   2, 149, 0.5,  1 ],
-            [ 'BB',    1,   0, 0,    0 ]
+            [ 'DD',    1,   0, { v : 0,   f :   '0%' },   0 ],
+            [ 'CVL',   2, 149, { v : 0.5, f :  '50%' },   1 ],
+            [ 'BB',    1,   0, { v : 0,   f :   '0%' },   0 ]
         ]
     );
 
@@ -2150,9 +2150,9 @@ test('kclv.Table.Ships.Bubble', function() {
     deepEqual(
         table.rows,
         [
-            [ 'dd',    1,  99, 1,    1 ],
-            [ 'cvl',   2, 125, 1,    2 ],
-            [ 'bb',    1,   1, 1,    1 ]
+            [ 'dd',    1,  99, { v : 1,   f : '100%' },   1 ],
+            [ 'cvl',   2, 125, { v : 1,   f : '100%' },   2 ],
+            [ 'bb',    1,   1, { v : 1,   f : '100%' },   1 ]
         ],
         'Has headings of rows as abbreviation. ' +
             '(when the abbreviate configuration is true).'
@@ -2164,9 +2164,9 @@ test('kclv.Table.Ships.Bubble', function() {
     deepEqual(
         table.rows,
         [
-            [ 'DD',    1,  99, 1,    1 ],
-            [ 'CVL',   2, 125, 1,    2 ],
-            [ 'BB',    1,   1, 1,    1 ]
+            [ 'DD',    1,  99, { v : 1,   f : '100%' },   1 ],
+            [ 'CVL',   2, 125, { v : 1,   f : '100%' },   2 ],
+            [ 'BB',    1,   1, { v : 1,   f : '100%' },   1 ]
         ],
         'Has headings of rows as classification. ' +
             '(when the abbreviate configuration is false).'
@@ -2178,9 +2178,9 @@ test('kclv.Table.Ships.Bubble', function() {
     deepEqual(
         table.rows,
         [
-            [ 'DD',    1,  99, 1,    1 ],
-            [ 'CVL',   2, 125, 1,    2 ],
-            [ 'BB',    1,   1, 1,    1 ]
+            [ 'DD',    1,  99, { v : 1,   f : '100%' },   1 ],
+            [ 'CVL',   2, 125, { v : 1,   f : '100%' },   2 ],
+            [ 'BB',    1,   1, { v : 1,   f : '100%' },   1 ]
         ],
         'Has headings of rows as abbreviation. ' +
             '(when the abbreviate configuration is null).'
