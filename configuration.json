@@ -48,7 +48,7 @@
     },
     "relation"      : {
         "values"        : "Low",
-        "duration"      : 84,
+        "duration"      : null,
         "inception"     : null,
         "expiration"    : null
     },
