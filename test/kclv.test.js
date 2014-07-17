@@ -1997,11 +1997,11 @@ kclv.Test.Table.Ships.Base = function() {
                     CAV:'cav',CA:'ca',CLT:'clt',CL:'cl',DD:'dd'
                 },
                 Bubble : {
-                    classification : 'test classification',
-                    total          : 'test total',
-                    average        : 'test average',
-                    rate           : 'test rate',
-                    practical      : 'test practical'
+                    classification : 'classification',
+                    total          : 'total',
+                    average        : 'average',
+                    rate           : 'rate',
+                    practical      : 'practical'
                 }
             }
         } }
@@ -2009,11 +2009,7 @@ kclv.Test.Table.Ships.Base = function() {
 
     this.columns = {
         bubble : [
-            { label: 'test classification', type: 'string' },
-            { label: 'test total',          type: 'number' },
-            { label: 'test average',        type: 'number' },
-            { label: 'test rate',           type: 'number' },
-            { label: 'test practical',      type: 'number' }
+            'classification', 'total', 'average', 'rate', 'practical'
         ],
         classification : [
             { id : 'AS',  label : 'AS',  type : 'number' }, //  0
