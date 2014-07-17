@@ -3009,6 +3009,30 @@ kclv.Test.Chart.Ships.prototype.constructor =
     kclv.Test.Chart.Base;
 
 // ----------------------------------------------------------------
+// Ships: Bubble
+// ----------------------------------------------------------------
+
+test('kclv.Chart.Bubble', function() {
+    var test = new kclv.Test.Chart.Ships(),
+        configuration = test.configuration,
+        table = null;
+
+    kclv.Configuration.load(configuration);
+
+    table = new kclv.Table.Ships.Bubble(test.relation);
+    deepEqual(
+        new kclv.Chart.Bubble(table).option,
+        {
+            horizontal : { },
+            vertical : { }
+        },
+        'Has the default chart options.'
+    );
+
+    // TODO: Even more tests.
+});
+
+// ----------------------------------------------------------------
 // Ships: Histogram
 // ----------------------------------------------------------------
 
