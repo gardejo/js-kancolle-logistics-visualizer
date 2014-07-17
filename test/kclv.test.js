@@ -2078,6 +2078,39 @@ kclv.Test.Table.Ships.Bubble.prototype =
 kclv.Test.Table.Ships.Bubble.prototype.constructor =
     kclv.Test.Table.Ships.Base;
 
+kclv.Test.Table.Ships.Bubble.prototype.testThreshold = function(table) {
+
+    // vertical
+
+    deepEqual(
+        table.maximum('AverageLevel'),
+        125,
+        'Calculates maximum average level.'
+    );
+
+    deepEqual(
+        table.minimum('AverageLevel'),
+        1,
+        'Calculates minimum average level.'
+    );
+
+    // horizontal
+
+    deepEqual(
+        table.maximum('TotalShipNumber'),
+        2,
+        'Calculates maximum ship number.'
+    );
+
+    deepEqual(
+        table.minimum('TotalShipNumber'),
+        1,
+        'Calculates minimum ship number.'
+    );
+
+    return;
+};
+
 test('kclv.Table.Ships.Bubble', function() {
     var test = new kclv.Test.Table.Ships.Bubble(),
         configuration = test.configuration,
