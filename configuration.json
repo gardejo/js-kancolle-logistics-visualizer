@@ -120,6 +120,14 @@
                 "title"         : "Roster of Ships",
                 "Levels"        : "Levels",
                 "Experiences"   : "Experience Points",
+                "Bubble"        : {
+                    "title"         : "Bench Strength of Ship Classifications",
+                    "classification": "Ship Classification",
+                    "total"         : "Total Ship Number",
+                    "average"       : "Average Level",
+                    "rate"          : "Achievement Rate",
+                    "practical"     : "Practical Ship Number"
+                },
                 "classification": {
                     "AS"            : "Submarine Tender",
                     "AR"            : "Repair Ship",
@@ -179,6 +187,14 @@
                 "title"         : "艦娘一覧",
                 "Levels"        : "練度",
                 "Experiences"   : "経験値",
+                "Bubble"        : {
+                    "title"         : "艦種毎の層の厚さ",
+                    "classification": "艦種",
+                    "total"         : "総隻数",
+                    "average"       : "平均練度",
+                    "rate"          : "錬成達成率",
+                    "practical"     : "実用隻数"
+                },
                 "classification": {
                     "AS"            : "潜水母艦",
                     "AR"            : "工作艦",

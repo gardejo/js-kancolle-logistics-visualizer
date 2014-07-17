@@ -1997,6 +1997,7 @@ kclv.Test.Table.Ships.Base = function() {
                     CAV:'cav',CA:'ca',CLT:'clt',CL:'cl',DD:'dd'
                 },
                 Bubble : {
+                    title          : 'bench strength',
                     classification : 'classification',
                     total          : 'total',
                     average        : 'average',
@@ -2095,7 +2096,7 @@ test('kclv.Table.Ships.Bubble', function() {
         table,
         undefined,
         null,
-        'S (undefined)',
+        'bench strength',
         columns.bubble,
         [
             [ 'DD',    1,  99, { v : 1,   f : '100%' },    1 ],
@@ -2115,7 +2116,7 @@ test('kclv.Table.Ships.Bubble', function() {
         table,
         undefined,
         null,
-        'S (undefined)',
+        'bench strength',
         columns.bubble,
         [
             [ 'DD',    1,  99, { v : 1,   f : '100%' },    1 ],
@@ -2131,7 +2132,7 @@ test('kclv.Table.Ships.Bubble', function() {
         table,
         undefined,
         null,
-        'S (undefined)',
+        'bench strength',
         columns.bubble,
         [
             [ 'DD',    1,   0, { v : 0,   f :   '0%' },   0 ],
