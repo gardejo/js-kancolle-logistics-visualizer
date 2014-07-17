@@ -115,7 +115,10 @@
                     var values = WScript.Arguments.Unnamed.Item(i)
                                 .split(delimiter);
                     // TODO
-                    if ( values[3].indexOf(',') >= 0) {
+                    if (
+                        values.length === 4 &&
+                        values[3].indexOf(',') >= 0
+                    ) {
                         values[3] = values[3].split(',');
                     }
                     var directive = {};
