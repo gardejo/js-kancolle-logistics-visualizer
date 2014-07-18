@@ -1999,12 +1999,23 @@ kclv.Test.Table.Ships.Base = function() {
                     AS:'as',AR:'ar',CVB:'cvb',LHA:'lha',AV:'av',SSV:'ssv',
                     SS:'ss',CV:'cv',BBV:'bbv',BB:'bb',BC:'bc',CVL:'cvl',
                     CAV:'cav',CA:'ca',CLT:'clt',CL:'cl',DD:'dd'
+                },
+                Bubble : {
+                    title          : 'bench strength',
+                    classification : 'classification',
+                    total          : 'total',
+                    average        : 'average',
+                    rate           : 'rate',
+                    practical      : 'practical'
                 }
             }
         } }
     };
 
     this.columns = {
+        bubble : [
+            'classification', 'total', 'average', 'rate', 'practical'
+        ],
         classification : [
             { id : 'AS',  label : 'AS',  type : 'number' }, //  0
             { id : 'AR',  label : 'AR',  type : 'number' }, //  1
@@ -2056,6 +2067,198 @@ kclv.Test.Table.Ships.Base.prototype.testThreshold = function(table) {
         Experiences : [ 0, 4359999 ]
     });
 };
+
+// ----------------------------------------------------------------
+// Ships: Bubble
+// ----------------------------------------------------------------
+
+kclv.Test.Table.Ships.Bubble = function() {
+    kclv.Test.Table.Ships.Base.call(this);
+
+    return;
+};
+kclv.Test.Table.Ships.Bubble.prototype =
+    Object.create(kclv.Test.Table.Ships.Base.prototype);
+kclv.Test.Table.Ships.Bubble.prototype.constructor =
+    kclv.Test.Table.Ships.Base;
+
+kclv.Test.Table.Ships.Bubble.prototype.testThreshold = function(table) {
+
+    // vertical
+
+    deepEqual(
+        table.maximum('AverageLevel'),
+        125,
+        'Calculates maximum average level.'
+    );
+
+    deepEqual(
+        table.minimum('AverageLevel'),
+        1,
+        'Calculates minimum average level.'
+    );
+
+    // horizontal
+
+    deepEqual(
+        table.maximum('TotalShipNumber'),
+        2,
+        'Calculates maximum ship number.'
+    );
+
+    deepEqual(
+        table.minimum('TotalShipNumber'),
+        1,
+        'Calculates minimum ship number.'
+    );
+
+    return;
+};
+
+test('kclv.Table.Ships.Bubble', function() {
+    var test = new kclv.Test.Table.Ships.Bubble(),
+        configuration = test.configuration,
+        relation = new kclv.Relation.Ships().insert(test.relation.array),
+        table = null,
+        columns = test.columns;
+
+    kclv.Configuration.load(configuration);
+
+    // Threshold
+
+    table = new kclv.Table.Ships.Bubble(relation);
+    test.testThreshold(table);
+
+    test.test(
+        table,
+        null,
+        null,
+        'bench strength',
+        columns.bubble,
+        [
+            [ 'DD',    1,  99, { v : 1,   f : '100%' },    1 ],
+            [ 'CVL',   2, 125, { v : 1,   f : '100%' },    2 ],
+            [ 'BB',    1,   1, { v : 1,   f : '100%' },    1 ]
+        ]
+    );
+
+    // practical level
+
+    configuration.chart.Ships.vertical = {};
+
+    configuration.chart.Ships.vertical.level = 70;
+    kclv.Configuration.load(configuration);
+    table = new kclv.Table.Ships.Bubble(relation);
+    test.test(
+        table,
+        null,
+        null,
+        'bench strength',
+        columns.bubble,
+        [
+            [ 'DD',    1,  99, { v : 1,   f : '100%' },    1 ],
+            [ 'CVL',   2, 125, { v : 1,   f : '100%' },    2 ],
+            [ 'BB',    1,   1, { v : 0,   f :   '0%' },    0 ]
+        ]
+    );
+
+    configuration.chart.Ships.vertical.level = 149;
+    kclv.Configuration.load(configuration);
+    table = new kclv.Table.Ships.Bubble(relation);
+    test.test(
+        table,
+        null,
+        null,
+        'bench strength',
+        columns.bubble,
+        [
+            [ 'DD',    1,  99, { v : 0,   f :   '0%' },   0 ],
+            [ 'CVL',   2, 125, { v : 0.5, f :  '50%' },   1 ],
+            [ 'BB',    1,   1, { v : 0,   f :   '0%' },   0 ]
+        ]
+    );
+
+    configuration.chart.Ships.vertical.level = null;
+
+    // mothbalLevel
+
+    configuration.chart.Ships.mothballLevel = 1;
+    kclv.Configuration.load(configuration);
+    table = new kclv.Table.Ships.Bubble(relation);
+    test.test(
+        table,
+        null,
+        null,
+        'bench strength',
+        columns.bubble,
+        [
+            [ 'DD',    1,  99, { v : 1,   f : '100%' },    1 ],
+            [ 'CVL',   2, 125, { v : 1,   f : '100%' },    2 ]
+        ]
+    );
+
+    configuration.chart.Ships.mothballLevel = 148;
+    kclv.Configuration.load(configuration);
+    table = new kclv.Table.Ships.Bubble(relation);
+    test.test(
+        table,
+        null,
+        null,
+        'bench strength',
+        columns.bubble,
+        [
+            [ 'CVL',   1, 149, { v : 1,   f : '100%' },   1 ]
+        ]
+    );
+
+    configuration.chart.Ships.mothballLevel = null;
+
+    // abbreviate
+
+    configuration.chart.Ships.abbreviate = true;
+    kclv.Configuration.load(configuration);
+    table = new kclv.Table.Ships.Bubble(relation);
+    deepEqual(
+        table.rows,
+        [
+            [ 'dd',    1,  99, { v : 1,   f : '100%' },   1 ],
+            [ 'cvl',   2, 125, { v : 1,   f : '100%' },   2 ],
+            [ 'bb',    1,   1, { v : 1,   f : '100%' },   1 ]
+        ],
+        'Has headings of rows as abbreviation. ' +
+            '(when the abbreviate configuration is true).'
+    );
+
+    configuration.chart.Ships.abbreviate = false;
+    kclv.Configuration.load(configuration);
+    table = new kclv.Table.Ships.Bubble(relation);
+    deepEqual(
+        table.rows,
+        [
+            [ 'DD',    1,  99, { v : 1,   f : '100%' },   1 ],
+            [ 'CVL',   2, 125, { v : 1,   f : '100%' },   2 ],
+            [ 'BB',    1,   1, { v : 1,   f : '100%' },   1 ]
+        ],
+        'Has headings of rows as classification. ' +
+            '(when the abbreviate configuration is false).'
+    );
+
+    configuration.chart.Ships.abbreviate = null;
+    kclv.Configuration.load(configuration);
+    table = new kclv.Table.Ships.Bubble(relation);
+    deepEqual(
+        table.rows,
+        [
+            [ 'DD',    1,  99, { v : 1,   f : '100%' },   1 ],
+            [ 'CVL',   2, 125, { v : 1,   f : '100%' },   2 ],
+            [ 'BB',    1,   1, { v : 1,   f : '100%' },   1 ]
+        ],
+        'Has headings of rows as abbreviation. ' +
+            '(when the abbreviate configuration is null).'
+    );
+
+    // TODO: Even more tests.
+});
 
 // ----------------------------------------------------------------
 // Ships: Histogram
@@ -2875,6 +3078,177 @@ kclv.Test.Chart.Ships.prototype =
     Object.create(kclv.Test.Chart.Base.prototype);
 kclv.Test.Chart.Ships.prototype.constructor =
     kclv.Test.Chart.Base;
+
+// ----------------------------------------------------------------
+// Ships: Bubble
+// ----------------------------------------------------------------
+
+test('kclv.Chart.Bubble', function() {
+    var test = new kclv.Test.Chart.Ships(),
+        configuration = test.configuration,
+        table = null;
+
+    kclv.Configuration.load(configuration);
+
+    // vertical
+
+    table = new kclv.Table.Ships.Bubble(test.relation);
+    deepEqual(
+        new kclv.Chart.Bubble(table).option,
+        {
+            horizontal : { },
+            vertical : { maximum : 125, minimum : 1 }
+        },
+        'Has the default chart options.'
+    );
+
+    configuration.chart.Ships.vertical = { maximum : 100, minimum : 50 };
+    kclv.Configuration.load(configuration);
+    deepEqual(
+        new kclv.Chart.Bubble(table).option.vertical,
+        { maximum : 100, minimum : 50 },
+        'Has the configurated chart options ' +
+            '(when vertical maximum and vertical minimum were specified).'
+    );
+
+    configuration.chart.Ships.vertical = { gridlines : 10 };
+    kclv.Configuration.load(configuration);
+    deepEqual(
+        new kclv.Chart.Bubble(table).option.vertical,
+        { gridlines : 10, maximum : 125, minimum : 1 },
+        'Has the configurated chart options ' +
+            '(when vertical gridlines was specified).'
+    );
+
+    configuration.chart.Ships.vertical = { minorGridlines : 4 };
+    kclv.Configuration.load(configuration);
+    deepEqual(
+        new kclv.Chart.Bubble(table).option.vertical,
+        { minorGridlines : 4, maximum : 125, minimum : 1 },
+        'Has the configurated chart options ' +
+            '(when vertical minorGridlines was specified).'
+    );
+
+    configuration.chart.Ships.vertical = {
+        gridlines : 5, minorGridlines : 2
+    };
+    kclv.Configuration.load(configuration);
+    deepEqual(
+        new kclv.Chart.Bubble(table).option.vertical,
+        { gridlines : 5, minorGridlines : 2, maximum : 125, minimum : 1 },
+        'Has the configurated chart options ' +
+            '(when vertical gridlines and vertical minorGridlines were ' +
+            'specified).'
+    );
+
+    configuration.chart.Ships.vertical = { level : 70 };
+    kclv.Configuration.load(configuration);
+    deepEqual(
+        new kclv.Chart.Bubble(table).option.vertical,
+        { baseline : 70, maximum : 125, minimum : 1 },
+        'Has the configurated chart options ' +
+            '(when vertical level was specified for baseline).'
+    );
+
+    configuration.chart.Ships.vertical = { step : 10 };
+    kclv.Configuration.load(configuration);
+    deepEqual(
+        new kclv.Chart.Bubble(table).option.vertical,
+        { maximum : 130, minimum : 0, ticks : [
+            0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100,
+            110, 120, 130
+        ] },
+        'Has the configurated chart options ' +
+            '(when vertical step was specified).' +
+            'Note: ticks, maximum and minimum were justified.'
+    );
+
+    configuration.chart.Ships.vertical = { step : 40 };
+    kclv.Configuration.load(configuration);
+    deepEqual(
+        new kclv.Chart.Bubble(table).option.vertical,
+        { maximum : 160, minimum : 0, ticks : [ 0, 40, 80, 120, 160 ] },
+        'Has the configurated chart options ' +
+            '(when vertical step was specified).' +
+            'Note: ticks, maximum and minimum were boldly justified.'
+    );
+
+    // horizontal
+
+    configuration.chart.Ships.horizontal = {};
+    kclv.Configuration.load(configuration);
+    deepEqual(
+        new kclv.Chart.Bubble(table).option.horizontal,
+        { maximum : 2, minimum : 1 },
+        'Has the default chart options' +
+            '(when horizontal was specified).'
+    );
+
+    configuration.chart.Ships.horizontal = { maximum : 10, minimum : 1 };
+    kclv.Configuration.load(configuration);
+    deepEqual(
+        new kclv.Chart.Bubble(table).option.horizontal,
+        { maximum : 10, minimum : 1 },
+        'Has the configurated chart options ' +
+            '(when horizontal maximum and horizontal minimum were specified).'
+    );
+
+    configuration.chart.Ships.horizontal = { gridlines : 10 };
+    kclv.Configuration.load(configuration);
+    deepEqual(
+        new kclv.Chart.Bubble(table).option.horizontal,
+        { gridlines : 10, maximum : 2, minimum : 1 },
+        'Has the configurated chart options ' +
+            '(when horizontal gridlines was specified).'
+    );
+
+    configuration.chart.Ships.horizontal = { minorGridlines : 4 };
+    kclv.Configuration.load(configuration);
+    deepEqual(
+        new kclv.Chart.Bubble(table).option.horizontal,
+        { minorGridlines : 4, maximum : 2, minimum : 1 },
+        'Has the configurated chart options ' +
+            '(when horizontal minorGridlines was specified).'
+    );
+
+    configuration.chart.Ships.horizontal = {
+        gridlines : 5, minorGridlines : 2
+    };
+    kclv.Configuration.load(configuration);
+    deepEqual(
+        new kclv.Chart.Bubble(table).option.horizontal,
+        { gridlines : 5, minorGridlines : 2, maximum : 2, minimum : 1 },
+        'Has the configurated chart options ' +
+            '(when horizontal gridlines and horizontal minorGridlines were ' +
+            'specified).'
+    );
+
+    configuration.chart.Ships.horizontal = { step : 10 };
+    kclv.Configuration.load(configuration);
+    deepEqual(
+        new kclv.Chart.Bubble(table).option.horizontal,
+        { maximum : 10, minimum : 0, ticks : [0, 10] },
+        'Has the configurated chart options ' +
+            '(when horizontal step was specified).' +
+            'Note: ticks, maximum and minimum were boldly justified.'
+    );
+
+    configuration.chart.Ships.horizontal = { step : 40 };
+    kclv.Configuration.load(configuration);
+    deepEqual(
+        new kclv.Chart.Bubble(table).option.horizontal,
+        { maximum : 40, minimum : 0, ticks : [ 0, 40 ] },
+        'Has the configurated chart options ' +
+            '(when horizontal step was specified).' +
+            'Note: ticks, maximum and minimum were boldly justified.'
+    );
+
+    // etc.
+
+    test.testRedraw('Bubble', table, configuration);
+
+    // TODO: Even more tests.
+});
 
 // ----------------------------------------------------------------
 // Ships: Histogram

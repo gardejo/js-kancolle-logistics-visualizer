@@ -1,0 +1,104 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html lang="{{:locale}}">
+
+    <head>
+
+        <title>{{>table.title}}</title>
+
+{{include tmpl="meta"/}}
+
+        <link
+            rel="stylesheet"
+            type="text/css"
+            href="../template/chart.css"
+        >
+
+        <script
+            type="text/javascript"
+            src="https://www.google.com/jsapi"
+        ></script>
+
+        <script
+            type="text/javascript"
+        ><!--
+
+            var table = [
+                {{:~formatter.stringify(table.columns)}}{{props table.rows}}
+                ,{{:~formatter.stringify(prop)}}{{/props}}
+            ];
+
+            var option = {
+                title : "{{>table.title}}",
+                bubble : {
+                    opacity : 0.7
+                },
+                selectionMode : "multiple",
+                tooltip : { trigger: "both" },
+                colorAxis : {
+                    legend : {
+                        numberFormat : "#%"
+                    },
+                    colors : ["blue", "yellow", "red"],
+                    minValue : 0, // fixed
+                    maxValue : 1  // fixed
+                },
+                vAxis : {
+                    title : "{{>table.columns[2]}}",
+                    {{if option.vertical.baseline > 0}}
+                    baseline : {{:option.vertical.baseline}},
+                    {{/if}}
+                    {{if option.vertical.gridlines}}
+                    gridlines : { count : {{:option.vertical.gridlines}} },
+                    {{/if}}
+                    {{if option.vertical.minorGridlines}}
+                    minorGridlines : { count : {{:option.vertical.minorGridlines}} },
+                    {{/if}}
+                    {{if option.vertical.ticks}}
+                    ticks : [{{:option.vertical.ticks}}],
+                    {{/if}}
+                    viewWindow : {
+                         max : {{:option.vertical.maximum}},
+                         min : {{:option.vertical.minimum}}
+                    }
+                },
+                hAxis: {
+                    title : "{{>table.columns[1]}}",
+                    {{if option.horizontal.gridlines}}
+                    gridlines : { count : {{:option.horizontal.gridlines}} },
+                    {{/if}}
+                    {{if option.horizontal.minorGridlines}}
+                    minorGridlines : { count : {{:option.horizontal.minorGridlines}} },
+                    {{/if}}
+                    logScale : true,
+                    {{if option.horizontal.ticks}}
+                    ticks : [{{:option.horizontal.ticks}}],
+                    {{/if}}
+                    textPosition : "in"
+                }
+            };
+
+            google.load("visualization", "1", {packages:["corechart"]});
+            google.setOnLoadCallback(drawChart);
+            {{if option.redraw}}
+            window.onresize = drawChart;
+            {{/if}}
+
+            function drawChart() {
+                new google.visualization.BubbleChart
+                        (document.getElementById("chart"))
+                    .draw(
+                        google.visualization.arrayToDataTable(table),
+                        option
+                    );
+
+                return;
+            }
+
+        --></script>
+
+    </head>
+
+{{include tmpl="body"/}}
+
+</html>
