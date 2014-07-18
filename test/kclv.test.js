@@ -14,6 +14,7 @@
 // ================================================================
 
 /*jslint
+    browser  : true,
     nomen    : true,
     plusplus : true,
     regexp   : true,
@@ -25,7 +26,12 @@
 /*global
     ActiveXObject : false,
     JSON          : false,
-    jsviews       : false
+    deepEqual     : false,
+    jsviews       : false,
+    module        : false,
+    ok            : false,
+    test          : false,
+    throws        : false
 */
 
 
@@ -33,9 +39,7 @@
 // Script mode syntax (Whole-library)
 // ================================================================
 
-/* jshint ignore:start */
-'use strict';
-/* jshint ignore:end */
+'use strict'; // Yup yup. I know that: Use the function form of "use strict".
 
 
 // ================================================================
