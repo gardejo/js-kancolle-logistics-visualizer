@@ -3086,15 +3086,162 @@ test('kclv.Chart.Bubble', function() {
 
     kclv.Configuration.load(configuration);
 
+    // vertical
+
     table = new kclv.Table.Ships.Bubble(test.relation);
     deepEqual(
         new kclv.Chart.Bubble(table).option,
         {
             horizontal : { },
-            vertical : { }
+            vertical : { maximum : 125, minimum : 1 }
         },
         'Has the default chart options.'
     );
+
+    configuration.chart.Ships.vertical = { maximum : 100, minimum : 50 };
+    kclv.Configuration.load(configuration);
+    deepEqual(
+        new kclv.Chart.Bubble(table).option.vertical,
+        { maximum : 100, minimum : 50 },
+        'Has the configurated chart options ' +
+            '(when vertical maximum and vertical minimum were specified).'
+    );
+
+    configuration.chart.Ships.vertical = { gridlines : 10 };
+    kclv.Configuration.load(configuration);
+    deepEqual(
+        new kclv.Chart.Bubble(table).option.vertical,
+        { gridlines : 10, maximum : 125, minimum : 1 },
+        'Has the configurated chart options ' +
+            '(when vertical gridlines was specified).'
+    );
+
+    configuration.chart.Ships.vertical = { minorGridlines : 4 };
+    kclv.Configuration.load(configuration);
+    deepEqual(
+        new kclv.Chart.Bubble(table).option.vertical,
+        { minorGridlines : 4, maximum : 125, minimum : 1 },
+        'Has the configurated chart options ' +
+            '(when vertical minorGridlines was specified).'
+    );
+
+    configuration.chart.Ships.vertical = {
+        gridlines : 5, minorGridlines : 2
+    };
+    kclv.Configuration.load(configuration);
+    deepEqual(
+        new kclv.Chart.Bubble(table).option.vertical,
+        { gridlines : 5, minorGridlines : 2, maximum : 125, minimum : 1 },
+        'Has the configurated chart options ' +
+            '(when vertical gridlines and vertical minorGridlines were ' +
+            'specified).'
+    );
+
+    configuration.chart.Ships.vertical = { level : 70 };
+    kclv.Configuration.load(configuration);
+    deepEqual(
+        new kclv.Chart.Bubble(table).option.vertical,
+        { baseline : 70, maximum : 125, minimum : 1 },
+        'Has the configurated chart options ' +
+            '(when vertical level was specified for baseline).'
+    );
+
+    configuration.chart.Ships.vertical = { step : 10 };
+    kclv.Configuration.load(configuration);
+    deepEqual(
+        new kclv.Chart.Bubble(table).option.vertical,
+        { maximum : 130, minimum : 0, ticks : [
+            0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100,
+            110, 120, 130
+        ] },
+        'Has the configurated chart options ' +
+            '(when vertical step was specified).' +
+            'Note: ticks, maximum and minimum were justified.'
+    );
+
+    configuration.chart.Ships.vertical = { step : 40 };
+    kclv.Configuration.load(configuration);
+    deepEqual(
+        new kclv.Chart.Bubble(table).option.vertical,
+        { maximum : 160, minimum : 0, ticks : [ 0, 40, 80, 120, 160 ] },
+        'Has the configurated chart options ' +
+            '(when vertical step was specified).' +
+            'Note: ticks, maximum and minimum were boldly justified.'
+    );
+
+    // horizontal
+
+    configuration.chart.Ships.horizontal = {};
+    kclv.Configuration.load(configuration);
+    deepEqual(
+        new kclv.Chart.Bubble(table).option.horizontal,
+        { maximum : 2, minimum : 1 },
+        'Has the default chart options' +
+            '(when horizontal was specified).'
+    );
+
+    configuration.chart.Ships.horizontal = { maximum : 10, minimum : 1 };
+    kclv.Configuration.load(configuration);
+    deepEqual(
+        new kclv.Chart.Bubble(table).option.horizontal,
+        { maximum : 10, minimum : 1 },
+        'Has the configurated chart options ' +
+            '(when horizontal maximum and horizontal minimum were specified).'
+    );
+
+    configuration.chart.Ships.horizontal = { gridlines : 10 };
+    kclv.Configuration.load(configuration);
+    deepEqual(
+        new kclv.Chart.Bubble(table).option.horizontal,
+        { gridlines : 10, maximum : 2, minimum : 1 },
+        'Has the configurated chart options ' +
+            '(when horizontal gridlines was specified).'
+    );
+
+    configuration.chart.Ships.horizontal = { minorGridlines : 4 };
+    kclv.Configuration.load(configuration);
+    deepEqual(
+        new kclv.Chart.Bubble(table).option.horizontal,
+        { minorGridlines : 4, maximum : 2, minimum : 1 },
+        'Has the configurated chart options ' +
+            '(when horizontal minorGridlines was specified).'
+    );
+
+    configuration.chart.Ships.horizontal = {
+        gridlines : 5, minorGridlines : 2
+    };
+    kclv.Configuration.load(configuration);
+    deepEqual(
+        new kclv.Chart.Bubble(table).option.horizontal,
+        { gridlines : 5, minorGridlines : 2, maximum : 2, minimum : 1 },
+        'Has the configurated chart options ' +
+            '(when horizontal gridlines and horizontal minorGridlines were ' +
+            'specified).'
+    );
+
+    configuration.chart.Ships.horizontal = { step : 10 };
+    kclv.Configuration.load(configuration);
+    deepEqual(
+        new kclv.Chart.Bubble(table).option.horizontal,
+        { maximum : 10, minimum : 0, ticks : [0, 10] },
+        'Has the configurated chart options ' +
+            '(when horizontal step was specified).' +
+            'Note: ticks, maximum and minimum were boldly justified.'
+    );
+
+    configuration.chart.Ships.horizontal = { step : 40 };
+    kclv.Configuration.load(configuration);
+    deepEqual(
+        new kclv.Chart.Bubble(table).option.horizontal,
+        { maximum : 40, minimum : 0, ticks : [ 0, 40 ] },
+        'Has the configurated chart options ' +
+            '(when horizontal step was specified).' +
+            'Note: ticks, maximum and minimum were boldly justified.'
+    );
+
+    // etc.
+
+    test.testRedraw('Bubble', table, configuration);
 
     // TODO: Even more tests.
 });

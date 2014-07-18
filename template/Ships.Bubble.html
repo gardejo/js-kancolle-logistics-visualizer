@@ -43,16 +43,34 @@
                     minValue : 0, // fixed
                     maxValue : 1  // fixed
                 },
-                hAxis: {
-                    title : "{{>table.columns[1]}}",
-                    logScale : true,
-                    ticks : [0, 10, 20, 30, 40, 50, 60, 70], // generated
-                    textPosition : "in"
-                },
                 vAxis : {
                     title : "{{>table.columns[2]}}",
-                    ticks : [0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100, 110, 120, 130, 140, 150], // generated
-                    minorGridlines : { count: 1 } // filled
+                    {{if option.vertical.baseline > 0}}
+                    baseline : {{:option.vertical.baseline}},
+                    {{/if}}
+                    {{if option.vertical.gridlines}}
+                    gridlines : { count : {{:option.vertical.gridlines}} },
+                    {{/if}}
+                    {{if option.vertical.minorGridlines}}
+                    minorGridlines : { count : {{:option.vertical.minorGridlines}} },
+                    {{/if}}
+                    ticks : [{{:option.vertical.ticks}}],
+                    viewWindow : {
+                         max : {{:option.vertical.maximum}},
+                         min : {{:option.vertical.minimum}}
+                    }
+                },
+                hAxis: {
+                    title : "{{>table.columns[1]}}",
+                    {{if option.horizontal.gridlines}}
+                    gridlines : { count : {{:option.horizontal.gridlines}} },
+                    {{/if}}
+                    {{if option.horizontal.minorGridlines}}
+                    minorGridlines : { count : {{:option.horizontal.minorGridlines}} },
+                    {{/if}}
+                    logScale : true,
+                    ticks : [{{:option.horizontal.ticks}}],
+                    textPosition : "in"
                 }
             };
 
