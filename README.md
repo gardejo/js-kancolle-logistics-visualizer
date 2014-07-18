@@ -1,3 +1,5 @@
+[![License](http://img.shields.io/badge/license-MIT-brightgreen.svg)](https://github.com/gardejo/js-kancolle-logistics-visualizer/blob/master/LICENSE)
+
 KanColle Logistics Visualizer
 =============================
 
