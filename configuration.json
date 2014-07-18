@@ -85,7 +85,7 @@
             "horizontal"    : {
                 "step"          : 10,
                 "maximum"       : null,
-                "minimum"       : null,
+                "minimum"       : 0,
                 "gridlines"     : null,
                 "minorGridlines": 1
             },
@@ -93,7 +93,7 @@
                 "level"         : 70,
                 "step"          : 10,
                 "maximum"       : null,
-                "minimum"       : null,
+                "minimum"       : 0,
                 "gridlines"     : null,
                 "minorGridlines": 1
             }
