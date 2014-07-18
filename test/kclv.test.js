@@ -2127,7 +2127,7 @@ test('kclv.Table.Ships.Bubble', function() {
 
     test.test(
         table,
-        undefined,
+        null,
         null,
         'bench strength',
         columns.bubble,
@@ -2147,7 +2147,7 @@ test('kclv.Table.Ships.Bubble', function() {
     table = new kclv.Table.Ships.Bubble(relation);
     test.test(
         table,
-        undefined,
+        null,
         null,
         'bench strength',
         columns.bubble,
@@ -2163,7 +2163,7 @@ test('kclv.Table.Ships.Bubble', function() {
     table = new kclv.Table.Ships.Bubble(relation);
     test.test(
         table,
-        undefined,
+        null,
         null,
         'bench strength',
         columns.bubble,
@@ -2183,7 +2183,7 @@ test('kclv.Table.Ships.Bubble', function() {
     table = new kclv.Table.Ships.Bubble(relation);
     test.test(
         table,
-        undefined,
+        null,
         null,
         'bench strength',
         columns.bubble,
@@ -2198,7 +2198,7 @@ test('kclv.Table.Ships.Bubble', function() {
     table = new kclv.Table.Ships.Bubble(relation);
     test.test(
         table,
-        undefined,
+        null,
         null,
         'bench strength',
         columns.bubble,
