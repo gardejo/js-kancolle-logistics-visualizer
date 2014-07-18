@@ -45,7 +45,9 @@
                     {{if option.vertical.minorGridlines}}
                     minorGridlines : { count : {{:option.vertical.minorGridlines}} },
                     {{/if}}
+                    {{if option.vertical.ticks}}
                     ticks : [{{:option.vertical.ticks}}],
+                    {{/if}}
                     viewWindow : {
                          max : {{:option.vertical.maximum}},
                          min : {{:option.vertical.minimum}}
@@ -58,9 +60,11 @@
                     {{if option.horizontal.minorGridlines}}
                     minorGridlines : { count : {{:option.horizontal.minorGridlines}} },
                     {{/if}}
+                    {{if option.horizontal.ticks}}
+                    ticks : [{{:option.horizontal.ticks}}],
+                    {{/if}}
                     slantedText : true,
-                    slantedTextAngle : 90,
-                    ticks : [{{:option.horizontal.ticks}}]
+                    slantedTextAngle : 90
                 }
             };
 
