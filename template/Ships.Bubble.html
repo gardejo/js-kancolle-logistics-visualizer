@@ -54,7 +54,9 @@
                     {{if option.vertical.minorGridlines}}
                     minorGridlines : { count : {{:option.vertical.minorGridlines}} },
                     {{/if}}
+                    {{if option.vertical.ticks}}
                     ticks : [{{:option.vertical.ticks}}],
+                    {{/if}}
                     viewWindow : {
                          max : {{:option.vertical.maximum}},
                          min : {{:option.vertical.minimum}}
@@ -69,7 +71,9 @@
                     minorGridlines : { count : {{:option.horizontal.minorGridlines}} },
                     {{/if}}
                     logScale : true,
+                    {{if option.horizontal.ticks}}
                     ticks : [{{:option.horizontal.ticks}}],
+                    {{/if}}
                     textPosition : "in"
                 }
             };
