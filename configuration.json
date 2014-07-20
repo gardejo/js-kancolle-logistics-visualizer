@@ -44,6 +44,17 @@
                 "Materials"     : "../logbook/資材ログ.csv",
                 "Ships"         : "../logbook/所有艦娘一覧.csv"
             }
+        },
+        "SandanshikiKanpan" : {
+            "path"          : {
+                "Fuel"          : "%LocalAppData%/SandanshikiKanpan/log/fuel.0.4.dat",
+                "Ammunition"    : "%LocalAppData%/SandanshikiKanpan/log/bullet.0.4.dat",
+                "Steel"         : "%LocalAppData%/SandanshikiKanpan/log/steel.0.4.dat",
+                "Bauxite"       : "%LocalAppData%/SandanshikiKanpan/log/bauxite.0.4.dat",
+                "Repair"        : "%LocalAppData%/SandanshikiKanpan/log/bucket.0.4.dat",
+                "Construction"  : "%LocalAppData%/SandanshikiKanpan/log/burner.0.4.dat",
+                "Development"   : "%LocalAppData%/SandanshikiKanpan/log/devMaterial.0.4.dat"
+            }
         }
     },
     "relation"      : {
