@@ -2,7 +2,7 @@
  * @fileOverview Test Library on QUnit for KanColle Logistics Visualizer.
  *     Caveat: This file is encoded as UTF-8N (with BOM).
  *     Note: IE8 converts an exception into a raw object.
- * @version 0.1.0
+ * @version 0.1.1
  * @author kclv@ermitejo.com (MORIYA Masaki, alias "Gardejo")
  * @license The MIT license (See LICENSE.txt)
  * @see ../lib/kclv.js
@@ -66,7 +66,7 @@ test('kclv.Inscription', function() {
 
     deepEqual(
         inscription.version,
-        '0.1.0',
+        '0.1.1',
         'Has a proper version number.'
     );
 
