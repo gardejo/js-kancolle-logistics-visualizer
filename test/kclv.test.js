@@ -300,6 +300,13 @@ test('kclv.Array', function() {
     );
 
     deepEqual(
+        kclv.Array.maximum([ [168], [58], [null], [19], [8], [401] ], [0]),
+        401,
+        'Gets the maximum value of the spceficied two-dimensional array ' +
+            'which may include null.'
+    );
+
+    deepEqual(
         kclv.Array.maximum([
             [ 'I-168', 168 ],
             [ 'I-58',   58 ],
@@ -316,6 +323,13 @@ test('kclv.Array', function() {
         kclv.Array.minimum([ [168], [58], [19], [8], [401] ], [0]),
         8,
         'Gets the minimum value of the spceficied two-dimensional array.'
+    );
+
+    deepEqual(
+        kclv.Array.minimum([ [168], [58], [null], [19], [8], [401] ], [0]),
+        8,
+        'Gets the minimum value of the spceficied two-dimensional array ' +
+            'which may include null.'
     );
 
     deepEqual(
@@ -825,6 +839,32 @@ test('kclv.Agent.SandanshikiKanpan : Materials', function() {
         } } } };
 
     test.test(agent, configuration);
+
+    // Issue #10
+
+    configuration.agent.SandanshikiKanpan.path.Bauxite =
+        '%LocalAppData%/SandanshikiKanpan.bauxite.delayed.dat';
+    configuration.relation = {};
+    kclv.Configuration.load(configuration);
+
+    deepEqual(
+        agent.buildRelation('Materials'),
+        new kclv.Relation.Materials().insert([
+            [new Date('2013/04/23 00:00:00'),
+                111, 121, 131, null, 151, 161, 171],
+            [new Date('2013/04/23 00:00:01'),
+                null, null, null, 141, null, null, null],
+            [new Date('2013/07/10 00:00:00'),
+                211, 221, 231, null, 251, 261, 271],
+            [new Date('2013/07/10 00:00:01'),
+                null, null, null, 241, null, null, null],
+            [new Date('2013/07/17 00:00:00'),
+                311, 321, 331, null, 351, 361, 371],
+            [new Date('2013/07/17 00:00:01'),
+                null, null, null, 341, null, null, null]
+        ]),
+        'Builds a relation: With delayed material(s).'
+    );
 
     // TODO: Even more tests.
 });
@@ -1837,6 +1877,31 @@ test('kclv.Table.Materials.Candlestick', function() {
             expectedRows[period]
         );
     } );
+
+    // Issue #10
+
+    table = new kclv.Table.Materials.Candlestick(
+        new kclv.Relation.Materials().insert([
+            [ new Date('2013/04/23 00:00:00'), 11, 12, 13, 14, 15, 16, 17 ],
+            [ new Date('2013/07/10 00:00:00'), 21, 22, 23, 24, 25, 26, 27 ],
+            [ new Date('2013/07/10 00:00:00'),
+                null, null, null, null, 35, 36, 37 ],
+            [ new Date('2013/07/10 00:00:01'),
+                31, 32, 33, 34, null, null, null ],
+            [ new Date('2013/07/11 00:00:00'), 41, 42, 43, 44, 45, 46, 47 ],
+            [ new Date('2013/07/17 00:00:00'), 51, 52, 53, 54, 55, 56, 57 ]
+        ]),
+        ['Repair', 'Daily']
+    );
+    deepEqual(
+        table.rows,
+        [
+            [ '2013/04/23', 15, 15, 15, 15 ],
+            [ '2013/07/10', 25, 25, 35, 35 ],
+            [ '2013/07/11', 45, 45, 45, 45 ],
+            [ '2013/07/17', 55, 55, 55, 55 ]
+        ]
+    );
 
     // TODO: Even more tests.
 });
