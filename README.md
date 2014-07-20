@@ -36,6 +36,7 @@ You've got the right stuff! *KanColle Logistics Visualizer* treats materials log
     * Scatter chart of experience points
     * Scatter chart of levels
     * Histogram
+    * Bubble chart of bench strength by ships classifications
 * History of materials fluctuation
     * Line chart of resources (Fuel, Ammunition, Steel and Bauxite)
     * Line chart of resources (Fuel, Ammunition, Steel and Bauxite) + Instant repair
@@ -171,6 +172,8 @@ All brand names and product names are trademarks or registered trademarks of the
 * 艦娘の育成状況
     * 経験値の分布図
     * 練度（レヴェル）の分布図
+    * 柱状グラフ（ヒストグラム）
+    * 艦種毎の風船図（バブル チャート）
 * 資材の増減履歴
     * 資材（燃料・弾薬・鋼材・ボーキサイト）の折れ線グラフ
     * 資材（燃料・弾薬・鋼材・ボーキサイト）の折れ線グラフ（高速修復材付き）
