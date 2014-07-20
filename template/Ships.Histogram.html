@@ -49,9 +49,15 @@
             {{/if}}
 
             function drawChart() {
-                var chart = new google.visualization.Histogram(document.getElementById('chart'));
-                var data = new google.visualization.DataTable(table);
-                chart.draw(data, option);
+                var chart = new google.visualization.Histogram(
+                    document.getElementById('chart')
+                );
+                chart.draw(
+                    new google.visualization.DataTable(table),
+                    option
+                );
+                document.getElementById('download').innerHTML =
+                    '<a href="' + chart.getImageURI() + '">&#x1f4c8; PNG</a>';
 
                 return;
             }

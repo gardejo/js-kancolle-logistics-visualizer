@@ -68,12 +68,15 @@
             {{/if}}
 
             function drawChart() {
-                new google.visualization.CandlestickChart
-                        (document.getElementById("chart"))
-                    .draw(
-                        google.visualization.arrayToDataTable(table, true),
-                        option
-                    );
+                var chart = new google.visualization.CandlestickChart(
+                    document.getElementById('chart')
+                );
+                chart.draw(
+                    google.visualization.arrayToDataTable(table, true),
+                    option
+                );
+                document.getElementById('download').innerHTML =
+                    '<a href="' + chart.getImageURI() + '">&#x1f4c8; PNG</a>';
 
                 return;
             }
