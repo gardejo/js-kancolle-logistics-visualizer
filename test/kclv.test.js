@@ -300,6 +300,13 @@ test('kclv.Array', function() {
     );
 
     deepEqual(
+        kclv.Array.maximum([ [168], [58], [null], [19], [8], [401] ], [0]),
+        401,
+        'Gets the maximum value of the spceficied two-dimensional array ' +
+            'which may include null.'
+    );
+
+    deepEqual(
         kclv.Array.maximum([
             [ 'I-168', 168 ],
             [ 'I-58',   58 ],
@@ -316,6 +323,13 @@ test('kclv.Array', function() {
         kclv.Array.minimum([ [168], [58], [19], [8], [401] ], [0]),
         8,
         'Gets the minimum value of the spceficied two-dimensional array.'
+    );
+
+    deepEqual(
+        kclv.Array.minimum([ [168], [58], [null], [19], [8], [401] ], [0]),
+        8,
+        'Gets the minimum value of the spceficied two-dimensional array ' +
+            'which may include null.'
     );
 
     deepEqual(
