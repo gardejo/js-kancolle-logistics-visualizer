@@ -826,6 +826,32 @@ test('kclv.Agent.SandanshikiKanpan : Materials', function() {
 
     test.test(agent, configuration);
 
+    // Issue #10
+
+    configuration.agent.SandanshikiKanpan.path.Bauxite =
+        '%LocalAppData%/SandanshikiKanpan.bauxite.delayed.dat';
+    configuration.relation = {};
+    kclv.Configuration.load(configuration);
+
+    deepEqual(
+        agent.buildRelation('Materials'),
+        new kclv.Relation.Materials().insert([
+            [new Date('2013/04/23 00:00:00'),
+                111, 121, 131, null, 151, 161, 171],
+            [new Date('2013/04/23 00:00:01'),
+                null, null, null, 141, null, null, null],
+            [new Date('2013/07/10 00:00:00'),
+                211, 221, 231, null, 251, 261, 271],
+            [new Date('2013/07/10 00:00:01'),
+                null, null, null, 241, null, null, null],
+            [new Date('2013/07/17 00:00:00'),
+                311, 321, 331, null, 351, 361, 371],
+            [new Date('2013/07/17 00:00:01'),
+                null, null, null, 341, null, null, null]
+        ]),
+        'Builds a relation: With delayed material(s).'
+    );
+
     // TODO: Even more tests.
 });
 
