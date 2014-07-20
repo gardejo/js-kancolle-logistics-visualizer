@@ -1878,6 +1878,31 @@ test('kclv.Table.Materials.Candlestick', function() {
         );
     } );
 
+    // Issue #10
+
+    table = new kclv.Table.Materials.Candlestick(
+        new kclv.Relation.Materials().insert([
+            [ new Date('2013/04/23 00:00:00'), 11, 12, 13, 14, 15, 16, 17 ],
+            [ new Date('2013/07/10 00:00:00'), 21, 22, 23, 24, 25, 26, 27 ],
+            [ new Date('2013/07/10 00:00:00'),
+                null, null, null, null, 35, 36, 37 ],
+            [ new Date('2013/07/10 00:00:01'),
+                31, 32, 33, 34, null, null, null ],
+            [ new Date('2013/07/11 00:00:00'), 41, 42, 43, 44, 45, 46, 47 ],
+            [ new Date('2013/07/17 00:00:00'), 51, 52, 53, 54, 55, 56, 57 ]
+        ]),
+        ['Repair', 'Daily']
+    );
+    deepEqual(
+        table.rows,
+        [
+            [ '2013/04/23', 15, 15, 15, 15 ],
+            [ '2013/07/10', 25, 25, 35, 35 ],
+            [ '2013/07/11', 45, 45, 45, 45 ],
+            [ '2013/07/17', 55, 55, 55, 55 ]
+        ]
+    );
+
     // TODO: Even more tests.
 });
 
