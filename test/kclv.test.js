@@ -2013,6 +2013,43 @@ test('kclv.Table.Materials.Line', function() {
                 55, 56, 57 ]
         ]
     );
+
+    // Issue #10
+
+    table = new kclv.Table.Materials.Line(
+        new kclv.Relation.Materials().insert([
+            [new Date('2013/04/23 00:00:00'),
+                111, 121, 131, null, 151, 161, 171],
+            [new Date('2013/04/23 00:00:01'),
+                null, null, null, 141, null, null, null],
+            [new Date('2013/07/10 00:00:00'),
+                211, 221, 231, null, 251, 261, 271],
+            [new Date('2013/07/10 00:00:01'),
+                null, null, null, 241, null, null, null],
+            [new Date('2013/07/17 00:00:00'),
+                311, 321, 331, null, 351, 361, 371],
+            [new Date('2013/07/17 00:00:01'),
+                null, null, null, 341, null, null, null]
+        ]),
+        'Consumables'
+    );
+    test.test(
+        table,
+        'Consumables',
+        null,
+        null,
+        'C',
+        ['d', 'r', 'c', 'd'],
+        [
+            [ new Date('2013/04/23 00:00:00').toLocaleString(),
+                151, 161, 171 ],
+            [ new Date('2013/07/10 00:00:00').toLocaleString(),
+                251, 261, 271 ],
+            [ new Date('2013/07/17 00:00:00').toLocaleString(),
+                351, 361, 371 ]
+        ]
+    );
+
 });
 
 // ----------------------------------------------------------------
