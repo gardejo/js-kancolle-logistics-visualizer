@@ -91,12 +91,17 @@
             {{/if}}
 
             function drawChart() {
-                new google.visualization.LineChart
-                        (document.getElementById("chart"))
-                    .draw(
-                        google.visualization.arrayToDataTable(table),
-                        option
-                    );
+                var chart = new google.visualization.LineChart(
+                    document.getElementById('chart')
+                );
+                chart.draw(
+                    google.visualization.arrayToDataTable(table),
+                    option
+                );
+                document.getElementById('download').innerHTML =
+                    '<a href="' + chart.getImageURI() + '">&#x1f4c8; PNG</a>';
+
+                return;
             }
 
         --></script>
