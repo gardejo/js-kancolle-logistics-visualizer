@@ -16,3 +16,6 @@
     top      : 1em;
     background-color : transparent;
 }
+#download a {
+    text-decoration : none;
+}
