@@ -1946,9 +1946,11 @@ test('kclv.Table.Materials.Line', function() {
 
     kclv.Configuration.load(configuration);
 
+    // Invalid material (Ok, let's play HoI!)
+
     throws(
-        function() { new kclv.Table.Materials.Line(relation, 'Fuel'); },
-        kclv.Exception.InvalidMaterial,
+        function() { new kclv.Table.Materials.Line(relation, 'Rubber'); },
+        Error, // TODO: We were cursed with abnormal Error object.
         'Could not visualize Fuels.'
     );
 
@@ -2011,10 +2013,28 @@ test('kclv.Table.Materials.Line', function() {
         ]
     );
 
-    throws(
-        function() { new kclv.Table.Materials.Line(relation, 'Repair'); },
-        kclv.Exception.InvalidMaterial,
-        'Could not visualize Instant Repairs.'
+    // Bauxite only (Feeding service for Akagi)
+
+    table = new kclv.Table.Materials.Line(relation, 'Bauxite');
+    test.test(
+        table,
+        'Bauxite',
+        null,
+        null,
+        'R',
+        ['d', 'b'],
+        [
+            [ new Date('2013/04/23').toLocaleString(), 14 ],
+            [ new Date('2013/07/10').toLocaleString(), 24 ],
+            [ new Date('2013/07/10').toLocaleString(), 34 ],
+            [ new Date('2013/07/11').toLocaleString(), 44 ],
+            [ new Date('2013/07/17').toLocaleString(), 54 ]
+        ]
+    );
+    deepEqual(
+        table.opposite,
+        null,
+        'Does not have an opposite (Consumables), regardless of "withRepair"'
     );
 
     table = new kclv.Table.Materials.Line(relation, 'Consumables');
