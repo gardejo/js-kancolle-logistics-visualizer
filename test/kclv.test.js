@@ -2013,7 +2013,7 @@ test('kclv.Table.Materials.Line', function() {
         ]
     );
 
-    // Bauxite only (Feeding service for Akagi)
+    // Individual material: Bauxite only (Feeding service for Akagi)
 
     table = new kclv.Table.Materials.Line(relation, 'Bauxite');
     test.test(
@@ -3024,9 +3024,7 @@ test('kclv.Chart.CandleStick', function() {
     table = new kclv.Table.Materials.Candlestick(
         test.relation, ['Fuel', 'Weekly']
     );
-    configuration.chart.Resources.vertical = {
-        level : 120
-    };
+    configuration.chart.Resources.vertical = { level : 120 };
     kclv.Configuration.load(configuration);
     deepEqual(
         new kclv.Chart.Candlestick(table).option.vertical,
@@ -3121,6 +3119,27 @@ test('kclv.Chart.Line', function() {
         'Has the configurated chart options ' +
             '(when vertical step was specified).' +
             'Note: ticks, maximum and minimum were boldly justified.'
+    );
+
+    configuration.chart.Resources.vertical = { level : 120 };
+    kclv.Configuration.load(configuration);
+    deepEqual(
+        new kclv.Chart.Line(table).option.vertical,
+        { maximum : 54, minimum : 11, baseline : 30750 },
+        'Has the configurated combined chart options ' +
+            '(when vertical level was specified for baseline).'
+    );
+
+    // Individual material: Bauxite only (Feeding service for Akagi)
+
+    configuration.chart.Resources.vertical = { level : 120 };
+    kclv.Configuration.load(configuration);
+    table = new kclv.Table.Materials.Line(test.relation, 'Bauxite');
+    deepEqual(
+        new kclv.Chart.Line(table).option.vertical,
+        { maximum : 54, minimum : 14, baseline : 30750 },
+        'Has the configurated individual chart options ' +
+            '(when vertical level was specified for baseline).'
     );
 
     // Resources + Repair
