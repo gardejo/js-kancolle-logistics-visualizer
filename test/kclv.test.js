@@ -2298,6 +2298,46 @@ test('kclv.Table.Ships.Bubble', function() {
 
     configuration.chart.Ships.mothballLevel = null;
 
+    // backups
+
+    configuration.chart.Ships.backups = [12, 24, 2411];
+    kclv.Configuration.load(configuration);
+    table = new kclv.Table.Ships.Bubble(relation);
+    test.test(
+        table,
+        null,
+        null,
+        'bench strength',
+        columns.bubble,
+        [
+            [ 'DD',    1,  99, { v : 1,   f : '100%' },    1 ],
+            [ 'CVL',   1, 100, { v : 1,   f : '100%' },    1 ]
+        ]
+    );
+
+    configuration.chart.Ships.backups = null;
+
+    // mothbalLevel + backups
+
+    configuration.chart.Ships.mothballLevel = 1;
+    configuration.chart.Ships.backups = [13];
+    kclv.Configuration.load(configuration);
+    table = new kclv.Table.Ships.Bubble(relation);
+    test.test(
+        table,
+        null,
+        null,
+        'bench strength',
+        columns.bubble,
+        [
+            [ 'DD',    1,  99, { v : 1,   f : '100%' },    1 ],
+            [ 'CVL',   1, 149, { v : 1,   f : '100%' },    1 ]
+        ]
+    );
+
+    configuration.chart.Ships.mothballLevel = null;
+    configuration.chart.Ships.backups = null;
+
     // abbreviate
 
     configuration.chart.Ships.abbreviate = true;
@@ -2405,9 +2445,10 @@ test('kclv.Table.Ships.Histogram', function() {
         ]
     );
 
-    // mothballLevel
+    // mothballLevel (backups doesn't work)
 
     configuration.chart.Ships.mothballLevel = 1;
+    configuration.chart.Ships.backups = [1, 12, 13, 24]; // OK. Doesn't work.
     kclv.Configuration.load(configuration);
     table = new kclv.Table.Ships.Histogram(relation, 'Levels');
     test.test(
@@ -2462,6 +2503,7 @@ test('kclv.Table.Ships.Histogram', function() {
     );
 
     configuration.chart.Ships.mothballLevel = null;
+    configuration.chart.Ships.backups = null;
 
     // abbreviate
 
