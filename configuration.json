@@ -93,6 +93,7 @@
         "Ships"         : {
             "abbreviate"    : true,
             "mothballLevel" : 1,
+            "backups"       : [],
             "horizontal"    : {
                 "step"          : 10,
                 "maximum"       : null,
