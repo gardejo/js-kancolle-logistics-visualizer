@@ -6,5 +6,7 @@ doc/index.html
 extlib
 chart/*
 !chart/.exists
+!test/.csslintrc
+!test/.jshintrc
 node_modules/
 npm-debug.log
