@@ -1,0 +1,42 @@
+{
+  "name": "js-kancolle-logistics-visualizer",
+  "version": "0.1.2-alpha",
+  "description": "KanColle Logistics Visualizer",
+  "keywords": [
+    "KanColle",
+    "chart"
+  ],
+  "homepage": "https://github.com/gardejo/js-kancolle-logistics-visualizer",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/gardejo/js-kancolle-visualizer.git"
+  },
+  "bugs": {
+    "url": "https://github.com/gardejo/js-kancolle-logistics-visualizer/issues"
+  },
+  "author": {
+    "name": "MORIYA Masaki, alias Gardejo",
+    "email": "kclv@ermitejo.com",
+    "url": "http://gardejo.org"
+  },
+  "contributors": [],
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "https://github.com/gardejo/js-kancolle-logistics-visualizer/blob/master/LICENSE"
+    }
+  ],
+  "scripts": {
+    "test": "grunt test"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "grunt": "^0.4.5",
+    "grunt-cli": "^0.1.13",
+    "grunt-contrib-csslint": "^0.2.0",
+    "grunt-contrib-jshint": "^0.10.0",
+    "grunt-contrib-qunit": "^0.5.2",
+    "grunt-curl": "^2.0.2",
+    "grunt-jsdoc": "^0.5.6"
+  }
+}
