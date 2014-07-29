@@ -3,7 +3,8 @@
 doc/symbols
 doc/files.html
 doc/index.html
-extlib
+extlib/*
+!extlib/.exists
 chart/*
 !chart/.exists
 !test/.csslintrc
