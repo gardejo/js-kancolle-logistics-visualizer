@@ -1,4 +1,5 @@
 [![License](http://img.shields.io/badge/license-MIT-brightgreen.svg)](https://github.com/gardejo/js-kancolle-logistics-visualizer/blob/master/LICENSE)
+[![Build Status](http://img.shields.io/travis/gardejo/js-kancolle-logistics-visualizer.svg)](https://travis-ci.org/gardejo/js-kancolle-logistics-visualizer)
 
 KanColle Logistics Visualizer
 =============================
