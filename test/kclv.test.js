@@ -10,32 +10,6 @@
 
 
 // ================================================================
-// JSLint/JSHint Directives
-// ================================================================
-
-/*jslint
-    browser  : true,
-    nomen    : true,
-    plusplus : true,
-    regexp   : true,
-    todo     : true,
-    vars     : true,
-    white    : true
-*/
-
-/*global
-    ActiveXObject : false,
-    JSON          : false,
-    deepEqual     : false,
-    jsviews       : false,
-    module        : false,
-    ok            : false,
-    test          : false,
-    throws        : false
-*/
-
-
-// ================================================================
 // Script mode syntax (Whole-library)
 // ================================================================
 
