@@ -1,8 +1,13 @@
 .*
 !.gitignore
-doc/symbols
-doc/files.html
-doc/index.html
-extlib
+doc/*
+!doc/generator.bat
+extlib/*
+!extlib/.exists
 chart/*
 !chart/.exists
+!test/.csslintrc
+!test/.jshintrc
+node_modules/
+npm-debug.log
+!.travis.yml

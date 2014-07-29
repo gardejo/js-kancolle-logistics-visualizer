@@ -9,8 +9,17 @@
 
 
 // ================================================================
-// Namespace
+// Script mode syntax (Whole-library)
 // ================================================================
+
+'use strict'; // Yup yup. I know that: Use the function form of "use strict".
+
+
+// ================================================================
+// Namespace for Test Stub
+// ================================================================
+
+var kclv;
 
 kclv.Stub = {};
 
@@ -35,6 +44,8 @@ kclv.Stub.Stream = function() {
 
     this.stream_ = null;
 
+    this.charset_ = null;
+
     this.buffer_ = null;
 
     return;
@@ -43,9 +54,7 @@ kclv.Stub.Stream = function() {
 kclv.Stub.Stream.prototype.Open = function(opt_characterSet) {
     this.stream_ = new XMLHttpRequest();
     if (opt_characterSet) {
-        this.stream_.overrideMimeType(
-            'text/plain; charset=' + opt_characterSet
-        );
+        this.charset_ = opt_characterSet;
     }
 
     return;
@@ -70,6 +79,11 @@ kclv.Stub.Stream.prototype.LoadFromFile = function(path) {
     };
 
     this.stream_.open('GET', path, false);
+    if (this.charset_) {
+        this.stream_.overrideMimeType(
+            'text/plain; charset=Shift_JIS'
+        );
+    }
     this.stream_.send(null);
 
     return;
@@ -93,6 +107,8 @@ kclv.Stub.Stream.prototype.SaveToFile = function(path, option) {
 
 kclv.Stub.Stream.prototype.Close = function() {
     this.stream_ = null;
+
+    this.charset_ = null;
 
     this.buffer_ = null;
 
@@ -163,7 +179,7 @@ kclv.Stub.Shell.prototype.ExpandEnvironmentStrings = function(environment) {
 // ActiveXObject (Replacement for ActiveXObject)
 // ================================================================
 
-ActiveXObject = function(objectName) {
+var ActiveXObject = function(objectName) {
     switch (objectName) {
         case 'ADODB.Stream':
             return new kclv.Stub.Stream();

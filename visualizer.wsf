@@ -135,26 +135,4 @@
 
     </job>
 
-    <!--
-
-    <job id="test">
-
-        <script
-            type="text/javascript"
-            language="JavaScript"
-            charset="UTF-8"
-        ><![CDATA[
-
-           // TODO
-           WScript.Echo(
-               'How to test with QUnit (or an any test runner on node.js) ' +
-               'on WSH?'
-           );
-
-        ]]></script>
-
-    </job>
-
-    -->
-
 </package>

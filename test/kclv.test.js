@@ -10,32 +10,6 @@
 
 
 // ================================================================
-// JSLint/JSHint Directives
-// ================================================================
-
-/*jslint
-    browser  : true,
-    nomen    : true,
-    plusplus : true,
-    regexp   : true,
-    todo     : true,
-    vars     : true,
-    white    : true
-*/
-
-/*global
-    ActiveXObject : false,
-    JSON          : false,
-    deepEqual     : false,
-    jsviews       : false,
-    module        : false,
-    ok            : false,
-    test          : false,
-    throws        : false
-*/
-
-
-// ================================================================
 // Script mode syntax (Whole-library)
 // ================================================================
 
@@ -695,27 +669,27 @@ kclv.Test.Agent.Materials = function() {
     return;
 };
 
-kclv.Test.Agent.Materials.prototype.test = function(agent, configuration) {
-    configuration.relation = {};
-    kclv.Configuration.load(configuration);
+kclv.Test.Agent.Materials.prototype.test = function(testee) {
+    testee.configuration.relation = {};
+    kclv.Configuration.load(testee.configuration);
     deepEqual(
-        agent.buildRelation('Materials'),
+        testee.agent.buildRelation('Materials'),
         new kclv.Relation.Materials().insert(this.materials.low),
         'Builds a relation (undefined): default (low) values in whole period.'
     );
 
-    configuration.relation = { values : null };
-    kclv.Configuration.load(configuration);
+    testee.configuration.relation = { values : null };
+    kclv.Configuration.load(testee.configuration);
     deepEqual(
-        agent.buildRelation('Materials'),
+        testee.agent.buildRelation('Materials'),
         new kclv.Relation.Materials().insert(this.materials.low),
         'Builds a relation (null): default (low) values in whole period.'
     );
 
-    configuration.relation = { duration : 0 };
-    kclv.Configuration.load(configuration);
+    testee.configuration.relation = { duration : 0 };
+    kclv.Configuration.load(testee.configuration);
     deepEqual(
-        agent.buildRelation('Materials'),
+        testee.agent.buildRelation('Materials'),
         new kclv.Relation.Materials().insert([]),
         'Builds a relation: default (low) values in an empty period.'
     );
@@ -724,23 +698,23 @@ kclv.Test.Agent.Materials.prototype.test = function(agent, configuration) {
     // It needs a stub for Date or to build Date dynamically.
     // See tests for Selectors.
 
-    configuration.relation = {
+    testee.configuration.relation = {
         inception : '2013/07/10 00:00:00', expiration : '2013/07/17 00:00:00'
     };
-    kclv.Configuration.load(configuration);
+    kclv.Configuration.load(testee.configuration);
     deepEqual(
-        agent.buildRelation('Materials'),
+        testee.agent.buildRelation('Materials'),
         new kclv.Relation.Materials().insert(this.materials.low.slice(1,3)),
         'Builds a relation: default (low) values ' +
             'from Kure & Sasebo till Maiduru.'
     );
 
-    configuration.relation = {
+    testee.configuration.relation = {
         inception : '2013/07/10 00:00:00', expiration : null
     };
-    kclv.Configuration.load(configuration);
+    kclv.Configuration.load(testee.configuration);
     deepEqual(
-        agent.buildRelation('Materials'),
+        testee.agent.buildRelation('Materials'),
         new kclv.Relation.Materials().insert(this.materials.low.slice(1,4)),
         'Builds a relation: default (low) values ' +
             'from Kure & Sasebo till now.'
@@ -765,7 +739,10 @@ test('kclv.Agent.KCRDB : Materials', function() {
             Materials : './KCRDB.Materials.log'
         } } } };
 
-    test.test(agent, configuration);
+    test.test({
+        agent         : agent,
+        configuration : configuration
+    });
 
     configuration.relation = { values : 'High' };
     kclv.Configuration.load(configuration);
@@ -810,7 +787,10 @@ test('kclv.Agent.Logbook : Materials', function() {
             Materials : './Logbook.Materials.log'
         } } } };
 
-    test.test(agent, configuration);
+    test.test({
+        agent         : agent,
+        configuration : configuration
+    });
 
     // TODO: Even more tests.
 });
@@ -838,7 +818,10 @@ test('kclv.Agent.SandanshikiKanpan : Materials', function() {
             Development   : '%LocalAppData%/SandanshikiKanpan.devMaterial.dat'
         } } } };
 
-    test.test(agent, configuration);
+    test.test({
+        agent         : agent,
+        configuration : configuration
+    });
 
     // Issue #10
 
@@ -884,10 +867,10 @@ kclv.Test.Agent.Ships = function() {
     return;
 };
 
-kclv.Test.Agent.Ships.prototype.test = function(agent, configuration) {
-    kclv.Configuration.load(configuration);
+kclv.Test.Agent.Ships.prototype.test = function(testee) {
+    kclv.Configuration.load(testee.configuration);
     deepEqual(
-        agent.buildRelation('Ships'),
+        testee.agent.buildRelation('Ships'),
         new kclv.Relation.Ships().insert(this.ships),
         'Builds a relation.'
     );
@@ -911,7 +894,10 @@ test('kclv.Agent.KCRDB : Ships', function() {
             Ships : './KCRDB.Ships.csv'
         } } } };
 
-    test.test(agent, configuration);
+    test.test({
+        agent         : agent,
+        configuration : configuration
+    });
 
     // TODO: Even more tests.
 });
@@ -932,7 +918,10 @@ test('kclv.Agent.Logbook : Ships', function() {
             Ships : './Logbook.Ships.csv'
         } } } };
 
-    test.test(agent, configuration);
+    test.test({
+        agent         : agent,
+        configuration : configuration
+    });
 
     // TODO: Even more tests.
 });
@@ -950,24 +939,24 @@ kclv.Test.Tokenizer = function() {
     return;
 };
 
-kclv.Test.Tokenizer.prototype.test = function(tokenizer, string, rows, table) {
+kclv.Test.Tokenizer.prototype.test = function(testee) {
     deepEqual(
-        tokenizer.toRows(string),
-        rows,
+        testee.tokenizer.toRows(testee.string),
+        testee.rows,
         'Converts a string into rows (an one-dimensional array).'
     );
 
     deepEqual(
-        rows.map(tokenizer.toColumns, tokenizer),
-        table,
+        testee.rows.map(testee.tokenizer.toColumns, testee.tokenizer),
+        testee.table,
         'Converts rows (an one-dimensional array) into ' +
             'a table (a two-dimensional array) ' +
             'and normalize some columns.'
     );
 
     deepEqual(
-        tokenizer.toRelationalArray(string),
-        table,
+        testee.tokenizer.toRelationalArray(testee.string),
+        testee.table,
         'Converts a string into a table (a two-dimensional array).'
     );
 
@@ -992,7 +981,12 @@ test('kclv.Tokenizer.Base', function() {
             ['"BB"',  '"Yamato"', '5', '5']
         ];
 
-    test.test(tokenizer, string, rows, table);
+    test.test({
+        tokenizer : tokenizer,
+        string    : string,
+        rows      : rows,
+        table     : table
+    });
 
     // TODO: Even more tests.
 });
@@ -1022,7 +1016,12 @@ test('kclv.Tokenizer.KCRDB.Materials', function() {
             ]
         ];
 
-    test.test(tokenizer, string, rows, table);
+    test.test({
+        tokenizer : tokenizer,
+        string    : string,
+        rows      : rows,
+        table     : table
+    });
 
     // TODO: Even more tests.
 });
@@ -1067,7 +1066,12 @@ test('kclv.Tokenizer.KCRDB.Ships', function() {
             [ 24, '長門',       'BB',    1,       0 ]
         ];
 
-    test.test(tokenizer, string, rows, table);
+    test.test({
+        tokenizer : tokenizer,
+        string    : string,
+        rows      : rows,
+        table     : table
+    });
 
     // TODO: Even more tests.
 });
@@ -1098,7 +1102,12 @@ test('kclv.Tokenizer.Logbook.Materials', function() {
             ]
         ];
 
-    test.test(tokenizer, string, rows, table);
+    test.test({
+        tokenizer : tokenizer,
+        string    : string,
+        rows      : rows,
+        table     : table
+    });
 
     // TODO: Even more tests.
 });
@@ -1140,7 +1149,12 @@ test('kclv.Tokenizer.Logbook.Ships', function() {
             [ 24, '長門',       'BB',    1,       0 ]
         ];
 
-    test.test(tokenizer, string, rows, table);
+    test.test({
+        tokenizer : tokenizer,
+        string    : string,
+        rows      : rows,
+        table     : table
+    });
 
     // TODO: Even more tests.
 });
@@ -1170,7 +1184,12 @@ test('kclv.Tokenizer.SandanshikiKanpan.Materials', function() {
             ]
         ];
 
-    test.test(tokenizer, string, rows, table);
+    test.test({
+        tokenizer : tokenizer,
+        string    : string,
+        rows      : rows,
+        table     : table
+    });
 
     // TODO: Even more tests.
 });
@@ -1407,14 +1426,14 @@ kclv.Test.Relation.Base.prototype.testThreshold = function(
     return;
 };
 
-kclv.Test.Relation.Base.prototype.test = function(relation) {
+kclv.Test.Relation.Base.prototype.test = function(testee) {
     deepEqual(
-        relation.count(),
+        testee.relation.count(),
         this.array.length,
         'Has ' + this.array.length + 'tuples.'
     );
 
-    this.testThreshold(relation, this.expectations);
+    this.testThreshold(testee.relation, this.expectations);
 
     return;
 };
@@ -1624,7 +1643,9 @@ test('kclv.Relation.Materials', function() {
     var test = new kclv.Test.Relation.Materials(),
         relation = new kclv.Relation.Materials().insert(test.array);
 
-    test.test(relation);
+    test.test({
+        relation : relation
+    });
 
     // TODO: Even more tests.
 });
@@ -1660,7 +1681,9 @@ test('kclv.Relation.Ships', function() {
     var test = new kclv.Test.Relation.Ships(),
         relation = new kclv.Relation.Ships().insert(test.array);
 
-    test.test(relation);
+    test.test({
+        relation : relation
+    });
 
     // TODO: Even more tests.
 });
@@ -1704,43 +1727,41 @@ kclv.Test.Table.Base.prototype.testThreshold = function(table) {
     return this.relation.testThreshold(table, this.relation.expectations);
 };
 
-kclv.Test.Table.Base.prototype.test = function(
-    table, kind, option, title, columns, rows
-) {
+kclv.Test.Table.Base.prototype.test = function(testee) {
     deepEqual(
-        table.kind,
-        kind,
-        'Can visualize ' + kind + '.'
+        testee.table.kind,
+        testee.kind,
+        'Can visualize ' + testee.kind + '.'
     );
 
     deepEqual(
-        table.option,
-        option,
-        'Can visualize ' + option + ' something.'
+        testee.table.option,
+        testee.option,
+        'Can visualize ' + testee.option + ' something.'
     );
 
     deepEqual(
-        table.title,
-        title,
-        'Builds the title of ' + kind + '.'
+        testee.table.title,
+        testee.title,
+        'Builds the title of ' + testee.kind + '.'
     );
 
     deepEqual(
-        table.columns,
-        columns,
+        testee.table.columns,
+        testee.columns,
         'Builds columns.'
     );
 
     deepEqual(
-        table.rows,
-        rows,
-        'Builds rows of ' + option + ' of ' + kind + '.'
+        testee.table.rows,
+        testee.rows,
+        'Builds rows of ' + testee.option + ' of ' + testee.kind + '.'
     );
 
     deepEqual(
-        table.count(),
-        rows.length,
-        'Counts the rows of ' + option + ' of ' + kind + '.'
+        testee.table.count(),
+        testee.rows.length,
+        'Counts the rows of ' + testee.option + ' of ' + testee.kind + '.'
     );
 
     return;
@@ -1832,14 +1853,14 @@ test('kclv.Table.Materials.Candlestick', function() {
             ]
         };
 
-        test.test(
-            table,
-            'Fuel',
-            period,
-            'R (f)',
-            undefined,
-            expectedRows[period]
-        );
+        test.test({
+            table   : table,
+            kind    : 'Fuel',
+            option  : period,
+            title   : 'R (f)',
+            columns : undefined,
+            rows    : expectedRows[period]
+        });
     } );
 
     // Consumables, such as Repair
@@ -1868,14 +1889,14 @@ test('kclv.Table.Materials.Candlestick', function() {
             ]
         };
 
-        test.test(
-            table,
-            'Repair',
-            period,
-            'C (r)',
-            undefined,
-            expectedRows[period]
-        );
+        test.test({
+            table   : table,
+            kind    : 'Repair',
+            option  : period,
+            title   : 'C (r)',
+            columns : undefined,
+            rows    : expectedRows[period]
+        });
     } );
 
     // Issue #10
@@ -1920,18 +1941,14 @@ kclv.Test.Table.Materials.Line.prototype =
 kclv.Test.Table.Materials.Line.prototype.constructor =
     kclv.Test.Table.Materials.Base;
 
-kclv.Test.Table.Materials.Line.prototype.test = function(
-    table, kind, opposite, option, title, columns, rows
-) {
-    kclv.Test.Table.Materials.Base.prototype.test.call(
-        this, table, kind, option, title, columns, rows
-    );
+kclv.Test.Table.Materials.Line.prototype.test = function(testee) {
+    kclv.Test.Table.Materials.Base.prototype.test.call(this, testee);
 
     deepEqual(
-        table.opposite,
-        opposite,
-        opposite ?
-            'Has an opposite (' + opposite + ').' :
+        testee.table.opposite,
+        testee.opposite,
+        testee.opposite ?
+            'Has an opposite (' + testee.opposite + ').' :
             'Does not have an opposite.'
     );
 
@@ -1961,14 +1978,14 @@ test('kclv.Table.Materials.Line', function() {
 
     // Resources
 
-    test.test(
-        table,
-        'Resources',
-        null,
-        null,
-        'R',
-        ['d', 'f', 'a', 's', 'b'],
-        [
+    test.test({
+        table    : table,
+        kind     : 'Resources',
+        opposite : null,
+        option   : null,
+        title    : 'R',
+        columns  : ['d', 'f', 'a', 's', 'b'],
+        rows     : [
             [ new Date('2013/04/23').toLocaleString(),
                 11, 12, 13, 14 ],
             [ new Date('2013/07/10').toLocaleString(),
@@ -1980,7 +1997,7 @@ test('kclv.Table.Materials.Line', function() {
             [ new Date('2013/07/17').toLocaleString(),
                 51, 52, 53, 54 ]
         ]
-    );
+    });
     deepEqual(
         table.opposite,
         null,
@@ -1992,14 +2009,14 @@ test('kclv.Table.Materials.Line', function() {
     configuration.chart.Resources.withRepair = true;
     kclv.Configuration.load(configuration);
     table = new kclv.Table.Materials.Line(relation, 'Resources');
-    test.test(
-        table,
-        'Resources',
-        'Consumables',
-        null,
-        'R',
-        ['d', 'f', 'a', 's', 'b', 'r'],
-        [
+    test.test({
+        table    : table,
+        kind     : 'Resources',
+        opposite : 'Consumables',
+        option   : null,
+        title    : 'R',
+        columns  : ['d', 'f', 'a', 's', 'b', 'r'],
+        rows     : [
             [ new Date('2013/04/23').toLocaleString(),
                 11, 12, 13, 14, 15 ],
             [ new Date('2013/07/10').toLocaleString(),
@@ -2011,26 +2028,26 @@ test('kclv.Table.Materials.Line', function() {
             [ new Date('2013/07/17').toLocaleString(),
                 51, 52, 53, 54, 55 ]
         ]
-    );
+    });
 
     // Individual material: Bauxite only (Feeding service for Akagi)
 
     table = new kclv.Table.Materials.Line(relation, 'Bauxite');
-    test.test(
-        table,
-        'Bauxite',
-        null,
-        null,
-        'R',
-        ['d', 'b'],
-        [
+    test.test({
+        table    : table,
+        kind     : 'Bauxite',
+        opposite : null,
+        option   : null,
+        title    : 'R',
+        columns  : ['d', 'b'],
+        rows     : [
             [ new Date('2013/04/23').toLocaleString(), 14 ],
             [ new Date('2013/07/10').toLocaleString(), 24 ],
             [ new Date('2013/07/10').toLocaleString(), 34 ],
             [ new Date('2013/07/11').toLocaleString(), 44 ],
             [ new Date('2013/07/17').toLocaleString(), 54 ]
         ]
-    );
+    });
     deepEqual(
         table.opposite,
         null,
@@ -2038,14 +2055,14 @@ test('kclv.Table.Materials.Line', function() {
     );
 
     table = new kclv.Table.Materials.Line(relation, 'Consumables');
-    test.test(
-        table,
-        'Consumables',
-        null,
-        null,
-        'C',
-        ['d', 'r', 'c', 'd'],
-        [
+    test.test({
+        table    : table,
+        kind     : 'Consumables',
+        opposite : null,
+        option   : null,
+        title    : 'C',
+        columns  : ['d', 'r', 'c', 'd'],
+        rows     : [
             [ new Date('2013/04/23').toLocaleString(),
                 15, 16, 17 ],
             [ new Date('2013/07/10').toLocaleString(),
@@ -2057,7 +2074,7 @@ test('kclv.Table.Materials.Line', function() {
             [ new Date('2013/07/17').toLocaleString(),
                 55, 56, 57 ]
         ]
-    );
+    });
 });
 
 // ----------------------------------------------------------------
@@ -2214,18 +2231,18 @@ test('kclv.Table.Ships.Bubble', function() {
     table = new kclv.Table.Ships.Bubble(relation);
     test.testThreshold(table);
 
-    test.test(
-        table,
-        null,
-        null,
-        'bench strength',
-        columns.bubble,
-        [
+    test.test({
+        table   : table,
+        kind    : null,
+        option  : null,
+        title   : 'bench strength',
+        columns : columns.bubble,
+        rows    : [
             [ 'DD',    1,  99, { v : 1,   f : '100%' },    1 ],
             [ 'CVL',   2, 125, { v : 1,   f : '100%' },    2 ],
             [ 'BB',    1,   1, { v : 1,   f : '100%' },    1 ]
         ]
-    );
+    });
 
     // practical level
 
@@ -2234,34 +2251,34 @@ test('kclv.Table.Ships.Bubble', function() {
     configuration.chart.Ships.vertical.level = 70;
     kclv.Configuration.load(configuration);
     table = new kclv.Table.Ships.Bubble(relation);
-    test.test(
-        table,
-        null,
-        null,
-        'bench strength',
-        columns.bubble,
-        [
+    test.test({
+        table   : table,
+        kind    : null,
+        option  : null,
+        title   : 'bench strength',
+        columns : columns.bubble,
+        rows    : [
             [ 'DD',    1,  99, { v : 1,   f : '100%' },    1 ],
             [ 'CVL',   2, 125, { v : 1,   f : '100%' },    2 ],
             [ 'BB',    1,   1, { v : 0,   f :   '0%' },    0 ]
         ]
-    );
+    });
 
     configuration.chart.Ships.vertical.level = 149;
     kclv.Configuration.load(configuration);
     table = new kclv.Table.Ships.Bubble(relation);
-    test.test(
-        table,
-        null,
-        null,
-        'bench strength',
-        columns.bubble,
-        [
+    test.test({
+        table   : table,
+        kind    : null,
+        option  : null,
+        title   : 'bench strength',
+        columns : columns.bubble,
+        rows    : [
             [ 'DD',    1,  99, { v : 0,   f :   '0%' },   0 ],
             [ 'CVL',   2, 125, { v : 0.5, f :  '50%' },   1 ],
             [ 'BB',    1,   1, { v : 0,   f :   '0%' },   0 ]
         ]
-    );
+    });
 
     configuration.chart.Ships.vertical.level = null;
 
@@ -2270,31 +2287,31 @@ test('kclv.Table.Ships.Bubble', function() {
     configuration.chart.Ships.mothballLevel = 1;
     kclv.Configuration.load(configuration);
     table = new kclv.Table.Ships.Bubble(relation);
-    test.test(
-        table,
-        null,
-        null,
-        'bench strength',
-        columns.bubble,
-        [
+    test.test({
+        table   : table,
+        kind    : null,
+        option  : null,
+        title   : 'bench strength',
+        columns : columns.bubble,
+        rows    : [
             [ 'DD',    1,  99, { v : 1,   f : '100%' },    1 ],
             [ 'CVL',   2, 125, { v : 1,   f : '100%' },    2 ]
         ]
-    );
+    });
 
     configuration.chart.Ships.mothballLevel = 148;
     kclv.Configuration.load(configuration);
     table = new kclv.Table.Ships.Bubble(relation);
-    test.test(
-        table,
-        null,
-        null,
-        'bench strength',
-        columns.bubble,
-        [
+    test.test({
+        table   : table,
+        kind    : null,
+        option  : null,
+        title   : 'bench strength',
+        columns : columns.bubble,
+        rows    : [
             [ 'CVL',   1, 149, { v : 1,   f : '100%' },   1 ]
         ]
-    );
+    });
 
     configuration.chart.Ships.mothballLevel = null;
 
@@ -2303,17 +2320,17 @@ test('kclv.Table.Ships.Bubble', function() {
     configuration.chart.Ships.backups = [12, 24, 2411];
     kclv.Configuration.load(configuration);
     table = new kclv.Table.Ships.Bubble(relation);
-    test.test(
-        table,
-        null,
-        null,
-        'bench strength',
-        columns.bubble,
-        [
+    test.test({
+        table   : table,
+        kind    : null,
+        option  : null,
+        title   : 'bench strength',
+        columns : columns.bubble,
+        rows    : [
             [ 'DD',    1,  99, { v : 1,   f : '100%' },    1 ],
             [ 'CVL',   1, 100, { v : 1,   f : '100%' },    1 ]
         ]
-    );
+    });
 
     configuration.chart.Ships.backups = null;
 
@@ -2323,17 +2340,17 @@ test('kclv.Table.Ships.Bubble', function() {
     configuration.chart.Ships.backups = [13];
     kclv.Configuration.load(configuration);
     table = new kclv.Table.Ships.Bubble(relation);
-    test.test(
-        table,
-        null,
-        null,
-        'bench strength',
-        columns.bubble,
-        [
+    test.test({
+        table   : table,
+        kind    : null,
+        option  : null,
+        title   : 'bench strength',
+        columns : columns.bubble,
+        rows    : [
             [ 'DD',    1,  99, { v : 1,   f : '100%' },    1 ],
             [ 'CVL',   1, 149, { v : 1,   f : '100%' },    1 ]
         ]
-    );
+    });
 
     configuration.chart.Ships.mothballLevel = null;
     configuration.chart.Ships.backups = null;
@@ -2415,13 +2432,13 @@ test('kclv.Table.Ships.Histogram', function() {
 
     // Levels
 
-    test.test(
-        table,
-        'Levels',
-        null,
-        'S (lv)',
-        columns.classification,
-        [
+    test.test({
+        table   : table,
+        kind    : 'Levels',
+        option  : null,
+        title   : 'S (lv)',
+        columns : columns.classification,
+        rows    : [
             { c : [
                 null, null, null, null, null, null, null, null, null, null,
                 null, null, null, null, null,
@@ -2443,7 +2460,7 @@ test('kclv.Table.Ships.Histogram', function() {
                 null, null, null, null, null, null
             ] }
         ]
-    );
+    });
 
     // mothballLevel (backups doesn't work)
 
@@ -2451,13 +2468,13 @@ test('kclv.Table.Ships.Histogram', function() {
     configuration.chart.Ships.backups = [1, 12, 13, 24]; // OK. Doesn't work.
     kclv.Configuration.load(configuration);
     table = new kclv.Table.Ships.Histogram(relation, 'Levels');
-    test.test(
-        table,
-        'Levels',
-        null,
-        'S (lv)',
-        columns.classification,
-        [
+    test.test({
+        table   : table,
+        kind    : 'Levels',
+        option  : null,
+        title   : 'S (lv)',
+        columns : columns.classification,
+        rows    : [
             { c : [
                 null, null, null, null, null, null, null, null, null, null,
                 null, null, null, null, null,
@@ -2475,18 +2492,18 @@ test('kclv.Table.Ships.Histogram', function() {
             ] },
             { c : [] }
         ]
-    );
+    });
 
     configuration.chart.Ships.mothballLevel = 99;
     kclv.Configuration.load(configuration);
     table = new kclv.Table.Ships.Histogram(relation, 'Levels');
-    test.test(
-        table,
-        'Levels',
-        null,
-        'S (lv)',
-        columns.classification,
-        [
+    test.test({
+        table   : table,
+        kind    : 'Levels',
+        option  : null,
+        title   : 'S (lv)',
+        columns : columns.classification,
+        rows    : [
             { c : [] },
             { c : [
                 null, null, null, null, null, null, null, null, null, null,
@@ -2500,7 +2517,7 @@ test('kclv.Table.Ships.Histogram', function() {
             ] },
             { c : [] }
         ]
-    );
+    });
 
     configuration.chart.Ships.mothballLevel = null;
     configuration.chart.Ships.backups = null;
@@ -2543,13 +2560,13 @@ test('kclv.Table.Ships.Histogram', function() {
     // Experiences
 
     table = new kclv.Table.Ships.Histogram(relation, 'Experiences');
-    test.test(
-        table,
-        'Experiences',
-        null,
-        'S (xp)',
-        columns.classification,
-        [
+    test.test({
+        table   : table,
+        kind    : 'Experiences',
+        option  : null,
+        title   : 'S (xp)',
+        columns : columns.classification,
+        rows    : [
             { c : [
                 null, null, null, null, null, null, null, null, null, null,
                 null, null, null, null, null,
@@ -2573,7 +2590,7 @@ test('kclv.Table.Ships.Histogram', function() {
                 null, null, null, null, null, null
             ] }
         ]
-    );
+    });
 
     // TODO: Even more tests.
 });
@@ -2599,15 +2616,11 @@ kclv.Test.Table.Ships.Scatter.prototype =
 kclv.Test.Table.Ships.Scatter.prototype.constructor =
     kclv.Test.Table.Ships.Base;
 
-kclv.Test.Table.Ships.Scatter.prototype.test = function(
-    table, kind, option, title, columns, rows
-) {
-    kclv.Test.Table.Ships.Base.prototype.test.call(
-        this, table, kind, option, title, columns, rows
-    );
+kclv.Test.Table.Ships.Scatter.prototype.test = function(testee) {
+    kclv.Test.Table.Ships.Base.prototype.test.call(this, testee);
 
     deepEqual(
-        table.relation.relation,
+        testee.table.relation.relation,
         this.relation.array,
         'Sorting has no side effects for relations.'
     );
@@ -2639,13 +2652,13 @@ test('kclv.Table.Ships.Scatter', function() {
 
     columns.classification[0] =
         { id : 'Order', label : 'Order of arrival', type : 'number' };
-    test.test(
-        table,
-        'Levels',
-        'Arrival',
-        'S (lv)',
-        columns.classification,
-        [
+    test.test({
+        table   : table,
+        kind    : 'Levels',
+        option  : 'Arrival',
+        title   : 'S (lv)',
+        columns : columns.classification,
+        rows    : [
             { c : [
                 { v : 1, f : '#1:1' }, // Col. 0
                 null, null, null, null, null, null, null, null, null, null,
@@ -2671,20 +2684,20 @@ test('kclv.Table.Ships.Scatter', function() {
                 null, null, null, null, null, null
             ] }
         ]
-    );
+    });
 
     // mothballLevel
 
     configuration.chart.Ships.mothballLevel = 1;
     kclv.Configuration.load(configuration);
     table = new kclv.Table.Ships.Scatter(relation, ['Levels', 'Arrival']);
-    test.test(
-        table,
-        'Levels',
-        'Arrival',
-        'S (lv)',
-        columns.classification,
-        [
+    test.test({
+        table   : table,
+        kind    : 'Levels',
+        option  : 'Arrival',
+        title   : 'S (lv)',
+        columns : columns.classification,
+        rows    : [
             { c : [
                 { v : 1, f : '#1:1' }, // Col. 0
                 null, null, null, null, null, null, null, null, null, null,
@@ -2705,18 +2718,18 @@ test('kclv.Table.Ships.Scatter', function() {
             ] },
             { c : [] }
         ]
-    );
+    });
 
     configuration.chart.Ships.mothballLevel = 99;
     kclv.Configuration.load(configuration);
     table = new kclv.Table.Ships.Scatter(relation, ['Levels', 'Arrival']);
-    test.test(
-        table,
-        'Levels',
-        'Arrival',
-        'S (lv)',
-        columns.classification,
-        [
+    test.test({
+        table   : table,
+        kind    : 'Levels',
+        option  : 'Arrival',
+        title   : 'S (lv)',
+        columns : columns.classification,
+        rows    : [
             { c : [] },
             { c : [
                 { v : 2, f : '#2:12' }, // Col. 0
@@ -2732,7 +2745,7 @@ test('kclv.Table.Ships.Scatter', function() {
             ] },
             { c : [] }
         ]
-    );
+    });
 
     configuration.chart.Ships.mothballLevel = null;
 
@@ -2782,13 +2795,13 @@ test('kclv.Table.Ships.Scatter', function() {
     table = new kclv.Table.Ships.Scatter(relation, ['Levels', 'Experiences']);
     columns.classification[0] =
         { id : 'Order', label : 'Order of experiences', type : 'number' };
-    test.test(
-        table,
-        'Levels',
-        'Experiences',
-        'S (lv)',
-        columns.classification,
-        [
+    test.test({
+        table   : table,
+        kind    : 'Levels',
+        option  : 'Experiences',
+        title   : 'S (lv)',
+        columns : columns.classification,
+        rows    : [
             { c : [
                 { v : 1, f : '#1:12' }, // 0
                 null, null, null, null, null, null, null, null, null, null,
@@ -2814,20 +2827,20 @@ test('kclv.Table.Ships.Scatter', function() {
                 null, null, null, null, null, null
             ] }
         ]
-    );
+    });
 
     // Experiences, Arrival
 
     table = new kclv.Table.Ships.Scatter(relation, ['Experiences', 'Arrival']);
     columns.classification[0] =
         { id : 'Order', label : 'Order of arrival', type : 'number' };
-    test.test(
-        table,
-        'Experiences',
-        'Arrival',
-        'S (xp)',
-        columns.classification,
-        [
+    test.test({
+        table   : table,
+        kind    : 'Experiences',
+        option  : 'Arrival',
+        title   : 'S (xp)',
+        columns : columns.classification,
+        rows    : [
             { c : [
                 { v : 1, f : '#1:1' }, // Col. 0
                 null, null, null, null, null, null, null, null, null, null,
@@ -2855,7 +2868,7 @@ test('kclv.Table.Ships.Scatter', function() {
                 null, null, null, null, null, null
             ] }
         ]
-    );
+    });
 
     // Experiences, Experiences
 
@@ -2864,13 +2877,13 @@ test('kclv.Table.Ships.Scatter', function() {
     );
     columns.classification[0] =
         { id : 'Order', label : 'Order of experiences', type : 'number' };
-    test.test(
-        table,
-        'Experiences',
-        'Experiences',
-        'S (xp)',
-        columns.classification,
-        [
+    test.test({
+        table   : table,
+        kind    : 'Experiences',
+        option  : 'Experiences',
+        title   : 'S (xp)',
+        columns : columns.classification,
+        rows    : [
             { c : [
                 { v : 1, f : '#1:12' }, // Col. 0
                 null, null, null, null, null, null, null, null, null, null,
@@ -2898,7 +2911,7 @@ test('kclv.Table.Ships.Scatter', function() {
                 null, null, null, null, null, null
             ] }
         ]
-    );
+    });
 
     // TODO: Even more tests.
 });
