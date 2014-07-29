@@ -172,7 +172,7 @@ kclv.Stub.Shell.prototype.ExpandEnvironmentStrings = function(environment) {
 // ActiveXObject (Replacement for ActiveXObject)
 // ================================================================
 
-ActiveXObject = function(objectName) {
+var ActiveXObject = function(objectName) {
     switch (objectName) {
         case 'ADODB.Stream':
             return new kclv.Stub.Stream();
