@@ -1,8 +1,7 @@
 .*
 !.gitignore
-doc/symbols
-doc/files.html
-doc/index.html
+doc/*
+!doc/generator.bat
 extlib/*
 !extlib/.exists
 chart/*
