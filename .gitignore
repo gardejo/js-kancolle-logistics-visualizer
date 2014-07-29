@@ -6,3 +6,5 @@ doc/index.html
 extlib
 chart/*
 !chart/.exists
+node_modules/
+npm-debug.log
