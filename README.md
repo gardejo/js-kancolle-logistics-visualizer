@@ -68,7 +68,7 @@ Let's run it via GUI (Graphical User Interface).
 3. Double click `visualizer.wsf` file.
 4. Open a chart file which outputted to `chart` directory (folder), and browse a chart.
 
-Note: It can be run via the [CLI (Command Line Interface)](https://github.com/gardejo/js-kancolle-logistics-visualizer/Command-Line).
+Note: It can be run via the [CLI (Command Line Interface)](https://github.com/gardejo/js-kancolle-logistics-visualizer/wiki/Command-Lines).
 
 
 Support
@@ -205,7 +205,7 @@ GUI（グラフィカル ユーザー インターフェース）で操作しま
 3. `visualizer.wsf`ファイルをダブル クリックします。
 4. `chart` ディレクトリー（フォルダー）に出力されたグラフ ファイルを開いて、グラフを閲覧します。
 
-註: CLI（コマンド ライン インターフェース）でも操作できます。
+註: [CLI（コマンド ライン インターフェース）](https://github.com/gardejo/js-kancolle-logistics-visualizer/wiki/Command-Lines-%28ja%29)でも操作できます。
 
 
 サポート
