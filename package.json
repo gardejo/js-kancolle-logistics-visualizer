@@ -26,6 +26,9 @@
       "url": "https://github.com/gardejo/js-kancolle-logistics-visualizer/blob/master/LICENSE"
     }
   ],
+  "engines": {
+    "node": ">= 0.10.0"
+  },
   "scripts": {
     "test": "grunt test"
   },
