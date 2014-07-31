@@ -11,7 +11,7 @@ This file describes *KanColle Logistics Visualizer version 0.1.2 (Alpha)* in bri
 
 この文書は *KanColle Logistics Visualizer（艦これ 兵站図示儀） 第0.1.2版（アルファ版）* について簡単に記したものです。
 
-* 詳細は[Wiki](https://github.com/gardejo/js-kancolle-logistics-visualizer/wiki/Home-(ja))を参照してください。
+* 詳細は[Wiki](https://github.com/gardejo/js-kancolle-logistics-visualizer/wiki/Home-%28ja%29)を参照してください。
 * 註: [日本語は英語の後に記載しています](#%E8%89%A6%E3%81%93%E3%82%8C-%E5%85%B5%E7%AB%99%E5%9B%B3%E7%A4%BA%E5%84%80)。
 
 
@@ -168,7 +168,7 @@ All brand names and product names are trademarks or registered trademarks of the
 * *[三段式甲板](http://3dan.preflight.cc/)* （資材ログのみ）
 * ……（他にも拡張予定）
 
-……が出力する資材履歴ログファイルや艦娘一覧ファイルを加工し、以下のような[各種のグラフ](https://github.com/gardejo/js-kancolle-logistics-visualizer/wiki/Home-(ja)#%E3%82%AE%E3%83%A3%E3%83%A9%E3%83%AA%E3%83%BC)を描画します。
+……が出力する資材履歴ログファイルや艦娘一覧ファイルを加工し、以下のような[各種のグラフ](https://github.com/gardejo/js-kancolle-logistics-visualizer/wiki/Home-%28ja%29#%E3%82%AE%E3%83%A3%E3%83%A9%E3%83%AA%E3%83%BC)を描画します。
 
 * 艦娘の育成状況
     * 経験値の分布図
@@ -188,7 +188,7 @@ All brand names and product names are trademarks or registered trademarks of the
 
 GUI（グラフィカル ユーザー インターフェース）で操作しましょう。
 
-1. [Wiki](https://github.com/gardejo/js-kancolle-logistics-visualizer/wiki/Home-(ja)#%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB)を参照して、あなたのコンピューターにこのシステムをインストールします。
+1. [Wiki](https://github.com/gardejo/js-kancolle-logistics-visualizer/wiki/Home-%28ja%29#%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB)を参照して、あなたのコンピューターにこのシステムをインストールします。
     * 註: このシステムは *Microsoft Windows* 上の *WSH（Windows Script Host）* 環境で稼働します。
 2. 処理したいログ ファイルを用意します。
     * *航海日誌* の場合
@@ -213,7 +213,7 @@ GUI（グラフィカル ユーザー インターフェース）で操作しま
 
 ### 情報提供
 
-このシステムの説明書は[Wiki](https://github.com/gardejo/js-kancolle-logistics-visualizer/wiki/Home-(ja))にあります（現在のところ、ほとんど日本語で記載されています）。ご利用の前にご覧ください。
+このシステムの説明書は[Wiki](https://github.com/gardejo/js-kancolle-logistics-visualizer/wiki/Home-%28ja%29)にあります（現在のところ、ほとんど日本語で記載されています）。ご利用の前にご覧ください。
 
 このシステムのバージョン アップ情報は[リリース ノート](https://github.com/gardejo/js-kancolle-logistics-visualizer/releases)および[RSS](https://github.com/gardejo/js-kancolle-logistics-visualizer/releases.atom)で配信されます。また、著者が *[Twitter](https://twitter.com/gardejo)* で呟くこともあります。
 
@@ -261,7 +261,7 @@ GUI（グラフィカル ユーザー インターフェース）で操作しま
 * *[問題追跡システム](https://github.com/gardejo/js-kancolle-logistics-visualizer/issues)* への、バグのご報告。
 * *[問題追跡システム](https://github.com/gardejo/js-kancolle-logistics-visualizer/issues)* への、機能拡張のご提案。
 * *[掲示板](http://ost.io/@gardejo/js-kancolle-logistics-visualizer)* での、ユーザー同士の質疑応答。
-* *[Wiki](https://github.com/gardejo/js-kancolle-logistics-visualizer/wiki/Home-(ja))* にある説明書の充実。
+* *[Wiki](https://github.com/gardejo/js-kancolle-logistics-visualizer/wiki/Home-%28ja%29)* にある説明書の充実。
 * *[Pull-Request](https://github.com/gardejo/js-kancolle-logistics-visualizer/pulls)* による、ソース コードのご提供。
 * 艦これのゲーム内でのアイテムのご購入や、公式グッズのご購入。
     * *ドック増設セット* や *母港拡張* が特にお薦めです。
