@@ -16,6 +16,39 @@ module.exports = function(grunt) {
                 }
             }
         },
+        clean: {
+            doc: [
+                'doc/*',
+                '!doc/generator.bat'
+            ],
+            chart: [
+                'chart/*',
+                '!chart/.exists'
+            ],
+            dist: [
+                '*.zip'
+            ]
+        },
+        compress: {
+            dist: {
+                options: {
+                    archive: '<%= pkg.name %>-<%= pkg.version %>.zip'
+                },
+                files: [
+                    {
+                        src: [
+                            'README.md',
+                            'LICENSE',
+                            'configuration.json',
+                            'visualizer.wsf',
+                            'chart/**',
+                            'lib/**',
+                            'template/**'
+                        ]
+                    }
+                ]
+            }
+        },
         jshint: {
             files: [
                 // 'configuration.json',
@@ -57,6 +90,16 @@ module.exports = function(grunt) {
         'doc',
         [
             'jsdoc'
+        ]
+    );
+
+    grunt.loadNpmTasks('grunt-contrib-clean');
+    grunt.loadNpmTasks('grunt-contrib-compress');
+    grunt.registerTask(
+        'dist',
+        [
+            'clean',
+            'compress:dist'
         ]
     );
 
