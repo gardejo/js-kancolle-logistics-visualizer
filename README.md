@@ -150,7 +150,7 @@ This system is free software, released under the *The MIT license*. The full tex
 All brand names and product names are trademarks or registered trademarks of their respective companies.
 
 
-艦これ 兵站図示儀
+<a name="%E8%89%A6%E3%81%93%E3%82%8C-%E5%85%B5%E7%AB%99%E5%9B%B3%E7%A4%BA%E5%84%80">艦これ 兵站図示儀</a>
 =================
 
 概要
