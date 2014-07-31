@@ -11,4 +11,5 @@ chart/*
 node_modules/
 npm-debug.log
 !.travis.yml
+README.html
 *.zip

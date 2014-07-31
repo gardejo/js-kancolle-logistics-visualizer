@@ -5,6 +5,18 @@ module.exports = function(grunt) {
             'extlib/qunit.js': 'http://code.jquery.com/qunit/qunit-1.14.0.js',
             'extlib/qunit.css': 'http://code.jquery.com/qunit/qunit-1.14.0.css'
         },
+        markdown: {
+            all: {
+                files: [
+                    {
+                        expand: true,
+                        src: 'README.md',
+                        dest: '',
+                        ext: '.html'
+                    }
+                ]
+            }
+        },
         jsdoc: {
             dist: {
                 src: [
@@ -18,6 +30,7 @@ module.exports = function(grunt) {
         },
         clean: {
             doc: [
+                'README.html',
                 'doc/*',
                 '!doc/generator.bat'
             ],
@@ -37,7 +50,7 @@ module.exports = function(grunt) {
                 files: [
                     {
                         src: [
-                            'README.md',
+                            'README.html',
                             'LICENSE',
                             'configuration.json',
                             'visualizer.wsf',
@@ -85,10 +98,12 @@ module.exports = function(grunt) {
         ]
     );
 
+    grunt.loadNpmTasks('grunt-markdown');
     grunt.loadNpmTasks('grunt-jsdoc');
     grunt.registerTask(
         'doc',
         [
+            'markdown',
             'jsdoc'
         ]
     );
@@ -99,6 +114,7 @@ module.exports = function(grunt) {
         'dist',
         [
             'clean',
+            'markdown',
             'compress:dist'
         ]
     );
