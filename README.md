@@ -31,7 +31,7 @@ You've got the right stuff! *KanColle Logistics Visualizer* treats materials log
 * *[Sandanshiki Kanpan](http://3dan.preflight.cc/)* (Only materials log)
 * And more (due to expansion)
 
-... and draws [various charts](https://github.com/gardejo/js-kancolle-logistics-visualizer/wiki#gallery) below:
+... and draws various charts (See [Gallery](https://github.com/gardejo/js-kancolle-logistics-visualizer/wiki#gallery)) below:
 
 * Indicator of ship's skill
     * Scatter chart of experience points
@@ -168,7 +168,7 @@ All brand names and product names are trademarks or registered trademarks of the
 * *[三段式甲板](http://3dan.preflight.cc/)* （資材ログのみ）
 * ……（他にも拡張予定）
 
-……が出力する資材履歴ログファイルや艦娘一覧ファイルを加工し、以下のような[各種のグラフ](https://github.com/gardejo/js-kancolle-logistics-visualizer/wiki/Home-%28ja%29#%E3%82%AE%E3%83%A3%E3%83%A9%E3%83%AA%E3%83%BC)を描画します。
+……が出力する資材履歴ログファイルや艦娘一覧ファイルを加工し、以下のような各種のグラフ（[ギャラリー](https://github.com/gardejo/js-kancolle-logistics-visualizer/wiki/Home-%28ja%29#%E3%82%AE%E3%83%A3%E3%83%A9%E3%83%AA%E3%83%BC)もご覧ください）を描画します。
 
 * 艦娘の育成状況
     * 経験値の分布図
