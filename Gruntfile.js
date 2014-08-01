@@ -135,7 +135,8 @@ module.exports = function(grunt) {
                 '!<%= concat.dist.dest %>',
                 '!lib/polyfill.js',
                 'test/*.js',
-                'test/.jshintrc'
+                'test/.jshintrc',
+                'test/.csslintrc'
             ],
             options: {
                 jshintrc: 'test/.jshintrc'
