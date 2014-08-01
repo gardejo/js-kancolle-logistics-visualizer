@@ -8,7 +8,7 @@ module.exports = function(grunt) {
             'extlib/qunit.css': 'http://code.jquery.com/qunit/qunit-1.14.0.css'
         },
         markdown: {
-            all: {
+            readme: {
                 files: [
                     {
                         expand: true,
