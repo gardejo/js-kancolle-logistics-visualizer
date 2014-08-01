@@ -33,6 +33,12 @@ module.exports = function(grunt) {
             }
         },
         clean: {
+            dev: [
+                'node_modules/',
+                'npm-debug.log',
+                'extlib/*',
+                '!extlib/.exists',
+            ],
             doc: [
                 'README.html',
                 'doc/*',
@@ -189,7 +195,9 @@ module.exports = function(grunt) {
     grunt.registerTask(
         'dist',
         [
-            'clean',
+            'clean:dist',
+            'clean:chart',
+            'clean:doc',
             'markdown',
             'concat',
             'compress:dist'
