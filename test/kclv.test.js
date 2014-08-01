@@ -1,4 +1,4 @@
-﻿/**
+/**
  * @fileOverview Test Library on QUnit for KanColle Logistics Visualizer.
  *     Caveat: This file is encoded as UTF-8N (with BOM).
  *     Note: IE8 converts an exception into a raw object.

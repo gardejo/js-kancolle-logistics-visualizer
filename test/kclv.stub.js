@@ -1,4 +1,4 @@
-﻿/**
+/**
  * @fileOverview Stub Library for KanColle Logistics Visualizer.
  *     Caveat: This file is encoded as UTF-8N (with BOM).
  * @version 0.1.2
