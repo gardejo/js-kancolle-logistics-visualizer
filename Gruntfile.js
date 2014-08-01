@@ -1,3 +1,5 @@
+'use strict';
+
 module.exports = function(grunt) {
     grunt.initConfig({
         pkg: grunt.file.readJSON('package.json'),
@@ -127,6 +129,7 @@ module.exports = function(grunt) {
         },
         jshint: {
             files: [
+                'Gruntfile.js',
                 // 'configuration.json',
                 'lib/*.js',
                 '!<%= concat.dist.dest %>',
