@@ -141,8 +141,8 @@ module.exports = function(grunt) {
             ],
             test: [
                 'test/*.js',
-                'test/.jshintrc',
-                'test/.csshintrc'
+                '.jshintrc',
+                '.csshintrc'
             ],
             dist: [
                 // 'configuration.json',
@@ -151,7 +151,7 @@ module.exports = function(grunt) {
                 '!lib/polyfill.js'
             ],
             options: {
-                jshintrc: 'test/.jshintrc'
+                jshintrc: '.jshintrc'
             }
         },
         csslint: {
@@ -160,7 +160,7 @@ module.exports = function(grunt) {
                     'template/chart.css'
                 ],
                 options: {
-                    csslintrc: 'test/.csslintrc'
+                    csslintrc: '.csslintrc'
                 }
             }
         },
