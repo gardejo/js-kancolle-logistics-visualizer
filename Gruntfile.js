@@ -165,7 +165,7 @@ module.exports = function(grunt) {
             }
         },
         qunit: {
-            files: [
+            dist: [
                 'test/harness.html'
             ]
         }
