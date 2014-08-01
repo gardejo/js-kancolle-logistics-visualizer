@@ -22,7 +22,9 @@ module.exports = function(grunt) {
         jsdoc: {
             dist: {
                 src: [
-                    'lib/kclv.js'
+                    'lib/*.js',
+                    '!<%= concat.dist.dest %>',
+                    '!lib/polyfill.js'
                 ],
                 dest: 'doc',
                 options: {
