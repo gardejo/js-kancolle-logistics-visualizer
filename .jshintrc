@@ -8,7 +8,7 @@
     "nomen": true,
     "plusplus": false,
     "regexp": true,
-    "white": true,
+    "white": false,
     "globals": {
         "ActiveXObject": true,
         "JSON": false,
