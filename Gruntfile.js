@@ -128,15 +128,19 @@ module.exports = function(grunt) {
             }
         },
         jshint: {
-            files: [
+            self: [
                 'Gruntfile.js',
+            ],
+            test: [
+                'test/*.js',
+                'test/.jshintrc',
+                'test/.csshintrc'
+            ],
+            dist: [
                 // 'configuration.json',
                 'lib/*.js',
                 '!<%= concat.dist.dest %>',
-                '!lib/polyfill.js',
-                'test/*.js',
-                'test/.jshintrc',
-                'test/.csslintrc'
+                '!lib/polyfill.js'
             ],
             options: {
                 jshintrc: 'test/.jshintrc'
