@@ -184,6 +184,7 @@ module.exports = function(grunt) {
     grunt.registerTask(
         'doc',
         [
+            'clean:doc',
             'markdown',
             'jsdoc'
         ]
