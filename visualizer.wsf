@@ -40,7 +40,7 @@
         />
 
         <script
-            src="lib/kclv.polyfill.js"
+            src="lib/polyfill.js"
             type="text/javascript"
             language="JavaScript"
             charset="UTF-8"

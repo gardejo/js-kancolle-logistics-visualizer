@@ -4,7 +4,7 @@
  * @version 0.1.2
  * @author kclv@ermitejo.com (MORIYA Masaki, alias "Gardejo")
  * @license The MIT license (See LICENSE.txt)
- * @see ./kclv.test.js
+ * @see ./test.js
  */
 
 

@@ -104,7 +104,7 @@ I deeply thank people below:
 * *[@nash_fs](https://twitter.com/nash_fs)* wrote *[Sandanshiki Kanpan](http://3dan.preflight.cc/)*, which this system treats its log files. Besides, he readily struggle with my debugging.
 * *[@kcInputAux](https://twitter.com/kcInputAux)* wrote *[KCLV Config Generator](http://kancolle.s601.xrea.com/kclv/)*, a handy tool that lets us edit and output a configuration of this system with Web browsers.
 * *[No.983](http://jbbs.shitaraba.net/netgame/12394/storage/1386926329.html#983) of the thread about tools and dedicated browsers* wrote *[Graphicalizer Tool for KCRDB logs](https://dl.dropboxusercontent.com/s/6ortcavxtaucgnn/convert_graph.html)*, which this system gets an idea from.
-* *Mozilla Contributors* wrote sample codes under the Public Domain at *[MDN](https://developer.mozilla.org/)*, which this system uses as [`lib/kclv.polyfill.js`](https://github.com/gardejo/js-kancolle-logistics-visualizer/blob/master/lib/kclv.polyfill.js) .
+* *Mozilla Contributors* wrote sample codes under the Public Domain at *[MDN](https://developer.mozilla.org/)*, which this system uses as [`lib/polyfill.js`](https://github.com/gardejo/js-kancolle-logistics-visualizer/blob/master/lib/polyfill.js) .
 * Volunteers edited *[Kantai Collection -KanColle- Wiki](http://wikiwiki.jp/kancolle/)*, which this system refers to about specifications of the game.
 * Volunteers edited *[Kancolle Wiki](http://kancolle.wikia.com/wiki/Kancolle_Wiki)*, which this system refers to about English equivalents for terminology of the game.
 
@@ -246,7 +246,7 @@ GUI（グラフィカル ユーザー インターフェース）で操作しま
 * *[三段式甲板](http://3dan.preflight.cc/)* をお書きになった *[@nash_fs](https://twitter.com/nash_fs)* さん。ログ ファイルを使わせていただきました。また、デバッグにも快くお付き合いいただきました。
 * このシステムの設定内容をWebブラウザーで編集・出力できる便利なツール *[KCLV Config Generator](http://kancolle.s601.xrea.com/kclv/)* をお作りいただいた、 *[@kcInputAux](https://twitter.com/kcInputAux)* さん。
 * *[KCRDBログ グラフ化ツール](https://dl.dropboxusercontent.com/s/6ortcavxtaucgnn/convert_graph.html)* をお書きになった *ツール、専ブラスレの[983](http://jbbs.shitaraba.net/netgame/12394/storage/1386926329.html#983)* さん。着想をいただきました。
-* *[MDN](https://developer.mozilla.org/)* でパブリック ドメインのサンプル コードをお書きになった *Mozilla Contributors* の方々。 [`lib/polyfill.js`](https://github.com/gardejo/js-kancolle-logistics-visualizer/blob/master/lib/kclv.polyfill.js) として使わせていただきました。
+* *[MDN](https://developer.mozilla.org/)* でパブリック ドメインのサンプル コードをお書きになった *Mozilla Contributors* の方々。 [`lib/polyfill.js`](https://github.com/gardejo/js-kancolle-logistics-visualizer/blob/master/lib/polyfill.js) として使わせていただきました。
 * *[艦隊これくしょん -艦これ- 攻略Wiki](http://wikiwiki.jp/kancolle/)* を編集された有志の方々。ゲームの仕様を参考にさせていただきました。
 * *[Kancolle Wiki](http://kancolle.wikia.com/wiki/Kancolle_Wiki)* を編集された有志の方々。ゲーム用語の訳語を参考にさせていただきました。
 
