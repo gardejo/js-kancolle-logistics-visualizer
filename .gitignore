@@ -1,5 +1,6 @@
 .*
 !.gitignore
+lib/kclv.js
 doc/*
 !doc/generator.bat
 extlib/*

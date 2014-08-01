@@ -15,6 +15,7 @@
         "XMLHttpRequest": false,
         "deepEqual": false,
         "jsviews": false,
+        "kclv": true,
         "module": false,
         "navigator": false,
         "ok": false,
