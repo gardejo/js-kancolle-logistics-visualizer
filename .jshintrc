@@ -5,7 +5,7 @@
     "maxdepth": 3,
     "maxlen": 80,
     "maxparams": 4,
-    "nomen": true,
+    "nomen": false,
     "plusplus": false,
     "regexp": true,
     "white": false,
