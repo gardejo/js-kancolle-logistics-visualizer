@@ -1357,7 +1357,7 @@ test('kclv.Projector.Materials.High', function() {
         projector = new kclv.Projector.Materials.High();
 
     deepEqual(
-        test.relation.map( projector.project, projector ),
+        test.relation.map( projector.project ),
         [['Foo', 16, 26, 36, 46, 56, 66, 76]],
         'Projects as high.'
     );
@@ -1370,7 +1370,7 @@ test('kclv.Projector.Materials.Average', function() {
         projector = new kclv.Projector.Materials.Average();
 
     deepEqual(
-        test.relation.map( projector.project, projector ),
+        test.relation.map( projector.project ),
         [['Foo', 14, 24, 34, 44, 54, 64, 74]],
         'Projects as average.'
     );
@@ -1383,7 +1383,7 @@ test('kclv.Projector.Materials.Low', function() {
         projector = new kclv.Projector.Materials.Low();
 
     deepEqual(
-        test.relation.map( projector.project, projector ),
+        test.relation.map( projector.project ),
         [['Foo', 11, 21, 31, 41, 51, 61, 71]],
         'Projects as low.'
     );
