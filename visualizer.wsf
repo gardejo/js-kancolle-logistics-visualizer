@@ -1,4 +1,4 @@
-﻿<?XML version="1.0" standalone="yes" encoding="utf-8"?>
+<?XML version="1.0" standalone="yes" encoding="utf-8"?>
 
 <package>
 
@@ -40,7 +40,7 @@
         />
 
         <script
-            src="lib/kclv.polyfill.js"
+            src="lib/polyfill.js"
             type="text/javascript"
             language="JavaScript"
             charset="UTF-8"

@@ -1,5 +1,6 @@
 [![License](http://img.shields.io/badge/license-MIT-brightgreen.svg)](https://github.com/gardejo/js-kancolle-logistics-visualizer/blob/master/LICENSE)
 [![Build Status](http://img.shields.io/travis/gardejo/js-kancolle-logistics-visualizer.svg)](https://travis-ci.org/gardejo/js-kancolle-logistics-visualizer)
+[![Code Climate](http://img.shields.io/codeclimate/github/kabisaict/flow.svg)](https://codeclimate.com/github/gardejo/js-kancolle-logistics-visualizer)
 
 KanColle Logistics Visualizer
 =============================
@@ -104,7 +105,7 @@ I deeply thank people below:
 * *[@nash_fs](https://twitter.com/nash_fs)* wrote *[Sandanshiki Kanpan](http://3dan.preflight.cc/)*, which this system treats its log files. Besides, he readily struggle with my debugging.
 * *[@kcInputAux](https://twitter.com/kcInputAux)* wrote *[KCLV Config Generator](http://kancolle.s601.xrea.com/kclv/)*, a handy tool that lets us edit and output a configuration of this system with Web browsers.
 * *[No.983](http://jbbs.shitaraba.net/netgame/12394/storage/1386926329.html#983) of the thread about tools and dedicated browsers* wrote *[Graphicalizer Tool for KCRDB logs](https://dl.dropboxusercontent.com/s/6ortcavxtaucgnn/convert_graph.html)*, which this system gets an idea from.
-* *Mozilla Contributors* wrote sample codes under the Public Domain at *[MDN](https://developer.mozilla.org/)*, which this system uses as [`lib/kclv.polyfill.js`](https://github.com/gardejo/js-kancolle-logistics-visualizer/blob/master/lib/kclv.polyfill.js) .
+* *Mozilla Contributors* wrote sample codes under the Public Domain at *[MDN](https://developer.mozilla.org/)*, which this system uses as [`lib/polyfill.js`](https://github.com/gardejo/js-kancolle-logistics-visualizer/blob/master/lib/polyfill.js) .
 * Volunteers edited *[Kantai Collection -KanColle- Wiki](http://wikiwiki.jp/kancolle/)*, which this system refers to about specifications of the game.
 * Volunteers edited *[Kancolle Wiki](http://kancolle.wikia.com/wiki/Kancolle_Wiki)*, which this system refers to about English equivalents for terminology of the game.
 
@@ -121,6 +122,7 @@ The author of this system asks that you help support its continued development b
 * Reciprocal help among users at *the [users forum](http://ost.io/@gardejo/js-kancolle-logistics-visualizer)*.
 * Improve documentation at *the [Wiki](https://github.com/gardejo/js-kancolle-logistics-visualizer/wiki)*.
 * Collaboration on the code base via *[pull-requests](https://github.com/gardejo/js-kancolle-logistics-visualizer/pulls)*.
+    * To maintain this system, please run `npm install`, `grunt build` and `grunt test` (and `grunt dist`).
 * Purchase of an item in the game and official goods.
     * I'd recommend *Dock Extension Set* and *Port Extension* especially.
     * As for stereoscopically shaped articles, I'd like to suggest you a cute *[Nendoroid](http://www.goodsmile.info/ja/products/search?utf8=%E2%9C%93&search%5Bquery%5D=%E3%81%AD%E3%82%93%E3%81%A9%E3%82%8D%E3%81%84%E3%81%A9+%E8%89%A6%E9%9A%8A%E3%81%93%E3%82%8C%E3%81%8F%E3%81%97%E3%82%87%E3%82%93#searchResults)* and *[KanColle Model](http://www.f-toys.net/index.php?m=fproduct&t=detaile&product_id=236)*, unusual miniature ship models.
@@ -246,7 +248,7 @@ GUI（グラフィカル ユーザー インターフェース）で操作しま
 * *[三段式甲板](http://3dan.preflight.cc/)* をお書きになった *[@nash_fs](https://twitter.com/nash_fs)* さん。ログ ファイルを使わせていただきました。また、デバッグにも快くお付き合いいただきました。
 * このシステムの設定内容をWebブラウザーで編集・出力できる便利なツール *[KCLV Config Generator](http://kancolle.s601.xrea.com/kclv/)* をお作りいただいた、 *[@kcInputAux](https://twitter.com/kcInputAux)* さん。
 * *[KCRDBログ グラフ化ツール](https://dl.dropboxusercontent.com/s/6ortcavxtaucgnn/convert_graph.html)* をお書きになった *ツール、専ブラスレの[983](http://jbbs.shitaraba.net/netgame/12394/storage/1386926329.html#983)* さん。着想をいただきました。
-* *[MDN](https://developer.mozilla.org/)* でパブリック ドメインのサンプル コードをお書きになった *Mozilla Contributors* の方々。 [`lib/polyfill.js`](https://github.com/gardejo/js-kancolle-logistics-visualizer/blob/master/lib/kclv.polyfill.js) として使わせていただきました。
+* *[MDN](https://developer.mozilla.org/)* でパブリック ドメインのサンプル コードをお書きになった *Mozilla Contributors* の方々。 [`lib/polyfill.js`](https://github.com/gardejo/js-kancolle-logistics-visualizer/blob/master/lib/polyfill.js) として使わせていただきました。
 * *[艦隊これくしょん -艦これ- 攻略Wiki](http://wikiwiki.jp/kancolle/)* を編集された有志の方々。ゲームの仕様を参考にさせていただきました。
 * *[Kancolle Wiki](http://kancolle.wikia.com/wiki/Kancolle_Wiki)* を編集された有志の方々。ゲーム用語の訳語を参考にさせていただきました。
 
@@ -263,6 +265,7 @@ GUI（グラフィカル ユーザー インターフェース）で操作しま
 * *[掲示板](http://ost.io/@gardejo/js-kancolle-logistics-visualizer)* での、ユーザー同士の質疑応答。
 * *[Wiki](https://github.com/gardejo/js-kancolle-logistics-visualizer/wiki/Home-%28ja%29)* にある説明書の充実。
 * *[Pull-Request](https://github.com/gardejo/js-kancolle-logistics-visualizer/pulls)* による、ソース コードのご提供。
+    * このシステムを保守するには、`npm install`・`grunt build`・`grunt test`（・`grunt dist`）を実行します。
 * 艦これのゲーム内でのアイテムのご購入や、公式グッズのご購入。
     * *ドック増設セット* や *母港拡張* が特にお薦めです。
     * 立体造形物としては、可愛らしい *[ねんどろいど](http://www.goodsmile.info/ja/products/search?utf8=%E2%9C%93&search%5Bquery%5D=%E3%81%AD%E3%82%93%E3%81%A9%E3%82%8D%E3%81%84%E3%81%A9+%E8%89%A6%E9%9A%8A%E3%81%93%E3%82%8C%E3%81%8F%E3%81%97%E3%82%87%E3%82%93#searchResults)* の他、一風変わった艦船模型 *[艦これ モデル](http://www.f-toys.net/index.php?m=fproduct&t=detaile&product_id=236)* もいかがでしょう。

@@ -1,4 +1,4 @@
-﻿/**
+/**
  * @fileOverview Test Library on QUnit for KanColle Logistics Visualizer.
  *     Caveat: This file is encoded as UTF-8N (with BOM).
  *     Note: IE8 converts an exception into a raw object.
@@ -107,7 +107,8 @@ module('Formatter');
 // ================================================================
 
 test('kclv.Formatter', function() {
-    var formatter = new kclv.Formatter();
+    var formatter = new kclv.Formatter(),
+        indices = [0, 2];
 
     deepEqual(
         formatter.quote('foo'),
@@ -122,9 +123,15 @@ test('kclv.Formatter', function() {
     );
 
     deepEqual(
-        formatter.quote(['foo', 'bar', 'baz', 'qux'], [0, 2]),
+        formatter.quote(['foo', 'bar', 'baz', 'qux'], indices),
         ['"foo"', 'bar', '"baz"', 'qux'],
         'Quotes a string of specified elements of an array.'
+    );
+
+    deepEqual(
+        indices,
+        [0, 2],
+        'No side effects on the specified indices.'
     );
 
     deepEqual(
@@ -140,7 +147,7 @@ test('kclv.Formatter', function() {
     );
 
     deepEqual(
-        formatter.unquote(['"foo"', '"bar"', '"baz"', '"qux"'], [0, 2]),
+        formatter.unquote(['"foo"', '"bar"', '"baz"', '"qux"'], indices),
         ['foo', '"bar"', 'baz', '"qux"'],
         'Unquotes a string of specified elements of an array.'
     );
@@ -158,7 +165,7 @@ test('kclv.Formatter', function() {
     );
 
     deepEqual(
-        formatter.parenthesize(['foo', 'bar', 'baz', 'qux'], [0, 2]),
+        formatter.parenthesize(['foo', 'bar', 'baz', 'qux'], indices),
         ['(foo)', 'bar', '(baz)', 'qux'],
         'Parenthesizes a string of specified elements of an array.'
     );
@@ -176,7 +183,7 @@ test('kclv.Formatter', function() {
     );
 
     deepEqual(
-        formatter.integerize(['168', '58', '19', '8', '401'], [0, 2]),
+        formatter.integerize(['168', '58', '19', '8', '401'], indices),
         [168, '58', 19, '8', '401'],
         'Integerizes an integer-like string of specified elements of an array.'
     );
@@ -206,7 +213,7 @@ test('kclv.Formatter', function() {
     );
 
     deepEqual(
-        formatter.commify([4000, 2000, 5000, 5200, 20], [0, 2]),
+        formatter.commify([4000, 2000, 5000, 5200, 20], indices),
         ['4,000', 2000, '5,000', 5200, 20],
         'Commifies a number of specified elements of an array.'
     );
@@ -963,34 +970,6 @@ kclv.Test.Tokenizer.prototype.test = function(testee) {
     return;
 };
 
-test('kclv.Tokenizer.Base', function() {
-    var test = new kclv.Test.Tokenizer(),
-        tokenizer = new kclv.Tokenizer.Base(),
-        string =
-            '"SSV","I-58",2,3\n' + // Orel cruising dechi!
-            '"CV","Akagi",5,4\n' + // Tokyo Exp. to drum up results!
-            '"BB","Yamato",5,5\n', // We're sorry but "Re" class is NG.
-        rows = [
-            '"SSV","I-58",2,3',
-            '"CV","Akagi",5,4',
-            '"BB","Yamato",5,5'
-        ],
-        table = [
-            ['"SSV"', '"I-58"',   '2', '3'],
-            ['"CV"',  '"Akagi"',  '5', '4'],
-            ['"BB"',  '"Yamato"', '5', '5']
-        ];
-
-    test.test({
-        tokenizer : tokenizer,
-        string    : string,
-        rows      : rows,
-        table     : table
-    });
-
-    // TODO: Even more tests.
-});
-
 // ----------------------------------------------------------------
 // KCRDB: Materials
 // ----------------------------------------------------------------
@@ -1357,7 +1336,7 @@ test('kclv.Projector.Materials.High', function() {
         projector = new kclv.Projector.Materials.High();
 
     deepEqual(
-        test.relation.map( projector.project ),
+        test.relation.map( projector.project, projector ),
         [['Foo', 16, 26, 36, 46, 56, 66, 76]],
         'Projects as high.'
     );
@@ -1370,7 +1349,7 @@ test('kclv.Projector.Materials.Average', function() {
         projector = new kclv.Projector.Materials.Average();
 
     deepEqual(
-        test.relation.map( projector.project ),
+        test.relation.map( projector.project, projector ),
         [['Foo', 14, 24, 34, 44, 54, 64, 74]],
         'Projects as average.'
     );
@@ -1383,7 +1362,7 @@ test('kclv.Projector.Materials.Low', function() {
         projector = new kclv.Projector.Materials.Low();
 
     deepEqual(
-        test.relation.map( projector.project ),
+        test.relation.map( projector.project, projector ),
         [['Foo', 11, 21, 31, 41, 51, 61, 71]],
         'Projects as low.'
     );

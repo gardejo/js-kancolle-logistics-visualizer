@@ -1,10 +1,10 @@
-﻿/**
+/**
  * @fileOverview Stub Library for KanColle Logistics Visualizer.
  *     Caveat: This file is encoded as UTF-8N (with BOM).
  * @version 0.1.2
  * @author kclv@ermitejo.com (MORIYA Masaki, alias "Gardejo")
  * @license The MIT license (See LICENSE.txt)
- * @see ./kclv.test.js
+ * @see ./test.js
  */
 
 
