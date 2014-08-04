@@ -970,34 +970,6 @@ kclv.Test.Tokenizer.prototype.test = function(testee) {
     return;
 };
 
-test('kclv.Tokenizer.Base', function() {
-    var test = new kclv.Test.Tokenizer(),
-        tokenizer = new kclv.Tokenizer.Base(),
-        string =
-            '"SSV","I-58",2,3\n' + // Orel cruising dechi!
-            '"CV","Akagi",5,4\n' + // Tokyo Exp. to drum up results!
-            '"BB","Yamato",5,5\n', // We're sorry but "Re" class is NG.
-        rows = [
-            '"SSV","I-58",2,3',
-            '"CV","Akagi",5,4',
-            '"BB","Yamato",5,5'
-        ],
-        table = [
-            ['"SSV"', '"I-58"',   '2', '3'],
-            ['"CV"',  '"Akagi"',  '5', '4'],
-            ['"BB"',  '"Yamato"', '5', '5']
-        ];
-
-    test.test({
-        tokenizer : tokenizer,
-        string    : string,
-        rows      : rows,
-        table     : table
-    });
-
-    // TODO: Even more tests.
-});
-
 // ----------------------------------------------------------------
 // KCRDB: Materials
 // ----------------------------------------------------------------
