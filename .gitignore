@@ -1,5 +1,7 @@
 .*
 !.gitignore
+!.csslintrc
+!.jshintrc
 lib/kclv.js
 doc/*
 !doc/generator.bat
@@ -7,8 +9,6 @@ extlib/*
 !extlib/.exists
 chart/*
 !chart/.exists
-!test/.csslintrc
-!test/.jshintrc
 node_modules/
 npm-debug.log
 !.travis.yml
