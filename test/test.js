@@ -107,7 +107,8 @@ module('Formatter');
 // ================================================================
 
 test('kclv.Formatter', function() {
-    var formatter = new kclv.Formatter();
+    var formatter = new kclv.Formatter(),
+        indices = [0, 2];
 
     deepEqual(
         formatter.quote('foo'),
@@ -122,9 +123,15 @@ test('kclv.Formatter', function() {
     );
 
     deepEqual(
-        formatter.quote(['foo', 'bar', 'baz', 'qux'], [0, 2]),
+        formatter.quote(['foo', 'bar', 'baz', 'qux'], indices),
         ['"foo"', 'bar', '"baz"', 'qux'],
         'Quotes a string of specified elements of an array.'
+    );
+
+    deepEqual(
+        indices,
+        [0, 2],
+        'No side effects on the specified indices.'
     );
 
     deepEqual(
@@ -140,7 +147,7 @@ test('kclv.Formatter', function() {
     );
 
     deepEqual(
-        formatter.unquote(['"foo"', '"bar"', '"baz"', '"qux"'], [0, 2]),
+        formatter.unquote(['"foo"', '"bar"', '"baz"', '"qux"'], indices),
         ['foo', '"bar"', 'baz', '"qux"'],
         'Unquotes a string of specified elements of an array.'
     );
@@ -158,7 +165,7 @@ test('kclv.Formatter', function() {
     );
 
     deepEqual(
-        formatter.parenthesize(['foo', 'bar', 'baz', 'qux'], [0, 2]),
+        formatter.parenthesize(['foo', 'bar', 'baz', 'qux'], indices),
         ['(foo)', 'bar', '(baz)', 'qux'],
         'Parenthesizes a string of specified elements of an array.'
     );
@@ -176,7 +183,7 @@ test('kclv.Formatter', function() {
     );
 
     deepEqual(
-        formatter.integerize(['168', '58', '19', '8', '401'], [0, 2]),
+        formatter.integerize(['168', '58', '19', '8', '401'], indices),
         [168, '58', 19, '8', '401'],
         'Integerizes an integer-like string of specified elements of an array.'
     );
@@ -206,7 +213,7 @@ test('kclv.Formatter', function() {
     );
 
     deepEqual(
-        formatter.commify([4000, 2000, 5000, 5200, 20], [0, 2]),
+        formatter.commify([4000, 2000, 5000, 5200, 20], indices),
         ['4,000', 2000, '5,000', 5200, 20],
         'Commifies a number of specified elements of an array.'
     );
