@@ -106,7 +106,11 @@ module.exports = function(grunt) {
                     'lib/projector.js',
                     'lib/relation.js',
                     'lib/table.js',
+                    'lib/table.material.js',
+                    'lib/table.ship.js',
                     'lib/chart.js',
+                    'lib/chart.material.js',
+                    'lib/chart.ship.js',
                     'lib/template.js',
                     'lib/visualizer.js'
                 ],
