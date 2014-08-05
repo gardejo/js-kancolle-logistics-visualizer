@@ -1,11 +1,13 @@
 [![License](http://img.shields.io/badge/license-MIT-brightgreen.svg)](https://github.com/gardejo/js-kancolle-logistics-visualizer/blob/master/LICENSE)
 [![Build Status](http://img.shields.io/travis/gardejo/js-kancolle-logistics-visualizer.svg)](https://travis-ci.org/gardejo/js-kancolle-logistics-visualizer)
 [![Code Climate](http://img.shields.io/codeclimate/github/gardejo/js-kancolle-logistics-visualizer.svg)](https://codeclimate.com/github/gardejo/js-kancolle-logistics-visualizer)
+[![Coverage Status](https://img.shields.io/coveralls/gardejo/js-kancolle-logistics-visualizer.svg)](https://coveralls.io/r/gardejo/js-kancolle-logistics-visualizer?branch=master)
 
 KanColle Logistics Visualizer
 =============================
 
 This file describes *KanColle Logistics Visualizer version 0.1.2 (Alpha)* in brief.
+
 
 * Please refer to *the [Wiki](https://github.com/gardejo/js-kancolle-logistics-visualizer/wiki) pages* for more details.
 * Note: Japanese follows English.
