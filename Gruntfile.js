@@ -12,7 +12,10 @@ module.exports = function(grunt) {
                 '<%= grunt.template.today("isoDateTime") %>' +
                 '<%= grunt.template.today("o") %>)',
             ' * @author <%= pkg.author.email %> (<%= pkg.author.name %>)',
-            ' * @license <%= pkg.licenses[0].type %> (See LICENSE file)',
+            ' * @license Copyright (c) <%= grunt.template.today("yyyy") %> ' +
+                '<%= pkg.author.name %>.',
+            ' *     Licensed under the <%= pkg.licenses[0].type %> license ' +
+                '(See LICENSE file).',
             ' */',
             '',
             "'use strict'; // Script mode syntax (Whole-library)",
