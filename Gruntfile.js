@@ -56,7 +56,7 @@ module.exports = function(grunt) {
         },
         clean: {
             dev: [
-                'node_modules/',
+                'node_modules/**',
                 'npm-debug.log',
                 'extlib/*',
                 '!extlib/.exists',
