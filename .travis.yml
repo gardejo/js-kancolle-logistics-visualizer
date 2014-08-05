@@ -3,8 +3,19 @@ language: node_js
 node_js:
     - "0.10"
 
+env:
+    global:
+        secure: | # CODECLIMATE_REPO_TOKEN
+            Y6DEGfRf+u6RlA3AU4z8/AM/Ya4Kc6KpBMCYJcdpWPMn9rNd+pIruH/dL
+            F/la/gTtqcKs9q8+J4Z15CXrsLgClYaoiAnrJded4g7e+3nVpSnI+ctGl
+            ikvSmlGz3yM6/YtBIpWW9dGuzITyi5pUqeFUZOqsnFGUvTiGqLEEiDXWM=
+
 before_script:
     - npm install -g grunt-cli
+    - npm install -g codeclimate-test-reporter
     - grunt build
 
 script: grunt test --verbose --force
+
+after_script:
+    - codeclimate < test/lcov.info
