@@ -3,6 +3,22 @@
 module.exports = function(grunt) {
     grunt.initConfig({
         pkg: grunt.file.readJSON('package.json'),
+        banner : [
+            '/**',
+            ' * @fileOverview <%= pkg.description %>.',
+            ' *     This module added {@code <%= pkg.name %>} ' +
+                'symbol to the global namespace.',
+            ' * @version <%= pkg.version %> (Released at ' +
+                '<%= grunt.template.today("isoDateTime") %>' +
+                '<%= grunt.template.today("o") %>)',
+            ' * @author <%= pkg.author.email %> (<%= pkg.author.name %>)',
+            ' * @license <%= pkg.licenses[0].type %> (See LICENSE file)',
+            ' */',
+            '',
+            "'use strict'; // Script mode syntax (Whole-library)",
+            '',
+            ''
+        ].join(grunt.util.linefeed),
         curl: {
             'extlib/qunit.js': 'http://code.jquery.com/qunit/qunit-1.14.0.js',
             'extlib/qunit.css': 'http://code.jquery.com/qunit/qunit-1.14.0.css'
@@ -67,24 +83,7 @@ module.exports = function(grunt) {
                         ].join(grunt.util.linefeed)
                     );
                 },
-                banner: [
-                    '/**',
-                    ' * @fileOverview <%= pkg.description %>.',
-                    ' *     This module added {@code <%= pkg.name %>} ' +
-                        'symbol to the global namespace.',
-                    ' * @version <%= pkg.version %> (Released at ' +
-                        '<%= grunt.template.today("isoDateTime") %>' +
-                        '<%= grunt.template.today("o") %>)',
-                    ' * @author <%= pkg.author.email %> ' +
-                        '(<%= pkg.author.name %>)',
-                    ' * @license <%= pkg.licenses[0].type %> ' +
-                        '(See LICENSE file)',
-                    ' */',
-                    '',
-                    "'use strict'; // Script mode syntax (Whole-library)",
-                    '',
-                    ''
-                ].join(grunt.util.linefeed)
+                banner: '<%= banner %>'
             },
             dist: {
                 src: [
