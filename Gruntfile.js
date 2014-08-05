@@ -192,6 +192,13 @@ module.exports = function(grunt) {
                     instrumentedFiles: 'tmp/' // Caveat: It cannot omitted.
                 }
             }
+        },
+        coveralls: {
+            dist: {
+                src: 'test/lcov.info'
+            },
+            options: {
+            }
         }
     });
 
@@ -233,13 +240,15 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-csslint');
  // grunt.loadNpmTasks('grunt-contrib-qunit');
     grunt.loadNpmTasks('grunt-qunit-istanbul'); // qunit + istanbul
+    grunt.loadNpmTasks('grunt-coveralls');
     grunt.registerTask(
         'test',
         [
             'csslint',
             'jshint',
             'concat',
-            'qunit'
+            'qunit',
+            'coveralls'
         ]
     );
 };
