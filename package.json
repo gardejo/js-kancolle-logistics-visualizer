@@ -41,9 +41,10 @@
     "grunt-contrib-concat": "^0.5.0",
     "grunt-contrib-csslint": "^0.2.0",
     "grunt-contrib-jshint": "^0.10.0",
-    "grunt-contrib-qunit": "^0.5.2",
+    "grunt-coveralls": "^1.0.0",
     "grunt-curl": "^2.0.2",
     "grunt-jsdoc": "^0.5.6",
-    "grunt-markdown": "^0.6.1"
+    "grunt-markdown": "^0.6.1",
+    "grunt-qunit-istanbul": "^0.4.5"
   }
 }

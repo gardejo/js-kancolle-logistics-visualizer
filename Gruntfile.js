@@ -3,6 +3,9 @@
 module.exports = function(grunt) {
     grunt.initConfig({
         pkg: grunt.file.readJSON('package.json'),
+        // http://stackoverflow.com/questions/90002/
+        // "What is a reasonable code coverage for unit tests (and why)?"
+        coverage: 80, // It is tentative percentage.
         banner : [
             '/**',
             ' * @fileOverview <%= pkg.description %>.',
@@ -53,7 +56,7 @@ module.exports = function(grunt) {
         },
         clean: {
             dev: [
-                'node_modules/',
+                'node_modules/**',
                 'npm-debug.log',
                 'extlib/*',
                 '!extlib/.exists',
@@ -69,6 +72,9 @@ module.exports = function(grunt) {
             ],
             dist: [
                 '<%= concat.dist.dest %>',
+                '<%= qunit.options.coverage.instrumentedFiles %>/**',
+                'test/lcov.info',
+                'test/lcov-report/**',
                 '*.zip'
             ]
         },
@@ -172,7 +178,27 @@ module.exports = function(grunt) {
         qunit: {
             dist: [
                 'test/harness.html'
-            ]
+            ],
+            options: {
+                coverage: {
+                    src: [
+                        '<%= concat.dist.dest %>'
+                    ],
+                    lcovReport: 'test/',
+                    linesThresholdPct: '<%= coverage %>',
+                    statementsThresholdPct: '<%= coverage %>',
+                    functionsThresholdPct: '<%= coverage %>',
+                    branchesThresholdPct: '<%= coverage %>',
+                    instrumentedFiles: 'tmp/' // Caveat: It cannot omitted.
+                }
+            }
+        },
+        coveralls: {
+            dist: {
+                src: 'test/lcov.info'
+            },
+            options: {
+            }
         }
     });
 
@@ -212,14 +238,17 @@ module.exports = function(grunt) {
 
     grunt.loadNpmTasks('grunt-contrib-jshint');
     grunt.loadNpmTasks('grunt-contrib-csslint');
-    grunt.loadNpmTasks('grunt-contrib-qunit');
+ // grunt.loadNpmTasks('grunt-contrib-qunit');
+    grunt.loadNpmTasks('grunt-qunit-istanbul'); // qunit + istanbul
+    grunt.loadNpmTasks('grunt-coveralls');
     grunt.registerTask(
         'test',
         [
             'csslint',
             'jshint',
             'concat',
-            'qunit'
+            'qunit',
+            'coveralls'
         ]
     );
 };
