@@ -5,10 +5,10 @@ node_js:
 
 env:
     global:
-        - secure: | # CODECLIMATE_REPO_TOKEN
-            Y6DEGfRf+u6RlA3AU4z8/AM/Ya4Kc6KpBMCYJcdpWPMn9rNd+pIruH/dL
-            F/la/gTtqcKs9q8+J4Z15CXrsLgClYaoiAnrJded4g7e+3nVpSnI+ctGl
-            ikvSmlGz3yM6/YtBIpWW9dGuzITyi5pUqeFUZOqsnFGUvTiGqLEEiDXWM=
+        # - secure: | # CODECLIMATE_REPO_TOKEN
+        #     Y6DEGfRf+u6RlA3AU4z8/AM/Ya4Kc6KpBMCYJcdpWPMn9rNd+pIruH/dL
+        #     F/la/gTtqcKs9q8+J4Z15CXrsLgClYaoiAnrJded4g7e+3nVpSnI+ctGl
+        #     ikvSmlGz3yM6/YtBIpWW9dGuzITyi5pUqeFUZOqsnFGUvTiGqLEEiDXWM=
         - COVERALLS_SERVICE_NAME=travis-ci
         - secure: | # COVERALLS_REPO_TOKEN
             WLVPJXmqdoA0p1HYS/CmDtA1iB6kmpbdROLi5OZSvyj89XPhIEZoMCdee
@@ -17,10 +17,12 @@ env:
 
 before_script:
     - npm install -g grunt-cli
-    - npm install -g codeclimate-test-reporter
+    # - npm install -g codeclimate-test-reporter
     - grunt build
 
 script: grunt test --verbose --force
 
-after_script:
-    - codeclimate < test/lcov.info
+# CodeClimate's coverage report requires concatenated kclv.js file for the
+# LCOV file, or an alternative test for independent for original *.js files.
+# after_script:
+#     - codeclimate < test/lcov.info
