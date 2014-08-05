@@ -14,3 +14,6 @@ npm-debug.log
 !.travis.yml
 README.html
 *.zip
+tmp/
+test/lcov.info
+test/lcov-report/*
