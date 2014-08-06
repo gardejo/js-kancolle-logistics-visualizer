@@ -2361,6 +2361,19 @@ test('kclv.Table.Materials.Line', function() {
                 55, 56, 57 ]
         ]
     });
+
+    // Improve branch coverage: out of scale
+
+    throws(
+        function() {
+            new kclv.Table.Materials.Line(
+                new kclv.Relation.Materials().insert([]), // no tuple.
+                'Fuel'
+            );
+        },
+        RangeError,
+        'Cannot build rows from an empty relation.'
+    );
 });
 
 // ----------------------------------------------------------------
