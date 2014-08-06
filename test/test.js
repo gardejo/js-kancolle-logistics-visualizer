@@ -1763,6 +1763,20 @@ test('kclv.Relation.Base', function() {
         'Projects the whole attribute.'
     );
 
+    kclv.Relation.Foo = function() {
+        kclv.Relation.Base.call(this);
+
+        return;
+    };
+    kclv.Relation.Foo.prototype = Object.create(kclv.Relation.Base.prototype);
+    kclv.Relation.Foo.prototype.constructor = kclv.Relation.Base;
+
+    throws(
+        function() { new kclv.Relation.Foo().getAttributes(); },
+        Error, // TODO: We were cursed with abnormal Error object.
+        'Does not override abstract method #getAttributes().'
+    );
+
     // TODO: Even more tests.
 });
 
