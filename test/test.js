@@ -1867,6 +1867,12 @@ test('kclv.Relation.Ships', function() {
         relation : relation
     });
 
+    throws(
+        function() { relation.getIndicesOf('isLocked'); },
+        Error, // TODO: We were cursed with abnormal Error object.
+        'Has no index for lock status.'
+    );
+
     // TODO: Even more tests.
 });
 
