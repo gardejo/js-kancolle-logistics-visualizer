@@ -3825,11 +3825,31 @@ test('kclv.Chart.Trendline', function() {
 module('Template');
 // ================================================================
 
-/*
 test('kclv.Template', function() {
+    var configuration = { chart : { path : { template : './template' } } },
+        template;
+
+    kclv.Configuration.load(configuration);
+
+    ok(
+        template = new kclv.Template(['Materials', 'Line']),
+        'Creates an object.'
+    );
+
+    deepEqual(
+        template.render({
+            foo: 'filled: foo.\r\n',
+            bar: 'filled: bar.\r\n'
+        }),
+        'This is a meta template.\r\n\r\n' +
+            'filled: foo.\r\n\r\n' +
+            'filled: bar.\r\n\r\n' +
+            'This is a body template.\r\n\r\n',
+        'Fills in a template with complements.'
+    );
+
     // TODO: Even more tests.
 });
-*/
 
 
 // ================================================================

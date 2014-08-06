@@ -191,3 +191,38 @@ var ActiveXObject = function(objectName) {
             throw new Error();
     }
 };
+
+
+// ================================================================
+// jsviews (Replacement for jsviews)
+// ================================================================
+
+kclv.Stub.jsviews = function(stash) {
+    this.stash = stash;
+
+    return;
+};
+
+kclv.Stub.jsviews.prototype.render = function(complements) {
+    var stash = this.stash;
+
+    return this.stash.markup.replace(
+        /{{include tmpl="(.+?)"\/}}/g,
+        function(match, fillIn) {
+            return stash.templates[fillIn];
+        }
+    ).replace(
+        /{{[>:]?complements\.(.+?)}}/g,
+        function(match, fillIn) {
+            return complements[fillIn];
+        }
+    );
+};
+
+var jsviews = ( function() {
+    return {
+        templates : function(stash) {
+            return new kclv.Stub.jsviews(stash);
+        }
+    };
+}() );
