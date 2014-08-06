@@ -728,8 +728,8 @@ kclv.Test.Agent = {};
 
 kclv.Test.Agent.KCRDB = function() {
     this.path = {
-        Materials : './KCRDB.Materials.log',
-        Ships     : './KCRDB.Ships.csv'
+        Materials : './log/KCRDB.Materials.log',
+        Ships     : './log/KCRDB.Ships.csv'
     };
 
     return;
@@ -737,8 +737,8 @@ kclv.Test.Agent.KCRDB = function() {
 
 kclv.Test.Agent.Logbook = function() {
     this.path = {
-        Materials : './Logbook.Materials.log',
-        Ships     : './Logbook.Ships.csv'
+        Materials : './log/Logbook.Materials.log',
+        Ships     : './log/Logbook.Ships.csv'
     };
 
     return;
@@ -747,13 +747,13 @@ kclv.Test.Agent.Logbook = function() {
 kclv.Test.Agent.SandanshikiKanpan = function() {
     this.path = {
         // Note: An our test stub regards '%LocalAppData%' as './'.
-        Fuel          : '%LocalAppData%/SandanshikiKanpan.fuel.dat',
-        Ammunition    : '%LocalAppData%/SandanshikiKanpan.bullet.dat',
-        Steel         : '%LocalAppData%/SandanshikiKanpan.steel.dat',
-        Bauxite       : '%LocalAppData%/SandanshikiKanpan.bauxite.dat',
-        Repair        : '%LocalAppData%/SandanshikiKanpan.bucket.dat',
-        Construction  : '%LocalAppData%/SandanshikiKanpan.burner.dat',
-        Development   : '%LocalAppData%/SandanshikiKanpan.devMaterial.dat'
+        Fuel          : '%LocalAppData%/log/SandanshikiKanpan.fuel.dat',
+        Ammunition    : '%LocalAppData%/log/SandanshikiKanpan.bullet.dat',
+        Steel         : '%LocalAppData%/log/SandanshikiKanpan.steel.dat',
+        Bauxite       : '%LocalAppData%/log/SandanshikiKanpan.bauxite.dat',
+        Repair        : '%LocalAppData%/log/SandanshikiKanpan.bucket.dat',
+        Construction  : '%LocalAppData%/log/SandanshikiKanpan.burner.dat',
+        Development   : '%LocalAppData%/log/SandanshikiKanpan.devMaterial.dat'
     };
 
     return;
@@ -958,7 +958,7 @@ test('kclv.Agent.SandanshikiKanpan : Materials', function() {
     // Issue #10
 
     configuration.agent.SandanshikiKanpan.path.Bauxite =
-        '%LocalAppData%/SandanshikiKanpan.bauxite.delayed.dat';
+        '%LocalAppData%/log/SandanshikiKanpan.bauxite.delayed.dat';
     configuration.relation = {};
     kclv.Configuration.load(configuration);
 
@@ -1897,7 +1897,7 @@ test('kclv.RelationFactory', function() {
         relation = {};
 
     configuration.agent.SandanshikiKanpan.path.Bauxite =
-        '%LocalAppData%/SandanshikiKanpan.bauxite.delayed.dat';
+        '%LocalAppData%/log/SandanshikiKanpan.bauxite.delayed.dat';
     kclv.Configuration.load(configuration);
     relation.Materials = new kclv.Agent.Logbook().buildRelation('Materials');
     relation.Ships = new kclv.Agent.Logbook().buildRelation('Ships');
