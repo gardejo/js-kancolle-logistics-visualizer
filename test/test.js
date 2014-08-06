@@ -1751,6 +1751,18 @@ test('kclv.Relation.Base', function() {
         'Clones itself.'
     );
 
+    deepEqual(
+        new kclv.Relation.Base().insert([ [1], [2], [3] ]).select(),
+        new kclv.Relation.Base().insert([ [1], [2], [3] ]),
+        'Selects the whole tuple.'
+    );
+
+    deepEqual(
+        new kclv.Relation.Base().insert([ [1], [2], [3] ]).project(),
+        new kclv.Relation.Base().insert([ [1], [2], [3] ]),
+        'Projects the whole attribute.'
+    );
+
     // TODO: Even more tests.
 });
 
