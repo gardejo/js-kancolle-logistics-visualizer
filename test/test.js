@@ -1823,6 +1823,12 @@ test('kclv.Relation.Materials', function() {
         relation : relation
     });
 
+    throws(
+        function() { relation.getIndicesOf('Rubber'); },
+        Error, // TODO: We were cursed with abnormal Error object.
+        'Has no index for a quantitiy of rubber.'
+    );
+
     // TODO: Even more tests.
 });
 
