@@ -1042,6 +1042,20 @@ test('kclv.Agent.Logbook : Ships', function() {
     // TODO: Even more tests.
 });
 
+// ----------------------------------------------------------------
+// Ships: Sandanshiki Kanpan (Three Flight Decks)
+// ----------------------------------------------------------------
+
+test('kclv.Agent.SandanshikiKanpan : Ships', function() {
+    var agent = new kclv.Agent.SandanshikiKanpan();
+
+    throws(
+        function() { agent.buildRelation('Ships'); }, 
+        Error, // TODO: We were cursed with abnormal Error object.
+        'Cannot build a relation of ships.'
+    );
+});
+
 
 // ================================================================
 module('Tokenizers');
