@@ -3390,6 +3390,17 @@ test('kclv.Chart.CandleStick', function() {
             'Note: ticks, maximum and minimum were justified.'
     );
 
+    configuration.chart.Consumables.vertical = { step : 10, minimum : 0 };
+    kclv.Configuration.load(configuration);
+    deepEqual(
+        new kclv.Chart.Candlestick(table).option.vertical,
+        { maximum : 60, minimum : 0, ticks : [ 0, 10, 20, 30, 40, 50, 60 ] },
+        'Has the configurated chart options ' +
+            '(when vertical step was specified).' +
+            'Note: ticks, maximum and minimum were justified. ' +
+            'Note: Minimum threshold is rounded down.'
+    );
+
     configuration.chart.Consumables.vertical = { step : 100 };
     kclv.Configuration.load(configuration);
     deepEqual(
@@ -3499,6 +3510,17 @@ test('kclv.Chart.Line', function() {
         'Has the configurated chart options ' +
             '(when vertical step was specified).' +
             'Note: ticks, maximum and minimum were justified.'
+    );
+
+    configuration.chart.Resources.vertical = { step : 10, minimum : 0 };
+    kclv.Configuration.load(configuration);
+    deepEqual(
+        new kclv.Chart.Line(table).option.vertical,
+        { maximum : 60, minimum : 0, ticks : [ 0, 10, 20, 30, 40, 50, 60 ] },
+        'Has the configurated chart options ' +
+            '(when vertical step was specified).' +
+            'Note: ticks, maximum and minimum were justified. ' +
+            'Note: Minimum threshold is rounded down.'
     );
 
     configuration.chart.Resources.vertical = { step : 100 };
