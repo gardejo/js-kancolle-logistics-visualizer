@@ -120,7 +120,8 @@ module('Formatter');
 
 test('kclv.Formatter', function() {
     var formatter = new kclv.Formatter(),
-        indices = [0, 2];
+        indices = [0, 2],
+        prefix = 'Something wrong. Object notation is:\n\n';
 
     deepEqual(
         formatter.quote('foo'),
@@ -244,11 +245,31 @@ test('kclv.Formatter', function() {
 
     deepEqual(
         formatter.dialogue({ foo: 'bar'}),
-        'Something wrong. Object notation is:\n\n{\n    "foo": "bar"\n}',
+        prefix + '{\n    "foo": "bar"\n}',
         'Converts an object into a human-readable string.'
     );
 
-    // TODO: Even more tests: #dialogue (too long parameter)
+    kclv.Test.Void = function() { return; };
+    kclv.Test.Void.prototype.toJSON = function() { return; };
+    deepEqual(
+        formatter.dialogue(new kclv.Test.Void()),
+        prefix + 'undefined',
+        'Converts an object into a human-readable string (which is undefined).'
+    );
+
+    kclv.Test.LongestStringEver = function() { return; };
+    kclv.Test.LongestStringEver.prototype.toJSON = function() {
+        // Have the city of Llanfairpwllgwyngyll in your empire!
+        return new Array(2411).join('x');
+    };
+    deepEqual(
+        formatter.dialogue(new kclv.Test.LongestStringEver()),
+        prefix + '"' + new Array(1000).join('x') + // 1000
+            ' ...\n\n(Snipped 1412 characters.)', // 2411 - 1000 - 1 (quote)
+        'Converts an object into a human-readable string (which is snipped).'
+    );
+
+    // TODO: Even more tests.
 });
 
 
