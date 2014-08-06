@@ -4252,8 +4252,75 @@ test('kclv.Template', function() {
 module('Visualizer');
 // ================================================================
 
-/*
 test('kclv.Visualizer', function() {
+    var visualizer,
+        configuration = {
+            relation : {},
+            agent: {
+                Logbook : {
+                    path : new kclv.Test.Agent.Logbook().path
+                }
+            },
+            chart : {
+                Consumables : {},
+                Resources : {},
+                Ships: {},
+                path : {
+                    template : './template',
+                    chart    : './chart'
+                }
+            },
+            locale : 'xx',
+            legend : { xx : {
+                dateTime : 'd',
+                Resources   : {
+                    title : 'R',
+                    Fuel : 'f', Ammunition : 'a', Steel : 's', Bauxite : 'b'
+                },
+                Ships: {
+                    Bubble: {
+                        title: 'B'
+                    },
+                    title: 'S',
+                    classification: {},
+                    abbreviation: {}
+                }
+            } }
+        };
+
+    kclv.Configuration.load(configuration);
+
+    ok(
+        visualizer = new kclv.Visualizer(),
+        'Creates an object.'
+    );
+
+    throws(
+        function() { visualizer.visualize(); },
+        Error,
+        'Cannot visualize some relation with no directive.'
+    );
+
+    visualizer.visualize({
+        agent: 'Logbook',
+        relation: 'Materials',
+        chart: 'Line',
+        option: 'Resources'
+    });
+    ok(
+        true,
+        'Visualizes "Logbook.Materials.Line.Resources" direcitive.'
+    );
+
+    visualizer.visualize({
+        agent: 'Logbook',
+        relation: 'Ships',
+        chart: 'Bubble'
+    });
+    ok(
+        true,
+        'Visualizes "Logbook.Ships.Bubble" direcitive.'
+    );
+
     // TODO: Even more tests.
 });
-*/
