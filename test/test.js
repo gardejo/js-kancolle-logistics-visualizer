@@ -745,15 +745,18 @@ kclv.Test.Agent.Logbook = function() {
 };
 
 kclv.Test.Agent.SandanshikiKanpan = function() {
+    // Note: An our test stub regards '%LocalAppData%' as './'.
+    var base = '%LocalAppData%/log/';
+
     this.path = {
-        // Note: An our test stub regards '%LocalAppData%' as './'.
-        Fuel          : '%LocalAppData%/log/SandanshikiKanpan.fuel.dat',
-        Ammunition    : '%LocalAppData%/log/SandanshikiKanpan.bullet.dat',
-        Steel         : '%LocalAppData%/log/SandanshikiKanpan.steel.dat',
-        Bauxite       : '%LocalAppData%/log/SandanshikiKanpan.bauxite.dat',
-        Repair        : '%LocalAppData%/log/SandanshikiKanpan.bucket.dat',
-        Construction  : '%LocalAppData%/log/SandanshikiKanpan.burner.dat',
-        Development   : '%LocalAppData%/log/SandanshikiKanpan.devMaterial.dat'
+        Fuel           : base + 'SandanshikiKanpan.fuel.dat',
+        Ammunition     : base + 'SandanshikiKanpan.bullet.dat',
+        Steel          : base + 'SandanshikiKanpan.steel.dat',
+        Bauxite        : base + 'SandanshikiKanpan.bauxite.dat',
+        delayedBauxite : base + 'SandanshikiKanpan.bauxite.delayed.dat',
+        Repair         : base + 'SandanshikiKanpan.bucket.dat',
+        Construction   : base + 'SandanshikiKanpan.burner.dat',
+        Development    : base + 'SandanshikiKanpan.devMaterial.dat'
     };
 
     return;
@@ -958,7 +961,7 @@ test('kclv.Agent.SandanshikiKanpan : Materials', function() {
     // Issue #10
 
     configuration.agent.SandanshikiKanpan.path.Bauxite =
-        '%LocalAppData%/log/SandanshikiKanpan.bauxite.delayed.dat';
+        new kclv.Test.Agent.SandanshikiKanpan().path.delayedBauxite;
     configuration.relation = {};
     kclv.Configuration.load(configuration);
 
@@ -1897,7 +1900,7 @@ test('kclv.RelationFactory', function() {
         relation = {};
 
     configuration.agent.SandanshikiKanpan.path.Bauxite =
-        '%LocalAppData%/log/SandanshikiKanpan.bauxite.delayed.dat';
+        new kclv.Test.Agent.SandanshikiKanpan().path.delayedBauxite;
     kclv.Configuration.load(configuration);
     relation.Materials = new kclv.Agent.Logbook().buildRelation('Materials');
     relation.Ships = new kclv.Agent.Logbook().buildRelation('Ships');
