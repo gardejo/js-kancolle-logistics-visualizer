@@ -177,6 +177,7 @@ module.exports = function(grunt) {
         },
         qunit: {
             dist: [
+                'test/symbol.html',
                 'test/harness.html'
             ],
             options: {
