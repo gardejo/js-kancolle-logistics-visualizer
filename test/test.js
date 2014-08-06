@@ -577,6 +577,17 @@ test('kclv.Date', function() {
     );
 
     deepEqual(
+        new kclv.Date('2020/12/31').toWeek(),
+        [2020, 53],
+        'Considers 2020/12/31 as last (53rd) week of year 2020.'
+    );
+
+    ok(
+        new kclv.Date('2000/01/01').isLeapYear_(), // An edge case in our codes.
+        'Year 2000 is a leap year.'
+    );
+
+    deepEqual(
         new kclv.Date(epochDay).toWeekString(),
         '2013-W17',
         'Can stringify week number as ISO 8601 format.'
@@ -616,6 +627,14 @@ test('kclv.Date', function() {
         new kclv.Date('2010/01/04 12:34:56').toPeriod('Daily'),
         '2010/01/04',
         'Can convert Date into a daily period.'
+    );
+
+    throws(
+        function() {
+            new kclv.Date('2010/01/04 12:34:56').toPeriod('Bimonthly');
+        },
+        Error, // TODO: We were cursed with abnormal Error object.
+        'Cannot convert Date into a bimonthly period.'
     );
 
     // TODO: Even more tests.
