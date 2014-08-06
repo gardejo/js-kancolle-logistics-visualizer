@@ -759,6 +759,22 @@ kclv.Test.Agent.SandanshikiKanpan = function() {
     return;
 };
 
+test('kclv.Agent.Base', function() {
+    kclv.Agent.Foo = function() {
+        kclv.Agent.Base.call(this);
+
+        return;
+    };
+    kclv.Agent.Foo.prototype = Object.create(kclv.Agent.Base.prototype);
+    kclv.Agent.Foo.prototype.constructor = kclv.Agent.Base;
+
+    throws(
+        function() { new kclv.Agent.Foo().getProjector(); },
+        Error, // TODO: We were cursed with abnormal Error object.
+        'Does not override abstract method #getProjector().'
+    );
+});
+
 // ----------------------------------------------------------------
 // Materials
 // ----------------------------------------------------------------
