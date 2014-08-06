@@ -2194,6 +2194,22 @@ test('kclv.Table.Materials.Candlestick', function() {
         ]
     );
 
+    // Improve branch coverage: not only a bull but also a bear
+
+    table = new kclv.Table.Materials.Candlestick(
+        new kclv.Relation.Materials().insert([
+            [ new Date('2013/07/10 00:00:00'), 31, 32, 33, 34, 35, 36, 37 ],
+            [ new Date('2013/07/10 12:00:00'), 21, 22, 23, 24, 25, 26, 27 ]
+        ]),
+        ['Repair', 'Daily']
+    );
+    deepEqual(
+        table.rows,
+        [
+            [ '2013/07/10', 25, 35, 25, 35 ]
+        ]
+    );
+
     // TODO: Even more tests.
 });
 
