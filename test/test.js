@@ -726,6 +726,39 @@ module('Agents');
 
 kclv.Test.Agent = {};
 
+kclv.Test.Agent.KCRDB = function() {
+    this.path = {
+        Materials : './KCRDB.Materials.log',
+        Ships     : './KCRDB.Ships.csv'
+    };
+
+    return;
+};
+
+kclv.Test.Agent.Logbook = function() {
+    this.path = {
+        Materials : './Logbook.Materials.log',
+        Ships     : './Logbook.Ships.csv'
+    };
+
+    return;
+};
+
+kclv.Test.Agent.SandanshikiKanpan = function() {
+    this.path = {
+        // Note: An our test stub regards '%LocalAppData%' as './'.
+        Fuel          : '%LocalAppData%/SandanshikiKanpan.fuel.dat',
+        Ammunition    : '%LocalAppData%/SandanshikiKanpan.bullet.dat',
+        Steel         : '%LocalAppData%/SandanshikiKanpan.steel.dat',
+        Bauxite       : '%LocalAppData%/SandanshikiKanpan.bauxite.dat',
+        Repair        : '%LocalAppData%/SandanshikiKanpan.bucket.dat',
+        Construction  : '%LocalAppData%/SandanshikiKanpan.burner.dat',
+        Development   : '%LocalAppData%/SandanshikiKanpan.devMaterial.dat'
+    };
+
+    return;
+};
+
 // ----------------------------------------------------------------
 // Materials
 // ----------------------------------------------------------------
@@ -825,9 +858,9 @@ test('kclv.Agent.KCRDB : Materials', function() {
 
     var test = new kclv.Test.Agent.Materials(),
         agent = new kclv.Agent.KCRDB(),
-        configuration = { agent: { KCRDB: { path: {
-            Materials : './KCRDB.Materials.log'
-        } } } };
+        configuration = { agent: { KCRDB: {
+            path: new kclv.Test.Agent.KCRDB().path
+        } } };
 
     test.test({
         agent         : agent,
@@ -873,9 +906,9 @@ test('kclv.Agent.Logbook : Materials', function() {
 
     var test = new kclv.Test.Agent.Materials(),
         agent = new kclv.Agent.Logbook(),
-        configuration = { agent: { Logbook: { path: {
-            Materials : './Logbook.Materials.log'
-        } } } };
+        configuration = { agent: { Logbook: {
+            path: new kclv.Test.Agent.Logbook().path
+        } } };
 
     test.test({
         agent         : agent,
@@ -897,16 +930,9 @@ test('kclv.Agent.SandanshikiKanpan : Materials', function() {
 
     var test = new kclv.Test.Agent.Materials(),
         agent = new kclv.Agent.SandanshikiKanpan(),
-        configuration = { agent: { SandanshikiKanpan: { path: {
-            // Note: An our test stub regards '%LocalAppData%' as './'.
-            Fuel          : '%LocalAppData%/SandanshikiKanpan.fuel.dat',
-            Ammunition    : '%LocalAppData%/SandanshikiKanpan.bullet.dat',
-            Steel         : '%LocalAppData%/SandanshikiKanpan.steel.dat',
-            Bauxite       : '%LocalAppData%/SandanshikiKanpan.bauxite.dat',
-            Repair        : '%LocalAppData%/SandanshikiKanpan.bucket.dat',
-            Construction  : '%LocalAppData%/SandanshikiKanpan.burner.dat',
-            Development   : '%LocalAppData%/SandanshikiKanpan.devMaterial.dat'
-        } } } };
+        configuration = { agent: { SandanshikiKanpan: {
+            path: new kclv.Test.Agent.SandanshikiKanpan().path
+        } } };
 
     test.test({
         agent         : agent,
@@ -980,9 +1006,9 @@ test('kclv.Agent.KCRDB : Ships', function() {
 
     var test = new kclv.Test.Agent.Ships(),
         agent = new kclv.Agent.KCRDB(),
-        configuration = { agent: { KCRDB: { path: {
-            Ships : './KCRDB.Ships.csv'
-        } } } };
+        configuration = { agent: { KCRDB: {
+            path: new kclv.Test.Agent.KCRDB().path
+        } } };
 
     test.test({
         agent         : agent,
@@ -1004,9 +1030,9 @@ test('kclv.Agent.Logbook : Ships', function() {
 
     var test = new kclv.Test.Agent.Ships(),
         agent = new kclv.Agent.Logbook(),
-        configuration = { agent : { Logbook : { path : {
-            Ships : './Logbook.Ships.csv'
-        } } } };
+        configuration = { agent : { Logbook : {
+            path: new kclv.Test.Agent.Logbook().path
+        } } };
 
     test.test({
         agent         : agent,
