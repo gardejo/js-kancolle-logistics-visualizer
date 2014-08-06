@@ -1109,6 +1109,38 @@ kclv.Test.Tokenizer.prototype.test = function(testee) {
     return;
 };
 
+test('kclv.Tokenizer.Base', function() {
+    kclv.Tokenizer.Foo = function(kind) {
+        kclv.Tokenizer.Base.call(this, kind);
+
+        return;
+    };
+    kclv.Tokenizer.Foo.prototype = Object.create(kclv.Tokenizer.Base.prototype);
+    kclv.Tokenizer.Foo.prototype.constructor = kclv.Tokenizer.Base;
+
+    throws(
+        function() { new kclv.Tokenizer.Foo(); },
+        Error, // TODO: We were cursed with abnormal Error object.
+        'Has "undefined" which is a invalid kind.'
+    );
+
+    throws(
+        function() {
+            var tokenizer = new kclv.Tokenizer.Foo('Ships');
+            tokenizer.kind_ = 'Brides';
+            tokenizer.toColumns();
+        },
+        Error, // TODO: We were cursed with abnormal Error object.
+        'Has "Brides" which is a invalid kind.'
+    );
+
+    throws(
+        function() { new kclv.Tokenizer.Foo('Ships').canonizeTimeStamp(); },
+        Error, // TODO: We were cursed with abnormal Error object.
+        'Does not override abstract method #canonizeTimeStamp().'
+    );
+});
+
 // ----------------------------------------------------------------
 // KCRDB: Materials
 // ----------------------------------------------------------------
