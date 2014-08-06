@@ -2267,7 +2267,7 @@ test('kclv.Table.Materials.Line', function() {
     throws(
         function() { new kclv.Table.Materials.Line(relation, 'Rubber'); },
         Error, // TODO: We were cursed with abnormal Error object.
-        'Could not visualize Fuels.'
+        'Cannot visualize Rubber. It is not a materials of KanColle.'
     );
 
     // Threshold
@@ -2300,7 +2300,7 @@ test('kclv.Table.Materials.Line', function() {
     deepEqual(
         table.opposite,
         null,
-        'Does not have an opposite (Consumables)'
+        'Does not have an opposite (Consumables).'
     );
 
     // Resources + Repair
@@ -2350,7 +2350,7 @@ test('kclv.Table.Materials.Line', function() {
     deepEqual(
         table.opposite,
         null,
-        'Does not have an opposite (Consumables), regardless of "withRepair"'
+        'Does not have an opposite (Consumables), regardless of "withRepair".'
     );
 
     table = new kclv.Table.Materials.Line(relation, 'Consumables');
@@ -2960,7 +2960,7 @@ test('kclv.Table.Ships.Scatter', function() {
     throws(
         function() { new kclv.Table.Ships.Scatter(relation); },
         Error,
-        'Could not visualize undefined skill.'
+        'Cannot visualize undefined skill.'
     );
 
     // Threshold
@@ -3386,7 +3386,7 @@ test('kclv.Chart.CandleStick', function() {
         new kclv.Chart.Candlestick(table).option.vertical,
         { maximum : 60, minimum : 10, ticks : [ 10, 20, 30, 40, 50, 60 ] },
         'Has the configurated chart options ' +
-            '(when vertical step was specified).' +
+            '(when vertical step was specified). ' +
             'Note: ticks, maximum and minimum were justified.'
     );
 
@@ -3508,7 +3508,7 @@ test('kclv.Chart.Line', function() {
         new kclv.Chart.Line(table).option.vertical,
         { maximum : 60, minimum : 10, ticks : [ 10, 20, 30, 40, 50, 60 ] },
         'Has the configurated chart options ' +
-            '(when vertical step was specified).' +
+            '(when vertical step was specified). ' +
             'Note: ticks, maximum and minimum were justified.'
     );
 
@@ -3518,7 +3518,7 @@ test('kclv.Chart.Line', function() {
         new kclv.Chart.Line(table).option.vertical,
         { maximum : 60, minimum : 0, ticks : [ 0, 10, 20, 30, 40, 50, 60 ] },
         'Has the configurated chart options ' +
-            '(when vertical step was specified).' +
+            '(when vertical step was specified). ' +
             'Note: ticks, maximum and minimum were justified. ' +
             'Note: Minimum threshold is rounded down.'
     );
@@ -3529,7 +3529,7 @@ test('kclv.Chart.Line', function() {
         new kclv.Chart.Line(table).option.vertical,
         { maximum : 100, minimum : 0, ticks : [ 0, 100 ] },
         'Has the configurated chart options ' +
-            '(when vertical step was specified).' +
+            '(when vertical step was specified). ' +
             'Note: ticks, maximum and minimum were boldly justified.'
     );
 
@@ -3675,7 +3675,7 @@ test('kclv.Chart.Bubble', function() {
             110, 120, 130
         ] },
         'Has the configurated chart options ' +
-            '(when vertical step was specified).' +
+            '(when vertical step was specified). ' +
             'Note: ticks, maximum and minimum were justified.'
     );
 
@@ -3685,7 +3685,7 @@ test('kclv.Chart.Bubble', function() {
         new kclv.Chart.Bubble(table).option.vertical,
         { maximum : 160, minimum : 0, ticks : [ 0, 40, 80, 120, 160 ] },
         'Has the configurated chart options ' +
-            '(when vertical step was specified).' +
+            '(when vertical step was specified). ' +
             'Note: ticks, maximum and minimum were boldly justified.'
     );
 
@@ -3745,7 +3745,7 @@ test('kclv.Chart.Bubble', function() {
         new kclv.Chart.Bubble(table).option.horizontal,
         { maximum : 10, minimum : 0, ticks : [0, 10] },
         'Has the configurated chart options ' +
-            '(when horizontal step was specified).' +
+            '(when horizontal step was specified). ' +
             'Note: ticks, maximum and minimum were boldly justified.'
     );
 
@@ -3755,7 +3755,7 @@ test('kclv.Chart.Bubble', function() {
         new kclv.Chart.Bubble(table).option.horizontal,
         { maximum : 40, minimum : 0, ticks : [ 0, 40 ] },
         'Has the configurated chart options ' +
-            '(when horizontal step was specified).' +
+            '(when horizontal step was specified). ' +
             'Note: ticks, maximum and minimum were boldly justified.'
     );
 
@@ -3904,7 +3904,7 @@ test('kclv.Chart.Scatter', function() {
             110, 120, 130, 140, 150
         ] },
         'Has the configurated chart options ' +
-            '(when vertical step was specified).' +
+            '(when vertical step was specified). ' +
             'Note: ticks, maximum and minimum were justified.'
     );
 
@@ -3914,7 +3914,7 @@ test('kclv.Chart.Scatter', function() {
         new kclv.Chart.Scatter(table).option.vertical,
         { maximum : 160, minimum : 0, ticks : [ 0, 40, 80, 120, 160 ] },
         'Has the configurated chart options ' +
-            '(when vertical step was specified).' +
+            '(when vertical step was specified). ' +
             'Note: ticks, maximum and minimum were boldly justified.'
     );
 
@@ -3941,7 +3941,7 @@ test('kclv.Chart.Scatter', function() {
         new kclv.Chart.Scatter(table).option.vertical,
         { maximum : 1000000, minimum : 122500 },
         'Has the configurated chart options ' +
-            '(when vertical maximum and vertical minimum were specified).' +
+            '(when vertical maximum and vertical minimum were specified). ' +
             'Note: the specified levels are converted into experiences.'
     );
 
@@ -3960,7 +3960,7 @@ test('kclv.Chart.Scatter', function() {
         new kclv.Chart.Scatter(table).option.vertical,
         { minorGridlines : 4, maximum : 4359999, minimum : 0 },
         'Has the configurated chart options ' +
-            '(when vertical minorGridlines was specified).' +
+            '(when vertical minorGridlines was specified). ' +
             'Note: the counted levels are converted into experiences.'
     );
 
@@ -3983,7 +3983,7 @@ test('kclv.Chart.Scatter', function() {
         new kclv.Chart.Scatter(table).option.vertical,
         { baseline : 265000, maximum : 4359999, minimum : 0 },
         'Has the configurated chart options ' +
-            '(when vertical level was specified for baseline).' +
+            '(when vertical level was specified for baseline). ' +
             'Note: the counted levels are converted into experiences.'
     );
 
@@ -3996,7 +3996,7 @@ test('kclv.Chart.Scatter', function() {
             545500, 1000000, 1055000, 1255000, 1785000, 2760000, 4360000
         ] },
         'Has the configurated chart options ' +
-            '(when vertical step was specified for baseline).' +
+            '(when vertical step was specified for baseline). ' +
             'Note: the counted levels are converted into experiences.'
     );
 
@@ -4010,7 +4010,7 @@ test('kclv.Chart.Scatter', function() {
         ] },
         'Has the configurated chart options ' +
             '(when vertical step vertical minorGridlines were specified ' +
-            'for baseline).' +
+            'for baseline). ' +
             'Note: the counted levels are converted into experiences.'
     );
 
@@ -4022,7 +4022,7 @@ test('kclv.Chart.Scatter', function() {
             0, 78000, 383000, 1255000, 4360000 // Round Lv.160 down to Lv.150
         ] },
         'Has the configurated chart options ' +
-            '(when vertical step was specified for baseline).' +
+            '(when vertical step was specified for baseline). ' +
             'Note: the counted levels are converted into experiences. ' +
             'Note: ticks, maximum and minimum were boldly justified.'
     );
@@ -4083,7 +4083,7 @@ test('kclv.Chart.Scatter', function() {
         new kclv.Chart.Scatter(table).option.horizontal,
         { maximum : 10, minimum : 0, ticks : [0, 10] },
         'Has the configurated chart options ' +
-            '(when horizontal step was specified).' +
+            '(when horizontal step was specified). ' +
             'Note: ticks, maximum and minimum were boldly justified.'
     );
 
@@ -4093,7 +4093,7 @@ test('kclv.Chart.Scatter', function() {
         new kclv.Chart.Scatter(table).option.horizontal,
         { maximum : 40, minimum : 0, ticks : [ 0, 40 ] },
         'Has the configurated chart options ' +
-            '(when horizontal step was specified).' +
+            '(when horizontal step was specified). ' +
             'Note: ticks, maximum and minimum were boldly justified.'
     );
 
