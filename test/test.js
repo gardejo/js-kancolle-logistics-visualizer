@@ -1938,11 +1938,14 @@ module('Tables');
 // Interface
 // ----------------------------------------------------------------
 
-/*
 test('kclv.TableLike', function() {
+    ok(
+        new kclv.TableLike(),
+        'Is a placeholder.'
+    );
+
     // TODO: Even more tests.
 });
-*/
 
 // ----------------------------------------------------------------
 // Base
@@ -3158,11 +3161,14 @@ kclv.Test.Chart = {};
 // Interface
 // ----------------------------------------------------------------
 
-/*
 test('kclv.ChartLike', function() {
+    ok(
+        new kclv.ChartLike(),
+        'Is a placeholder.'
+    );
+
     // TODO: Even more tests.
 });
-*/
 
 // ----------------------------------------------------------------
 // Base
@@ -3983,94 +3989,118 @@ test('kclv.Chart.Scatter', function() {
 // ----------------------------------------------------------------
 
 /*
-test('kclv.ChartLike', function() {
-    // TODO: Even more tests.
-});
-*/
-
-/*
 test('kclv.Chart.Base', function() {
     // TODO: Even more tests.
 });
 */
 
-/*
 test('kclv.Chart.Annotation', function() {
+    ok(
+        new kclv.Chart.Annotation(),
+        'Is a placeholder.'
+    );
+
     // TODO: Even more tests.
 });
-*/
 
-/*
 test('kclv.Chart.Bar', function() {
+    ok(
+        new kclv.Chart.Bar(),
+        'Is a placeholder.'
+    );
+
     // TODO: Even more tests.
 });
-*/
 
-/*
-test('kclv.Chart.Bubble', function() {
-    // TODO: Even more tests.
-});
-*/
-
-/*
 test('kclv.Chart.Calendar', function() {
+    ok(
+        new kclv.Chart.Calendar(),
+        'Is a placeholder.'
+    );
+
     // TODO: Even more tests.
 });
-*/
 
-/*
 test('kclv.Chart.Column', function() {
+    ok(
+        new kclv.Chart.Column(),
+        'Is a placeholder.'
+    );
+
     // TODO: Even more tests.
 });
-*/
 
-/*
 test('kclv.Chart.Diff', function() {
+    ok(
+        new kclv.Chart.Diff(),
+        'Is a placeholder.'
+    );
+
     // TODO: Even more tests.
 });
-*/
 
-/*
 test('kclv.Chart.Interval', function() {
+    ok(
+        new kclv.Chart.Interval(),
+        'Is a placeholder.'
+    );
+
     // TODO: Even more tests.
 });
-*/
 
-/*
 test('kclv.Chart.Pie', function() {
+    ok(
+        new kclv.Chart.Pie(),
+        'Is a placeholder.'
+    );
+
     // TODO: Even more tests.
 });
-*/
 
-/*
 test('kclv.Chart.Sankey', function() {
+    ok(
+        new kclv.Chart.Sankey(),
+        'Is a placeholder.'
+    );
+
     // TODO: Even more tests.
 });
-*/
 
-/*
 test('kclv.Chart.SteppedArea', function() {
+    ok(
+        new kclv.Chart.SteppedArea(),
+        'Is a placeholder.'
+    );
+
     // TODO: Even more tests.
 });
-*/
 
-/*
 test('kclv.Chart.Timeline', function() {
+    ok(
+        new kclv.Chart.Timeline(),
+        'Is a placeholder.'
+    );
+
     // TODO: Even more tests.
 });
-*/
 
-/*
 test('kclv.Chart.TreeMap', function() {
-    // TODO: Even more tests.
-});
-*/
+    ok(
+        new kclv.Chart.TreeMap(),
+        'Is a placeholder.'
+    );
 
-/*
-test('kclv.Chart.Trendline', function() {
     // TODO: Even more tests.
 });
-*/
+
+test('kclv.Chart.Trendline', function() {
+    ok(
+        new kclv.Chart.Trendline(),
+        'Is a placeholder.'
+    );
+
+    // TODO: Even more tests.
+});
 
 
 // ================================================================
