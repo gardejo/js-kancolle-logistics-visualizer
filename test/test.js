@@ -2210,6 +2210,19 @@ test('kclv.Table.Materials.Candlestick', function() {
         ]
     );
 
+    // Improve branch coverage: out of scale
+
+    throws(
+        function() {
+            new kclv.Table.Materials.Candlestick(
+                new kclv.Relation.Materials().insert([]), // no tuple.
+                ['Fuel', 'Daily']
+            );
+        },
+        RangeError,
+        'Cannot build rows from an empty relation.'
+    );
+
     // TODO: Even more tests.
 });
 
