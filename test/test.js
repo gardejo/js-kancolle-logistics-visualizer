@@ -1880,11 +1880,54 @@ test('kclv.Relation.Ships', function() {
 // Factory
 // ----------------------------------------------------------------
 
-/*
 test('kclv.RelationFactory', function() {
+    var logbook = new kclv.Agent.Logbook(),
+        sandanshikiKanpan = new kclv.Agent.SandanshikiKanpan(),
+        configuration = {
+            relation : {},
+            agent: {
+                Logbook : {
+                    path : new kclv.Test.Agent.Logbook().path
+                },
+                SandanshikiKanpan: {
+                    path : new kclv.Test.Agent.SandanshikiKanpan().path
+                }
+            }
+        },
+        relation = {};
+
+    configuration.agent.SandanshikiKanpan.path.Bauxite =
+        '%LocalAppData%/SandanshikiKanpan.bauxite.delayed.dat';
+    kclv.Configuration.load(configuration);
+    relation.Materials = new kclv.Agent.Logbook().buildRelation('Materials');
+    relation.Ships = new kclv.Agent.Logbook().buildRelation('Ships');
+
+    deepEqual(
+        kclv.RelationFactory.getInstance(
+            'Ships', new kclv.Agent.Logbook()
+        ),
+        relation.Ships,
+        'Creates a ships relation.'
+    );
+
+    deepEqual(
+        kclv.RelationFactory.getInstance(
+            'Materials', new kclv.Agent.Logbook()
+        ),
+        relation.Materials,
+        'Creates a materials relation.'
+    );
+
+    deepEqual(
+        kclv.RelationFactory.getInstance(
+            'Materials', new kclv.Agent.SandanshikiKanpan()
+        ),
+        relation.Materials, // From cache. Delayed bauxite log is ignored!
+        'Does not Create a materials relation because it was alread created.'
+    );
+
     // TODO: Even more tests.
 });
-*/
 
 
 // ================================================================
