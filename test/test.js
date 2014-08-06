@@ -2556,6 +2556,14 @@ test('kclv.Table.Ships.Bubble', function() {
         ]
     });
 
+    // invalid attribute (column)
+
+    throws(
+        function() { table.getIndicesOf('BelovedNumber'); },
+        Error,
+        'Has no index for a number of beloved ships.'
+    );
+
     // practical level
 
     configuration.chart.Ships.vertical = {};
