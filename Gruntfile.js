@@ -240,14 +240,20 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-csslint');
  // grunt.loadNpmTasks('grunt-contrib-qunit');
     grunt.loadNpmTasks('grunt-qunit-istanbul'); // qunit + istanbul
-    grunt.loadNpmTasks('grunt-coveralls');
     grunt.registerTask(
         'test',
         [
             'csslint',
             'jshint',
             'concat',
-            'qunit',
+            'qunit'
+        ]
+    );
+
+    grunt.loadNpmTasks('grunt-coveralls');
+    grunt.registerTask(
+        'report',
+        [
             'coveralls'
         ]
     );

@@ -23,4 +23,5 @@ before_script:
 script: grunt test --verbose --force
 
 after_script:
+    - grunt report --verbose
     - codeclimate < test/lcov.info
