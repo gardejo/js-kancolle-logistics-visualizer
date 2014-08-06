@@ -2001,6 +2001,42 @@ kclv.Test.Table.Base.prototype.test = function(testee) {
     return;
 };
 
+test('kclv.Table.Base', function() {
+    var configuration = { locale : 'xx' };
+    kclv.Configuration.load(configuration);
+
+    kclv.Table.Foo = function(relation, option) {
+        kclv.Table.Base.call(this, relation, option);
+
+        return;
+    };
+    kclv.Table.Foo.prototype = Object.create(kclv.Table.Base.prototype);
+    kclv.Table.Foo.prototype.constructor = kclv.Table.Base;
+    kclv.Table.Foo.prototype.buildRows = function() { return; };
+
+    throws(
+        function() { new kclv.Table.Foo(); },
+        Error, // TODO: We were cursed with abnormal Error object.
+        'Does not override abstract method #buildColumns().'
+    );
+
+    kclv.Table.Bar = function(relation, option) {
+        kclv.Table.Base.call(this, relation, option);
+
+        return;
+    };
+    kclv.Table.Bar.prototype = Object.create(kclv.Table.Base.prototype);
+    kclv.Table.Bar.prototype.constructor = kclv.Table.Base;
+    kclv.Table.Bar.prototype.buildColumns = function() { return; };
+
+    throws(
+        function() { new kclv.Table.Bar(); },
+        Error, // TODO: We were cursed with abnormal Error object.
+        'Does not override abstract method #buildRows().'
+    );
+
+});
+
 // ----------------------------------------------------------------
 // Materials
 // ----------------------------------------------------------------
