@@ -44,7 +44,7 @@ kclv.Stub.Stream = function() {
 
     this.stream_ = null;
 
-    this.charset_ = null;
+    this.Charset = null;
 
     this.buffer_ = null;
 
@@ -54,7 +54,7 @@ kclv.Stub.Stream = function() {
 kclv.Stub.Stream.prototype.Open = function(opt_characterSet) {
     this.stream_ = new XMLHttpRequest();
     if (opt_characterSet) {
-        this.charset_ = opt_characterSet;
+        this.Charset = opt_characterSet;
     }
 
     return;
@@ -79,7 +79,7 @@ kclv.Stub.Stream.prototype.LoadFromFile = function(path) {
     };
 
     this.stream_.open('GET', path, false);
-    if (this.charset_) {
+    if (this.Charset) {
         this.stream_.overrideMimeType(
             'text/plain; charset=Shift_JIS'
         );
@@ -108,7 +108,7 @@ kclv.Stub.Stream.prototype.SaveToFile = function(path, option) {
 kclv.Stub.Stream.prototype.Close = function() {
     this.stream_ = null;
 
-    this.charset_ = null;
+    this.Charset = null;
 
     this.buffer_ = null;
 
