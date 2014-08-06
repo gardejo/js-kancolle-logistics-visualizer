@@ -3281,6 +3281,18 @@ kclv.Test.Chart.Base.prototype.testRedraw = function(
     return;
 };
 
+test('kclv.Chart.Base', function() {
+    var configuration = { chart : null };
+
+    kclv.Configuration.load(configuration);
+    ok(
+        new kclv.Chart.Base(),
+        'Creates an object.'
+    );
+
+    // TODO: Even more tests.
+});
+
 // ----------------------------------------------------------------
 // Materials
 // ----------------------------------------------------------------
