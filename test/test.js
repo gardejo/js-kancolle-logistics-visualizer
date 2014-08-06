@@ -98,6 +98,18 @@ test('kclv.Factory', function() {
         'Creates an object with an argument.'
     );
 
+    throws(
+        function() { kclv.Factory.getInstance(kclv, 'Qux'); },
+        navigator.userAgent.indexOf('MSIE') >= 0 ? Error : TypeError,
+        'Cannot create an object which was not registered.'
+    );
+
+    throws(
+        function() { kclv.Factory.getInstance(kclv); },
+        navigator.userAgent.indexOf('MSIE') >= 0 ? Error : TypeError,
+        'Cannot create an object: It is a namespace.'
+    );
+
     // TODO: Even more tests.
 });
 
