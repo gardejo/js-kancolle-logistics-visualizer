@@ -75,7 +75,7 @@ module.exports = function(grunt) {
                 '<%= qunit.options.coverage.instrumentedFiles %>/**',
                 'test/lcov.info',
                 'test/lcov-report/**',
-                '*.zip'
+                '<%= compress.dist.options.archive %>'
             ]
         },
         concat: {
