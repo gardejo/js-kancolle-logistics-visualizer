@@ -4108,12 +4108,6 @@ test('kclv.Chart.Scatter', function() {
 // Placeholders
 // ----------------------------------------------------------------
 
-/*
-test('kclv.Chart.Base', function() {
-    // TODO: Even more tests.
-});
-*/
-
 test('kclv.Chart.Annotation', function() {
     ok(
         new kclv.Chart.Annotation(),
