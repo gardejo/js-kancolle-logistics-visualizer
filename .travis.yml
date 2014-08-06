@@ -18,7 +18,7 @@ env:
 before_script:
     - npm install -g grunt-cli
     - npm install -g codeclimate-test-reporter
-    - grunt build
+    - grunt build --verbose
 
 script: grunt test --verbose --force
 
