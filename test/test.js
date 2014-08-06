@@ -398,12 +398,25 @@ module('Configuration');
 // ================================================================
 
 test('kclv.Configuration', function() {
-    var configuration = { 'foo' : 58, 'bar' : { 'baz' : 168 } };
+    var path = './sample.json',
+        configuration = { 'foo' : 58, 'bar' : { 'baz' : 168 } };
+
+    kclv.Configuration.load(path);
+    ok(
+        true,
+        'Stores an object by a path argument.'
+    );
+
+    deepEqual(
+        kclv.Configuration.get(),
+        configuration,
+        'Returns whole object tree.'
+    );
 
     kclv.Configuration.load(configuration);
     ok(
         true,
-        'Stores an object by an argument.'
+        'Stores an object by an object argument.'
     );
 
     deepEqual(
