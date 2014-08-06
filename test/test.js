@@ -573,7 +573,7 @@ test('kclv.Date', function() {
     deepEqual(
         new kclv.Date('2012/12/31').toWeek(),
         [2013, 1],
-        'Considers 2012/12/30 as 1st week of year 2013.'
+        'Considers 2012/12/31 as 1st week of year 2013.'
     );
 
     deepEqual(
