@@ -456,15 +456,33 @@ test('kclv.Configuration', function() {
 });
 
 
-/*
 // ================================================================
 module('I/O Stream');
 // ================================================================
 
 test('kclv.Stream', function() {
+    var stream = new kclv.Stream();
+
+    throws(
+        function() { stream.readFile('./_'); },
+        Error, // TODO: We were cursed with abnormal Error object.
+        'Cannot read an absent file.'
+    );
+
+    stream.writeFile('./_', 'This is a sample content.');
+    ok(
+        true,
+        'Can write some content (dummy).'
+    );
+
+    throws(
+        function() { stream.writeFile('./_', null); },
+        Error, // TODO: We were cursed with abnormal Error object.
+        'Cannot write a file with no content.'
+    );
+
     // TODO: Even more tests.
 });
-*/
 
 
 // ================================================================

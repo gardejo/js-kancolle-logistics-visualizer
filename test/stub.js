@@ -120,6 +120,10 @@ kclv.Stub.Stream.prototype.ReadText = function() {
 };
 
 kclv.Stub.Stream.prototype.WriteText = function(contents) {
+    if (contents === null) {
+        throw new Error('The specified content is null.');
+    }
+
     this.buffer_ = contents;
 
     return;
