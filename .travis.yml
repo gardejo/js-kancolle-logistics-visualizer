@@ -18,10 +18,8 @@ env:
 before_script:
     - npm install -g grunt-cli
     - npm install -g codeclimate-test-reporter
-    - grunt build --verbose
 
-script: grunt test --verbose --force
+script: grunt build test report --verbose --force
 
 after_script:
-    - grunt report --verbose
     - codeclimate < test/lcov.info
