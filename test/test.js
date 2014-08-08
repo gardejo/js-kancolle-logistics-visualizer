@@ -124,6 +124,12 @@ test('kclv.Formatter', function() {
         prefix = 'Something wrong. Object notation is:\n\n';
 
     deepEqual(
+        formatter.quote(null),
+        null,
+        'NOP if null.'
+    );
+
+    deepEqual(
         formatter.quote('foo'),
         '"foo"',
         'Quotes a string.'
@@ -133,6 +139,13 @@ test('kclv.Formatter', function() {
         formatter.quote(['foo', 'bar', 'baz', 'qux']),
         ['"foo"', '"bar"', '"baz"', '"qux"'],
         'Quotes a string of all elements of an array.'
+    );
+
+    deepEqual(
+        formatter.quote(['foo', null, 'baz', null]),
+        ['"foo"', null, '"baz"', null],
+        'Quotes a string of all elements of an array. ' +
+            'which may includes null.'
     );
 
     deepEqual(
@@ -154,15 +167,34 @@ test('kclv.Formatter', function() {
     );
 
     deepEqual(
+        formatter.unquote(null),
+        null,
+        'NOP if null.'
+    );
+
+    deepEqual(
         formatter.unquote(['"foo"', '"bar"', '"baz"', '"qux"']),
         ['foo', 'bar', 'baz', 'qux'],
         'Unquotes a string of all elements of an array.'
     );
 
     deepEqual(
+        formatter.unquote(['"foo"', null, '"baz"', null]),
+        ['foo', null, 'baz', null],
+        'Unquotes a string of all elements of an array. ' +
+            'which may includes null.'
+    );
+
+    deepEqual(
         formatter.unquote(['"foo"', '"bar"', '"baz"', '"qux"'], indices),
         ['foo', '"bar"', 'baz', '"qux"'],
         'Unquotes a string of specified elements of an array.'
+    );
+
+    deepEqual(
+        formatter.parenthesize(null),
+        null,
+        'NOP if null.'
     );
 
     deepEqual(
@@ -178,6 +210,13 @@ test('kclv.Formatter', function() {
     );
 
     deepEqual(
+        formatter.parenthesize(['foo', null, 'baz', null]),
+        ['(foo)', null, '(baz)', null],
+        'Parenthesizes a string of all elements of an array. ' +
+            'which may includes null.'
+    );
+
+    deepEqual(
         formatter.parenthesize(['foo', 'bar', 'baz', 'qux'], indices),
         ['(foo)', 'bar', '(baz)', 'qux'],
         'Parenthesizes a string of specified elements of an array.'
@@ -190,9 +229,22 @@ test('kclv.Formatter', function() {
     );
 
     deepEqual(
+        formatter.integerize(null),
+        null,
+        'NOP if null.'
+    );
+
+    deepEqual(
         formatter.integerize(['168', '58', '19', '8', '401']),
         [168, 58, 19, 8, 401],
         'Integerizes an integer-like string of all elements of an array.'
+    );
+
+    deepEqual(
+        formatter.integerize(['168', '58', null, null, '401']),
+        [168, 58, null, null, 401],
+        'Integerizes an integer-like string of all elements of an array. ' +
+            'which may includes null.'
     );
 
     deepEqual(
@@ -205,6 +257,12 @@ test('kclv.Formatter', function() {
         formatter.commify(1750), // Long tons, displacement of Fubuki
         '1,750',
         'Commifies a number.'
+    );
+
+    deepEqual(
+        formatter.commify(null),
+        null,
+        'NOP if null.'
     );
 
     deepEqual(
@@ -223,6 +281,13 @@ test('kclv.Formatter', function() {
         formatter.commify([4000, 2000, 5000, 5200, 20]), // A recipe for Taihou
         ['4,000', '2,000', '5,000', '5,200', '20'],
         'Commifies a number of all elements of an array.'
+    );
+
+    deepEqual(
+        formatter.commify([null, 2500, 2500, null]), // 46cm canon * 10 times
+        [null, '2,500', '2,500', null],
+        'Commifies a number of all elements of an array. ' +
+            'which may includes null.'
     );
 
     deepEqual(
@@ -726,6 +791,15 @@ module('Agents');
 
 kclv.Test.Agent = {};
 
+kclv.Test.Agent.Manual = function() {
+    this.path = {
+        Materials : './log/Manual.Materials.csv',
+        Ships     : './log/Manual.Ships.csv'
+    };
+
+    return;
+};
+
 kclv.Test.Agent.KCRDB = function() {
     this.path = {
         Materials : './log/KCRDB.Materials.log',
@@ -864,6 +938,30 @@ kclv.Test.Agent.Materials.prototype.test = function(testee) {
 
     return;
 };
+
+// ----------------------------------------------------------------
+// Materials: Manual
+// ----------------------------------------------------------------
+
+test('kclv.Agent.Manual : Materials', function() {
+    if (navigator.userAgent.indexOf('MSIE') >= 0) {
+        ok(true, 'TODO: MSIE cannot the tests.');
+        return;
+    }
+
+    var test = new kclv.Test.Agent.Materials(),
+        agent = new kclv.Agent.Manual(),
+        configuration = { agent: { Manual: {
+            path: new kclv.Test.Agent.Manual().path
+        } } };
+
+    test.test({
+        agent         : agent,
+        configuration : configuration
+    });
+
+    // TODO: Even more tests.
+});
 
 // ----------------------------------------------------------------
 // Materials: KCRDB
@@ -1014,6 +1112,38 @@ kclv.Test.Agent.Ships.prototype.test = function(testee) {
 };
 
 // ----------------------------------------------------------------
+// Ships: Manual
+// ----------------------------------------------------------------
+
+test('kclv.Agent.Manual : Ships', function() {
+    if (navigator.userAgent.indexOf('MSIE') >= 0) {
+        ok(true, 'TODO: MSIE cannot the tests.');
+        return;
+    }
+
+    var test = new kclv.Test.Agent.Ships(),
+        agent = new kclv.Agent.Manual(),
+        configuration = { agent : { Manual : {
+            path: new kclv.Test.Agent.Manual().path
+        } } };
+
+    test.ships = [
+        // ID: Expedient ID.
+        // Exp: An excess is omitted.
+        [ 1, '電改',       'DD',   99, 1000000 ],
+        [ 2, '千歳航改二', 'CVL', 149, 4165000 ],
+        [ 3, '長門',       'BB',    1,       0 ]
+    ];
+
+    test.test({
+        agent         : agent,
+        configuration : configuration
+    });
+
+    // TODO: Even more tests.
+});
+
+// ----------------------------------------------------------------
 // Ships: KCRDB
 // ----------------------------------------------------------------
 
@@ -1136,12 +1266,113 @@ test('kclv.Tokenizer.Base', function() {
         Error, // TODO: We were cursed with abnormal Error object.
         'Has "Brides" which is a invalid kind.'
     );
+});
 
-    throws(
-        function() { new kclv.Tokenizer.Foo('Ships').canonizeTimeStamp(); },
-        Error, // TODO: We were cursed with abnormal Error object.
-        'Does not override abstract method #canonizeTimeStamp().'
-    );
+// ----------------------------------------------------------------
+// Manual: Materials
+// ----------------------------------------------------------------
+
+test('kclv.Tokenizer.Manual.Materials', function() {
+    var test = new kclv.Test.Tokenizer(),
+        tokenizer = new kclv.Tokenizer.Manual.Materials(),
+        string =
+            '#日時,燃料,弾薬,鋼材,ボーキサイト,' +
+                '高速修復材,高速建造材,開発資材\n' +
+            '2013/04/23 01:23:45,1,2,3,4,5,6,7\n' +
+            '2013/07/10 12:34:56,2,3,4,5,6,7,8\n',
+        rows = [
+            '2013/04/23 01:23:45,1,2,3,4,5,6,7',
+            '2013/07/10 12:34:56,2,3,4,5,6,7,8'
+        ],
+        table = [
+            [
+                new Date('2013/04/23 01:23:45'),    // Date
+                1,2,3,4,5,6,7                       // Integers
+            ],
+            [
+                new Date('2013/07/10 12:34:56'),
+                2,3,4,5,6,7,8
+            ]
+        ];
+
+    test.test({
+        tokenizer : tokenizer,
+        string    : string,
+        rows      : rows,
+        table     : table
+    });
+
+    string =
+        '2014/1/2 3:4:5,11,12,13,14,15,16,17\n' +   // YYYY/M/D H:M:S
+        '# This is a comment line\n' +                         // Comment row
+        '2014/01/02 03:04:06,21,22,23,24,25,26,27,Huzzah!\n' + // Comment col
+        '2014/1/2 11:11,31,32,33,34,35\n' +         // Omit Const and Dev
+        '2014/1/2 12:34,41,42,43,,45,46,47\n';      // Omit Sec and Bauxite
+    rows = [
+        '2014/1/2 3:4:5,11,12,13,14,15,16,17',
+        '2014/01/02 03:04:06,21,22,23,24,25,26,27,Huzzah!',
+        '2014/1/2 11:11,31,32,33,34,35',
+        '2014/1/2 12:34,41,42,43,,45,46,47'
+    ];
+    table = [
+        [
+            new Date('2014/01/02 03:04:05'),    // Date
+            11,12,13,14,15,16,17                // Integers
+        ],
+        [
+            new Date('2014/01/02 03:04:06'),
+            21,22,23,24,25,26,27
+        ],
+        [
+            new Date('2014/01/02 11:11:00'),
+            31,32,33,34,35,null,null
+        ],
+        [
+            new Date('2014/01/02 12:34:00'),
+            41,42,43,null,45,46,47
+        ]
+    ];
+
+    test.test({
+        tokenizer : tokenizer,
+        string    : string,
+        rows      : rows,
+        table     : table
+    });
+
+    // TODO: Even more tests.
+});
+
+// ----------------------------------------------------------------
+// Manual: Ships
+// ----------------------------------------------------------------
+
+test('kclv.Tokenizer.Manual.Ships', function() {
+    var test = new kclv.Test.Tokenizer(),
+        tokenizer = new kclv.Tokenizer.Manual.Ships(),
+        string =
+            '"電改",99,"駆逐艦"\n' +
+            '"千歳航改二",149,"軽空母"\n' +
+            '"長門",1,"戦艦"\n',
+        rows = [
+            '"電改",99,"駆逐艦"',
+            '"千歳航改二",149,"軽空母"',
+            '"長門",1,"戦艦"'
+        ],
+        table = [
+            [ '電改',       'DD',   99 ],
+            [ '千歳航改二', 'CVL', 149 ],
+            [ '長門',       'BB',    1 ]
+        ];
+
+    test.test({
+        tokenizer : tokenizer,
+        string    : string,
+        rows      : rows,
+        table     : table
+    });
+
+    // TODO: Even more tests.
 });
 
 // ----------------------------------------------------------------
