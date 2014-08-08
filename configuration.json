@@ -33,6 +33,12 @@
     ],
     "notice"        : true,
     "agent"         : {
+        "Manual"        : {
+            "path"          : {
+                "Materials"     : "./materials.csv",
+                "Ships"         : "./ships.csv"
+            }
+        },
         "KCRDB"         : {
             "path"          : {
                 "Materials"     : "../KCRDB/KCRDB-materialhistory.log",

@@ -791,6 +791,15 @@ module('Agents');
 
 kclv.Test.Agent = {};
 
+kclv.Test.Agent.Manual = function() {
+    this.path = {
+        Materials : './log/Manual.Materials.csv',
+        Ships     : './log/Manual.Ships.csv'
+    };
+
+    return;
+};
+
 kclv.Test.Agent.KCRDB = function() {
     this.path = {
         Materials : './log/KCRDB.Materials.log',
@@ -929,6 +938,30 @@ kclv.Test.Agent.Materials.prototype.test = function(testee) {
 
     return;
 };
+
+// ----------------------------------------------------------------
+// Materials: Manual
+// ----------------------------------------------------------------
+
+test('kclv.Agent.Manual : Materials', function() {
+    if (navigator.userAgent.indexOf('MSIE') >= 0) {
+        ok(true, 'TODO: MSIE cannot the tests.');
+        return;
+    }
+
+    var test = new kclv.Test.Agent.Materials(),
+        agent = new kclv.Agent.Manual(),
+        configuration = { agent: { Manual: {
+            path: new kclv.Test.Agent.Manual().path
+        } } };
+
+    test.test({
+        agent         : agent,
+        configuration : configuration
+    });
+
+    // TODO: Even more tests.
+});
 
 // ----------------------------------------------------------------
 // Materials: KCRDB
@@ -1077,6 +1110,38 @@ kclv.Test.Agent.Ships.prototype.test = function(testee) {
 
     return;
 };
+
+// ----------------------------------------------------------------
+// Ships: Manual
+// ----------------------------------------------------------------
+
+test('kclv.Agent.Manual : Ships', function() {
+    if (navigator.userAgent.indexOf('MSIE') >= 0) {
+        ok(true, 'TODO: MSIE cannot the tests.');
+        return;
+    }
+
+    var test = new kclv.Test.Agent.Ships(),
+        agent = new kclv.Agent.Manual(),
+        configuration = { agent : { Manual : {
+            path: new kclv.Test.Agent.Manual().path
+        } } };
+
+    test.ships = [
+        // ID: Expedient ID.
+        // Exp: An excess is omitted.
+        [ 1, '電改',       'DD',   99, 1000000 ],
+        [ 2, '千歳航改二', 'CVL', 149, 4165000 ],
+        [ 3, '長門',       'BB',    1,       0 ]
+    ];
+
+    test.test({
+        agent         : agent,
+        configuration : configuration
+    });
+
+    // TODO: Even more tests.
+});
 
 // ----------------------------------------------------------------
 // Ships: KCRDB
