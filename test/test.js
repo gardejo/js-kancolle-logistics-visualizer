@@ -124,6 +124,12 @@ test('kclv.Formatter', function() {
         prefix = 'Something wrong. Object notation is:\n\n';
 
     deepEqual(
+        formatter.quote(null),
+        null,
+        'NOP if null.'
+    );
+
+    deepEqual(
         formatter.quote('foo'),
         '"foo"',
         'Quotes a string.'
@@ -133,6 +139,13 @@ test('kclv.Formatter', function() {
         formatter.quote(['foo', 'bar', 'baz', 'qux']),
         ['"foo"', '"bar"', '"baz"', '"qux"'],
         'Quotes a string of all elements of an array.'
+    );
+
+    deepEqual(
+        formatter.quote(['foo', null, 'baz', null]),
+        ['"foo"', null, '"baz"', null],
+        'Quotes a string of all elements of an array. ' +
+            'which may includes null.'
     );
 
     deepEqual(
@@ -154,15 +167,34 @@ test('kclv.Formatter', function() {
     );
 
     deepEqual(
+        formatter.unquote(null),
+        null,
+        'NOP if null.'
+    );
+
+    deepEqual(
         formatter.unquote(['"foo"', '"bar"', '"baz"', '"qux"']),
         ['foo', 'bar', 'baz', 'qux'],
         'Unquotes a string of all elements of an array.'
     );
 
     deepEqual(
+        formatter.unquote(['"foo"', null, '"baz"', null]),
+        ['foo', null, 'baz', null],
+        'Unquotes a string of all elements of an array. ' +
+            'which may includes null.'
+    );
+
+    deepEqual(
         formatter.unquote(['"foo"', '"bar"', '"baz"', '"qux"'], indices),
         ['foo', '"bar"', 'baz', '"qux"'],
         'Unquotes a string of specified elements of an array.'
+    );
+
+    deepEqual(
+        formatter.parenthesize(null),
+        null,
+        'NOP if null.'
     );
 
     deepEqual(
@@ -178,6 +210,13 @@ test('kclv.Formatter', function() {
     );
 
     deepEqual(
+        formatter.parenthesize(['foo', null, 'baz', null]),
+        ['(foo)', null, '(baz)', null],
+        'Parenthesizes a string of all elements of an array. ' +
+            'which may includes null.'
+    );
+
+    deepEqual(
         formatter.parenthesize(['foo', 'bar', 'baz', 'qux'], indices),
         ['(foo)', 'bar', '(baz)', 'qux'],
         'Parenthesizes a string of specified elements of an array.'
@@ -190,9 +229,22 @@ test('kclv.Formatter', function() {
     );
 
     deepEqual(
+        formatter.integerize(null),
+        null,
+        'NOP if null.'
+    );
+
+    deepEqual(
         formatter.integerize(['168', '58', '19', '8', '401']),
         [168, 58, 19, 8, 401],
         'Integerizes an integer-like string of all elements of an array.'
+    );
+
+    deepEqual(
+        formatter.integerize(['168', '58', null, null, '401']),
+        [168, 58, null, null, 401],
+        'Integerizes an integer-like string of all elements of an array. ' +
+            'which may includes null.'
     );
 
     deepEqual(
@@ -205,6 +257,12 @@ test('kclv.Formatter', function() {
         formatter.commify(1750), // Long tons, displacement of Fubuki
         '1,750',
         'Commifies a number.'
+    );
+
+    deepEqual(
+        formatter.commify(null),
+        null,
+        'NOP if null.'
     );
 
     deepEqual(
@@ -223,6 +281,13 @@ test('kclv.Formatter', function() {
         formatter.commify([4000, 2000, 5000, 5200, 20]), // A recipe for Taihou
         ['4,000', '2,000', '5,000', '5,200', '20'],
         'Commifies a number of all elements of an array.'
+    );
+
+    deepEqual(
+        formatter.commify([null, 2500, 2500, null]), // 46cm canon * 10 times
+        [null, '2,500', '2,500', null],
+        'Commifies a number of all elements of an array. ' +
+            'which may includes null.'
     );
 
     deepEqual(
