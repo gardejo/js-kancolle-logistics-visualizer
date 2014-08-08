@@ -1201,12 +1201,113 @@ test('kclv.Tokenizer.Base', function() {
         Error, // TODO: We were cursed with abnormal Error object.
         'Has "Brides" which is a invalid kind.'
     );
+});
 
-    throws(
-        function() { new kclv.Tokenizer.Foo('Ships').canonizeTimeStamp(); },
-        Error, // TODO: We were cursed with abnormal Error object.
-        'Does not override abstract method #canonizeTimeStamp().'
-    );
+// ----------------------------------------------------------------
+// Manual: Materials
+// ----------------------------------------------------------------
+
+test('kclv.Tokenizer.Manual.Materials', function() {
+    var test = new kclv.Test.Tokenizer(),
+        tokenizer = new kclv.Tokenizer.Manual.Materials(),
+        string =
+            '#日時,燃料,弾薬,鋼材,ボーキサイト,' +
+                '高速修復材,高速建造材,開発資材\n' +
+            '2013/04/23 01:23:45,1,2,3,4,5,6,7\n' +
+            '2013/07/10 12:34:56,2,3,4,5,6,7,8\n',
+        rows = [
+            '2013/04/23 01:23:45,1,2,3,4,5,6,7',
+            '2013/07/10 12:34:56,2,3,4,5,6,7,8'
+        ],
+        table = [
+            [
+                new Date('2013/04/23 01:23:45'),    // Date
+                1,2,3,4,5,6,7                       // Integers
+            ],
+            [
+                new Date('2013/07/10 12:34:56'),
+                2,3,4,5,6,7,8
+            ]
+        ];
+
+    test.test({
+        tokenizer : tokenizer,
+        string    : string,
+        rows      : rows,
+        table     : table
+    });
+
+    string =
+        '2014/1/2 3:4:5,11,12,13,14,15,16,17\n' +   // YYYY/M/D H:M:S
+        '# This is a comment line\n' +                         // Comment row
+        '2014/01/02 03:04:06,21,22,23,24,25,26,27,Huzzah!\n' + // Comment col
+        '2014/1/2 11:11,31,32,33,34,35\n' +         // Omit Const and Dev
+        '2014/1/2 12:34,41,42,43,,45,46,47\n';      // Omit Sec and Bauxite
+    rows = [
+        '2014/1/2 3:4:5,11,12,13,14,15,16,17',
+        '2014/01/02 03:04:06,21,22,23,24,25,26,27,Huzzah!',
+        '2014/1/2 11:11,31,32,33,34,35',
+        '2014/1/2 12:34,41,42,43,,45,46,47'
+    ];
+    table = [
+        [
+            new Date('2014/01/02 03:04:05'),    // Date
+            11,12,13,14,15,16,17                // Integers
+        ],
+        [
+            new Date('2014/01/02 03:04:06'),
+            21,22,23,24,25,26,27
+        ],
+        [
+            new Date('2014/01/02 11:11:00'),
+            31,32,33,34,35,null,null
+        ],
+        [
+            new Date('2014/01/02 12:34:00'),
+            41,42,43,null,45,46,47
+        ]
+    ];
+
+    test.test({
+        tokenizer : tokenizer,
+        string    : string,
+        rows      : rows,
+        table     : table
+    });
+
+    // TODO: Even more tests.
+});
+
+// ----------------------------------------------------------------
+// Manual: Ships
+// ----------------------------------------------------------------
+
+test('kclv.Tokenizer.Manual.Ships', function() {
+    var test = new kclv.Test.Tokenizer(),
+        tokenizer = new kclv.Tokenizer.Manual.Ships(),
+        string =
+            '"電改",99,"駆逐艦"\n' +
+            '"千歳航改二",149,"軽空母"\n' +
+            '"長門",1,"戦艦"\n',
+        rows = [
+            '"電改",99,"駆逐艦"',
+            '"千歳航改二",149,"軽空母"',
+            '"長門",1,"戦艦"'
+        ],
+        table = [
+            [ '電改',       'DD',   99 ],
+            [ '千歳航改二', 'CVL', 149 ],
+            [ '長門',       'BB',    1 ]
+        ];
+
+    test.test({
+        tokenizer : tokenizer,
+        string    : string,
+        rows      : rows,
+        table     : table
+    });
+
+    // TODO: Even more tests.
 });
 
 // ----------------------------------------------------------------
