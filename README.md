@@ -59,8 +59,7 @@ Let's run it via GUI (Graphical User Interface).
     * Note: This system runs on *WSH (Windows Script Host)* environment on *Microsoft Windows*. A guest language is (not *JavaScript* but) *JScript*.
 2. Prepare log files for visualization.
     * If you use manually inputted log:
-        * Fill out designated forms as a materials history and a ships roster, and save `materials.csv` and `ships.csv`
-        with reference to *the [Wiki](https://github.com/gardejo/js-kancolle-logistics-visualizer/wiki/Relations) page*.
+        * Fill out designated forms as a materials history and a ships roster, and save `materials.csv` and `ships.csv` with reference to *the [Wiki](https://github.com/gardejo/js-kancolle-logistics-visualizer/wiki/Relations) page*.
     * If you use *Logbook*:
         * Materials log was outputted automatically as `資材ログ.csv`.
         * Output ships roster manually as `所有艦娘一覧.csv`.
