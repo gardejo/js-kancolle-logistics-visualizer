@@ -138,6 +138,7 @@ module.exports = function(grunt) {
                             'LICENSE',
                             'configuration.json',
                             'visualizer.wsf',
+                            '*.csv',
                             'chart/**',
                             '<%= concat.dist.dest %>',
                             'lib/polyfill.js',
