@@ -27,14 +27,7 @@ Description
 
 You, as an Admiral of many naval battles, may be suffering from management of materials on the your Naval District everyday, and may smile at skilled *Combined Fleet Girls* in exchange for materials.
 
-You've got the right stuff! *KanColle Logistics Visualizer* treats materials log files and ships roster files from various agents (dedicated browses or dedicated proxies) for *KanColle* below:
-
-* *[Logbook](http://kancolle.sanaechan.net/)*
-* *[KCRDB (KanColle Received Data Browser)](http://hetaregrammer.blog.fc2.com/)*
-* *[Sandanshiki Kanpan](http://3dan.preflight.cc/)* (Only materials log)
-* And more (due to expansion)
-
-... and draws various charts (See [Gallery](https://github.com/gardejo/js-kancolle-logistics-visualizer/wiki#gallery)) below:
+You've got the right stuff! *KanColle Logistics Visualizer* draws various charts below:
 
 * Indicator of ship's skill
     * Scatter chart of experience points
@@ -42,11 +35,19 @@ You've got the right stuff! *KanColle Logistics Visualizer* treats materials log
     * Histogram
     * Bubble chart of bench strength by ships classifications
 * History of materials fluctuation
-    * Line chart of resources (Fuel, Ammunition, Steel and Bauxite)
-    * Line chart of resources (Fuel, Ammunition, Steel and Bauxite) + Instant repair
-    * Line chart of consumables (Instant Repair, Instant construction and Development material)
-    * Candlestick chart of materials (ex. Weekly fluctuation of instant repair)
-* And more (due to expansion)
+    * Line chart of resources (Fuel, Ammunition, Steel and Bauxite) (and Instant Repair, if desired)
+    * Line chart of consumables (Instant Repair, Instant Construction and Development Material)
+    * Candlestick chart of materials (ex. Daily/Weekly/Monthly/Yearly fluctuation of instant repair)
+* ... and more (due to expansion)
+
+See also [Gallery](https://github.com/gardejo/js-kancolle-logistics-visualizer/wiki#gallery)) for a catalog of various charts.
+
+You can **manually fill out** designated forms (CSV: Comma-Separated Values) as a materials log and a ships roster. Furthermore, you can use **dumped log files**, if you use various agents (dedicated browses or dedicated proxies) for *KanColle* below:
+
+* *[Logbook](http://kancolle.sanaechan.net/)*
+* *[KCRDB (KanColle Received Data Browser)](http://hetaregrammer.blog.fc2.com/)*
+* *[Sandanshiki Kanpan](http://3dan.preflight.cc/)* (Only materials log)
+* ... and more (due to expansion)
 
 
 Getting Started
@@ -57,6 +58,9 @@ Let's run it via GUI (Graphical User Interface).
 1. Install this system in your computer with reference to *the [Wiki](https://github.com/gardejo/js-kancolle-logistics-visualizer/wiki#installation) page*.
     * Note: This system runs on *WSH (Windows Script Host)* environment on *Microsoft Windows*. A guest language is (not *JavaScript* but) *JScript*.
 2. Prepare log files for visualization.
+    * If you use manually inputted log:
+        * Fill out designated forms as a materials history and a ships roster, and save `materials.csv` and `ships.csv`
+        with reference to *the [Wiki](https://github.com/gardejo/js-kancolle-logistics-visualizer/wiki/Relations) page*.
     * If you use *Logbook*:
         * Materials log was outputted automatically as `資材ログ.csv`.
         * Output ships roster manually as `所有艦娘一覧.csv`.
@@ -165,14 +169,7 @@ All brand names and product names are trademarks or registered trademarks of the
 > 「艦これ」はいろいろな見方ができるゲームではありますが，では本質的に何のゲームかというと「兵站のゲーム」なんです。 ―― プロデューサー 田中謙介氏
 
 歴戦の提督であるあなたも、鎮守府の日々の資材（資源）のやりくりに頭を悩ませたり、資材を引き替えにして育った *艦娘* たちに微笑みを向けていることでしょう。
-*KanColle Logistics Visualizer（艦これ 兵站図示儀）* は、そんなあなたにぴったりの道具です。このシステムは、以下の *艦これ* のエージェント（専用ブラウザーやプロキシーなど）……
-
-* *[航海日誌](http://kancolle.sanaechan.net/)*
-* *[KCRDB（艦これ Received Data Browser）](http://hetaregrammer.blog.fc2.com/)*
-* *[三段式甲板](http://3dan.preflight.cc/)* （資材ログのみ）
-* ……（他にも拡張予定）
-
-……が出力する資材履歴ログファイルや艦娘一覧ファイルを加工し、以下のような各種のグラフ（[ギャラリー](https://github.com/gardejo/js-kancolle-logistics-visualizer/wiki/Home-%28ja%29#%E3%82%AE%E3%83%A3%E3%83%A9%E3%83%AA%E3%83%BC)もご覧ください）を描画します。
+*KanColle Logistics Visualizer（艦これ 兵站図示儀）* は、そんなあなたにぴったりの道具です。このシステムは、以下のような各種のグラフを描画するものです。
 
 * 艦娘の育成状況
     * 経験値の分布図
@@ -180,11 +177,19 @@ All brand names and product names are trademarks or registered trademarks of the
     * 柱状グラフ（ヒストグラム）
     * 艦種毎の風船図（バブル チャート）
 * 資材の増減履歴
-    * 資材（燃料・弾薬・鋼材・ボーキサイト）の折れ線グラフ
-    * 資材（燃料・弾薬・鋼材・ボーキサイト）の折れ線グラフ（高速修復材付き）
+    * 資材（燃料・弾薬・鋼材・ボーキサイト）の折れ線グラフ（お好みで高速修復材との同時表示も可能）
     * 消耗品（高速修復材・高速建造材・開発資材）の折れ線グラフ
-    * 資材のローソク足グラフ（例えば、高速修復材の週次の増減）
+    * 資材のローソク足グラフ（例えば、高速修復材の日次・週次・月次・年次の増減）
 * ……他にも拡張する予定
+
+多彩なグラフの一覧は、[ギャラリー](https://github.com/gardejo/js-kancolle-logistics-visualizer/wiki/Home-%28ja%29#%E3%82%AE%E3%83%A3%E3%83%A9%E3%83%AA%E3%83%BC)をご覧ください。
+
+資材履歴や艦娘一覧のデータは、所定の書式（CSV:カンマ区切りファイル）で **手入力したものが使えます** 。さらに、以下の *艦これ* のエージェント（専用ブラウザーやプロキシーなど）をお使いの場合は、それらが出力する **ログファイルを用いる** こともできます。
+
+* *[航海日誌](http://kancolle.sanaechan.net/)*
+* *[KCRDB（艦これ Received Data Browser）](http://hetaregrammer.blog.fc2.com/)*
+* *[三段式甲板](http://3dan.preflight.cc/)* （資材ログのみ）
+* ……（他にも拡張予定）
 
 
 はじめに
@@ -192,9 +197,11 @@ All brand names and product names are trademarks or registered trademarks of the
 
 GUI（グラフィカル ユーザー インターフェース）で操作しましょう。
 
-1. [Wiki](https://github.com/gardejo/js-kancolle-logistics-visualizer/wiki/Home-%28ja%29#%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB)を参照して、あなたのコンピューターにこのシステムをインストールします。
+1. *[Wiki](https://github.com/gardejo/js-kancolle-logistics-visualizer/wiki/Home-%28ja%29#%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB)* を参照して、あなたのコンピューターにこのシステムをインストールします。
     * 註: このシステムは *Microsoft Windows* 上の *WSH（Windows Script Host）* 環境で稼働します。
 2. 処理したいログ ファイルを用意します。
+    * 手入力の場合
+        * *[Wiki](https://github.com/gardejo/js-kancolle-logistics-visualizer/wiki/Relations-%28ja%29)* を参照して、資材履歴や艦娘一覧を所定の書式（CSV）で記述し、例えば`materials.csv`や`ships.csv`などのファイルに保存します。
     * *航海日誌* の場合
         * `資材ログ.csv`は、自動で出力されています。
         * `所有艦娘一覧.csv`は、手動で保存してください。
