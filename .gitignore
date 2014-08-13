@@ -1,21 +1,32 @@
+# General
 .*
 !.gitignore
+
+# Build
+/node_modules/
+/npm-debug.log
+/lib/kclv.js
+/*.zip
+
+# Test
 !.csslintrc
 !.jshintrc
-/lib/kclv.js
-/doc/*
-!/doc/generator.bat
 /extlib/*
 !/extlib/.exists
-/chart/*
-!/chart/.exists
-/node_modules/
-/npm-debug.log/
-!/.travis.yml
-/README.html
-/*.zip
-/*.csv
-!/*-sample.csv
 /tmp/
 /test/lcov.info
-/test/lcov-report/*
+/test/lcov-report/
+
+# CI
+!.travis.yml
+
+# Document
+/doc/*
+!/doc/generator.bat
+/README.html
+
+# Sandbox
+/chart/*
+!/chart/.exists
+/*.csv
+!/*-sample.csv
