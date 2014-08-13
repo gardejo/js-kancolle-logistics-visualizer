@@ -1234,7 +1234,7 @@ kclv.Test.Tokenizer.prototype.test = function(testee) {
     );
 
     deepEqual(
-        testee.tokenizer.toRelationalArray(testee.string),
+        testee.tokenizer.toMatrix(testee.string),
         testee.table,
         'Converts a string into a table (a two-dimensional array).'
     );
