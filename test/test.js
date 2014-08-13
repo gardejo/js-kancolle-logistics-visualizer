@@ -2560,7 +2560,7 @@ test('kclv.Table.Materials.Line', function() {
     test.test({
         table    : table,
         kind     : 'Resources',
-        opposite : 'Consumables',
+        opposite : 'Repair',
         option   : null,
         title    : 'R',
         columns  : ['d', 'f', 'a', 's', 'b', 'r'],
