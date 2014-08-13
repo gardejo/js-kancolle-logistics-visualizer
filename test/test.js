@@ -2269,6 +2269,21 @@ test('kclv.Table.Base', function() {
         'Does not override abstract method #buildRows().'
     );
 
+    kclv.Table.Baz = function(relation, option) {
+        kclv.Table.Base.call(this, relation, option);
+
+        return;
+    };
+    kclv.Table.Baz.prototype = Object.create(kclv.Table.Base.prototype);
+    kclv.Table.Baz.prototype.constructor = kclv.Table.Base;
+    kclv.Table.Baz.prototype.buildRows = function() { return; };
+    kclv.Table.Baz.prototype.buildColumns = function() { return; };
+
+    throws(
+        function() { new kclv.Table.Baz(); },
+        Error, // TODO: We were cursed with abnormal Error object.
+        'Does not override abstract method #buildTitle().'
+    );
 });
 
 // ----------------------------------------------------------------
