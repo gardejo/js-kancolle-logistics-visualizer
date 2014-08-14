@@ -100,13 +100,13 @@ test('kclv.Factory', function() {
 
     throws(
         function() { kclv.Factory.getInstance(kclv, 'Qux'); },
-        navigator.userAgent.indexOf('MSIE') >= 0 ? Error : TypeError,
+        new TypeError('Object (Qux) does not found.'),
         'Cannot create an object which was not registered.'
     );
 
     throws(
         function() { kclv.Factory.getInstance(kclv); },
-        navigator.userAgent.indexOf('MSIE') >= 0 ? Error : TypeError,
+        new TypeError('Object name is not specified.'),
         'Cannot create an object: It is a namespace.'
     );
 
@@ -368,7 +368,7 @@ test('kclv.Array', function() {
 
     throws(
         function() { kclv.Array.values([1,2,3,4], [1,3,42]); },
-        navigator.userAgent.indexOf('MSIE') >= 0 ? Error : RangeError,
+        new RangeError('Invalid array length: 42.'),
         'Throws RangeError because 42 is an invalid array index.'
     );
 
@@ -464,7 +464,10 @@ test('kclv.PseudoInterface', function() {
 
     throws(
         function() { submarineLike.ensure(nagato); },
-        navigator.userAgent.indexOf('MSIE') >= 0 ? Error : TypeError,
+        new TypeError(
+            'The specified object does not implement any method(s): ' +
+                'dive.'
+        ),
         'Throws TypeError if an object does not have some methods: ' +
             'BB Nagato is not like a submarine, but like a battleship.'
     );
@@ -477,7 +480,10 @@ test('kclv.PseudoInterface', function() {
 
     throws(
         function() { submarineLike.ensure(ju87cKai); },
-        navigator.userAgent.indexOf('MSIE') >= 0 ? Error : TypeError,
+        new TypeError(
+            'The specified object does not implement any method(s): ' +
+                'dive.'
+        ),
         'Throws TypeError if an object does not have some methods: ' +
             'Ju87C-Kai is not like a submarine, but like a carrier-based ' +
             'bomber.'
@@ -543,7 +549,7 @@ test('kclv.Configuration', function() {
 
     throws(
         function() { kclv.Configuration.get('qux'); },
-        navigator.userAgent.indexOf('MSIE') >= 0 ? Error : ReferenceError,
+        new ReferenceError('Configuration has no "qux" property.'),
         'Throws ReferenceError ' +
             'if a strict configuration does not have the specified ' +
             'property.'
@@ -559,7 +565,7 @@ test('kclv.Configuration', function() {
     kclv.Configuration.clear();
     throws(
         function() { kclv.Configuration.get(); },
-        Error,
+        new Error('Configuration does not loaded.'),
         'Throws Error if configuration not to be loaded.'
     );
 
@@ -576,7 +582,7 @@ test('kclv.Stream', function() {
 
     throws(
         function() { stream.readFile('./_'); },
-        Error, // TODO: We were cursed with abnormal Error object.
+        new kclv.Exception.File('./_'),
         'Cannot read an absent file.'
     );
 
@@ -588,7 +594,7 @@ test('kclv.Stream', function() {
 
     throws(
         function() { stream.writeFile('./_', null); },
-        Error, // TODO: We were cursed with abnormal Error object.
+        new kclv.Exception.File('./_'),
         'Cannot write a file with no content.'
     );
 
@@ -698,7 +704,7 @@ test('kclv.Date', function() {
         function() {
             new kclv.Date('2010/01/04 12:34:56').toPeriod('Bimonthly');
         },
-        Error, // TODO: We were cursed with abnormal Error object.
+        new kclv.Exception.InvalidFrequency('Bimonthly'),
         'Cannot convert Date into a bimonthly period.'
     );
 
@@ -847,7 +853,7 @@ test('kclv.Agent.Base', function() {
 
     throws(
         function() { new kclv.Agent.Foo().getProjector(); },
-        Error, // TODO: We were cursed with abnormal Error object.
+        new kclv.Exception.AbstractMethod(),
         'Does not override abstract method #getProjector().'
     );
 });
@@ -1200,7 +1206,7 @@ test('kclv.Agent.SandanshikiKanpan : Ships', function() {
 
     throws(
         function() { agent.buildRelation('Ships'); }, 
-        Error, // TODO: We were cursed with abnormal Error object.
+        new kclv.Exception.InvalidRelation('Ships', ['Materials']),
         'Cannot build a relation of ships.'
     );
 });
@@ -1253,7 +1259,7 @@ test('kclv.Tokenizer.Base', function() {
 
     throws(
         function() { new kclv.Tokenizer.Foo(); },
-        Error, // TODO: We were cursed with abnormal Error object.
+        new kclv.Exception.InvalidRelation(),
         'Has "undefined" which is a invalid kind.'
     );
 
@@ -1263,7 +1269,7 @@ test('kclv.Tokenizer.Base', function() {
             tokenizer.kind_ = 'Brides';
             tokenizer.toColumns();
         },
-        Error, // TODO: We were cursed with abnormal Error object.
+        new kclv.Exception.InvalidRelation('Brides'),
         'Has "Brides" which is a invalid kind.'
     );
 });
@@ -1603,7 +1609,9 @@ test('kclv.SelectorLike', function() {
 
     throws(
         function() { selectorInterface.ensure(bar); },
-        navigator.userAgent.indexOf('MSIE') >= 0 ? Error : TypeError,
+        new TypeError(
+            'The specified object does not implement any method(s): select.'
+        ),
         'SelectorLike interface does not ensure bar object has #select method.'
     );
 
@@ -1719,7 +1727,9 @@ test('kclv.ProjectorLike', function() {
 
     throws(
         function() { projectorInterface.ensure(bar); },
-        navigator.userAgent.indexOf('MSIE') >= 0 ? Error : TypeError,
+        new TypeError(
+            'The specified object does not implement any method(s): project.'
+        ),
         'ProjectorLike interface does not ensure ' +
             'that bar object has #project method.'
     );
@@ -1850,7 +1860,9 @@ test('kclv.Relation.Base', function() {
 
     throws(
         function() { new kclv.Relation.Base().insert(new Date()); },
-        navigator.userAgent.indexOf('MSIE') >= 0 ? Error : TypeError,
+        new TypeError(
+            'Relation is neither Array nor a kclv.Relation.Base object.'
+        ),
         'Throws an exception when an invalid object was inserted.'
     );
 
@@ -1865,7 +1877,10 @@ test('kclv.Relation.Base', function() {
 
     throws(
         function() { new kclv.Relation.Base().select(new Date()); },
-        navigator.userAgent.indexOf('MSIE') >= 0 ? Error : TypeError,
+        new kclv.Exception.InvalidStrategy(
+            'An attribute operator (select) is neither Array nor ' +
+            'an object which implements an operator interface.'
+        ),
         'Throws an exception ' +
             'when an invalid object was specified in selection.'
     );
@@ -1882,7 +1897,10 @@ test('kclv.Relation.Base', function() {
 
     throws(
         function() { new kclv.Relation.Base().project(new Date()); },
-        navigator.userAgent.indexOf('MSIE') >= 0 ? Error : TypeError,
+        new kclv.Exception.InvalidStrategy(
+            'An attribute operator (project) is neither Array nor ' +
+            'an object which implements an operator interface.'
+        ),
         'Throws an exception ' +
             'when an invalid object was specified in projection.'
     );
@@ -1892,7 +1910,7 @@ test('kclv.Relation.Base', function() {
             new kclv.Relation.Base().insert([ [168], [58], [8], [19], [401] ]).
                 maximum();
         },
-        Error,
+        new kclv.Exception.AbstractMethod(),
         'Throws an exception ' +
             'when maximum method was called without a parameter.'
     );
@@ -1902,7 +1920,7 @@ test('kclv.Relation.Base', function() {
             new kclv.Relation.Base().insert([ [168], [58], [8], [19], [401] ]).
                 maximum('foo');
         },
-        Error,
+        new kclv.Exception.AbstractMethod(),
         'Throws an exception ' +
             'when maximum method was called with a string parameter.'
     );
@@ -1919,7 +1937,7 @@ test('kclv.Relation.Base', function() {
             new kclv.Relation.Base().insert([ [168], [58], [8], [19], [401] ]).
                 minimum();
         },
-        Error,
+        new kclv.Exception.AbstractMethod(),
         'Throws an exception ' +
             'when minimum method was called without a parameter.'
     );
@@ -1929,7 +1947,7 @@ test('kclv.Relation.Base', function() {
             new kclv.Relation.Base().insert([ [168], [58], [8], [19], [401] ]).
                 minimum('foo');
         },
-        Error,
+        new kclv.Exception.AbstractMethod(),
         'Throws an exception ' +
             'when minimum method was called with a string parameter.'
     );
@@ -2007,7 +2025,7 @@ test('kclv.Relation.Base', function() {
 
     throws(
         function() { new kclv.Relation.Foo().getAttributes(); },
-        Error, // TODO: We were cursed with abnormal Error object.
+        new kclv.Exception.AbstractMethod(),
         'Does not override abstract method #getAttributes().'
     );
 
@@ -2059,7 +2077,7 @@ test('kclv.Relation.Materials', function() {
 
     throws(
         function() { relation.getIndicesOf('Rubber'); },
-        Error, // TODO: We were cursed with abnormal Error object.
+        new kclv.Exception.InvalidMaterial('Rubber'),
         'Has no index for a quantitiy of rubber.'
     );
 
@@ -2103,7 +2121,7 @@ test('kclv.Relation.Ships', function() {
 
     throws(
         function() { relation.getIndicesOf('isLocked'); },
-        Error, // TODO: We were cursed with abnormal Error object.
+        new kclv.Exception.InvalidSpecification('isLocked'),
         'Has no index for lock status.'
     );
 
@@ -2250,7 +2268,7 @@ test('kclv.Table.Base', function() {
 
     throws(
         function() { new kclv.Table.Foo(); },
-        Error, // TODO: We were cursed with abnormal Error object.
+        new kclv.Exception.AbstractMethod(),
         'Does not override abstract method #buildColumns().'
     );
 
@@ -2265,7 +2283,7 @@ test('kclv.Table.Base', function() {
 
     throws(
         function() { new kclv.Table.Bar(); },
-        Error, // TODO: We were cursed with abnormal Error object.
+        new kclv.Exception.AbstractMethod(),
         'Does not override abstract method #buildRows().'
     );
 
@@ -2281,7 +2299,7 @@ test('kclv.Table.Base', function() {
 
     throws(
         function() { new kclv.Table.Baz(); },
-        Error, // TODO: We were cursed with abnormal Error object.
+        new kclv.Exception.AbstractMethod(),
         'Does not override abstract method #buildTitle().'
     );
 });
@@ -2468,7 +2486,7 @@ test('kclv.Table.Materials.Candlestick', function() {
                 ['Fuel', 'Daily']
             );
         },
-        RangeError,
+        new RangeError('A relation (table) has no tuple (row).'),
         'Cannot build rows from an empty relation.'
     );
 
@@ -2515,7 +2533,9 @@ test('kclv.Table.Materials.Line', function() {
 
     throws(
         function() { new kclv.Table.Materials.Line(relation, 'Rubber'); },
-        Error, // TODO: We were cursed with abnormal Error object.
+        new kclv.Exception.InvalidMaterial(
+            'Rubber', kclv.Game.Materials.MATERIALS
+        ),
         'Cannot visualize Rubber. It is not a materials of KanColle.'
     );
 
@@ -2633,7 +2653,7 @@ test('kclv.Table.Materials.Line', function() {
                 'Fuel'
             );
         },
-        RangeError,
+        new RangeError('A relation (table) has no tuple (row).'),
         'Cannot build rows from an empty relation.'
     );
 });
@@ -2809,7 +2829,10 @@ test('kclv.Table.Ships.Bubble', function() {
 
     throws(
         function() { table.getIndicesOf('BelovedNumber'); },
-        Error,
+        new kclv.Exception.InvalidSpecification(
+            'BelovedNumber',
+            ['TotalShipNumber', 'AverageLevel']
+        ),
         'Has no index for a number of beloved ships.'
     );
 
@@ -3208,7 +3231,7 @@ test('kclv.Table.Ships.Scatter', function() {
 
     throws(
         function() { new kclv.Table.Ships.Scatter(relation); },
-        Error,
+        new kclv.Exception.InvalidShipsOrder(null),
         'Cannot visualize undefined skill.'
     );
 
@@ -4546,7 +4569,7 @@ test('kclv.Visualizer', function() {
 
     throws(
         function() { visualizer.visualize(); },
-        Error,
+        new Error('Visualizer requires some directive.'),
         'Cannot visualize some relation with no directive.'
     );
 
