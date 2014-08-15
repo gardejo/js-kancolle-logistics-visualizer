@@ -3231,8 +3231,18 @@ test('kclv.Table.Ships.Scatter', function() {
 
     throws(
         function() { new kclv.Table.Ships.Scatter(relation); },
-        new kclv.Exception.InvalidShipsOrder(null),
+        new kclv.Exception.InvalidDirective(
+            undefined, ['Levels', 'Experiences']
+        ),
         'Cannot visualize undefined skill.'
+    );
+
+    throws(
+        function() { new kclv.Table.Ships.Scatter(relation, ['Levels']); },
+        new kclv.Exception.InvalidDirective(
+            undefined, ['Arrival', 'Experiences']
+        ),
+        'Cannot visualize undefined order.'
     );
 
     // Threshold
@@ -4048,6 +4058,14 @@ test('kclv.Chart.Histogram', function() {
         table = null;
 
     kclv.Configuration.load(configuration);
+
+    throws(
+        function() { new kclv.Table.Ships.Histogram(test.relation); },
+        new kclv.Exception.InvalidDirective(
+            undefined, ['Levels', 'Experiences']
+        ),
+        'Cannot visualize undefined skill.'
+    );
 
     // Levels
 
