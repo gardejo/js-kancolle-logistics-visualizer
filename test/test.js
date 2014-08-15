@@ -804,6 +804,17 @@ test('kclv.Game.Materials', function() {
         'Calculates a ceiling of consumables: Always 0.'
     );
 
+    throws(
+        function() {
+            kclv.Game.Materials.getKindOf('Rubber');
+        },
+        new kclv.Exception.InvalidMaterial('Rubber', [
+            'Fuel', 'Ammunition', 'Steel', 'Bauxite',
+            'Repair', 'Construction', 'Development'
+        ]),
+        'Cannot consult a kind for Rubber. It is not a materials of KanColle.'
+    );
+
     // TODO: Even more tests.
 });
 
@@ -2400,6 +2411,36 @@ test('kclv.Table.Materials.Candlestick', function() {
 
     kclv.Configuration.load(configuration);
 
+    throws(
+        function() { new kclv.Table.Materials.Candlestick(relation); },
+        new kclv.Exception.InvalidDirective(
+            undefined, kclv.Game.Materials.MATERIALS
+        ),
+        'Cannot visualize without kind.'
+    );
+
+    throws(
+        function() {
+            new kclv.Table.Materials.Candlestick(relation, 'Rubber');
+        },
+        new kclv.Exception.InvalidDirective(
+            'Rubber', kclv.Game.Materials.MATERIALS
+        ),
+        'Cannot visualize rubber.'
+    );
+
+    throws(
+        function() {
+            new kclv.Table.Materials.Candlestick(
+                relation, ['Fuel', 'Biweekly']
+            );
+        },
+        new kclv.Exception.InvalidDirective(
+            'Biweekly', ['Yearly', 'Monthly', 'Weekly', 'Daily']
+        ),
+        'Cannot visualize biweekly fluctuation.'
+    );
+
     // Threshold
 
     table = new kclv.Table.Materials.Candlestick(relation, ['Fuel', 'Daily']);
@@ -2566,6 +2607,11 @@ test('kclv.Table.Materials.Line', function() {
     var test = new kclv.Test.Table.Materials.Line(),
         configuration = test.configuration,
         relation = new kclv.Relation.Materials().insert(test.relation.array),
+        validKinds = [
+            'Resources', 'Consumables',
+            'Fuel', 'Ammunition', 'Steel', 'Bauxite',
+            'Repair', 'Construction', 'Development'
+        ],
         table = null;
 
     kclv.Configuration.load(configuration);
@@ -2573,11 +2619,23 @@ test('kclv.Table.Materials.Line', function() {
     // Invalid material (Ok, let's play HoI!)
 
     throws(
+        function() { new kclv.Table.Materials.Line(relation); },
+        new kclv.Exception.InvalidDirective(undefined, validKinds),
+        'Cannot visualize with no kind.'
+    );
+
+    throws(
         function() { new kclv.Table.Materials.Line(relation, 'Rubber'); },
-        new kclv.Exception.InvalidMaterial(
-            'Rubber', kclv.Game.Materials.MATERIALS
-        ),
+        new kclv.Exception.InvalidDirective('Rubber', validKinds),
         'Cannot visualize Rubber. It is not a materials of KanColle.'
+    );
+
+    throws(
+        function() {
+            new kclv.Table.Materials.Line(relation, ['Fuel', 'Foobar']);
+        },
+        new kclv.Exception.InvalidDirective('Foobar', [null]),
+        'Cannot visualize with an invalid option.'
     );
 
     // Threshold
