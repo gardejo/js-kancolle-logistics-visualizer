@@ -121,7 +121,10 @@ module('Formatter');
 test('kclv.Formatter', function() {
     var formatter = new kclv.Formatter(),
         indices = [0, 2],
-        prefix = 'Something wrong. Object notation is:\n\n';
+        prefix = 'Something wrong. Object notation is:\n\n',
+        IJN17thDestroyerDivision = [
+            'Urakaze', 'Isokaze', 'Tanikaze', 'Hamakaze'
+        ];
 
     deepEqual(
         formatter.quote(null),
@@ -294,6 +297,44 @@ test('kclv.Formatter', function() {
         formatter.commify([4000, 2000, 5000, 5200, 20], indices),
         ['4,000', 2000, '5,000', 5200, 20],
         'Commifies a number of specified elements of an array.'
+    );
+
+    deepEqual(
+        formatter.enumerate(['Isokaze']),
+        'Isokaze',
+        'Enumerates an ship.'
+    );
+
+    deepEqual(
+        formatter.enumerate(['Urakaze', 'Isokaze'], true),
+        'Urakaze and Isokaze',
+        'Enumerates 2 ships for an affirmative sentence.'
+    );
+
+    deepEqual(
+        formatter.enumerate(['Urakaze', 'Isokaze'], false),
+        'Urakaze nor Isokaze',
+        'Enumerates 2 ships for a negative sentence.'
+    );
+
+    deepEqual(
+        formatter.enumerate(IJN17thDestroyerDivision, true),
+        'Urakaze, Isokaze, Tanikaze and Hamakaze',
+        'Enumerates 4 ships in IJN 17th Destroyer Division ' + 
+            'for an affirmative sentence.'
+    );
+
+    deepEqual(
+        IJN17thDestroyerDivision.length,
+        4,
+        'Enumerates items without side effects.'
+    );
+
+    deepEqual(
+        formatter.enumerate(IJN17thDestroyerDivision, false),
+        'Urakaze, Isokaze, Tanikaze nor Hamakaze',
+        'Enumerates 4 ships in IJN 17th Destroyer Division ' + 
+            'for a negative sentence.'
     );
 
     deepEqual(
