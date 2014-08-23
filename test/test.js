@@ -2590,6 +2590,12 @@ kclv.Test.Table.Materials.Line.prototype.constructor =
     kclv.Test.Table.Materials.Base;
 
 kclv.Test.Table.Materials.Line.prototype.test = function(testee) {
+    testee.rows.forEach( function(columns) {
+        columns[0] = {
+            v : columns[0].toJSON(),
+            f : columns[0].toLocaleString()
+        };
+    } );
     kclv.Test.Table.Materials.Base.prototype.test.call(this, testee);
 
     deepEqual(
@@ -2653,16 +2659,11 @@ test('kclv.Table.Materials.Line', function() {
         title    : 'R',
         columns  : ['d', 'f', 'a', 's', 'b'],
         rows     : [
-            [ new Date('2013/04/23').toLocaleString(),
-                11, 12, 13, 14 ],
-            [ new Date('2013/07/10').toLocaleString(),
-                21, 22, 23, 24 ],
-            [ new Date('2013/07/10').toLocaleString(),
-                31, 32, 33, 34 ],
-            [ new Date('2013/07/11').toLocaleString(),
-                41, 42, 43, 44 ],
-            [ new Date('2013/07/17').toLocaleString(),
-                51, 52, 53, 54 ]
+            [ new Date('2013/04/23'), 11, 12, 13, 14 ],
+            [ new Date('2013/07/10'), 21, 22, 23, 24 ],
+            [ new Date('2013/07/10'), 31, 32, 33, 34 ],
+            [ new Date('2013/07/11'), 41, 42, 43, 44 ],
+            [ new Date('2013/07/17'), 51, 52, 53, 54 ]
         ]
     });
     deepEqual(
@@ -2684,16 +2685,11 @@ test('kclv.Table.Materials.Line', function() {
         title    : 'R',
         columns  : ['d', 'f', 'a', 's', 'b', 'r'],
         rows     : [
-            [ new Date('2013/04/23').toLocaleString(),
-                11, 12, 13, 14, 15 ],
-            [ new Date('2013/07/10').toLocaleString(),
-                21, 22, 23, 24, 25 ],
-            [ new Date('2013/07/10').toLocaleString(),
-                31, 32, 33, 34, 35 ],
-            [ new Date('2013/07/11').toLocaleString(),
-                41, 42, 43, 44, 45 ],
-            [ new Date('2013/07/17').toLocaleString(),
-                51, 52, 53, 54, 55 ]
+            [ new Date('2013/04/23'), 11, 12, 13, 14, 15 ],
+            [ new Date('2013/07/10'), 21, 22, 23, 24, 25 ],
+            [ new Date('2013/07/10'), 31, 32, 33, 34, 35 ],
+            [ new Date('2013/07/11'), 41, 42, 43, 44, 45 ],
+            [ new Date('2013/07/17'), 51, 52, 53, 54, 55 ]
         ]
     });
 
@@ -2708,11 +2704,11 @@ test('kclv.Table.Materials.Line', function() {
         title    : 'R',
         columns  : ['d', 'b'],
         rows     : [
-            [ new Date('2013/04/23').toLocaleString(), 14 ],
-            [ new Date('2013/07/10').toLocaleString(), 24 ],
-            [ new Date('2013/07/10').toLocaleString(), 34 ],
-            [ new Date('2013/07/11').toLocaleString(), 44 ],
-            [ new Date('2013/07/17').toLocaleString(), 54 ]
+            [ new Date('2013/04/23'), 14 ],
+            [ new Date('2013/07/10'), 24 ],
+            [ new Date('2013/07/10'), 34 ],
+            [ new Date('2013/07/11'), 44 ],
+            [ new Date('2013/07/17'), 54 ]
         ]
     });
     deepEqual(
@@ -2730,16 +2726,11 @@ test('kclv.Table.Materials.Line', function() {
         title    : 'C',
         columns  : ['d', 'r', 'c', 'd'],
         rows     : [
-            [ new Date('2013/04/23').toLocaleString(),
-                15, 16, 17 ],
-            [ new Date('2013/07/10').toLocaleString(),
-                25, 26, 27 ],
-            [ new Date('2013/07/10').toLocaleString(),
-                35, 36, 37 ],
-            [ new Date('2013/07/11').toLocaleString(),
-                45, 46, 47 ],
-            [ new Date('2013/07/17').toLocaleString(),
-                55, 56, 57 ]
+            [ new Date('2013/04/23'), 15, 16, 17 ],
+            [ new Date('2013/07/10'), 25, 26, 27 ],
+            [ new Date('2013/07/10'), 35, 36, 37 ],
+            [ new Date('2013/07/11'), 45, 46, 47 ],
+            [ new Date('2013/07/17'), 55, 56, 57 ]
         ]
     });
 

@@ -75,6 +75,7 @@
             "chart"         : "chart"
         },
         "redraw"        : true,
+        "continuous"    : true,
         "hollowIsRising": true,
         "Resources"     : {
             "withRepair"    : true,
