@@ -27,6 +27,11 @@
                 {{:~formatter.stringify(table.columns)}}{{props table.rows}}
                 ,{{:~formatter.stringify(prop)}}{{/props}}
             ];
+            {{if option.continuous}}
+            for (var i = 1; i < table.length; i++) { // Offset (1) is header.
+                table[i][0].v = new Date(table[i][0].v);
+            }
+            {{/if}}
 
             var option = {
                 // TODO: striped fills

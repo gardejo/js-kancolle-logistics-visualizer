@@ -719,25 +719,46 @@ test('kclv.Date', function() {
 
     deepEqual(
         new kclv.Date('2010/01/04').toPeriod('Yearly'),
-        '2010',
+        {
+            v : new Date(2010, 0, 1),
+            f : '2010'
+        },
         'Can convert Date into a yearly period.'
     );
 
     deepEqual(
         new kclv.Date('2010/01/04').toPeriod('Monthly'),
-        '2010/01',
+        {
+            v : new Date(2010, 0, 1),
+            f : '2010/01'
+        },
         'Can convert Date into a monthly period.'
     );
 
     deepEqual(
         new kclv.Date('2010/01/04').toPeriod('Weekly'),
-        '2010-W01',
+        {
+            v : new Date(2010, 0, 4),
+            f : '2010-W01'
+        },
         'Can convert Date into a weekly period.'
     );
 
     deepEqual(
+        new kclv.Date('2010/01/03').toPeriod('Weekly'),
+        {
+            v : new Date(2009, 11, 28),
+            f : '2009-W53'
+        },
+        'Can convert Date into a weekly period. (Sunday is end of a week)'
+    );
+
+    deepEqual(
         new kclv.Date('2010/01/04 12:34:56').toPeriod('Daily'),
-        '2010/01/04',
+        {
+            v : new Date(2010, 0, 4),
+            f : '2010/01/04'
+        },
         'Can convert Date into a daily period.'
     );
 
@@ -2453,22 +2474,32 @@ test('kclv.Table.Materials.Candlestick', function() {
             new kclv.Table.Materials.Candlestick(relation, ['Fuel', period]);
         var expectedRows = {
             Yearly : [
-                [ '2013', 11, 11, 51, 51 ]
+                [ { v : new Date(2013, 0, 1), f : '2013' },
+                    11, 11, 51, 51 ]
             ],
             Monthly : [
-                [ '2013/04', 11, 11, 11, 11 ],
-                [ '2013/07', 21, 21, 51, 51 ]
+                [ { v : new Date(2013, 3, 1), f : '2013/04' },
+                    11, 11, 11, 11 ],
+                [ { v : new Date(2013, 6, 1), f : '2013/07' },
+                    21, 21, 51, 51 ]
             ],
             Weekly : [
-                [ '2013-W17', 11, 11, 11, 11 ],
-                [ '2013-W28', 21, 21, 41, 41 ],
-                [ '2013-W29', 51, 51, 51, 51 ]
+                [ { v : new Date(2013, 3, 22), f : '2013-W17' },
+                    11, 11, 11, 11 ],
+                [ { v : new Date(2013, 6, 8), f : '2013-W28' },
+                    21, 21, 41, 41 ],
+                [ { v : new Date(2013, 6, 15), f : '2013-W29' },
+                    51, 51, 51, 51 ]
             ],
             Daily : [
-                [ '2013/04/23', 11, 11, 11, 11 ],
-                [ '2013/07/10', 21, 21, 31, 31 ],
-                [ '2013/07/11', 41, 41, 41, 41 ],
-                [ '2013/07/17', 51, 51, 51, 51 ]
+                [ { v : new Date(2013, 3, 23), f : '2013/04/23' },
+                    11, 11, 11, 11 ],
+                [ { v : new Date(2013, 6, 10), f : '2013/07/10' },
+                    21, 21, 31, 31 ],
+                [ { v : new Date(2013, 6, 11), f : '2013/07/11' },
+                    41, 41, 41, 41 ],
+                [ { v : new Date(2013, 6, 17), f : '2013/07/17' },
+                    51, 51, 51, 51 ]
             ]
         };
 
@@ -2489,22 +2520,32 @@ test('kclv.Table.Materials.Candlestick', function() {
             new kclv.Table.Materials.Candlestick(relation, ['Repair', period]);
         var expectedRows = {
             Yearly : [
-                [ '2013', 15, 15, 55, 55 ]
+                [ { v : new Date(2013, 0, 1), f : '2013' },
+                    15, 15, 55, 55 ]
             ],
             Monthly : [
-                [ '2013/04', 15, 15, 15, 15 ],
-                [ '2013/07', 25, 25, 55, 55 ]
+                [ { v : new Date(2013, 3, 1), f : '2013/04' },
+                    15, 15, 15, 15 ],
+                [ { v : new Date(2013, 6, 1), f : '2013/07' },
+                    25, 25, 55, 55 ]
             ],
             Weekly : [
-                [ '2013-W17', 15, 15, 15, 15 ],
-                [ '2013-W28', 25, 25, 45, 45 ],
-                [ '2013-W29', 55, 55, 55, 55 ]
+                [ { v : new Date(2013, 3, 22), f : '2013-W17' },
+                    15, 15, 15, 15 ],
+                [ { v : new Date(2013, 6, 8), f : '2013-W28' },
+                    25, 25, 45, 45 ],
+                [ { v : new Date(2013, 6, 15), f : '2013-W29' },
+                    55, 55, 55, 55 ]
             ],
             Daily : [
-                [ '2013/04/23', 15, 15, 15, 15 ],
-                [ '2013/07/10', 25, 25, 35, 35 ],
-                [ '2013/07/11', 45, 45, 45, 45 ],
-                [ '2013/07/17', 55, 55, 55, 55 ]
+                [ { v : new Date(2013, 3, 23), f : '2013/04/23' },
+                    15, 15, 15, 15 ],
+                [ { v : new Date(2013, 6, 10), f : '2013/07/10' },
+                    25, 25, 35, 35 ],
+                [ { v : new Date(2013, 6, 11), f : '2013/07/11' },
+                    45, 45, 45, 45 ],
+                [ { v : new Date(2013, 6, 17), f : '2013/07/17' },
+                    55, 55, 55, 55 ]
             ]
         };
 
@@ -2536,10 +2577,14 @@ test('kclv.Table.Materials.Candlestick', function() {
     deepEqual(
         table.rows,
         [
-            [ '2013/04/23', 15, 15, 15, 15 ],
-            [ '2013/07/10', 25, 25, 35, 35 ],
-            [ '2013/07/11', 45, 45, 45, 45 ],
-            [ '2013/07/17', 55, 55, 55, 55 ]
+            [ { v : new Date(2013, 3, 23), f : '2013/04/23' },
+                15, 15, 15, 15 ],
+            [ { v : new Date(2013, 6, 10), f : '2013/07/10' },
+                25, 25, 35, 35 ],
+            [ { v : new Date(2013, 6, 11), f : '2013/07/11' },
+                45, 45, 45, 45 ],
+            [ { v : new Date(2013, 6, 17), f : '2013/07/17' },
+                55, 55, 55, 55 ]
         ]
     );
 
@@ -2555,7 +2600,8 @@ test('kclv.Table.Materials.Candlestick', function() {
     deepEqual(
         table.rows,
         [
-            [ '2013/07/10', 25, 35, 25, 35 ]
+            [ { v : new Date(2013, 6, 10), f : '2013/07/10' },
+                25, 35, 25, 35 ]
         ]
     );
 
@@ -2590,6 +2636,12 @@ kclv.Test.Table.Materials.Line.prototype.constructor =
     kclv.Test.Table.Materials.Base;
 
 kclv.Test.Table.Materials.Line.prototype.test = function(testee) {
+    testee.rows.forEach( function(columns) {
+        columns[0] = {
+            v : columns[0].toJSON(),
+            f : columns[0].toLocaleString()
+        };
+    } );
     kclv.Test.Table.Materials.Base.prototype.test.call(this, testee);
 
     deepEqual(
@@ -2653,16 +2705,11 @@ test('kclv.Table.Materials.Line', function() {
         title    : 'R',
         columns  : ['d', 'f', 'a', 's', 'b'],
         rows     : [
-            [ new Date('2013/04/23').toLocaleString(),
-                11, 12, 13, 14 ],
-            [ new Date('2013/07/10').toLocaleString(),
-                21, 22, 23, 24 ],
-            [ new Date('2013/07/10').toLocaleString(),
-                31, 32, 33, 34 ],
-            [ new Date('2013/07/11').toLocaleString(),
-                41, 42, 43, 44 ],
-            [ new Date('2013/07/17').toLocaleString(),
-                51, 52, 53, 54 ]
+            [ new Date('2013/04/23'), 11, 12, 13, 14 ],
+            [ new Date('2013/07/10'), 21, 22, 23, 24 ],
+            [ new Date('2013/07/10'), 31, 32, 33, 34 ],
+            [ new Date('2013/07/11'), 41, 42, 43, 44 ],
+            [ new Date('2013/07/17'), 51, 52, 53, 54 ]
         ]
     });
     deepEqual(
@@ -2684,16 +2731,11 @@ test('kclv.Table.Materials.Line', function() {
         title    : 'R',
         columns  : ['d', 'f', 'a', 's', 'b', 'r'],
         rows     : [
-            [ new Date('2013/04/23').toLocaleString(),
-                11, 12, 13, 14, 15 ],
-            [ new Date('2013/07/10').toLocaleString(),
-                21, 22, 23, 24, 25 ],
-            [ new Date('2013/07/10').toLocaleString(),
-                31, 32, 33, 34, 35 ],
-            [ new Date('2013/07/11').toLocaleString(),
-                41, 42, 43, 44, 45 ],
-            [ new Date('2013/07/17').toLocaleString(),
-                51, 52, 53, 54, 55 ]
+            [ new Date('2013/04/23'), 11, 12, 13, 14, 15 ],
+            [ new Date('2013/07/10'), 21, 22, 23, 24, 25 ],
+            [ new Date('2013/07/10'), 31, 32, 33, 34, 35 ],
+            [ new Date('2013/07/11'), 41, 42, 43, 44, 45 ],
+            [ new Date('2013/07/17'), 51, 52, 53, 54, 55 ]
         ]
     });
 
@@ -2708,11 +2750,11 @@ test('kclv.Table.Materials.Line', function() {
         title    : 'R',
         columns  : ['d', 'b'],
         rows     : [
-            [ new Date('2013/04/23').toLocaleString(), 14 ],
-            [ new Date('2013/07/10').toLocaleString(), 24 ],
-            [ new Date('2013/07/10').toLocaleString(), 34 ],
-            [ new Date('2013/07/11').toLocaleString(), 44 ],
-            [ new Date('2013/07/17').toLocaleString(), 54 ]
+            [ new Date('2013/04/23'), 14 ],
+            [ new Date('2013/07/10'), 24 ],
+            [ new Date('2013/07/10'), 34 ],
+            [ new Date('2013/07/11'), 44 ],
+            [ new Date('2013/07/17'), 54 ]
         ]
     });
     deepEqual(
@@ -2730,16 +2772,11 @@ test('kclv.Table.Materials.Line', function() {
         title    : 'C',
         columns  : ['d', 'r', 'c', 'd'],
         rows     : [
-            [ new Date('2013/04/23').toLocaleString(),
-                15, 16, 17 ],
-            [ new Date('2013/07/10').toLocaleString(),
-                25, 26, 27 ],
-            [ new Date('2013/07/10').toLocaleString(),
-                35, 36, 37 ],
-            [ new Date('2013/07/11').toLocaleString(),
-                45, 46, 47 ],
-            [ new Date('2013/07/17').toLocaleString(),
-                55, 56, 57 ]
+            [ new Date('2013/04/23'), 15, 16, 17 ],
+            [ new Date('2013/07/10'), 25, 26, 27 ],
+            [ new Date('2013/07/10'), 35, 36, 37 ],
+            [ new Date('2013/07/11'), 45, 46, 47 ],
+            [ new Date('2013/07/17'), 55, 56, 57 ]
         ]
     });
 

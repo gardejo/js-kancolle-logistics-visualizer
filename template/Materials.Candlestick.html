@@ -24,6 +24,11 @@
         ><!--
 
             var table = {{:~formatter.stringify(table.rows, null, '    ')}};
+            {{if option.continuous}}
+            for (var i = 0; i < table.length; i++) {
+                table[i][0].v = new Date(table[i][0].v);
+            }
+            {{/if}}
 
             var option = {
                 title : "{{>table.title}}",
