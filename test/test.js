@@ -2408,7 +2408,7 @@ kclv.Test.Table.Materials.Base = function() {
     this.relation = new kclv.Test.Relation.Materials();
 
     this.configuration = {
-        chart : { Consumables : {}, Resources : {} },
+        chart : { Materials : {}, Consumables : {}, Resources : {} },
         locale : 'xx',
         legend : { xx : {
             dateTime : 'd',
@@ -3861,7 +3861,7 @@ test('kclv.Chart.CandleStick', function() {
 
     // Horizontal ticks
 
-    configuration.chart.Consumables.horizontal = {
+    configuration.chart.Materials.horizontal = {
         step : 'Weekly', minorGridlines : 6
     };
     kclv.Configuration.load(configuration);
@@ -4010,7 +4010,7 @@ test('kclv.Chart.Line', function() {
 
     // Horizontal ticks
 
-    configuration.chart.Resources.horizontal = {
+    configuration.chart.Materials.horizontal = {
         step : 'Weekly', minorGridlines : 6
     };
     kclv.Configuration.load(configuration);
@@ -4034,7 +4034,7 @@ test('kclv.Chart.Line', function() {
             'Note: Both edges of ticks were trimed.'
     );
 
-    configuration.chart.Resources.horizontal = { step : 'Monthly' };
+    configuration.chart.Materials.horizontal = { step : 'Monthly' };
     kclv.Configuration.load(configuration);
     deepEqual(
         new kclv.Chart.Line(table).option.horizontal,
@@ -4075,7 +4075,7 @@ test('kclv.Chart.Line', function() {
             [new Date('2013/04/24 12:34:56'), 0, 0, 0, 0, 0, 0, 0]
         ]), 'Resources'
     );
-    configuration.chart.Resources.horizontal = { step : 'Daily' };
+    configuration.chart.Materials.horizontal = { step : 'Daily' };
     kclv.Configuration.load(configuration);
     deepEqual(
         new kclv.Chart.Line(minimalTable).option.horizontal,
@@ -4093,7 +4093,7 @@ test('kclv.Chart.Line', function() {
             'Note: Both edges of ticks were trimed.'
     );
 
-    configuration.chart.Resources.horizontal = { step : 'Yearly' };
+    configuration.chart.Materials.horizontal = { step : 'Yearly' };
     kclv.Configuration.load(configuration);
     deepEqual(
         new kclv.Chart.Line(minimalTable).option.horizontal,
@@ -4110,14 +4110,14 @@ test('kclv.Chart.Line', function() {
             'Note: Both edges of ticks were trimed.'
     );
 
-    configuration.chart.Resources.horizontal = { step : 'Bimonthly' };
+    configuration.chart.Materials.horizontal = { step : 'Bimonthly' };
     kclv.Configuration.load(configuration);
     throws(
         function() { new kclv.Chart.Line(minimalTable); },
         new kclv.Exception.InvalidFrequency('Bimonthly'),
         'Cannot build bimonthly ticks.'
     );
-    configuration.chart.Resources.horizontal = {};
+    configuration.chart.Materials.horizontal = {};
     kclv.Configuration.load(configuration);
 
     // Individual material: Bauxite only (Feeding service for Akagi)

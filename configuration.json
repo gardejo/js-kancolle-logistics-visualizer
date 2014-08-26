@@ -77,6 +77,12 @@
         "redraw"        : true,
         "continuous"    : true,
         "hollowIsRising": true,
+        "Materials"     : {
+            "horizontal"    : {
+                "step"          : "Weekly",
+                "minorGridlines": 6
+            }
+        },
         "Resources"     : {
             "withRepair"    : true,
             "vertical"      : {
@@ -86,10 +92,6 @@
                 "minimum"       : 0,
                 "gridlines"     : null,
                 "minorGridlines": 4
-            },
-            "horizontal"    : {
-                "step"          : "Weekly",
-                "minorGridlines": 6
             }
         },
         "Consumables"   : {
@@ -99,10 +101,6 @@
                 "minimum"       : 0,
                 "gridlines"     : null,
                 "minorGridlines": 4
-            },
-            "horizontal"    : {
-                "step"          : "Weekly",
-                "minorGridlines": 6
             }
         },
         "Ships"         : {
