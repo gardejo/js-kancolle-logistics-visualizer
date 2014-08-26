@@ -1873,10 +1873,10 @@ kclv.Test.Relation.Base = function() {
     return;
 };
 
-kclv.Test.Relation.Base.prototype.testThreshold = function(
+kclv.Test.Relation.Base.prototype.testThresholds = function(
     testee, expectations
 ) {
-    Object.keys(this.expectations).forEach( function(key) {
+    Object.keys(this.thresholds).forEach( function(key) {
         deepEqual(
             testee.minimum(key),
             expectations[key][0],
@@ -1893,6 +1893,22 @@ kclv.Test.Relation.Base.prototype.testThreshold = function(
     return;
 };
 
+kclv.Test.Relation.Base.prototype.testEdges = function(testee, expectations) {
+    deepEqual(
+        testee.opening(),
+        expectations[0],
+        'Gets the opening value.'
+    );
+
+    deepEqual(
+        testee.closing(),
+        expectations[1],
+        'Gets the closing value.'
+    );
+
+    return;
+};
+
 kclv.Test.Relation.Base.prototype.test = function(testee) {
     deepEqual(
         testee.relation.count(),
@@ -1900,7 +1916,8 @@ kclv.Test.Relation.Base.prototype.test = function(testee) {
         'Has ' + this.array.length + 'tuples.'
     );
 
-    this.testThreshold(testee.relation, this.expectations);
+    this.testThresholds(testee.relation, this.thresholds);
+    this.testEdges(testee.relation, this.edges);
 
     return;
 };
@@ -2121,7 +2138,7 @@ kclv.Test.Relation.Materials = function() {
         [ new Date('2013/07/17'), 51, 52, 53, 54, 55, 56, 57 ]
     ];
 
-    this.expectations = {
+    this.thresholds = {
         Resources   : [ 11, 54 ],
         Fuel        : [ 11, 51 ],
         Ammunition  : [ 12, 52 ],
@@ -2132,6 +2149,8 @@ kclv.Test.Relation.Materials = function() {
         Construction: [ 16, 56 ],
         Development : [ 17, 57 ]
     };
+
+    this.edges = [ new Date('2013/04/23'), new Date('2013/07/17') ];
 
     return;
 };
@@ -2172,10 +2191,12 @@ kclv.Test.Relation.Ships = function() {
         [ 24, '長門',         'BB',    1,       0 ]
     ];
 
-    this.expectations = {
+    this.thresholds = {
         Levels      : [ 1, 149 ],
         Experiences : [ 0, 4359999 ]
     };
+
+    this.edges = [ 1, 4 ];
 
     return;
 };
@@ -2282,8 +2303,8 @@ kclv.Test.Table.Base = function() {
     return;
 };
 
-kclv.Test.Table.Base.prototype.testThreshold = function(table) {
-    return this.relation.testThreshold(table, this.relation.expectations);
+kclv.Test.Table.Base.prototype.testThresholds = function(table) {
+    return this.relation.testThresholds(table, this.relation.thresholds);
 };
 
 kclv.Test.Table.Base.prototype.test = function(testee) {
@@ -2465,7 +2486,7 @@ test('kclv.Table.Materials.Candlestick', function() {
     // Threshold
 
     table = new kclv.Table.Materials.Candlestick(relation, ['Fuel', 'Daily']);
-    test.testThreshold(table);
+    test.testThresholds(table);
 
     // Resources, such as Fuel
 
@@ -2693,7 +2714,7 @@ test('kclv.Table.Materials.Line', function() {
     // Threshold
 
     table = new kclv.Table.Materials.Line(relation, 'Resources');
-    test.testThreshold(table);
+    test.testThresholds(table);
 
     // Resources
 
@@ -2880,8 +2901,8 @@ kclv.Test.Table.Ships.Base.prototype =
 kclv.Test.Table.Ships.Base.prototype.constructor =
     kclv.Test.Table.Base;
 
-kclv.Test.Table.Ships.Base.prototype.testThreshold = function(table) {
-    return this.relation.testThreshold(table, {
+kclv.Test.Table.Ships.Base.prototype.testThresholds = function(table) {
+    return this.relation.testThresholds(table, {
         Levels      : [ 1, 150 ], // It is not 149! (rounded up)
         Experiences : [ 0, 4359999 ]
     });
@@ -2901,7 +2922,7 @@ kclv.Test.Table.Ships.Bubble.prototype =
 kclv.Test.Table.Ships.Bubble.prototype.constructor =
     kclv.Test.Table.Ships.Base;
 
-kclv.Test.Table.Ships.Bubble.prototype.testThreshold = function(table) {
+kclv.Test.Table.Ships.Bubble.prototype.testThresholds = function(table) {
 
     // vertical
 
@@ -2946,7 +2967,7 @@ test('kclv.Table.Ships.Bubble', function() {
     // Threshold
 
     table = new kclv.Table.Ships.Bubble(relation);
-    test.testThreshold(table);
+    test.testThresholds(table);
 
     test.test({
         table   : table,
@@ -3156,7 +3177,7 @@ test('kclv.Table.Ships.Histogram', function() {
     // Threshold
 
     table = new kclv.Table.Ships.Histogram(relation, 'Levels');
-    test.testThreshold(table);
+    test.testThresholds(table);
 
     // Levels
 
@@ -3384,7 +3405,7 @@ test('kclv.Table.Ships.Scatter', function() {
     // Threshold
 
     table = new kclv.Table.Ships.Scatter(relation, ['Levels', 'Arrival']);
-    test.testThreshold(table);
+    test.testThresholds(table);
 
     // Levels, Arrival
 
@@ -3838,6 +3859,32 @@ test('kclv.Chart.CandleStick', function() {
             '(when vertical level was ignored).'
     );
 
+    // Horizontal ticks
+
+    configuration.chart.Consumables.horizontal = {
+        step : 7, minorGridlines : 6
+    };
+    kclv.Configuration.load(configuration);
+    deepEqual(
+        new kclv.Chart.Candlestick(table).option.horizontal,
+        {
+            minimum : new Date('2013/04/22'), // Monday of 2013/04/23 (Tue)
+            maximum : new Date('2013/07/15'), // Monday of 2013/07/17 (Wed)
+            ticks : [
+                '2013/04/22', '2013/04/29',
+                '2013/05/06', '2013/05/13', '2013/05/20', '2013/05/27',
+                '2013/06/03', '2013/06/10', '2013/06/17', '2013/06/24',
+                '2013/07/01', '2013/07/08', '2013/07/15'
+            ].map( function(timeStamp) {
+                return new Date(timeStamp).toJSON();
+            } ),
+            minorGridlines : 6
+        },
+        'Has the configurated chart options ' +
+            '(when horizontal step was specified). ' +
+            'Note: ticks, maximum was trimed.'
+    );
+
     // Resources
 
     table = new kclv.Table.Materials.Candlestick(
@@ -3958,6 +4005,50 @@ test('kclv.Chart.Line', function() {
         { maximum : 54, minimum : 11, baseline : 30750 },
         'Has the configurated combined chart options ' +
             '(when vertical level was specified for baseline).'
+    );
+
+    // Horizontal ticks
+
+    configuration.chart.Resources.horizontal = {
+        step : 7, minorGridlines : 6
+    };
+    kclv.Configuration.load(configuration);
+    deepEqual(
+        new kclv.Chart.Line(table).option.horizontal,
+        {
+            minimum : new Date('2013/04/23'),
+            maximum : new Date('2013/07/17'),
+            ticks : [
+                '2013/04/23', '2013/04/30',
+                '2013/05/07', '2013/05/14', '2013/05/21', '2013/05/28',
+                '2013/06/04', '2013/06/11', '2013/06/18', '2013/06/25',
+                '2013/07/02', '2013/07/09', '2013/07/16'
+            ].map( function(timeStamp) {
+                return new Date(timeStamp).toJSON();
+            } ),
+            minorGridlines : 6
+        },
+        'Has the configurated chart options ' +
+            '(when horizontal step was specified). ' +
+            'Note: ticks, maximum and minimum were trimed.'
+    );
+
+    var minimalTable = new kclv.Table.Materials.Line(
+        new kclv.Relation.Materials().insert([
+            [new Date('2013/04/23 12:34:56'), 0, 0, 0, 0, 0, 0, 0]
+        ]), 'Resources'
+    );
+    deepEqual(
+        new kclv.Chart.Line(minimalTable).option.horizontal,
+        {
+            minimum : new Date('2013/04/23 12:34:56'),
+            maximum : new Date('2013/04/23 12:34:56'),
+            ticks : [],
+            minorGridlines : 6
+        },
+        'Has the configurated chart options ' +
+            '(when horizontal step was specified). ' +
+            'Note: ticks, minimum was trimed.'
     );
 
     // Individual material: Bauxite only (Feeding service for Akagi)

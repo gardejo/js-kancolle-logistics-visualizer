@@ -86,6 +86,10 @@
                 "minimum"       : 0,
                 "gridlines"     : null,
                 "minorGridlines": 4
+            },
+            "horizontal"    : {
+                "step"          : 7,
+                "minorGridlines": 6
             }
         },
         "Consumables"   : {
@@ -95,6 +99,10 @@
                 "minimum"       : 0,
                 "gridlines"     : null,
                 "minorGridlines": 4
+            },
+            "horizontal"    : {
+                "step"          : 7,
+                "minorGridlines": 6
             }
         },
         "Ships"         : {
