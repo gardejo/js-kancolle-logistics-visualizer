@@ -770,6 +770,38 @@ test('kclv.Date', function() {
         'Cannot convert Date into a bimonthly period.'
     );
 
+    deepEqual(
+        new kclv.Date('2010/01/04').toNextPeriod('Yearly'),
+        new Date('2011/01/01'),
+        'Can increment a year.'
+    );
+
+    deepEqual(
+        new kclv.Date('2010/01/04').toNextPeriod('Monthly'),
+        new Date('2010/02/01'),
+        'Can increment a month.'
+    );
+
+    deepEqual(
+        new kclv.Date('2010/01/04').toNextPeriod('Weekly'),
+        new Date('2010/01/11'),
+        'Can increment a week.'
+    );
+
+    deepEqual(
+        new kclv.Date('2010/01/04 12:34:56').toNextPeriod('Daily'),
+        new Date('2010/01/05'),
+        'Can increment a day.'
+    );
+
+    throws(
+        function() {
+            new kclv.Date('2010/01/04 12:34:56').toNextPeriod('Bimonthly');
+        },
+        new kclv.Exception.InvalidFrequency('Bimonthly'),
+        'Cannot increment a days by a bimonthly period.'
+    );
+
     // TODO: Even more tests.
 });
 
