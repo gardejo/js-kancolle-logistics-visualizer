@@ -36,6 +36,14 @@
                 selectionMode : "multiple",
                 tooltip : { trigger: "both" },
                 hAxis : {
+                    {{if option.horizontal.ticks}}
+                    ticks : {{:~formatter.stringify(option.horizontal.ticks)}}.map( function(tick) {
+                        return new Date(tick);
+                    }),
+                    {{/if}}
+                    {{if option.horizontal.minorGridlines}}
+                    minorGridlines : { count : {{:option.horizontal.minorGridlines}} },
+                    {{/if}}
                     slantedText : true,
                     slantedTextAngle : 90
                 },

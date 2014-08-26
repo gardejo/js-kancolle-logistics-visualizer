@@ -77,6 +77,12 @@
         "redraw"        : true,
         "continuous"    : true,
         "hollowIsRising": true,
+        "Materials"     : {
+            "horizontal"    : {
+                "step"          : "Weekly",
+                "minorGridlines": 6
+            }
+        },
         "Resources"     : {
             "withRepair"    : true,
             "vertical"      : {
