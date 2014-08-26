@@ -799,7 +799,7 @@ test('kclv.Date', function() {
             new kclv.Date('2010/01/04 12:34:56').toNextPeriod('Bimonthly');
         },
         new kclv.Exception.InvalidFrequency('Bimonthly'),
-        'Cannot increment a days by a bimonthly period.'
+        'Cannot increment weeks by a bimonthly period.'
     );
 
     // TODO: Even more tests.
@@ -865,7 +865,7 @@ test('kclv.Game.Materials', function() {
             'Fuel', 'Ammunition', 'Steel', 'Bauxite',
             'Repair', 'Construction', 'Development'
         ]),
-        'Cannot consult a kind for Rubber. It is not a materials of KanColle.'
+        'Cannot consult a kind for Rubber. It is not a material of KanColle.'
     );
 
     // TODO: Even more tests.
@@ -2301,7 +2301,7 @@ test('kclv.RelationFactory', function() {
             'Materials', new kclv.Agent.SandanshikiKanpan()
         ),
         relation.Materials, // From cache. Delayed bauxite log is ignored!
-        'Does not Create a materials relation because it was alread created.'
+        'Does not create a materials relation because it was alread created.'
     );
 
     // TODO: Even more tests.
@@ -2732,7 +2732,7 @@ test('kclv.Table.Materials.Line', function() {
     throws(
         function() { new kclv.Table.Materials.Line(relation, 'Rubber'); },
         new kclv.Exception.InvalidDirective('Rubber', validKinds),
-        'Cannot visualize Rubber. It is not a materials of KanColle.'
+        'Cannot visualize Rubber. It is not a material of KanColle.'
     );
 
     throws(
