@@ -88,7 +88,7 @@
                 "minorGridlines": 4
             },
             "horizontal"    : {
-                "step"          : 7,
+                "step"          : "Weekly",
                 "minorGridlines": 6
             }
         },
@@ -101,7 +101,7 @@
                 "minorGridlines": 4
             },
             "horizontal"    : {
-                "step"          : 7,
+                "step"          : "Weekly",
                 "minorGridlines": 6
             }
         },

@@ -3862,7 +3862,7 @@ test('kclv.Chart.CandleStick', function() {
     // Horizontal ticks
 
     configuration.chart.Consumables.horizontal = {
-        step : 7, minorGridlines : 6
+        step : 'Weekly', minorGridlines : 6
     };
     kclv.Configuration.load(configuration);
     deepEqual(
@@ -3882,7 +3882,7 @@ test('kclv.Chart.CandleStick', function() {
         },
         'Has the configurated chart options ' +
             '(when horizontal step was specified). ' +
-            'Note: ticks, maximum was trimed.'
+            'Note: The maximum tick was trimed.'
     );
 
     // Resources
@@ -3913,7 +3913,8 @@ test('kclv.Chart.CandleStick', function() {
 test('kclv.Chart.Line', function() {
     var test = new kclv.Test.Chart.Materials(),
         configuration = test.configuration,
-        table = null;
+        table = null,
+        minimalTable = null;
 
     // Resouces
 
@@ -4010,7 +4011,7 @@ test('kclv.Chart.Line', function() {
     // Horizontal ticks
 
     configuration.chart.Resources.horizontal = {
-        step : 7, minorGridlines : 6
+        step : 'Weekly', minorGridlines : 6
     };
     kclv.Configuration.load(configuration);
     deepEqual(
@@ -4019,21 +4020,39 @@ test('kclv.Chart.Line', function() {
             minimum : new Date('2013/04/23'),
             maximum : new Date('2013/07/17'),
             ticks : [
-                '2013/04/23', '2013/04/30',
-                '2013/05/07', '2013/05/14', '2013/05/21', '2013/05/28',
-                '2013/06/04', '2013/06/11', '2013/06/18', '2013/06/25',
-                '2013/07/02', '2013/07/09', '2013/07/16'
+                '2013/04/29',
+                '2013/05/06', '2013/05/13', '2013/05/20', '2013/05/27',
+                '2013/06/03', '2013/06/10', '2013/06/17', '2013/06/24',
+                '2013/07/01', '2013/07/08', '2013/07/15'
             ].map( function(timeStamp) {
                 return new Date(timeStamp).toJSON();
             } ),
             minorGridlines : 6
         },
         'Has the configurated chart options ' +
-            '(when horizontal step was specified). ' +
-            'Note: ticks, maximum and minimum were trimed.'
+            '(when horizontal step is weekly). ' +
+            'Note: Both edges of ticks were trimed.'
     );
 
-    var minimalTable = new kclv.Table.Materials.Line(
+    configuration.chart.Resources.horizontal = { step : 'Monthly' };
+    kclv.Configuration.load(configuration);
+    deepEqual(
+        new kclv.Chart.Line(table).option.horizontal,
+        {
+            minimum : new Date('2013/04/23'),
+            maximum : new Date('2013/07/17'),
+            ticks : [
+                '2013/05/01', '2013/06/01', '2013/07/01'
+            ].map( function(timeStamp) {
+                return new Date(timeStamp).toJSON();
+            } )
+        },
+        'Has the configurated chart options ' +
+            '(when horizontal step is monthly). ' +
+            'Note: Both edges of ticks were trimed.'
+    );
+
+    minimalTable = new kclv.Table.Materials.Line(
         new kclv.Relation.Materials().insert([
             [new Date('2013/04/23 12:34:56'), 0, 0, 0, 0, 0, 0, 0]
         ]), 'Resources'
@@ -4043,13 +4062,63 @@ test('kclv.Chart.Line', function() {
         {
             minimum : new Date('2013/04/23 12:34:56'),
             maximum : new Date('2013/04/23 12:34:56'),
-            ticks : [],
-            minorGridlines : 6
+            ticks : []
         },
         'Has the configurated chart options ' +
-            '(when horizontal step was specified). ' +
-            'Note: ticks, minimum was trimed.'
+            '(when horizontal step is monthly). ' +
+            'Note: Both edges of ticks were trimed.'
     );
+
+    minimalTable = new kclv.Table.Materials.Line(
+        new kclv.Relation.Materials().insert([
+            [new Date('2013/04/23 12:34:56'), 0, 0, 0, 0, 0, 0, 0],
+            [new Date('2013/04/24 12:34:56'), 0, 0, 0, 0, 0, 0, 0]
+        ]), 'Resources'
+    );
+    configuration.chart.Resources.horizontal = { step : 'Daily' };
+    kclv.Configuration.load(configuration);
+    deepEqual(
+        new kclv.Chart.Line(minimalTable).option.horizontal,
+        {
+            minimum : new Date('2013/04/23 12:34:56'),
+            maximum : new Date('2013/04/24 12:34:56'),
+            ticks : [
+                '2013/04/24'
+            ].map( function(timeStamp) {
+                return new Date(timeStamp).toJSON();
+            } ),
+        },
+        'Has the configurated chart options ' +
+            '(when horizontal step is daily). ' +
+            'Note: Both edges of ticks were trimed.'
+    );
+
+    configuration.chart.Resources.horizontal = { step : 'Yearly' };
+    kclv.Configuration.load(configuration);
+    deepEqual(
+        new kclv.Chart.Line(minimalTable).option.horizontal,
+        {
+            minimum : new Date('2013/04/23 12:34:56'),
+            maximum : new Date('2013/04/24 12:34:56'),
+            ticks : [
+            ].map( function(timeStamp) {
+                return new Date(timeStamp).toJSON();
+            } ),
+        },
+        'Has the configurated chart options ' +
+            '(when horizontal step is yearly). ' +
+            'Note: Both edges of ticks were trimed.'
+    );
+
+    configuration.chart.Resources.horizontal = { step : 'Bimonthly' };
+    kclv.Configuration.load(configuration);
+    throws(
+        function() { new kclv.Chart.Line(minimalTable); },
+        new kclv.Exception.InvalidFrequency('Bimonthly'),
+        'Cannot build bimonthly ticks.'
+    );
+    configuration.chart.Resources.horizontal = {};
+    kclv.Configuration.load(configuration);
 
     // Individual material: Bauxite only (Feeding service for Akagi)
 
