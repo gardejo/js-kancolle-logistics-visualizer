@@ -3893,6 +3893,7 @@ test('kclv.Chart.CandleStick', function() {
 
     // Horizontal ticks
 
+    configuration.chart.continuous = true;
     configuration.chart.Materials.horizontal = {
         step : 'Weekly', minorGridlines : 6
     };
@@ -3915,6 +3916,17 @@ test('kclv.Chart.CandleStick', function() {
         'Has the configurated chart options ' +
             '(when horizontal step was specified). ' +
             'Note: The maximum tick was trimed.'
+    );
+
+    configuration.chart.continuous = false;
+    kclv.Configuration.load(configuration);
+    deepEqual(
+        new kclv.Chart.Candlestick(table).option.horizontal,
+        {
+            minorGridlines : 6
+        },
+        'Has the configurated chart options ' +
+            '(It is not continuous).'
     );
 
     // Resources
@@ -4042,6 +4054,7 @@ test('kclv.Chart.Line', function() {
 
     // Horizontal ticks
 
+    configuration.chart.continuous = true;
     configuration.chart.Materials.horizontal = {
         step : 'Weekly', minorGridlines : 6
     };
