@@ -132,9 +132,6 @@ The author of this system asks that you help support its continued development b
     * I'd recommend *Dock Extension Set* and *Port Extension* especially.
     * As for stereoscopically shaped articles, I'd like to suggest you a cute *[Nendoroid](http://www.goodsmile.info/ja/products/search?utf8=%E2%9C%93&search%5Bquery%5D=%E3%81%AD%E3%82%93%E3%81%A9%E3%82%8D%E3%81%84%E3%81%A9+%E8%89%A6%E9%9A%8A%E3%81%93%E3%82%8C%E3%81%8F%E3%81%97%E3%82%87%E3%82%93#searchResults)* and *[KanColle Model](http://www.f-toys.net/index.php?m=fproduct&t=detaile&product_id=236)*, unusual miniature ship models.
 * Contribution to authors of agents (dedicated browses or dedicated proxies).
-* Donation for me via [Amazon Gift Cards (E-mail Delivery)](http://www.amazon.com/gift-cards/) or [Amazon Wishlist](http://www.amazon.co.jp/registry/wishlist/3O5J3JV19DOJ1/) suggested. I'm sorry, but I'm not accept an offer of a refund or a return.
-
-However, even if you contribute to me, I'm afraid that I can not offer special support or special enhancement. Please accept my regrets.
 
 
 Author
@@ -278,9 +275,6 @@ GUI（グラフィカル ユーザー インターフェース）で操作しま
     * *ドック増設セット* や *母港拡張* が特にお薦めです。
     * 立体造形物としては、可愛らしい *[ねんどろいど](http://www.goodsmile.info/ja/products/search?utf8=%E2%9C%93&search%5Bquery%5D=%E3%81%AD%E3%82%93%E3%81%A9%E3%82%8D%E3%81%84%E3%81%A9+%E8%89%A6%E9%9A%8A%E3%81%93%E3%82%8C%E3%81%8F%E3%81%97%E3%82%87%E3%82%93#searchResults)* の他、一風変わった艦船模型 *[艦これ モデル](http://www.f-toys.net/index.php?m=fproduct&t=detaile&product_id=236)* もいかがでしょう。
 * 各エージェント（専用ブラウザーやプロキシーなど）の著者への、各種のご寄与。
-* [Amazonギフト券（Eメールタイプ）](http://www.amazon.co.jp/gp/gc)または[Amazonのほしい物リスト](http://www.amazon.co.jp/registry/wishlist/3O5J3JV19DOJ1/)による、開発費のご寄付。恐れ入りますが、ご返金やご返品には応じかねます。
-
-ただし、ご支援をいただいても、特別な機能追加やサポートのご提供は致しかねます。悪しからずご了承ください。
 
 
 著者
