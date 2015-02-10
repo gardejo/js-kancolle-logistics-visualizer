@@ -154,6 +154,7 @@
                     "practical"     : "Practical Ship Number"
                 },
                 "classification": {
+                    "TV"            : "Training Cruiser",
                     "AS"            : "Submarine Tender",
                     "AR"            : "Repair Ship",
                     "CVB"           : "(Armored) Aircraft Carrier",
@@ -173,6 +174,7 @@
                     "DD"            : "Destroyer"
                 },
                 "abbreviation"  : {
+                    "TV"            : "TV",
                     "AS"            : "AS",
                     "AR"            : "AR",
                     "CVB"           : "CVB",
@@ -221,6 +223,7 @@
                     "practical"     : "実用隻数"
                 },
                 "classification": {
+                    "TV"            : "練習巡洋艦",
                     "AS"            : "潜水母艦",
                     "AR"            : "工作艦",
                     "CVB"           : "装甲空母",
@@ -240,6 +243,7 @@
                     "DD"            : "駆逐艦"
                 },
                 "abbreviation"  : {
+                    "TV"            : "練巡",
                     "AS"            : "潜母艦",
                     "AR"            : "工",
                     "CVB"           : "装母",

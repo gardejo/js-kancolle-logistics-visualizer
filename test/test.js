@@ -2863,14 +2863,14 @@ kclv.Test.Table.Ships.Base = function() {
             Ships : {
                 title : 'S', Levels : 'lv', Experiences : 'xp',
                 classification : {
-                    AS:'AS',AR:'AR',CVB:'CVB',LHA:'LHA',AV:'AV',SSV:'SSV',
-                    SS:'SS',CV:'CV',BBV:'BBV',BB:'BB',BC:'BC',CVL:'CVL',
-                    CAV:'CAV',CA:'CA',CLT:'CLT',CL:'CL',DD:'DD'
+                    TV:'TV',AS:'AS',AR:'AR',CVB:'CVB',LHA:'LHA',AV:'AV',
+                    SSV:'SSV',SS:'SS',CV:'CV',BBV:'BBV',BB:'BB',BC:'BC',
+                    CVL:'CVL',CAV:'CAV',CA:'CA',CLT:'CLT',CL:'CL',DD:'DD'
                 },
                 abbreviation : {
-                    AS:'as',AR:'ar',CVB:'cvb',LHA:'lha',AV:'av',SSV:'ssv',
-                    SS:'ss',CV:'cv',BBV:'bbv',BB:'bb',BC:'bc',CVL:'cvl',
-                    CAV:'cav',CA:'ca',CLT:'clt',CL:'cl',DD:'dd'
+                    TV:'tv',AS:'as',AR:'ar',CVB:'cvb',LHA:'lha',AV:'av',
+                    SSV:'ssv',SS:'ss',CV:'cv',BBV:'bbv',BB:'bb',BC:'bc',
+                    CVL:'cvl',CAV:'cav',CA:'ca',CLT:'clt',CL:'cl',DD:'dd'
                 },
                 Bubble : {
                     title          : 'bench strength',
@@ -2889,40 +2889,42 @@ kclv.Test.Table.Ships.Base = function() {
             'classification', 'total', 'average', 'rate', 'practical'
         ],
         classification : [
-            { id : 'AS',  label : 'AS',  type : 'number' }, //  0
-            { id : 'AR',  label : 'AR',  type : 'number' }, //  1
-            { id : 'CVB', label : 'CVB', type : 'number' }, //  2
-            { id : 'LHA', label : 'LHA', type : 'number' }, //  3
-            { id : 'AV',  label : 'AV',  type : 'number' }, //  4
-            { id : 'SSV', label : 'SSV', type : 'number' }, //  5
-            { id : 'SS',  label : 'SS',  type : 'number' }, //  6
-            { id : 'CV',  label : 'CV',  type : 'number' }, //  7
-            { id : 'BBV', label : 'BBV', type : 'number' }, //  8
-            { id : 'BB',  label : 'BB',  type : 'number' }, //  9
-            { id : 'CVL', label : 'CVL', type : 'number' }, // 10
-            { id : 'CAV', label : 'CAV', type : 'number' }, // 11
-            { id : 'CA',  label : 'CA',  type : 'number' }, // 12
-            { id : 'CLT', label : 'CLT', type : 'number' }, // 13
-            { id : 'CL',  label : 'CL',  type : 'number' }, // 14
-            { id : 'DD',  label : 'DD',  type : 'number' }  // 15
+            { id : 'TV',  label : 'TV',  type : 'number' }, //  0
+            { id : 'AS',  label : 'AS',  type : 'number' }, //  1
+            { id : 'AR',  label : 'AR',  type : 'number' }, //  2
+            { id : 'CVB', label : 'CVB', type : 'number' }, //  3
+            { id : 'LHA', label : 'LHA', type : 'number' }, //  4
+            { id : 'AV',  label : 'AV',  type : 'number' }, //  5
+            { id : 'SSV', label : 'SSV', type : 'number' }, //  6
+            { id : 'SS',  label : 'SS',  type : 'number' }, //  7
+            { id : 'CV',  label : 'CV',  type : 'number' }, //  8
+            { id : 'BBV', label : 'BBV', type : 'number' }, //  9
+            { id : 'BB',  label : 'BB',  type : 'number' }, // 10
+            { id : 'CVL', label : 'CVL', type : 'number' }, // 11
+            { id : 'CAV', label : 'CAV', type : 'number' }, // 12
+            { id : 'CA',  label : 'CA',  type : 'number' }, // 13
+            { id : 'CLT', label : 'CLT', type : 'number' }, // 14
+            { id : 'CL',  label : 'CL',  type : 'number' }, // 15
+            { id : 'DD',  label : 'DD',  type : 'number' }  // 16
         ],
         abbreviation : [
-            { id : 'AS',  label : 'as',  type : 'number' }, //  0
-            { id : 'AR',  label : 'ar',  type : 'number' }, //  1
-            { id : 'CVB', label : 'cvb', type : 'number' }, //  2
-            { id : 'LHA', label : 'lha', type : 'number' }, //  3
-            { id : 'AV',  label : 'av',  type : 'number' }, //  4
-            { id : 'SSV', label : 'ssv', type : 'number' }, //  5
-            { id : 'SS',  label : 'ss',  type : 'number' }, //  6
-            { id : 'CV',  label : 'cv',  type : 'number' }, //  7
-            { id : 'BBV', label : 'bbv', type : 'number' }, //  8
-            { id : 'BB',  label : 'bb',  type : 'number' }, //  9
-            { id : 'CVL', label : 'cvl', type : 'number' }, // 10
-            { id : 'CAV', label : 'cav', type : 'number' }, // 11
-            { id : 'CA',  label : 'ca',  type : 'number' }, // 12
-            { id : 'CLT', label : 'clt', type : 'number' }, // 13
-            { id : 'CL',  label : 'cl',  type : 'number' }, // 14
-            { id : 'DD',  label : 'dd',  type : 'number' }  // 15
+            { id : 'TV',  label : 'tv',  type : 'number' }, //  0
+            { id : 'AS',  label : 'as',  type : 'number' }, //  1
+            { id : 'AR',  label : 'ar',  type : 'number' }, //  2
+            { id : 'CVB', label : 'cvb', type : 'number' }, //  3
+            { id : 'LHA', label : 'lha', type : 'number' }, //  4
+            { id : 'AV',  label : 'av',  type : 'number' }, //  5
+            { id : 'SSV', label : 'ssv', type : 'number' }, //  6
+            { id : 'SS',  label : 'ss',  type : 'number' }, //  7
+            { id : 'CV',  label : 'cv',  type : 'number' }, //  8
+            { id : 'BBV', label : 'bbv', type : 'number' }, //  9
+            { id : 'BB',  label : 'bb',  type : 'number' }, // 10
+            { id : 'CVL', label : 'cvl', type : 'number' }, // 11
+            { id : 'CAV', label : 'cav', type : 'number' }, // 12
+            { id : 'CA',  label : 'ca',  type : 'number' }, // 13
+            { id : 'CLT', label : 'clt', type : 'number' }, // 14
+            { id : 'CL',  label : 'cl',  type : 'number' }, // 15
+            { id : 'DD',  label : 'dd',  type : 'number' }  // 16
         ]
     };
 
@@ -3222,22 +3224,24 @@ test('kclv.Table.Ships.Histogram', function() {
         rows    : [
             { c : [
                 null, null, null, null, null, null, null, null, null, null,
-                null, null, null, null, null,
-                { v : 99, f : '電改 Lv.99' } // Col. 15
+                null, null, null, null, null, null,
+                { v : 99, f : '電改 Lv.99' } // Col. 16
             ] },
             { c : [
                 null, null, null, null, null, null, null, null, null, null,
-                { v : 149, f : '千歳航改二 Lv.149' }, // Col. 10
+                null,
+                { v : 149, f : '千歳航改二 Lv.149' }, // Col. 11
                 null, null, null, null, null
             ] },
             { c : [
                 null, null, null, null, null, null, null, null, null, null,
-                { v : 100, f : '千代田航改二 Lv.100' }, // Col. 10
+                null,
+                { v : 100, f : '千代田航改二 Lv.100' }, // Col. 11
                 null, null, null, null, null
             ] },
             { c : [
-                null, null, null, null, null, null, null, null, null,
-                { v : 1, f : '長門 Lv.1' }, // Col. 9
+                null, null, null, null, null, null, null, null, null, null,
+                { v : 1, f : '長門 Lv.1' }, // Col. 10
                 null, null, null, null, null, null
             ] }
         ]
@@ -3258,17 +3262,19 @@ test('kclv.Table.Ships.Histogram', function() {
         rows    : [
             { c : [
                 null, null, null, null, null, null, null, null, null, null,
-                null, null, null, null, null,
-                { v : 99, f : '電改 Lv.99' } // Col. 15
+                null, null, null, null, null, null,
+                { v : 99, f : '電改 Lv.99' } // Col. 16
             ] },
             { c : [
                 null, null, null, null, null, null, null, null, null, null,
-                { v : 149, f : '千歳航改二 Lv.149' }, // Col. 10
+                null,
+                { v : 149, f : '千歳航改二 Lv.149' }, // Col. 11
                 null, null, null, null, null
             ] },
             { c : [
                 null, null, null, null, null, null, null, null, null, null,
-                { v : 100, f : '千代田航改二 Lv.100' }, // Col. 10
+                null,
+                { v : 100, f : '千代田航改二 Lv.100' }, // Col. 11
                 null, null, null, null, null
             ] },
             { c : [] }
@@ -3288,12 +3294,14 @@ test('kclv.Table.Ships.Histogram', function() {
             { c : [] },
             { c : [
                 null, null, null, null, null, null, null, null, null, null,
-                { v : 149, f : '千歳航改二 Lv.149' }, // Col. 10
+                null,
+                { v : 149, f : '千歳航改二 Lv.149' }, // Col. 11
                 null, null, null, null, null
             ] },
             { c : [
                 null, null, null, null, null, null, null, null, null, null,
-                { v : 100, f : '千代田航改二 Lv.100' }, // Col. 10
+                null,
+                { v : 100, f : '千代田航改二 Lv.100' }, // Col. 11
                 null, null, null, null, null
             ] },
             { c : [] }
@@ -3350,24 +3358,26 @@ test('kclv.Table.Ships.Histogram', function() {
         rows    : [
             { c : [
                 null, null, null, null, null, null, null, null, null, null,
-                null, null, null, null, null,
-                { v : 1000000, f : '電改 Lv.99 (1,000,000)' } // Col. 15
+                null, null, null, null, null, null,
+                { v : 1000000, f : '電改 Lv.99 (1,000,000)' } // Col. 16
             ] },
             { c : [
                 null, null, null, null, null, null, null, null, null, null,
+                null,
                 { v : 4359999, f : '千歳航改二 Lv.149 (4,359,999)' },
-                    // Col. 10
+                    // Col. 11
                 null, null, null, null, null
             ] },
             { c : [
                 null, null, null, null, null, null, null, null, null, null,
+                null,
                 { v : 1000000, f : '千代田航改二 Lv.100 (1,000,000)' },
-                    // Col. 10
+                    // Col. 11
                 null, null, null, null, null
             ] },
             { c : [
-                null, null, null, null, null, null, null, null, null,
-                { v : 0, f : '長門 Lv.1 (0)' }, // Col. 9
+                null, null, null, null, null, null, null, null, null, null,
+                { v : 0, f : '長門 Lv.1 (0)' }, // Col. 10
                 null, null, null, null, null, null
             ] }
         ]
@@ -3453,25 +3463,27 @@ test('kclv.Table.Ships.Scatter', function() {
             { c : [
                 { v : 1, f : '#1:1' }, // Col. 0
                 null, null, null, null, null, null, null, null, null, null,
-                null, null, null, null, null,
-                { v : 99, f : '電改 Lv.99' } // Col. 16
+                null, null, null, null, null, null,
+                { v : 99, f : '電改 Lv.99' } // Col. 17
             ] },
             { c : [
                 { v : 2, f : '#2:12' }, // Col. 0
                 null, null, null, null, null, null, null, null, null, null,
-                { v : 149, f : '千歳航改二 Lv.149' }, // Col. 11
+                null,
+                { v : 149, f : '千歳航改二 Lv.149' }, // Col. 12
                 null, null, null, null, null
             ] },
             { c : [
                 { v : 3, f : '#3:13' }, // Col. 0
                 null, null, null, null, null, null, null, null, null, null,
-                { v : 100, f : '千代田航改二 Lv.100' }, // Col. 11
+                null,
+                { v : 100, f : '千代田航改二 Lv.100' }, // Col. 12
                 null, null, null, null, null
             ] },
             { c : [
                 { v : 4, f : '#4:24' }, // Col. 0
-                null, null, null, null, null, null, null, null, null,
-                { v : 1, f : '長門 Lv.1' }, // Col. 10
+                null, null, null, null, null, null, null, null, null, null,
+                { v : 1, f : '長門 Lv.1' }, // Col. 11
                 null, null, null, null, null, null
             ] }
         ]
@@ -3492,19 +3504,21 @@ test('kclv.Table.Ships.Scatter', function() {
             { c : [
                 { v : 1, f : '#1:1' }, // Col. 0
                 null, null, null, null, null, null, null, null, null, null,
-                null, null, null, null, null,
-                { v : 99, f : '電改 Lv.99' } // Col. 16
+                null, null, null, null, null, null,
+                { v : 99, f : '電改 Lv.99' } // Col. 17
             ] },
             { c : [
                 { v : 2, f : '#2:12' }, // Col. 0
                 null, null, null, null, null, null, null, null, null, null,
-                { v : 149, f : '千歳航改二 Lv.149' }, // Col. 11
+                null,
+                { v : 149, f : '千歳航改二 Lv.149' }, // Col. 12
                 null, null, null, null, null
             ] },
             { c : [
                 { v : 3, f : '#3:13' }, // Col. 0
                 null, null, null, null, null, null, null, null, null, null,
-                { v : 100, f : '千代田航改二 Lv.100' }, // Col. 11
+                null,
+                { v : 100, f : '千代田航改二 Lv.100' }, // Col. 12
                 null, null, null, null, null
             ] },
             { c : [] }
@@ -3525,13 +3539,15 @@ test('kclv.Table.Ships.Scatter', function() {
             { c : [
                 { v : 2, f : '#2:12' }, // Col. 0
                 null, null, null, null, null, null, null, null, null, null,
-                { v : 149, f : '千歳航改二 Lv.149' }, // Col. 11
+                null,
+                { v : 149, f : '千歳航改二 Lv.149' }, // Col. 12
                 null, null, null, null, null
             ] },
             { c : [
                 { v : 3, f : '#3:13' }, // Col. 0
                 null, null, null, null, null, null, null, null, null, null,
-                { v : 100, f : '千代田航改二 Lv.100' }, // Col. 11
+                null,
+                { v : 100, f : '千代田航改二 Lv.100' }, // Col. 12
                 null, null, null, null, null
             ] },
             { c : [] }
@@ -3596,25 +3612,27 @@ test('kclv.Table.Ships.Scatter', function() {
             { c : [
                 { v : 1, f : '#1:12' }, // 0
                 null, null, null, null, null, null, null, null, null, null,
-                { v : 149, f : '千歳航改二 Lv.149' }, // 11
+                null,
+                { v : 149, f : '千歳航改二 Lv.149' }, // 12
                 null, null, null, null, null
             ] },
             { c : [
                 { v : 2, f : '#2:13' }, // 0
                 null, null, null, null, null, null, null, null, null, null,
-                { v : 100, f : '千代田航改二 Lv.100' }, // 11
+                null,
+                { v : 100, f : '千代田航改二 Lv.100' }, // 12
                 null, null, null, null, null
             ] },
             { c : [
                 { v : 3, f : '#3:1' }, // 0
                 null, null, null, null, null, null, null, null, null, null,
-                null, null, null, null, null,
-                { v : 99, f : '電改 Lv.99' } // 16
+                null, null, null, null, null, null,
+                { v : 99, f : '電改 Lv.99' } // 17
             ] },
             { c : [
                 { v : 4, f : '#4:24' }, // 0
-                null, null, null, null, null, null, null, null, null,
-                { v : 1, f : '長門 Lv.1' }, // 10
+                null, null, null, null, null, null, null, null, null, null,
+                { v : 1, f : '長門 Lv.1' }, // 11
                 null, null, null, null, null, null
             ] }
         ]
@@ -3635,27 +3653,29 @@ test('kclv.Table.Ships.Scatter', function() {
             { c : [
                 { v : 1, f : '#1:1' }, // Col. 0
                 null, null, null, null, null, null, null, null, null, null,
-                null, null, null, null, null,
-                { v : 1000000, f : '電改 Lv.99 (1,000,000)' } // Col. 16
+                null, null, null, null, null, null,
+                { v : 1000000, f : '電改 Lv.99 (1,000,000)' } // Col. 17
             ] },
             { c : [
                 { v : 2, f : '#2:12' }, // Col. 0
                 null, null, null, null, null, null, null, null, null, null,
+                null,
                 { v : 4359999, f : '千歳航改二 Lv.149 (4,359,999)' },
-                    // Col. 11
+                    // Col. 12
                 null, null, null, null, null
             ] },
             { c : [
                 { v : 3, f : '#3:13' }, // Col. 0
                 null, null, null, null, null, null, null, null, null, null,
+                null,
                 { v : 1000000, f : '千代田航改二 Lv.100 (1,000,000)' },
-                    // Col. 11
+                    // Col. 12
                 null, null, null, null, null
             ] },
             { c : [
                 { v : 4, f : '#4:24' }, // Col. 0
-                null, null, null, null, null, null, null, null, null,
-                { v : 0, f : '長門 Lv.1 (0)' }, // Col. 10
+                null, null, null, null, null, null, null, null, null, null,
+                { v : 0, f : '長門 Lv.1 (0)' }, // Col. 11
                 null, null, null, null, null, null
             ] }
         ]
@@ -3678,27 +3698,29 @@ test('kclv.Table.Ships.Scatter', function() {
             { c : [
                 { v : 1, f : '#1:12' }, // Col. 0
                 null, null, null, null, null, null, null, null, null, null,
+                null,
                 { v : 4359999, f : '千歳航改二 Lv.149 (4,359,999)' },
-                    // Col. 11
+                    // Col. 12
                 null, null, null, null, null
             ] },
             { c : [
                 { v : 2, f : '#2:13' }, // Col. 0
                 null, null, null, null, null, null, null, null, null, null,
+                null,
                 { v : 1000000, f : '千代田航改二 Lv.100 (1,000,000)' },
-                    // Col. 11
+                    // Col. 12
                 null, null, null, null, null
             ] },
             { c : [
                 { v : 3, f : '#3:1' }, // Col. 0
                 null, null, null, null, null, null, null, null, null, null,
-                null, null, null, null, null,
-                { v : 1000000, f : '電改 Lv.99 (1,000,000)' } // Col. 16
+                null, null, null, null, null, null,
+                { v : 1000000, f : '電改 Lv.99 (1,000,000)' } // Col. 17
             ] },
             { c : [
                 { v : 4, f : '#4:24' }, // Col. 0
-                null, null, null, null, null, null, null, null, null,
-                { v : 0, f : '長門 Lv.1 (0)' }, // Col. 10
+                null, null, null, null, null, null, null, null, null, null,
+                { v : 0, f : '長門 Lv.1 (0)' }, // Col. 11
                 null, null, null, null, null, null
             ] }
         ]
