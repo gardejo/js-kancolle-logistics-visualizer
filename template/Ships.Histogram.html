@@ -33,9 +33,11 @@
                 interpolateNulls: false,
                 isStacked : true,
                 dataOpacity: 0.7,
+                {{if table.kind == "Levels"}}
                 histogram: {
                     bucketSize: 10
                 },
+                {{/if}}
                 hAxis: {
                     slantedText : true,
                     slantedTextAngle : 90
