@@ -26,11 +26,13 @@
             var table = [
                 {{:~formatter.stringify(table.columns)}}{{props table.rows}}
                 ,{{:~formatter.stringify(prop)}}{{/props}}
-            ];
+            ],
+                heading = table.shift();
+
             {{if option.continuous}}
-            for (var i = 1; i < table.length; i++) { // Offset (1) is header.
-                table[i][0].v = new Date(table[i][0].v);
-            }
+            table.forEach( function(row) {
+                row[0].v = new Date(row[0].v);
+            } );
             {{/if}}
 
             var option = {
@@ -108,10 +110,16 @@
                 var chart = new google.visualization.LineChart(
                     document.getElementById('chart')
                 );
-                chart.draw(
-                    google.visualization.arrayToDataTable(table),
-                    option
-                );
+                // To avoid "All series on a given axis must be of the same data type",
+                // DO NOT BUILD DATA EASILY AS BELOW:
+                // var data = google.visualization.arrayToDataTable(table);
+                // The error will be occurred in the case of every rows has null value.
+                var data = new google.visualization.DataTable();
+                heading.forEach( function(column, index) {
+                    data.addColumn( index === 0 ? 'datetime' : 'number', column );
+                } );
+                data.addRows(table);
+                chart.draw(data, option);
                 document.getElementById('download').innerHTML =
                     '<a href="' + chart.getImageURI() + '">&#x1f4c8; PNG</a>';
 
