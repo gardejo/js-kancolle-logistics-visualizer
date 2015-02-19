@@ -45,6 +45,7 @@ See also [Gallery](https://github.com/gardejo/js-kancolle-logistics-visualizer/w
 You can **manually fill out** designated forms (CSV: Comma-Separated Values) as a materials log and a ships roster. Furthermore, you can use **dumped log files**, if you use various agents (dedicated browses or dedicated proxies) for *KanColle* below:
 
 * *[Logbook](http://kancolle.sanaechan.net/)*
+    * *[Logbook Expanded Edition](https://github.com/nekopanda/logbook)*
 * *[KCRDB (KanColle Received Data Browser)](http://hetaregrammer.blog.fc2.com/)*
 * *[Sandanshiki Kanpan](http://3dan.preflight.cc/)* (Only materials log)
 * ... and more (due to expansion)
@@ -60,7 +61,7 @@ Let's run it via GUI (Graphical User Interface).
 2. Prepare log files for visualization.
     * If you use manually inputted log:
         * Fill out designated forms as a materials history and a ships roster, and save `materials.csv` and `ships.csv` with reference to *the [Wiki](https://github.com/gardejo/js-kancolle-logistics-visualizer/wiki/Relations) page*.
-    * If you use *Logbook*:
+    * If you use *Logbook* or *Logbook Expanded Edition*:
         * Materials log was outputted automatically as `資材ログ.csv`.
         * Output ships roster manually as `所有艦娘一覧.csv`.
             * Select `[所有艦娘一覧]` (Roster of owned ships) window - `[ファイル]` (File) menu - `[CSVファイルに保存]` (Output as CSV file) item.
@@ -106,7 +107,7 @@ I deeply thank people below:
 
 * Dev & Ops team of *[Kantai Collection -KanColle-](http://www.dmm.com/netgame/feature/kancolle.html)*, DMM.com, Ltd. and Kadokawa Games, Ltd.
 * *[@sanae_hirotaka](https://twitter.com/sanae_hirotaka)* wrote *[Logbook](https://twitter.com/sanae_hirotaka)*, which this system treats its log files.
-* *hetaregrammer* wrote *[KCRDB](http://hetaregrammer.blog.fc2.com/)*, which this system treats its log files.
+* *[@nekopanda](http://nekopanda.blog.jp/)* wrote *[Logbook Expanded Edition](https://github.com/nekopanda/logbook)*, which this system treats its log files.
 * *[@nash_fs](https://twitter.com/nash_fs)* wrote *[Sandanshiki Kanpan](http://3dan.preflight.cc/)*, which this system treats its log files. Besides, he readily struggle with my debugging.
 * *[@kcInputAux](https://twitter.com/kcInputAux)* wrote *[KCLV Config Generator](http://kancolle.s601.xrea.com/kclv/)*, a handy tool that lets us edit and output a configuration of this system with Web browsers.
 * *[No.983](http://jbbs.shitaraba.net/netgame/12394/storage/1386926329.html#983) of the thread about tools and dedicated browsers* wrote *[Graphicalizer Tool for KCRDB logs](https://dl.dropboxusercontent.com/s/6ortcavxtaucgnn/convert_graph.html)*, which this system gets an idea from.
@@ -183,6 +184,7 @@ All brand names and product names are trademarks or registered trademarks of the
 資材履歴や艦娘一覧のデータは、所定の書式（CSV:カンマ区切りファイル）で **手入力したものが使えます** 。さらに、以下の *艦これ* のエージェント（専用ブラウザーやプロキシーなど）をお使いの場合は、それらが出力する **ログファイルを用いる** こともできます。
 
 * *[航海日誌](http://kancolle.sanaechan.net/)*
+    * *[航海日誌拡張版](https://github.com/nekopanda/logbook)*
 * *[KCRDB（艦これ Received Data Browser）](http://hetaregrammer.blog.fc2.com/)*
 * *[三段式甲板](http://3dan.preflight.cc/)* （資材ログのみ）
 * ……（他にも拡張予定）
@@ -198,7 +200,7 @@ GUI（グラフィカル ユーザー インターフェース）で操作しま
 2. 処理したいログ ファイルを用意します。
     * 手入力の場合
         * *[Wiki](https://github.com/gardejo/js-kancolle-logistics-visualizer/wiki/Relations-%28ja%29)* を参照して、資材履歴や艦娘一覧を所定の書式（CSV）で記述し、例えば`materials.csv`や`ships.csv`などのファイルに保存します。
-    * *航海日誌* の場合
+    * *航海日誌* または *航海日誌拡張版* の場合
         * `資材ログ.csv`は、自動で出力されています。
         * `所有艦娘一覧.csv`は、手動で保存してください。
             * `[所有艦娘一覧]`ウィンドウの`[ファイル]`メニューから`[CSVファイルに保存]`アイテムを選択する
@@ -249,6 +251,7 @@ GUI（グラフィカル ユーザー インターフェース）で操作しま
 
 * *株式会社DMM.com* および *株式会社角川ゲームス* 各社の、 *[艦隊これくしょん -艦これ-](http://www.dmm.com/netgame/feature/kancolle.html)* の開発・運営チームの皆さん。
 * *[航海日誌](https://twitter.com/sanae_hirotaka)* をお書きになった *[@sanae_hirotaka](https://twitter.com/sanae_hirotaka)* さん。ログ ファイルを使わせていただきました。
+* *[航海日誌拡張版](https://github.com/nekopanda/logbook)* をお書きになった *[@nekopanda](http://nekopanda.blog.jp/)* さん。ログ ファイルを使わせていただきました。
 * *[KCRDB](http://hetaregrammer.blog.fc2.com/)* をお書きになった *へたれぐらま* さん。ログ ファイルを使わせていただきました。
 * *[三段式甲板](http://3dan.preflight.cc/)* をお書きになった *[@nash_fs](https://twitter.com/nash_fs)* さん。ログ ファイルを使わせていただきました。また、デバッグにも快くお付き合いいただきました。
 * このシステムの設定内容をWebブラウザーで編集・出力できる便利なツール *[KCLV Config Generator](http://kancolle.s601.xrea.com/kclv/)* をお作りいただいた、 *[@kcInputAux](https://twitter.com/kcInputAux)* さん。

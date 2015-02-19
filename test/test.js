@@ -863,7 +863,7 @@ test('kclv.Game.Materials', function() {
         },
         new kclv.Exception.InvalidMaterial('Rubber', [
             'Fuel', 'Ammunition', 'Steel', 'Bauxite',
-            'Repair', 'Construction', 'Development'
+            'Repair', 'Construction', 'Development', 'Improvement'
         ]),
         'Cannot consult a kind for Rubber. It is not a material of KanColle.'
     );
@@ -929,6 +929,15 @@ kclv.Test.Agent.Logbook = function() {
     return;
 };
 
+kclv.Test.Agent.LogbookEx = function() {
+    this.path = {
+        Materials : './log/LogbookEx.Materials.log',
+        Ships     : './log/LogbookEx.Ships.csv'
+    };
+
+    return;
+};
+
 kclv.Test.Agent.SandanshikiKanpan = function() {
     // Note: An our test stub regards '%LocalAppData%' as './'.
     var base = '%LocalAppData%/log/';
@@ -967,31 +976,39 @@ test('kclv.Agent.Base', function() {
 // Materials
 // ----------------------------------------------------------------
 
-kclv.Test.Agent.Materials = function() {
-    this.dates = [
+kclv.Test.Agent.Materials = function(hasImprovement) {
+    var dates = [
         new Date('2013/04/23 00:00:00'),
         new Date('2013/07/10 00:00:00'),
         new Date('2013/07/17 00:00:00')
     ];
 
     this.materials = {
-        //   Date           Fue  Amm  Ste  Bau  Rep  Con  Dev
+        //  Date       Fue  Amm  Ste  Bau  Rep  Con  Dev  Imp
         high : [
-            [this.dates[0], 116, 126, 136, 146, 156, 166, 176],
-            [this.dates[1], 216, 226, 236, 246, 256, 266, 276],
-            [this.dates[2], 316, 326, 336, 346, 356, 366, 376]
+            [dates[0], 116, 126, 136, 146, 156, 166, 176, 186],
+            [dates[1], 216, 226, 236, 246, 256, 266, 276, 286],
+            [dates[2], 316, 326, 336, 346, 356, 366, 376, 386]
         ],
         average : [
-            [this.dates[0], 114, 124, 134, 144, 154, 164, 174],
-            [this.dates[1], 214, 224, 234, 244, 254, 264, 274],
-            [this.dates[2], 314, 324, 334, 344, 354, 364, 374]
+            [dates[0], 114, 124, 134, 144, 154, 164, 174, 184],
+            [dates[1], 214, 224, 234, 244, 254, 264, 274, 284],
+            [dates[2], 314, 324, 334, 344, 354, 364, 374, 384]
         ],
         low : [
-            [this.dates[0], 111, 121, 131, 141, 151, 161, 171],
-            [this.dates[1], 211, 221, 231, 241, 251, 261, 271],
-            [this.dates[2], 311, 321, 331, 341, 351, 361, 371]
+            [dates[0], 111, 121, 131, 141, 151, 161, 171, 181],
+            [dates[1], 211, 221, 231, 241, 251, 261, 271, 281],
+            [dates[2], 311, 321, 331, 341, 351, 361, 371, 381]
         ]
     };
+
+    if (! hasImprovement) {
+        Object.keys(this.materials).forEach( function(criterion) {
+            this.materials[criterion].forEach( function(statement) {
+                statement[8] = null; // Improvement material
+            } );
+        }, this );
+    }
 
     return;
 };
@@ -1060,7 +1077,7 @@ test('kclv.Agent.Manual : Materials', function() {
         return;
     }
 
-    var test = new kclv.Test.Agent.Materials(),
+    var test = new kclv.Test.Agent.Materials(true),
         agent = new kclv.Agent.Manual(),
         configuration = { agent: { Manual: {
             path: new kclv.Test.Agent.Manual().path
@@ -1147,6 +1164,30 @@ test('kclv.Agent.Logbook : Materials', function() {
 });
 
 // ----------------------------------------------------------------
+// Materials: LogbookEx
+// ----------------------------------------------------------------
+
+test('kclv.Agent.LogbookEx : Materials', function() {
+    if (navigator.userAgent.indexOf('MSIE') >= 0) {
+        ok(true, 'TODO: MSIE cannot the tests.');
+        return;
+    }
+
+    var test = new kclv.Test.Agent.Materials(true),
+        agent = new kclv.Agent.LogbookEx(),
+        configuration = { agent: { LogbookEx: {
+            path: new kclv.Test.Agent.LogbookEx().path
+        } } };
+
+    test.test({
+        agent         : agent,
+        configuration : configuration
+    });
+
+    // TODO: Even more tests.
+});
+
+// ----------------------------------------------------------------
 // Materials: Sandanshiki Kanpan (Three Flight Decks)
 // ----------------------------------------------------------------
 
@@ -1178,17 +1219,17 @@ test('kclv.Agent.SandanshikiKanpan : Materials', function() {
         agent.buildRelation('Materials'),
         new kclv.Relation.Materials().insert([
             [new Date('2013/04/23 00:00:00'),
-                111, 121, 131, null, 151, 161, 171],
+                111, 121, 131, null, 151, 161, 171, null],
             [new Date('2013/04/23 00:00:01'),
-                null, null, null, 141, null, null, null],
+                null, null, null, 141, null, null, null, null],
             [new Date('2013/07/10 00:00:00'),
-                211, 221, 231, null, 251, 261, 271],
+                211, 221, 231, null, 251, 261, 271, null],
             [new Date('2013/07/10 00:00:01'),
-                null, null, null, 241, null, null, null],
+                null, null, null, 241, null, null, null, null],
             [new Date('2013/07/17 00:00:00'),
-                311, 321, 331, null, 351, 361, 371],
+                311, 321, 331, null, 351, 361, 371, null],
             [new Date('2013/07/17 00:00:01'),
-                null, null, null, 341, null, null, null]
+                null, null, null, 341, null, null, null, null]
         ]),
         'Builds a relation: With delayed material(s).'
     );
@@ -1303,6 +1344,30 @@ test('kclv.Agent.Logbook : Ships', function() {
 });
 
 // ----------------------------------------------------------------
+// Ships: LogbookEx
+// ----------------------------------------------------------------
+
+test('kclv.Agent.LogbookEx : Ships', function() {
+    if (navigator.userAgent.indexOf('MSIE') >= 0) {
+        ok(true, 'TODO: MSIE cannot the tests.');
+        return;
+    }
+
+    var test = new kclv.Test.Agent.Ships(),
+        agent = new kclv.Agent.LogbookEx(),
+        configuration = { agent : { LogbookEx : {
+            path: new kclv.Test.Agent.LogbookEx().path
+        } } };
+
+    test.test({
+        agent         : agent,
+        configuration : configuration
+    });
+
+    // TODO: Even more tests.
+});
+
+// ----------------------------------------------------------------
 // Ships: Sandanshiki Kanpan (Three Flight Decks)
 // ----------------------------------------------------------------
 
@@ -1388,21 +1453,21 @@ test('kclv.Tokenizer.Manual.Materials', function() {
         tokenizer = new kclv.Tokenizer.Manual.Materials(),
         string =
             '#日時,燃料,弾薬,鋼材,ボーキサイト,' +
-                '高速修復材,高速建造材,開発資材\n' +
-            '2013/04/23 01:23:45,1,2,3,4,5,6,7\n' +
-            '2013/07/10 12:34:56,2,3,4,5,6,7,8\n',
+                '高速修復材,高速建造材,開発資材,改修資材\n' +
+            '2013/04/23 01:23:45,1,2,3,4,5,6,7,0\n' +
+            '2013/07/10 12:34:56,2,3,4,5,6,7,8,0\n',
         rows = [
-            '2013/04/23 01:23:45,1,2,3,4,5,6,7',
-            '2013/07/10 12:34:56,2,3,4,5,6,7,8'
+            '2013/04/23 01:23:45,1,2,3,4,5,6,7,0',
+            '2013/07/10 12:34:56,2,3,4,5,6,7,8,0'
         ],
         table = [
             [
                 new Date('2013/04/23 01:23:45'),    // Date
-                1,2,3,4,5,6,7                       // Integers
+                1,2,3,4,5,6,7,0                     // Integers
             ],
             [
                 new Date('2013/07/10 12:34:56'),
-                2,3,4,5,6,7,8
+                2,3,4,5,6,7,8,0
             ]
         ];
 
@@ -1414,33 +1479,33 @@ test('kclv.Tokenizer.Manual.Materials', function() {
     });
 
     string =
-        '2014/1/2 3:4:5,11,12,13,14,15,16,17\n' +   // YYYY/M/D H:M:S
-        '# This is a comment line\n' +                         // Comment row
-        '2014/01/02 03:04:06,21,22,23,24,25,26,27,Huzzah!\n' + // Comment col
-        '2014/1/2 11:11,31,32,33,34,35\n' +         // Omit Const and Dev
-        '2014/1/2 12:34,41,42,43,,45,46,47\n';      // Omit Sec and Bauxite
+        '2014/1/2 3:4:5,11,12,13,14,15,16,17,0\n' + // YYYY/M/D H:M:S
+        '# This is a comment line\n' +              // Comment row
+        '2014/01/02 03:04:06,21,22,23,24,25,26,27,0,Huzzah!\n' + // Comment col
+        '2014/1/2 11:11,31,32,33,34,35\n' +         // Omit Const, Dev, Imp
+        '2014/1/2 12:34,41,42,43,,45,46,47,0\n';    // Omit Sec and Bauxite
     rows = [
-        '2014/1/2 3:4:5,11,12,13,14,15,16,17',
-        '2014/01/02 03:04:06,21,22,23,24,25,26,27,Huzzah!',
+        '2014/1/2 3:4:5,11,12,13,14,15,16,17,0',
+        '2014/01/02 03:04:06,21,22,23,24,25,26,27,0,Huzzah!',
         '2014/1/2 11:11,31,32,33,34,35',
-        '2014/1/2 12:34,41,42,43,,45,46,47'
+        '2014/1/2 12:34,41,42,43,,45,46,47,0'
     ];
     table = [
         [
             new Date('2014/01/02 03:04:05'),    // Date
-            11,12,13,14,15,16,17                // Integers
+            11,12,13,14,15,16,17,0              // Integers
         ],
         [
             new Date('2014/01/02 03:04:06'),
-            21,22,23,24,25,26,27
+            21,22,23,24,25,26,27,0
         ],
         [
             new Date('2014/01/02 11:11:00'),
-            31,32,33,34,35,null,null
+            31,32,33,34,35,null,null,null
         ],
         [
             new Date('2014/01/02 12:34:00'),
-            41,42,43,null,45,46,47
+            41,42,43,null,45,46,47,0
         ]
     ];
 
@@ -1589,11 +1654,11 @@ test('kclv.Tokenizer.Logbook.Materials', function() {
         table = [
             [
                 new Date('2013/04/23 01:23:45'),    // Date
-                1,2,3,4,5,6,7                       // Integers
+                1,2,3,4,5,6,7,null                  // Integers
             ],
             [
                 new Date('2013/07/10 12:34:56'),
-                2,3,4,5,6,7,8
+                2,3,4,5,6,7,8,null
             ]
         ];
 
@@ -1637,6 +1702,106 @@ test('kclv.Tokenizer.Logbook.Ships', function() {
             '3,24,,長門,戦艦,49,,1,100,0,0,' +
                 '38cm連装砲,38cm連装砲,38cm連装砲,,' +
                 '80,144,0,34,89,24,0,12,20'
+        ],
+        table = [
+            [  1, '電改',       'DD',   99, 1000000 ],
+            [ 12, '千歳航改二', 'CVL', 149, 4359999 ],
+            [ 24, '長門',       'BB',    1,       0 ]
+        ];
+
+    test.test({
+        tokenizer : tokenizer,
+        string    : string,
+        rows      : rows,
+        table     : table
+    });
+
+    // TODO: Even more tests.
+});
+
+// ----------------------------------------------------------------
+// Logbook: Materials
+// ----------------------------------------------------------------
+
+test('kclv.Tokenizer.LogbookEx.Materials', function() {
+    var test = new kclv.Test.Tokenizer(),
+        tokenizer = new kclv.Tokenizer.LogbookEx.Materials(),
+        string =
+            '日付,直前のイベント,燃料,弾薬,鋼材,ボーキ,' +
+                '高速修復材,高速建造材,開発資材,改修資材\n' +
+            '2013-04-23 01:23:45,定期更新,1,2,3,4,5,6,7,8\n' +
+            '2013-07-10 12:34:56,遠征帰還,2,3,4,5,6,7,8,9\n',
+        rows = [
+            '2013-04-23 01:23:45,定期更新,1,2,3,4,5,6,7,8',
+            '2013-07-10 12:34:56,遠征帰還,2,3,4,5,6,7,8,9'
+        ],
+        table = [
+            [
+                new Date('2013/04/23 01:23:45'),    // Date
+                1,2,3,4,5,6,7,8                     // Integers
+            ],
+            [
+                new Date('2013/07/10 12:34:56'),
+                2,3,4,5,6,7,8,9
+            ]
+        ];
+
+    test.test({
+        tokenizer : tokenizer,
+        string    : string,
+        rows      : rows,
+        table     : table
+    });
+
+    // TODO: Even more tests.
+});
+
+// ----------------------------------------------------------------
+// LogbookEx: Ships
+// ----------------------------------------------------------------
+
+test('kclv.Tokenizer.LogbookEx.Ships', function() {
+    var test = new kclv.Test.Tokenizer(),
+        tokenizer = new kclv.Tokenizer.LogbookEx.Ships(),
+        string =
+            'No.,ID,鍵,艦隊,Lv順,艦種順,NEW順,修理順,名前,艦種,艦ID,現在,' +
+                '疲労,回復,HP,燃料,弾薬,修理時間,修理燃料,修理鋼材,損傷,' +
+                'HP1あたり,Lv,Next,経験値,制空,索敵,装備1,艦載機1,' +
+                '装備2,艦載機2,装備3,艦載機3,装備4,艦載機4,' +
+                '耐久,燃料,弾薬,火力,雷装,対空,装甲,回避,対潜,索敵,運\n' +
+            '1,1,?,,10-6,18-9,22-10,15-3,電改,駆逐艦,237,' +
+                ',85,,30/30,15/15,20/20,,,,,' +
+                ',99,0,1000000,0,10 (5.9+4.2+0.0),10cm連装高角砲,,' +
+                '10cm連装高角砲,,33号対水上電探,,' +
+                ',,30,15,20,53,79,63,49,84,55,42,12\n' +
+            '2,12,?,,3-8,8-8,17-4,7-7,千歳航改二,軽空母,296,' +
+                ',49,,65/65,45/45,40/40,,,,,,' +
+                '149,1,4359999,40,' +
+                '20 (9.4+11.2+0.0),天山(九三一空),24/24,' +
+                '烈風,16/16,彗星一二型甲,11/11,彩雲,8/8,' +
+                '65,45,40,34,9,82,65,77,11,101,17\n' +
+            '3,24,?,,20-3,7-5,9-5,3-2,長門,戦艦,275,' +
+                ',49,,80/80,100/100,130/130,,,,,' +
+                ',1,100,0,0,3 (3.5+0.0+0.0),38cm連装砲,0/3,' +
+                '38cm連装砲,0/3,38cm連装砲,0/3,,0/3,' +
+                '80,100,130,99,0,89,89,24,0,12,20\n',
+        rows = [
+            '1,1,?,,10-6,18-9,22-10,15-3,電改,駆逐艦,237,' +
+                ',85,,30/30,15/15,20/20,,,,,' +
+                ',99,0,1000000,0,10 (5.9+4.2+0.0),10cm連装高角砲,,' +
+                '10cm連装高角砲,,33号対水上電探,,' +
+                ',,30,15,20,53,79,63,49,84,55,42,12',
+            '2,12,?,,3-8,8-8,17-4,7-7,千歳航改二,軽空母,296,' +
+                ',49,,65/65,45/45,40/40,,,,,,' +
+                '149,1,4359999,40,' +
+                '20 (9.4+11.2+0.0),天山(九三一空),24/24,' +
+                '烈風,16/16,彗星一二型甲,11/11,彩雲,8/8,' +
+                '65,45,40,34,9,82,65,77,11,101,17',
+            '3,24,?,,20-3,7-5,9-5,3-2,長門,戦艦,275,' +
+                ',49,,80/80,100/100,130/130,,,,,' +
+                ',1,100,0,0,3 (3.5+0.0+0.0),38cm連装砲,0/3,' +
+                '38cm連装砲,0/3,38cm連装砲,0/3,,0/3,' +
+                '80,100,130,99,0,89,89,24,0,12,20'
         ],
         table = [
             [  1, '電改',       'DD',   99, 1000000 ],
@@ -1844,8 +2009,17 @@ test('kclv.ProjectorLike', function() {
 
 kclv.Test.Projector = function() {
     this.relation = [
-    //   Date   Fuel    Ammo    Steel   Bauxite Repair  Const   Dev
-        ['Foo', 11, 16, 21, 26, 31, 36, 41, 46, 51, 56, 61, 66, 71, 76]
+        [
+            'Foo',  // Date
+            11, 16, // Fuel
+            21, 26, // Ammunition
+            31, 36, // Steel
+            41, 46, // Bauxite
+            51, 56, // Repair
+            61, 66, // Construction
+            71, 76, // Development
+            81, 86  // Improvement
+        ]
     ];
 
     return;
@@ -1857,7 +2031,7 @@ test('kclv.Projector.Materials.High', function() {
 
     deepEqual(
         test.relation.map( projector.project, projector ),
-        [['Foo', 16, 26, 36, 46, 56, 66, 76]],
+        [['Foo', 16, 26, 36, 46, 56, 66, 76, 86]],
         'Projects as high.'
     );
 
@@ -1870,7 +2044,7 @@ test('kclv.Projector.Materials.Average', function() {
 
     deepEqual(
         test.relation.map( projector.project, projector ),
-        [['Foo', 14, 24, 34, 44, 54, 64, 74]],
+        [['Foo', 14, 24, 34, 44, 54, 64, 74, 84]],
         'Projects as average.'
     );
 
@@ -1883,7 +2057,7 @@ test('kclv.Projector.Materials.Low', function() {
 
     deepEqual(
         test.relation.map( projector.project, projector ),
-        [['Foo', 11, 21, 31, 41, 51, 61, 71]],
+        [['Foo', 11, 21, 31, 41, 51, 61, 71, 81]],
         'Projects as low.'
     );
 
@@ -2162,12 +2336,12 @@ kclv.Test.Relation.Materials = function() {
     kclv.Test.Relation.Base.call(this);
 
     this.array = [
-        // Date                   Fue Amm Ste Bau Rep Con Dev
-        [ new Date('2013/04/23'), 11, 12, 13, 14, 15, 16, 17 ],
-        [ new Date('2013/07/10'), 21, 22, 23, 24, 25, 26, 27 ],
-        [ new Date('2013/07/10'), 31, 32, 33, 34, 35, 36, 37 ],
-        [ new Date('2013/07/11'), 41, 42, 43, 44, 45, 46, 47 ],
-        [ new Date('2013/07/17'), 51, 52, 53, 54, 55, 56, 57 ]
+        // Date                   Fue Amm Ste Bau Rep Con Dev Imp
+        [ new Date('2013/04/23'), 11, 12, 13, 14, 15, 16, 17, null ],
+        [ new Date('2013/07/10'), 21, 22, 23, 24, 25, 26, 27, null ],
+        [ new Date('2013/07/10'), 31, 32, 33, 34, 35, 36, 37, null ],
+        [ new Date('2013/07/11'), 41, 42, 43, 44, 45, 46, 47, null ],
+        [ new Date('2013/07/17'), 51, 52, 53, 54, 55, 56, 57, null ]
     ];
 
     this.thresholds = {
@@ -2179,7 +2353,8 @@ kclv.Test.Relation.Materials = function() {
         Consumables : [ 15, 57 ],
         Repair      : [ 15, 55 ],
         Construction: [ 16, 56 ],
-        Development : [ 17, 57 ]
+        Development : [ 17, 57 ],
+        Improvement : [ null, null ]
     };
 
     this.edges = [ new Date('2013/04/23'), new Date('2013/07/17') ];
@@ -2450,7 +2625,8 @@ kclv.Test.Table.Materials.Base = function() {
             },
             Consumables : {
                 title : 'C',
-                Repair : 'r', Construction : 'c', Development : 'd'
+                Repair : 'r', Construction : 'c', Development : 'd',
+                Improvement : 'i'
             }
         } }
     };
@@ -2715,7 +2891,7 @@ test('kclv.Table.Materials.Line', function() {
         validKinds = [
             'Resources', 'Consumables',
             'Fuel', 'Ammunition', 'Steel', 'Bauxite',
-            'Repair', 'Construction', 'Development'
+            'Repair', 'Construction', 'Development', 'Improvement'
         ],
         table = null;
 
@@ -2823,13 +2999,13 @@ test('kclv.Table.Materials.Line', function() {
         opposite : null,
         option   : null,
         title    : 'C',
-        columns  : ['d', 'r', 'c', 'd'],
+        columns  : ['d', 'r', 'c', 'd', 'i'],
         rows     : [
-            [ new Date('2013/04/23'), 15, 16, 17 ],
-            [ new Date('2013/07/10'), 25, 26, 27 ],
-            [ new Date('2013/07/10'), 35, 36, 37 ],
-            [ new Date('2013/07/11'), 45, 46, 47 ],
-            [ new Date('2013/07/17'), 55, 56, 57 ]
+            [ new Date('2013/04/23'), 15, 16, 17, null ],
+            [ new Date('2013/07/10'), 25, 26, 27, null ],
+            [ new Date('2013/07/10'), 35, 36, 37, null ],
+            [ new Date('2013/07/11'), 45, 46, 47, null ],
+            [ new Date('2013/07/17'), 55, 56, 57, null ]
         ]
     });
 

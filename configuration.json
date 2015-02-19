@@ -51,6 +51,12 @@
                 "Ships"         : "../logbook/所有艦娘一覧.csv"
             }
         },
+        "LogbookEx"     : {
+            "path"          : {
+                "Materials"     : "../logbookex/資材ログ.csv",
+                "Ships"         : "../logbookex/所有艦娘一覧 1.csv"
+            }
+        },
         "SandanshikiKanpan" : {
             "path"          : {
                 "Fuel"          : "%LocalAppData%/SandanshikiKanpan/log/fuel.0.4.dat",
@@ -139,7 +145,8 @@
                 "title"         : "Consumables History",
                 "Repair"        : "Instant Repair",
                 "Construction"  : "Instant Construction",
-                "Development"   : "Development Material"
+                "Development"   : "Development Material",
+                "Improvement"   : "Improvement Material"
             },
             "Ships"         : {
                 "title"         : "Roster of Ships",
@@ -208,7 +215,8 @@
                 "title"         : "消耗品履歴",
                 "Repair"        : "高速修復材",
                 "Construction"  : "高速建造材",
-                "Development"   : "開発資材"
+                "Development"   : "開発資材",
+                "Improvement"   : "改修資材"
             },
             "Ships"         : {
                 "title"         : "艦娘一覧",
