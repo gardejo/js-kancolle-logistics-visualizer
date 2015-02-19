@@ -123,6 +123,11 @@ Thank you for regularly using *KanColle Visualizer*. Do you enjoy it?
 
 The author of this system asks that you help support its continued development by making a small contribution.
 
+* Feedback about this system. *Tell me your opinion later!* (as if Yuubari)
+* Endorse this system.
+    * Recommend your friends to use it.
+    * Retweet author's tweets about it.
+    * Star it on GitHub.
 * Report about bugs at *the [issue tracker](https://github.com/gardejo/js-kancolle-logistics-visualizer/issues)*.
 * Suggestion for enhancement at *the [issue tracker](https://github.com/gardejo/js-kancolle-logistics-visualizer/issues)*.
 * Reciprocal help among users at *the [users forum](http://ost.io/@gardejo/js-kancolle-logistics-visualizer)*.
@@ -268,6 +273,11 @@ GUI（グラフィカル ユーザー インターフェース）で操作しま
 
 作者は開発を続けていくために、以下のようなささやかなご支援を求めています。
 
+* 感想のご提供。 *「後で感想、聴かせてね！」* （夕張並感）
+* 賛意のご表明。
+    * お友達へのご推薦。
+    * 作者のツイートのリツイート。
+    * GitHubのお気に入り（Star）登録。
 * *[問題追跡システム](https://github.com/gardejo/js-kancolle-logistics-visualizer/issues)* への、バグのご報告。
 * *[問題追跡システム](https://github.com/gardejo/js-kancolle-logistics-visualizer/issues)* への、機能拡張のご提案。
 * *[掲示板](http://ost.io/@gardejo/js-kancolle-logistics-visualizer)* での、ユーザー同士の質疑応答。
