@@ -15,7 +15,8 @@ module.exports = function(grunt) {
                 '<%= grunt.template.today("isoDateTime") %>' +
                 '<%= grunt.template.today("o") %>)',
             ' * @author <%= pkg.author.email %> (<%= pkg.author.name %>)',
-            ' * @license Copyright (c) <%= grunt.template.today("yyyy") %> ' +
+            ' * @license Copyright (c) 2014-' +
+                '<%= grunt.template.today("yyyy") %> ' +
                 '<%= pkg.author.name %>.',
             ' *     Licensed under the <%= pkg.licenses[0].type %> license ' +
                 '(See LICENSE file).',
